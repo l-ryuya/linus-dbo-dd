@@ -1,12 +1,4 @@
 services:
-  postgresql-db:
-    image: 'bitnami/postgresql:16.6.0'
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRESQL_USERNAME=my_user
-      - POSTGRESQL_PASSWORD=my_password
-
   bizdevforge-api:
     build: ./php
     ports:

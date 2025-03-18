@@ -1,0 +1,26 @@
+services:
+  postgresql-db:
+    image: 'bitnami/postgresql:16.6.0'
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRESQL_USERNAME=my_user
+      - POSTGRESQL_PASSWORD=my_password
+
+  bizdevforge-api:
+    build: ./php
+    ports:
+      - "80:80"
+    environment:
+      - APP_KEY="base64:Vx4Sdh4y9kZV/Ujz73J0AwE2ZH+fNTtDCvF4aSUdW68="
+      - APP_ENV=develop
+      - DB_CONNECTION=pgsql
+      - DB_HOST=postgresql-db
+      - DB_PORT=5432
+      - DB_DATABASE=postgres
+      - DB_USERNAME=my_user
+      - DB_PASSWORD=my_password
+    depends_on:
+      - postgresql-db
+    volumes:
+      - ../:/app
