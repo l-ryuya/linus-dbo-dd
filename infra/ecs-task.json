@@ -58,7 +58,7 @@
         },
         {
           "name": "LARAVEL_DATABASE_TYPE",
-          "value": "postgresql"
+          "value": "pgsql"
         },
         {
           "name": "LARAVEL_DATABASE_HOST",
