@@ -19,7 +19,7 @@
       "portMappings": [
         {
           "name": "bizdevforge-backphp",
-          "containerPort": 9301,
+          "containerPort": 80,
           "protocol": "tcp"
         }
       ],
