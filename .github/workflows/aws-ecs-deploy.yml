@@ -16,7 +16,6 @@ jobs:
     with:
       project: 'dsbizdev'
       env: "dev"
-      registry-login: true
       docker-context: '.'
       docker-file: './infra/docker/develop/php/Dockerfile'
       docker-build-args: ''
