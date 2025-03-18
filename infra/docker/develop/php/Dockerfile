@@ -31,4 +31,4 @@ COPY --chown=bitnami:bitnami --chmod=750 --from=builder /build/ /app/
 
 USER bitnami
 EXPOSE 80
-CMD ["php", "artisan", "migrate"]
+CMD ["php", "artisan", "migrate", "--force"]
