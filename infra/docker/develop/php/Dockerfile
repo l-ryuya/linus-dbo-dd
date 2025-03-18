@@ -29,4 +29,5 @@ ENV LARAVEL_SKIP_COMPOSER_UPDATE=yes
 COPY infra/docker/develop/php/php.dev.ini /opt/bitnami/php/etc/conf.d/
 COPY --from=builder /build/ /app/
 
+EXPOSE 80
 CMD ["php", "artisan", "migrate"]
