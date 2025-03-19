@@ -20,7 +20,7 @@ RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-pr
 
 # runtime
 # https://hub.docker.com/r/bitnami/laravel
-FROM bitnami/laravel:10.3.3 AS runtime
+FROM bitnami/laravel:10.3.3-debian-12-r27 AS runtime
 
 ENV LARAVEL_PORT_NUMBER=80
 ENV LARAVEL_SKIP_DATABASE=yes
