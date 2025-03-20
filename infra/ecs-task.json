@@ -50,7 +50,7 @@
       "environment": [
         {
           "name": "LARAVEL_PORT_NUMBER",
-          "value": ""
+          "value": "80"
         },
         {
           "name": "LARAVEL_SKIP_DATABASE",
@@ -77,8 +77,12 @@
           "value": "app"
         },
         {
-          "name": "LARAVEL_DATABASE_USER",
-          "value": "Asia/Tokyo"
+          "name": "APP_KEY",
+          "value": "base64:2apIENcJjuPnUkC0MZDi+/gfVIOebQkgu7xYCk326VY="
+        },
+        {
+          "name": "APP_ENV",
+          "value": "develop"
         }
       ],
       "secrets": [

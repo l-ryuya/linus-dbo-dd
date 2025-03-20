@@ -4,15 +4,16 @@
 # https://hub.docker.com/_/composer
 FROM composer:lts AS builder
 
-COPY composer.json composer.lock artisan /build/
+COPY composer.json composer.lock .env.develop artisan /build/
+COPY /app/ /build/app/
 COPY /bootstrap/ /build/bootstrap/
 COPY /config/ /build/config/
+COPY /database/ /build/database/
 COPY /lang/ /build/lang/
 COPY /public/ /build/public/
 COPY /resources/ /build/resources/
 COPY /routes/ /build/routes/
 COPY /storage/ /build/storage/
-COPY /app/ /build/app/
 
 WORKDIR /build/
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
@@ -31,4 +32,4 @@ COPY --chown=bitnami:bitnami --chmod=750 --from=builder /build/ /app/
 
 USER bitnami
 EXPOSE 80
-CMD ["php", "artisan", "migrate", "--force"]
+#CMD ["php", "artisan", "migrate", "--force"]
