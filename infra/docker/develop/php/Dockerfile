@@ -19,6 +19,9 @@ WORKDIR /build/
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
   composer dump-autoload
 
+RUN chown -R bitnami:bitnami /opt/bitnami/
+RUN chmod -R 750 /opt/bitnami/
+
 # runtime
 # https://hub.docker.com/r/bitnami/laravel
 FROM bitnami/laravel:10.3.3-debian-12-r27 AS runtime
