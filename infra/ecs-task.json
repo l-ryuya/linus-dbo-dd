@@ -1,0 +1,113 @@
+{
+  "family": "dsbizdev-bizdevforge-backphp-dev",
+  "taskRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-default-dev",
+  "executionRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-execution-secrets-default-dev",
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
+  "containerDefinitions": [
+    {
+      "name": "bizdevforge-backphp",
+      "image": "<IMAGE_URI>",
+      "cpu": 128,
+      "memory": 256,
+      "essential": true,
+      "versionConsistency": "enabled",
+      "user": "bitnami",
+      "privileged": false,
+      "readonlyRootFilesystem": false,
+      "portMappings": [
+        {
+          "name": "bizdevforge-backphp",
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "linuxParameters": {
+        "initProcessEnabled": true
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/ecs/dsbizdev-bizdevforge-cluster-dev/dsbizdev-bizdevforge-backphp-dev",
+          "mode": "non-blocking",
+          "max-buffer-size": "1m",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "container"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "php",
+          "artisan",
+          "--version"
+        ],
+        "interval": 20,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 0
+      },
+      "environment": [
+        {
+          "name": "LARAVEL_PORT_NUMBER",
+          "value": "80"
+        },
+        {
+          "name": "LARAVEL_SKIP_DATABASE",
+          "value": "no"
+        },
+        {
+          "name": "LARAVEL_DATABASE_TYPE",
+          "value": "pgsql"
+        },
+        {
+          "name": "LARAVEL_DATABASE_HOST",
+          "value": "dsbizdev-bizdevforge-cluster-dev.cluster-c906g0qeiekr.ap-northeast-1.rds.amazonaws.com"
+        },
+        {
+          "name": "LARAVEL_DATABASE_PORT_NUMBER",
+          "value": "5432"
+        },
+        {
+          "name": "LARAVEL_DATABASE_NAME",
+          "value": "bizdevforge"
+        },
+        {
+          "name": "LARAVEL_DATABASE_USER",
+          "value": "app"
+        },
+        {
+          "name": "APP_KEY",
+          "value": "base64:2apIENcJjuPnUkC0MZDi+/gfVIOebQkgu7xYCk326VY="
+        },
+        {
+          "name": "APP_ENV",
+          "value": "develop"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "LARAVEL_DATABASE_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-bizdevforge-cluster-dev/rds-password-OzjXkJ"
+        }
+      ]
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "tags": [
+    {
+      "key": "Name",
+      "value": "dsbizdev-bizdevforge-backphp-dev"
+    },
+    {
+      "key": "project",
+      "value": "dsbizdev"
+    },
+    {
+      "key": "env",
+      "value": "dev"
+    }
+  ]
+}
