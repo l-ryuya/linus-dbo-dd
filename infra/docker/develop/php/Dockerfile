@@ -30,12 +30,10 @@ ENV LARAVEL_SKIP_COMPOSER_UPDATE=yes
 # RUN chown -R bitnami:bitnami /opt/bitnami/
 # RUN chmod -R 750 /opt/bitnami/
 
-# COPY --chown=bitnami:bitnami --chmod=750 infra/docker/develop/php/php.dev.ini /opt/bitnami/php/etc/conf.d/
-# COPY --chown=bitnami:bitnami --chmod=750 --from=builder /build/ /app/
+COPY --chown=bitnami:bitnami --chmod=750 infra/docker/develop/php/php.dev.ini /opt/bitnami/php/etc/conf.d/
+COPY --chown=bitnami:bitnami --chmod=750 --from=builder /build/ /app/
 
-COPY infra/docker/develop/php/php.dev.ini /opt/bitnami/php/etc/conf.d/
-COPY --from=builder /build/ /app/
+RUN chown -R bitnami:bitnami /app/
 
-# USER bitnami
-# EXPOSE 80
-# CMD ["php", "artisan", "migrate", "--force"]
+USER bitnami
+EXPOSE 80
