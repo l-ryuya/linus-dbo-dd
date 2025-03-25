@@ -13,7 +13,6 @@
       "memory": 256,
       "essential": true,
       "versionConsistency": "enabled",
-      "user": "bitnami",
       "privileged": false,
       "readonlyRootFilesystem": false,
       "portMappings": [

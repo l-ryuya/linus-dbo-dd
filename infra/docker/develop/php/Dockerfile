@@ -37,5 +37,5 @@ COPY infra/docker/develop/php/php.dev.ini /opt/bitnami/php/etc/conf.d/
 COPY --from=builder /build/ /app/
 
 # USER bitnami
-EXPOSE 80
-#CMD ["php", "artisan", "migrate", "--force"]
+# EXPOSE 80
+# CMD ["php", "artisan", "migrate", "--force"]
