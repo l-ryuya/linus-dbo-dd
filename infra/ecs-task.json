@@ -19,7 +19,7 @@
       "portMappings": [
         {
           "name": "bizdevforge-backphp",
-          "containerPort": 80,
+          "containerPort": 8080,
           "protocol": "tcp"
         }
       ],
@@ -50,7 +50,7 @@
       "environment": [
         {
           "name": "LARAVEL_PORT_NUMBER",
-          "value": "80"
+          "value": "8080"
         },
         {
           "name": "LARAVEL_SKIP_DATABASE",
