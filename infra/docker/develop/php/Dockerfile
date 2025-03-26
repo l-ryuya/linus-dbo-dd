@@ -23,7 +23,7 @@ RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-pr
 # https://hub.docker.com/r/bitnami/laravel
 FROM bitnami/laravel:10.3.3-debian-12-r27 AS runtime
 
-ENV LARAVEL_PORT_NUMBER=8080
+ENV LARAVEL_PORT_NUMBER=3000
 ENV LARAVEL_SKIP_DATABASE=yes
 ENV LARAVEL_SKIP_COMPOSER_UPDATE=yes
 
@@ -36,4 +36,4 @@ COPY --chown=bitnami:bitnami --chmod=750 --from=builder /build/ /app/
 RUN chown -R bitnami:bitnami /app/
 
 USER bitnami
-EXPOSE 8080
+# EXPOSE 8080
