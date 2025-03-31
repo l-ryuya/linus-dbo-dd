@@ -1,0 +1,6 @@
+service_code,service_status_type,service_status_code,service_start_date,service_end_date,service_condition,service_admin_user_id
+SV-00001,service_status,Active,2024-08-01,,,9
+SV-00002,service_status,Active,2024-12-01,,,10
+SV-00003,service_status,Active,2025-04-01,,,2
+SV-00004,service_status,Active,2024-10-01,,,7
+SV-00005,service_status,Active,2025-04-01,,,8

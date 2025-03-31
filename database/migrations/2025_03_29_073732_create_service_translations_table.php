@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('service_code')->comment('サービスコード');
             $table->char('language_code', 3)->comment('言語コード');
             $table->string('service_name')->comment('サービス名称');
-            $table->string('service_description')->comment('サービス概要');
+            $table->text('service_description')->comment('サービス概要');
             $table->string('remarks')->nullable()->comment('備考');
             $table->bigInteger('created_by')->comment('作成ユーザー');
             $table->timestamp('created_at');

@@ -39,7 +39,7 @@ return new class extends Migration
             $table->string('building_room_en')->nullable()->comment('建物名・部屋番号（EN）');
             $table->string('building_room_sl')->nullable()->comment('建物名・部屋番号（SL）');
             $table->char('nta_corporate_number', 13)->nullable()->comment('国税庁法人番号');
-            $table->char('duns_number', 9)->nullable()->comment('D-U-N-S番号');
+            $table->char('duns_number', 11)->nullable()->comment('D-U-N-S番号');
             $table->integer('founded_year')->nullable()->comment('設立時期（年）');
             $table->string('company_type_type')->nullable()->comment('会社形態選択肢アイテム種別');
             $table->string('company_type')->nullable()->comment('会社形態');
@@ -49,6 +49,7 @@ return new class extends Migration
             $table->string('website_en')->nullable()->comment('Webサイト（EN）');
             $table->string('website_sl')->nullable()->comment('Webサイト（SL）');
             $table->string('rep_risk_check_no')->nullable()->comment('風評リスクチェック受付番号');
+            $table->string('dd_accept_no')->nullable()->comment('デューデリジェンス処理受付番号');
             $table->unsignedBigInteger('created_by')->comment('作成ユーザー');
             $table->timestamp('created_at')->comment('作成日時');
             $table->unsignedBigInteger('updated_by')->nullable()->comment('更新ユーザー');
