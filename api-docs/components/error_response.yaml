@@ -1,0 +1,67 @@
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+  responses:
+    UserIncorrectException:
+      description: ユーザのメールアドレス、もしくはパスワードが一致しない
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Locked:
+      description: 一定回数ログインに失敗した為、ロックされました
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: 無効なパラメーター
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: バリデーションエラー
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+              errors:
+                type: object
+                properties:
+                  fieldName:
+                    type: array
+                    items:
+                      type: string
+                      example: エラー内容
+    UnauthorizedError:
+      description: アクセストークンが無効
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: アクセス権限がない
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: 存在しない
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    InternalServerError:
+      description: 内部エラー
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'

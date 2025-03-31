@@ -16,9 +16,9 @@ class LocaleMiddleware
      * HTTPヘッダ Accept-Language から言語を取得し変更する
      *
      * 例：
-     * Accept-Language: ja
+     * Accept-Language: jpn
      * もしくは
-     * Accept-Language: en
+     * Accept-Language: eng
      *
      * https://developer.mozilla.org/ja/docs/Web/HTTP/Headers/Accept-Language
      * 重み付けなどは考慮せず、対応言語の単体指定のみとする
@@ -28,7 +28,10 @@ class LocaleMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         // サポートする言語リスト
-        $supportedLocales = ['en', 'ja'];
+        $supportedLocales = [
+            'eng' => 'en',
+            'jpn' => 'ja',
+        ];
 
         // Accept-Language ヘッダーから言語を取得
         $acceptLanguage = $request->header('Accept-Language');
@@ -36,9 +39,9 @@ class LocaleMiddleware
         if ($acceptLanguage) {
             $languages = explode(',', $acceptLanguage);
             foreach ($languages as $lang) {
-                $locale = substr(trim($lang), 0, 2); // 言語コードのみ抽出
-                if (in_array($locale, $supportedLocales)) {
-                    App::setLocale($locale);
+                $locale = substr(trim($lang), 0, 3); // 言語コードのみ抽出
+                if (array_key_exists($locale, $supportedLocales)) {
+                    App::setLocale($supportedLocales[$locale]);
                     break;
                 }
             }

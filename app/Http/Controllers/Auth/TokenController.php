@@ -28,7 +28,11 @@ class TokenController extends Controller
             'password' => 'required',
         ]);
 
-        $user = User::where('email', $request->email)->first();
+        $user = User::select(['user_id', 'password', 'roles'])
+            ->where('email', $request->email)
+            ->where('user_status_type', 'user_status')
+            ->where('user_status', 'Active')
+            ->first();
 
         if (! $user || ! Hash::check($request->password, $user->password)) {
             throw ValidationException::withMessages([
@@ -37,7 +41,11 @@ class TokenController extends Controller
         }
 
         return response()->json([
-            'token' => $user->createToken('bizdevforge_spa', ['*'], now()->addDay())->plainTextToken,
+            'token' => $user->createToken(
+                'bizdevforge',
+                explode(',', $user->roles),
+                now()->addDay()
+            )->plainTextToken,
         ]);
     }
 
