@@ -51,6 +51,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'password_confirmation',
         ]);
 
+        $exceptions->renderable(function (ValidationException $e) {
+            return response()->json([
+                'message' => __('validation.message'),
+                'errors' => $e->errors(),
+            ], $e->status);
+        });
+
         $exceptions->render(function (AuthenticationException $e) {
             return response()->json(['message' => 'Unauthenticated.'], 401);
         });
@@ -61,15 +68,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'message' => $e->getMessage(),
             ], $e->getStatusCode());
         });
-
-        $exceptions->render(function (Throwable $e) {
-            Log::error($e);
-
-            return response()->json([
-                'statusCode' => 500,
-                'message' => 'A system error has occurred.',
-            ], 500);
-        });
-    })->withCommands([
+    })
+    ->withCommands([
         PruneExpired::class, // アクセストークン削除
     ])->create();

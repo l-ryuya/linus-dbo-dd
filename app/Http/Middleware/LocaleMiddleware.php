@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\LocaleService;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -27,21 +28,15 @@ class LocaleMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        // サポートする言語リスト
-        $supportedLocales = [
-            'eng' => 'en',
-            'jpn' => 'ja',
-        ];
-
         // Accept-Language ヘッダーから言語を取得
         $acceptLanguage = $request->header('Accept-Language');
-
         if ($acceptLanguage) {
             $languages = explode(',', $acceptLanguage);
             foreach ($languages as $lang) {
                 $locale = substr(trim($lang), 0, 3); // 言語コードのみ抽出
-                if (array_key_exists($locale, $supportedLocales)) {
-                    App::setLocale($supportedLocales[$locale]);
+                $iso639_3 = LocaleService::getIso639_1From3($locale);
+                if (! empty($iso639_3)) {
+                    App::setLocale($iso639_3);
                     break;
                 }
             }
