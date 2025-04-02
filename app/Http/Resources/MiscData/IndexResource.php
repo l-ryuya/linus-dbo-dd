@@ -18,7 +18,6 @@ class IndexResource extends JsonResource
         return [
             'selectionItemType' => $this->selection_item_type,
             'selectionItemCode' => $this->selection_item_code,
-            'languageCode' => $this->language_code,
             'selectionItemName' => $this->selection_item_name,
             'selectionItemShortName' => $this->selection_item_short_name,
         ];
