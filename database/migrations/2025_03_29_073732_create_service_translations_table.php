@@ -30,9 +30,6 @@ return new class extends Migration
 
             $table->foreign('service_code')->references('service_code')->on('services')
                 ->onUpdate('CASCADE')->onDelete('RESTRICT');
-            $table->foreign('created_by')->references('user_id')->on('users');
-            $table->foreign('updated_by')->references('user_id')->on('users');
-            $table->foreign('deleted_by')->references('user_id')->on('users');
 
             $table->index('language_code');
         });
