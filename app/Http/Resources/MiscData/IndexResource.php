@@ -16,10 +16,10 @@ class IndexResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'selectionItemType' => $this->selection_item_type,
-            'selectionItemCode' => $this->selection_item_code,
-            'selectionItemName' => $this->selection_item_name,
-            'selectionItemShortName' => $this->selection_item_short_name,
+            'selection_item_type' => $this->selection_item_type,
+            'selection_item_code' => $this->selection_item_code,
+            'selection_item_name' => $this->selection_item_name,
+            'selection_item_short_name' => $this->selection_item_short_name,
         ];
     }
 }
