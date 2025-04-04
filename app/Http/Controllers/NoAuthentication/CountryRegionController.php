@@ -4,7 +4,7 @@ namespace App\Http\Controllers\NoAuthentication;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CountryRegion\IndexRequest;
-use App\Http\Resources\CountryRegion\IndexResource;
+use App\Http\Resources\CountryRegion\IndexCollection;
 use App\Services\LocaleService;
 use App\UseCases\CountryRegion\IndexAction;
 
@@ -16,18 +16,18 @@ class CountryRegionController extends Controller
      * @param \App\Http\Requests\CountryRegion\IndexRequest $request
      * @param \App\UseCases\CountryRegion\IndexAction       $action
      *
-     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     * @return \App\Http\Resources\CountryRegion\IndexCollection
      */
     public function index(
         IndexRequest $request,
         IndexAction $action,
-    ): \Illuminate\Http\Resources\Json\AnonymousResourceCollection {
-        return IndexResource::collection(
+    ): \App\Http\Resources\CountryRegion\IndexCollection {
+        return new IndexCollection(
             $action(
                 LocaleService::getLocaleIso639_1(),
-                $request->validated('country_code_alpha3'),
-                $request->validated('country_code_alpha2'),
-                $request->validated('country_code_numeric'),
+                $request->validated('countryCodeAlpha3'),
+                $request->validated('countryCodeAlpha2'),
+                $request->validated('countryCodeNumeric'),
                 $request->validated('displayed', 10),
                 $request->validated('page'),
             ),

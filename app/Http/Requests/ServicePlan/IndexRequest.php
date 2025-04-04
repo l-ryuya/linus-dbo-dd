@@ -14,7 +14,7 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'service_code' => ['required', 'string', 'min:8', 'max:16'],
+            'serviceCode' => ['required', 'string', 'min:8', 'max:16'],
         ];
     }
 }

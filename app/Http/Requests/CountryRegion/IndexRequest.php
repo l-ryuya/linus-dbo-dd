@@ -17,9 +17,9 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return array_merge($this->paginationRules(), [
-            'country_code_alpha3' => ['nullable', 'string', 'min:3', 'max:3'],
-            'country_code_alpha2' => ['nullable', 'string', 'min:2', 'max:2'],
-            'country_code_numeric' => ['nullable', 'integer', 'min:1', 'max:3'],
+            'countryCodeAlpha3' => ['nullable', 'string', 'min:3', 'max:3'],
+            'countryCodeAlpha2' => ['nullable', 'string', 'min:2', 'max:2'],
+            'countryCodeNumeric' => ['nullable', 'integer', 'min:1', 'max:3'],
         ]);
     }
 }

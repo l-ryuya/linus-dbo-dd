@@ -25,7 +25,7 @@ class ServicePlanController extends Controller
         return IndexResource::collection(
             $action(
                 LocaleService::getLocaleIso639_1(),
-                $request->validated('service_code'),
+                $request->validated('serviceCode'),
             ),
         );
     }

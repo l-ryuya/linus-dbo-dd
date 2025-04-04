@@ -16,12 +16,12 @@ class IndexResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'country_code_alpha3' => $this->country_code_alpha3,
-            'country_code_alpha2' => $this->country_code_alpha2,
-            'country_code_numeric' => $this->country_code_numeric,
-            'world_region' => $this->world_region,
-            'country_region_name' => $this->country_region_name,
-            'capital_name' => $this->capital_name,
+            'countryCodeAlpha3' => $this->country_code_alpha3,
+            'countryCodeAlpha2' => $this->country_code_alpha2,
+            'countryCodeNumeric' => $this->country_code_numeric,
+            'worldRegion' => $this->world_region,
+            'countryRegionName' => $this->country_region_name,
+            'capitalName' => $this->capital_name,
         ];
     }
 }
