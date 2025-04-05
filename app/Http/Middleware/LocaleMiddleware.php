@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Services\LocaleService;
+use App\Shared\Language\IsoLanguageCode;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -34,7 +34,7 @@ class LocaleMiddleware
             $languages = explode(',', $acceptLanguage);
             foreach ($languages as $lang) {
                 $locale = substr(trim($lang), 0, 3); // 言語コードのみ抽出
-                $iso639_3 = LocaleService::getIso639_1From3($locale);
+                $iso639_3 = IsoLanguageCode::getIso639_1From3($locale);
                 if (! empty($iso639_3)) {
                     App::setLocale($iso639_3);
                     break;

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services;
+namespace App\Shared\Language;
 
 use Illuminate\Support\Facades\App;
 
-class LocaleService
+class IsoLanguageCode
 {
     const array LOCALE_MAP  = [
         'eng' => 'en', // 英語

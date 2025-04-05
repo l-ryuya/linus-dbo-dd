@@ -5,7 +5,7 @@ namespace App\Http\Controllers\NoAuthentication;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServicePlan\IndexRequest;
 use App\Http\Resources\ServicePlan\IndexResource;
-use App\Services\LocaleService;
+use App\Shared\Language\IsoLanguageCode;
 use App\UseCases\ServicePlan\IndexAction;
 
 class ServicePlanController extends Controller
@@ -24,7 +24,7 @@ class ServicePlanController extends Controller
     ): \Illuminate\Http\Resources\Json\AnonymousResourceCollection {
         return IndexResource::collection(
             $action(
-                LocaleService::getLocaleIso639_1(),
+                IsoLanguageCode::getLocaleIso639_1(),
                 $request->validated('serviceCode'),
             ),
         );

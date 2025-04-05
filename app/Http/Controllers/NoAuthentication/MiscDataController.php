@@ -5,7 +5,7 @@ namespace App\Http\Controllers\NoAuthentication;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MiscData\IndexRequest;
 use App\Http\Resources\MiscData\IndexResource;
-use App\Services\LocaleService;
+use App\Shared\Language\IsoLanguageCode;
 use App\UseCases\MiscData\IndexAction;
 
 class MiscDataController extends Controller
@@ -24,7 +24,7 @@ class MiscDataController extends Controller
     ): \Illuminate\Http\Resources\Json\AnonymousResourceCollection {
         return IndexResource::collection(
             $action(
-                LocaleService::getLocaleIso639_1(),
+                IsoLanguageCode::getLocaleIso639_1(),
                 $request->validated('type'),
             ),
         );
