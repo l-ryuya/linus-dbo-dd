@@ -4,30 +4,17 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+// use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, SoftDeletes;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'status',
-        'email',
-        'password',
-        'last_name',
-        'first_name',
-        'middle_name',
-        'position',
-        'language',
-    ];
+    protected $primaryKey = 'user_id';
 
     /**
      * The attributes that should be hidden for serialization.
@@ -50,5 +37,28 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * U-000001 形式の新しいユーザーIDを生成
+     *
+     * @return string
+     */
+    public static function generateNewUserId(): string
+    {
+        $lastUser = self::select('user_code')
+            ->where('user_code', 'like', 'U-%')
+            ->orderBy('user_code', 'desc')
+            ->withTrashed()
+            ->first();
+        if (empty($lastUser)) {
+            $lastNumber = 0;
+        } else {
+            $lastNumber = (int) substr($lastUser->user_code, 2); // "U-" を除く
+        }
+
+        $newNumber = $lastNumber + 1;
+
+        return 'U-' . str_pad($newNumber, 6, '0', STR_PAD_LEFT);
     }
 }

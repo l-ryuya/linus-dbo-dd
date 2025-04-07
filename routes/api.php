@@ -10,9 +10,7 @@
 |
 */
 
-use Illuminate\Support\Facades\Route;
-
 $path = __DIR__ . DIRECTORY_SEPARATOR . 'endpoints' . DIRECTORY_SEPARATOR;
 
-//require $path . 'roots.php';
 require $path . 'sanctum.php';
+require $path . 'roots.php';

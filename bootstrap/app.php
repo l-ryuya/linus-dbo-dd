@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Exception\HttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
+        web: __DIR__ . '/../routes/web.php',
         api: __DIR__ . '/../routes/api.php',
         commands: __DIR__ . '/../routes/console.php',
         health: '/up',
@@ -30,6 +31,10 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->api(append: [
             App\Http\Middleware\LocaleMiddleware::class,
         ]);
+
+        $middleware->alias([
+            'scope' => App\Http\Middleware\ScopeAdminMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         $exceptions->dontReport([
@@ -46,6 +51,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'password_confirmation',
         ]);
 
+        $exceptions->renderable(function (ValidationException $e) {
+            return response()->json([
+                'message' => __('validation.message'),
+                'errors' => $e->errors(),
+            ], $e->status);
+        });
+
         $exceptions->render(function (AuthenticationException $e) {
             return response()->json(['message' => 'Unauthenticated.'], 401);
         });
@@ -56,15 +68,7 @@ return Application::configure(basePath: dirname(__DIR__))
                 'message' => $e->getMessage(),
             ], $e->getStatusCode());
         });
-
-        $exceptions->render(function (Throwable $e) {
-            Log::error($e);
-
-            return response()->json([
-                'statusCode' => 500,
-                'message' => 'A system error has occurred.',
-            ], 500);
-        });
-    })->withCommands([
+    })
+    ->withCommands([
         PruneExpired::class, // アクセストークン削除
     ])->create();

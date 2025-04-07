@@ -2,37 +2,52 @@
 
 namespace Database\Factories;
 
+use Faker\Factory as FakerFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
-
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     public function definition(): array
     {
+        $fakerEn = FakerFactory::create('en_US');
+
         return [
-            'status' => 'under_review',
+            'user_code' => null,
+            'company_id' => null,
+            'latest_dd_id' => null,
+            'user_status_type' => null,
+            'user_status' => null,
+            'last_name_en' => $fakerEn->lastName(),
+            'last_name_sl' => $this->faker->lastName(),
+            'middle_name_en' => null,
+            'middle_name_sl' => null,
+            'first_name_en' => $fakerEn->lastName(),
+            'first_name_sl' => $this->faker->firstName(),
+            'position_en' => $fakerEn->jobTitle(),
+            'position_sl' => $this->faker->jobTitle(),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
-            'last_name' => $this->faker->lastName(),
-            'first_name' => $this->faker->firstName(),
-            'position' => $this->faker->jobTitle(),
-            'language_code' => 'ja',
+            'password' => null,
+            'roles' => null,
+            'remember_token' => null,
+            'mobile_phone' => null,
+            'nationality_code' => null,
+            'gender_type' => null,
+            'gender' => null,
+            'date_of_birth' => null,
+            'place_of_birth_en' => null,
+            'place_of_birth_sl' => null,
+            'profile_en' => null,
+            'profile_sl' => null,
+            'created_by' => null,
+            'updated_by' => null,
+            'deleted_by' => null,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
         ];
     }
 

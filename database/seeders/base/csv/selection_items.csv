@@ -1,0 +1,69 @@
+selection_item_type,selection_item_code,remarks
+organization_type,Customer,顧客法人
+organization_type,Provider,サービス提供法人
+organization_type,Partner,協業先法人
+company_status,Under DD,初回申込受付済
+company_status,DD Completed,初回審査完了
+company_status,Active,利用中
+company_status,All Paused,全サービス利用停止中
+company_status,All Suspended,全サービス利用停止中（疑義あり）
+company_status,All Closed,全サービス利用終了
+company_status,All Terminated,全サービス利用終了（疑義あり）
+language_code,eng,ISO 639-3 英語
+language_code,jpn,ISO 639-3 日本語
+language_code,ind,ISO 639-3 インドネシア語
+language_code,tha,ISO 639-3 タイ語
+language_code,cmn,ISO 639-3 中文（簡体字）
+language_code,yue,ISO 639-3 中文（繁体字）
+language_code,spa,ISO 639-3 スペイン語
+language_code,vie,ISO 639-3 ベトナム語
+company_type,Public,上場
+company_type,Private,非上場
+user_status,Under DD,初回申込受付済
+user_status,DD Completed,初回審査完了
+user_status,Active,利用中
+user_status,All Paused,全サービス利用停止中
+user_status,All Suspended,全サービス利用停止中（疑義あり）
+user_status,All Closed,全サービス利用終了
+user_status,All Terminated,全サービス利用終了（疑義あり）
+gender,Male,男性
+gender,Female,女性
+gender,Other,その他
+world_region,Asia,アジア
+world_region,Europe,ヨーロッパ
+world_region,North America,北アメリカ
+world_region,South America,南アメリカ
+world_region,Africa,アフリカ
+world_region,Oceania,オセアニア
+service_status,Preparing,準備中
+service_status,Active,稼動中
+service_status,Suspended,停止中
+service_status,Terminated,終了
+service_plan_status,Preparing,準備中
+service_plan_status,Active,稼動中
+service_plan_status,Suspended,停止中
+service_plan_status,Terminated,終了
+service_usage_status,Under DD,申込受付済（審査中）
+service_usage_status,DD Completed,審査完了（未ログイン）
+service_usage_status,Active,利用中
+service_usage_status,Paused,利用停止中
+service_usage_status,Suspended,利用停止中（疑義あり）
+service_usage_status,Closed,利用終了
+service_usage_status,Terminated,利用終了（疑義あり）
+service_contract_status,Not Requested,未締結
+service_contract_status,In Progress,締結中
+service_contract_status,Completed,締結済
+payment_cycle,Monthly,1ヶ月ごと
+payment_cycle,Quarterly,3ヶ月ごと
+payment_cycle,Semi-Annually,6ヶ月ごと
+payment_cycle,Annually,12ヶ月ごと
+payment_method,Card,クレジット/デビット/プリペイドカード
+payment_method,Bank Transfer,銀行振込
+language_name,English,英語
+language_name,日本語,日本語
+language_name,Bahasa Indonesia,インドネシア語
+language_name,ภาษาไทย,タイ語
+language_name,中文（简体）,中国語（簡体字）
+language_name,中文（繁體）,中国語（繁体字）
+language_name,Español,スペイン語
+language_name,Tiếng Việt,ベトナム語

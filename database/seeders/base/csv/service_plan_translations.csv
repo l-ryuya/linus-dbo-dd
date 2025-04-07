@@ -1,0 +1,7 @@
+service_code,service_plan_code,language_code,service_plan_name,service_plan_description,remarks
+SV-00003,SP-000001,eng,Small Plan,This is a plan for small businesses,
+SV-00003,SP-000002,eng,Pro Plan,This is a plan for medium-sized companies,
+SV-00003,SP-000003,eng,Enterprise Plan,This is a plan for large companies.,
+SV-00003,SP-000001,jpn,スモールプラン,スモールプランは小規模企業向けのプランです。,
+SV-00003,SP-000002,jpn,プロプラン,プロプランは中規模企業向けのプランです。,
+SV-00003,SP-000003,jpn,エンタープライズプラン,エンタープライズプランは大規模企業向けのプランです。,

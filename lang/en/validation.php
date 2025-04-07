@@ -2,6 +2,8 @@
 
 return [
 
+    'message' => 'Please check the error content.',
+
     /*
     |--------------------------------------------------------------------------
     | Validation Language Lines
