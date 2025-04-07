@@ -31,7 +31,7 @@ return new class extends Migration
             $table->date('service_start_date')->nullable()->comment('サービス利用開始日');
             $table->date('service_end_date')->nullable()->comment('サービス利用終了日');
             $table->string('service_contract_url')->nullable()->comment('サービス契約書URL');
-            $table->bigInteger('created_by')->comment('作成ユーザー');
+            $table->bigInteger('created_by')->nullable()->comment('作成ユーザー');
             $table->timestamp('created_at');
             $table->bigInteger('updated_by')->nullable()->comment('更新ユーザー');
             $table->timestamp('updated_at');

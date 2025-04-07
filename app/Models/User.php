@@ -38,4 +38,27 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * U-000001 形式の新しいユーザーIDを生成
+     *
+     * @return string
+     */
+    public static function generateNewUserId(): string
+    {
+        $lastUser = self::select('user_code')
+            ->where('user_code', 'like', 'U-%')
+            ->orderBy('user_code', 'desc')
+            ->withTrashed()
+            ->first();
+        if (empty($lastUser)) {
+            $lastNumber = 0;
+        } else {
+            $lastNumber = (int) substr($lastUser->user_code, 2); // "U-" を除く
+        }
+
+        $newNumber = $lastNumber + 1;
+
+        return 'U-' . str_pad($newNumber, 6, '0', STR_PAD_LEFT);
+    }
 }

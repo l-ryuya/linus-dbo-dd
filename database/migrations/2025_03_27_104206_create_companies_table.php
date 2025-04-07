@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('second_language_type')->comment('副言語コード選択肢アイテム種別');
             $table->string('second_language_code')->comment('副言語コード');
             $table->string('company_name_en')->comment('法人名称（EN）');
-            $table->string('company_name_sl')->comment('法人名称（SL）');
+            $table->string('company_name_sl')->nullable()->comment('法人名称（SL）');
             $table->string('company_short_name_en')->nullable()->comment('法人略称（EN）');
             $table->string('company_short_name_sl')->nullable()->comment('法人略称（SL）');
             $table->char('country_region_code', 3)->nullable()->comment('国・地域コード');
@@ -50,7 +50,7 @@ return new class extends Migration
             $table->string('website_sl')->nullable()->comment('Webサイト（SL）');
             $table->string('rep_risk_check_no')->nullable()->comment('風評リスクチェック受付番号');
             $table->string('dd_accept_no')->nullable()->comment('デューデリジェンス処理受付番号');
-            $table->unsignedBigInteger('created_by')->comment('作成ユーザー');
+            $table->unsignedBigInteger('created_by')->nullable()->comment('作成ユーザー');
             $table->timestamp('created_at')->comment('作成日時');
             $table->unsignedBigInteger('updated_by')->nullable()->comment('更新ユーザー');
             $table->timestamp('updated_at')->comment('更新日時');

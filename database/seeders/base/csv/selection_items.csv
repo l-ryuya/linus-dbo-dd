@@ -59,11 +59,11 @@ payment_cycle,Semi-Annually,6ヶ月ごと
 payment_cycle,Annually,12ヶ月ごと
 payment_method,Card,クレジット/デビット/プリペイドカード
 payment_method,Bank Transfer,銀行振込
-language_name,eng,英語
-language_name,jpn,日本語
-language_name,ind,インドネシア語
-language_name,tha,タイ語
-language_name,cmn,中国語（簡体字）
-language_name,yue,中国語（繁体字）
-language_name,spa,スペイン語
-language_name,vie,ベトナム語
+language_name,English,英語
+language_name,日本語,日本語
+language_name,Bahasa Indonesia,インドネシア語
+language_name,ภาษาไทย,タイ語
+language_name,中文（简体）,中国語（簡体字）
+language_name,中文（繁體）,中国語（繁体字）
+language_name,Español,スペイン語
+language_name,Tiếng Việt,ベトナム語

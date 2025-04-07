@@ -9,4 +9,26 @@ class Company extends Model
 {
     use SoftDeletes;
     protected $primaryKey = 'company_id';
+
+    /**
+     * C-000001 形式の新しい法人IDを生成
+     *
+     * @return string
+     */
+    public static function generateNewCompanyId(): string
+    {
+        $lastCompany = self::select('company_code')
+            ->orderBy('company_code', 'desc')
+            ->withTrashed()
+            ->first();
+        if (empty($lastCompany)) {
+            $lastNumber = 0;
+        } else {
+            $lastNumber = (int) substr($lastCompany->company_code, 2); // "C-" を除く
+        }
+
+        $newNumber = $lastNumber + 1;
+
+        return 'C-' . str_pad($newNumber, 6, '0', STR_PAD_LEFT);
+    }
 }
