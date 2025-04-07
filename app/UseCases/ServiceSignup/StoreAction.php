@@ -75,6 +75,7 @@ class StoreAction
         $serviceContract = new ServiceContract();
         $serviceContract->service_contract_code = ServiceContract::generateNewServiceContractId();
         $serviceContract->company_id = $company->company_id;
+        $serviceContract->department_name_en = $data->departmentName;
         $serviceContract->service_code = $data->serviceCode;
         $serviceContract->service_plan_code = $data->servicePlan;
         $serviceContract->service_usage_status_type = 'service_usage_status';

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id('service_contract_id')->comment('サービス契約ID');
             $table->string('service_contract_code')->unique()->comment('サービス契約通番');
             $table->bigInteger('company_id')->comment('法人ID');
+            $table->string('department_name_en')->nullable()->comment('部署名（EN）');
+            $table->string('department_name_sl')->nullable()->comment('部署名（SL）');
             $table->string('service_code')->comment('サービスコード');
             $table->string('service_plan_code')->comment('サービスプランコード');
             $table->string('service_usage_status_type')->comment('サービス利用ステータス選択肢アイテム種別');
