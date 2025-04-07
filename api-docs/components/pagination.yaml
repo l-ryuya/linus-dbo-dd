@@ -1,0 +1,59 @@
+components:
+  schemas:
+    PaginationLinks:
+      type: object
+      properties:
+        first:
+          type: string
+          format: uri
+          nullable: true
+          example: 'https://bizdevforge-backphp.dev.dsbizdev.com/v1/example-endpoint?page=1'
+        last:
+          type: string
+          format: uri
+          nullable: true
+          example: 'https://bizdevforge-backphp.dev.dsbizdev.com/v1/example-endpoint?page=25'
+        prev:
+          type: string
+          format: uri
+          nullable: true
+          example: 'https://bizdevforge-backphp.dev.dsbizdev.com/v1/example-endpoint?page=1'
+        next:
+          type: string
+          format: uri
+          nullable: true
+          example: 'https://bizdevforge-backphp.dev.dsbizdev.com/v1/example-endpoint?page=3'
+    PaginationMetaLink:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          nullable: true
+        label:
+          type: string
+        active:
+          type: boolean
+    PaginationMeta:
+      type: object
+      properties:
+        currentPage:
+          type: integer
+        from:
+          type: integer
+        lastPage:
+          type: integer
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/PaginationMetaLink'
+        path:
+          type: string
+          format: uri
+          example: 'https://bizdevforge-backphp.dev.dsbizdev.com/v1/example-endpoint'
+        perPage:
+          type: integer
+        to:
+          type: integer
+        total:
+          type: integer
