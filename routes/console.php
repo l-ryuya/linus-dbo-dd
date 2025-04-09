@@ -1,9 +1,7 @@
 <?php
 
-//use Database\Seeders\DatabaseSeeder;
-//use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Schedule;
 
-//Artisan::command('cache:seeder-execute-reset', function () {
-//    Cache::forget(DatabaseSeeder::SEEDER_EXECUTE);
-//    $this->line('Seeder execution state has been reset');
-//})->purpose('Resets the Seeder execution state');
+Schedule::call(function () {
+    Log::channel('stdout')->info("task is running");
+})->hourly();
