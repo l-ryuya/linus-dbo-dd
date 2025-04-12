@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\UseCases\ServicePlan;
 
@@ -17,7 +18,7 @@ class IndexAction
      * @param \App\Enums\ServiceStatus     $serviceStatusCode     サービス提供ステータス
      * @param \App\Enums\ServicePlanStatus $servicePlanStatusCode サービスプラン提供ステータス
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<int, ServicePlan>
      */
     public function __invoke(
         string $languageCode,

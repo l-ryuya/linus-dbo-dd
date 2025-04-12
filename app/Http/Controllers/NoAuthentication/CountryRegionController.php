@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Http\Controllers\NoAuthentication;
 
@@ -21,15 +22,15 @@ class CountryRegionController extends Controller
     public function index(
         IndexRequest $request,
         IndexAction $action,
-    ): \App\Http\Resources\CountryRegion\IndexCollection {
+    ): IndexCollection {
         return new IndexCollection(
             $action(
                 IsoLanguageCode::getLocaleIso639_1(),
                 $request->validated('countryCodeAlpha3'),
                 $request->validated('countryCodeAlpha2'),
                 $request->validated('countryCodeNumeric'),
-                $request->validated('displayed', 10),
-                $request->validated('page'),
+                (int) $request->validated('displayed', 10),
+                (int) $request->validated('page'),
             ),
         );
     }

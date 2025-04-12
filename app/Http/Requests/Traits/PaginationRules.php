@@ -1,9 +1,13 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Http\Requests\Traits;
 
 trait PaginationRules
 {
+    /**
+     * @return string[]
+     */
     public function paginationRules(): array
     {
         return [

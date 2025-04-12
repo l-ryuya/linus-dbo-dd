@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\UseCases\MiscData;
 
@@ -12,7 +13,7 @@ class IndexAction
      * @param string $languageCode 言語コード（ISO639-1）
      * @param string $selectionItemType 選択肢アイテム種別
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<int, SelectionItemTranslation>
      */
     public function __invoke(
         string $languageCode,

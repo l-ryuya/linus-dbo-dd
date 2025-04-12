@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Models;
 
@@ -54,11 +55,11 @@ class User extends Authenticatable
         if (empty($lastUser)) {
             $lastNumber = 0;
         } else {
-            $lastNumber = (int) substr($lastUser->user_code, 2); // "U-" を除く
+            $lastNumber = (int)substr($lastUser->user_code, 2); // "U-" を除く
         }
 
         $newNumber = $lastNumber + 1;
 
-        return 'U-' . str_pad($newNumber, 6, '0', STR_PAD_LEFT);
+        return 'U-' . str_pad((string)$newNumber, 6, '0', STR_PAD_LEFT);
     }
 }

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Http\Controllers;
 
@@ -19,7 +20,7 @@ class UsersController extends Controller
     public function me(
         Request $request,
         MeAction $action,
-    ): \App\Http\Resources\Users\MeResource {
+    ): MeResource {
         return new MeResource(
             $action(
                 $request->user()->user_id,

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Http\Resources\Traits;
 
@@ -11,14 +12,14 @@ trait CamelCasePaginationMeta
      * ページネーションから生成されるメタ情報をキャメルケースに変換する
      *
      * @param \Illuminate\Http\Request $request
-     * @param $paginated
-     * @param array $default
+     * @param array<string, mixed>  $paginated
+     * @param array<string, mixed> $default
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function paginationInformation(
         Request $request,
-        $paginated,
+        array $paginated,
         array $default,
     ): array {
         $default['meta'] = $this->camelCaseMeta($default['meta']);
@@ -26,6 +27,12 @@ trait CamelCasePaginationMeta
         return $default;
     }
 
+    /**
+     * メタ情報のキーをキャメルケースに変換する
+     * 
+     * @param array<string, mixed> $meta
+     * @return array<string, mixed>
+     */
     protected function camelCaseMeta(array $meta): array
     {
         return collect($meta)->mapWithKeys(function ($value, $key) {
@@ -33,3 +40,4 @@ trait CamelCasePaginationMeta
         })->toArray();
     }
 }
+

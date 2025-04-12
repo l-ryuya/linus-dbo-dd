@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Dto\ServiceSignup;
 
@@ -43,6 +44,12 @@ final readonly class StoreInput
         public ?string $addressLine2,
     ) {}
 
+    /**
+     * リクエストデータから StoreInput オブジェクトを作成する
+     *
+     * @param array<string, mixed> $data リクエストから受け取ったデータ配列
+     * @return self 新しい StoreInput インスタンス
+     */
     public static function fromRequest(array $data): self
     {
         return new self(
@@ -76,3 +83,4 @@ final readonly class StoreInput
         );
     }
 }
+

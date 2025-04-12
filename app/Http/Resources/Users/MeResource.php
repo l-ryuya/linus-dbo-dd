@@ -1,10 +1,19 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Http\Resources\Users;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @property string $user_code
+ * @property string $last_name_en
+ * @property string $middle_name_en
+ * @property string $first_name_en
+ * @property string $email
+ * @property string $roles
+ */
 class MeResource extends JsonResource
 {
     /**
@@ -18,7 +27,7 @@ class MeResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param \Illuminate\Http\Request $request
-     * @return array
+     * @return array{userCode: string, lastName: string, middleName: string, firstName: string, email: string, roles: string}
      */
     public function toArray(Request $request): array
     {
@@ -32,3 +41,4 @@ class MeResource extends JsonResource
         ];
     }
 }
+

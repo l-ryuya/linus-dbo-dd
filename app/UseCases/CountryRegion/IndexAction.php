@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\UseCases\CountryRegion;
 
@@ -16,7 +17,7 @@ class IndexAction
      * @param int         $displayedNumber 表示件数
      * @param int         $page ページ番号
      *
-     * @return \Illuminate\Pagination\LengthAwarePaginator
+     * @return \Illuminate\Pagination\LengthAwarePaginator<int, CountryRegion>
      */
     public function __invoke(
         string $languageCode,
