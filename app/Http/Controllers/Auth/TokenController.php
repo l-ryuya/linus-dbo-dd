@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
@@ -21,7 +22,7 @@ class TokenController extends Controller
     {
         // 期限切れトークンを消す
         Artisan::call('sanctum:prune-expired', [
-            '--hours' => 24
+            '--hours' => 24,
         ]);
 
         $request->validate([
@@ -45,7 +46,7 @@ class TokenController extends Controller
             'token' => $user->createToken(
                 'bizdevforge',
                 explode(',', $user->roles),
-                now()->addDay()
+                now()->addDay(),
             )->plainTextToken,
         ]);
     }

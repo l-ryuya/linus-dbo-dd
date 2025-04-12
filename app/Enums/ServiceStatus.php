@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Enums;
 
@@ -14,7 +15,8 @@ use App\Enums\Traits\EnumToGet;
  */
 enum ServiceStatus: String
 {
-    use EnumToGet, EnumToEqual;
+    use EnumToGet;
+    use EnumToEqual;
 
     case Preparing = 'Preparing';
     case Active = 'Active';

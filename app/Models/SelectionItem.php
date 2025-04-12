@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -12,5 +13,6 @@ class SelectionItem extends Model
 
     // 複合主キーをサポートしていない為、無効化させる
     protected $primaryKey = 'Not supported Composite Primary Key';
+
     public $incrementing = false;
 }

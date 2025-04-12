@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Company extends Model
 {
     use SoftDeletes;
+
     protected $primaryKey = 'company_id';
 
     /**
@@ -25,11 +27,11 @@ class Company extends Model
         if (empty($lastCompany)) {
             $lastNumber = 0;
         } else {
-            $lastNumber = (int)substr($lastCompany->company_code, 2); // "C-" を除く
+            $lastNumber = (int) substr($lastCompany->company_code, 2); // "C-" を除く
         }
 
         $newNumber = $lastNumber + 1;
 
-        return 'C-' . str_pad((string)$newNumber, 6, '0', STR_PAD_LEFT);
+        return 'C-' . str_pad((string) $newNumber, 6, '0', STR_PAD_LEFT);
     }
 }

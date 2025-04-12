@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -73,11 +74,11 @@ class ServiceContract extends Model
         if (empty($lastContract)) {
             $lastNumber = 0;
         } else {
-            $lastNumber = (int)substr($lastContract->service_contract_code, 3); // "SC-" を除く
+            $lastNumber = (int) substr($lastContract->service_contract_code, 3); // "SC-" を除く
         }
 
         $newNumber = $lastNumber + 1;
 
-        return 'SC-' . str_pad((string)$newNumber, 6, '0', STR_PAD_LEFT);
+        return 'SC-' . str_pad((string) $newNumber, 6, '0', STR_PAD_LEFT);
     }
 }

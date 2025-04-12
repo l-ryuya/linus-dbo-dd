@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Http\Resources\ServicePlan;
 
@@ -46,7 +47,7 @@ class IndexResource extends JsonResource
             'servicePlanStatusType' => $this->service_plan_status_type,
             'servicePlanStatus' => $this->service_plan_status,
             'billingCycle' => $this->billing_cycle,
-            'unitPrice' => (float)$this->unit_price,
+            'unitPrice' => (float) $this->unit_price,
             'serviceStartDate' => $this->service_start_date?->format('Y-m-d'),
             'serviceEndDate' => $this->service_end_date?->format('Y-m-d'),
             'servicePlanName' => $this->service_plan_name,
@@ -54,4 +55,3 @@ class IndexResource extends JsonResource
         ];
     }
 }
-

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
@@ -26,7 +27,7 @@ class ScopeAdminMiddleware
     public function handle(Request $request, Closure $next, string $role): Response
     {
         if (!$request->user()->tokenCan($role)) {
-            abort(403,__('auth.forbidden'));
+            abort(403, __('auth.forbidden'));
         };
 
         return $next($request);

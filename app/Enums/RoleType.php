@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Enums;
 
@@ -11,7 +12,8 @@ use App\Enums\Traits\EnumToGet;
  */
 enum RoleType: String
 {
-    use EnumToGet, EnumToEqual;
+    use EnumToGet;
+    use EnumToEqual;
 
     case Admin = 'admin';
     case ServiceManager = 'service_manager';

@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\UseCases\CountryRegion;
 
@@ -35,7 +36,7 @@ class IndexAction
             'country_regions_translations.country_region_name',
             'country_regions_translations.capital_name',
         ])
-        ->join('country_regions_translations', function($join) use ($languageCode) {
+        ->join('country_regions_translations', function ($join) use ($languageCode) {
             $join->on('country_regions.country_code_alpha3', '=', 'country_regions_translations.country_code_alpha3')
                 ->where('country_regions_translations.language_code', $languageCode);
         })

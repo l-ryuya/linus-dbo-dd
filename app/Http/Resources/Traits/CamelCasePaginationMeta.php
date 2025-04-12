@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace App\Http\Resources\Traits;
 
@@ -29,7 +30,7 @@ trait CamelCasePaginationMeta
 
     /**
      * メタ情報のキーをキャメルケースに変換する
-     * 
+     *
      * @param array<string, mixed> $meta
      * @return array<string, mixed>
      */
@@ -40,4 +41,3 @@ trait CamelCasePaginationMeta
         })->toArray();
     }
 }
-
