@@ -1,14 +1,16 @@
-# .github/workflows/deploy-pages.yml
 name: Deploy OpenAPI via Redocly CLI
 
 on:
-  push:
+  workflow_dispatch:
+  pull_request:
     branches:
-      - main
       - develop
+      - main
+    types: [closed]
 
 jobs:
   build-and-deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +28,8 @@ jobs:
       - name: Generate HTML files with Redocly
         run: |
           mkdir -p out
-          redocly build-docs openapi/auth.yaml --output=out/auth.html
-          redocly build-docs openapi/no_authentication.yaml --output=out/no_authentication.html
+          redocly build-docs api-docs/auth.yaml --output=out/auth.html
+          redocly build-docs api-docs/no_authentication.yaml --output=out/no_authentication.html
 
           echo "<h1>Index for ${{ github.ref_name }}</h1><ul>" > out/index.html
           echo "<li><a href='auth.html'>auth</a></li>" >> out/index.html
