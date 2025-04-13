@@ -1,0 +1,78 @@
+name: Laravel CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: test_db
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    env:
+      DB_CONNECTION: pgsql
+      DB_HOST: 127.0.0.1
+      DB_PORT: 5432
+      DB_DATABASE: test_db
+      DB_USERNAME: user
+      DB_PASSWORD: password
+      APP_ENV: testing
+
+    steps:
+      - name: ✅ リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: 🧰 PHPセットアップ（8.3）
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, pdo, pgsql
+          tools: composer, phpstan, php-cs-fixer
+
+      - name: 📦 Composer キャッシュ
+        id: cache-composer
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: ${{ runner.os }}-composer-${{ hashFiles('composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: 📦 Composer install
+        if: steps.cache-composer.outputs.cache-hit != 'true'
+        run: composer install --no-progress --prefer-dist --no-interaction
+
+      - name: 📦 Composer dump autoload
+        run: composer dump-autoload
+
+      - name: ⚙️ Laravel初期設定
+        run: |
+          cp .env.example .env.testing
+          php artisan key:generate
+
+      - name: 🛠 DBマイグレーション
+        run: php artisan migrate --force
+
+      - name: 🔍 PHPStan 実行
+        run: vendor/bin/phpstan analyse --memory-limit=1G
+
+      - name: 🧹 PHP CS Fixer 実行
+        run: vendor/bin/php-cs-fixer fix --dry-run --diff
+
+      - name: 🧪 PHPUnit 実行
+        run: php artisan test
