@@ -58,7 +58,7 @@
         ],
         "php-cs-fixer": "vendor/bin/php-cs-fixer fix",
         "php-cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff",
-        "phpstan": "vendor/bin/phpstan -c phpstan.neon"
+        "phpstan": "vendor/bin/phpstan analyse"
     },
     "extra": {
         "laravel": {

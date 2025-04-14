@@ -13,10 +13,11 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasApiTokens;
 
+    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory;
+
     use SoftDeletes;
 
     protected $primaryKey = 'user_id';
