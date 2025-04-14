@@ -67,3 +67,22 @@ language_name,中文（简体）,中国語（簡体字）
 language_name,中文（繁體）,中国語（繁体字）
 language_name,Español,スペイン語
 language_name,Tiếng Việt,ベトナム語
+dd_entity_type_type,target_company,取引対象法人
+dd_entity_type_type,related_company,関連法人
+dd_entity_type_type,related_individual,関連個人
+dd_relation_type,Ultimate Beneficial Owner,実質的支配者
+dd_relation_type,Executive,役員
+dd_relation_type,Shareholder,株主
+dd_relation_type,Executive of Shareholder,株主の役員
+dd_relation_type,Indirect Shareholder,間接株主
+dd_relation_type,Executive of Indirect Shareholder,間接株主の役員
+dd_relation_type,Investee,出資先
+dd_relation_type,Executive of Investee,出資先の役員
+dd_relation_type,Indirect Investee,間接出資先
+dd_relation_type,Executive of Indirect Investee,間接出資先の役員
+dd_status,Under Continuous DD,継続審査中
+dd_status,DD Requested,依頼済
+dd_status,AI DD Completed,AI審査完了
+dd_status,Primary DD Completed,一次審査完了
+dd_status,Final DD Completed,最終審査完了
+dd_status,Business Start/Continue,取引開始/継続済
