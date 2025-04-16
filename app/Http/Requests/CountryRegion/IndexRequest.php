@@ -24,4 +24,9 @@ class IndexRequest extends FormRequest
             'countryCodeNumeric' => ['nullable', 'integer', 'min:1', 'max:3'],
         ]);
     }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge($this->paginationDefaults());
+    }
 }
