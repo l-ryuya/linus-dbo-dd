@@ -27,8 +27,7 @@ class StoreRequest extends FormRequest
                 'required',
                 'string',
                 'size:9',
-                Rule::exists('service_plans', 'service_plan_code')
-                    ->where('service_code', $this->input('serviceCode')),
+                Rule::exists('service_plans', 'service_plan_code'),
             ],
             'paymentCycle' => [
                 'required',

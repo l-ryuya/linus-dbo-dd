@@ -141,7 +141,7 @@ class StoreAction
         $contractPerson->user_code = User::generateNewUserId();
         $contractPerson->user_status_type = 'user_status';
         $contractPerson->user_status = 'Under DD';
-        $contractPerson->last_name_en = $data->contractPersonFirstName;
+        $contractPerson->last_name_en = $data->contractPersonLastName;
         $contractPerson->middle_name_en = $data->contractPersonMiddleName;
         $contractPerson->first_name_en = $data->contractPersonFirstName;
         $contractPerson->position_en = $data->contractPersonPosition;
