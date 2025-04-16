@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -18,38 +17,6 @@ class ServiceContract extends Model
     use SoftDeletes;
 
     protected $primaryKey = 'service_contract_id';
-
-    /**
-     * @return BelongsTo<Company, $this>
-     */
-    public function company(): BelongsTo
-    {
-        return $this->belongsTo(Company::class);
-    }
-
-    /**
-     * @return BelongsTo<Service, $this>
-     */
-    public function service(): BelongsTo
-    {
-        return $this->belongsTo(Service::class, 'service_code');
-    }
-
-    /**
-     * @return BelongsTo<User, $this>
-     */
-    public function responsibleUser(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'responsible_user_id');
-    }
-
-    /**
-     * @return BelongsTo<User, $this>
-     */
-    public function contractManagerUser(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'contract_manager_user_id');
-    }
 
     protected function casts(): array
     {
