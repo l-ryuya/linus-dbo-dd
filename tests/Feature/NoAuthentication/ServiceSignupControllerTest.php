@@ -118,6 +118,7 @@ class ServiceSignupControllerTest extends TestCase
             'service_code' => $payload['serviceCode'],
             'service_plan_code' => $payload['servicePlan'],
             'payment_cycle_code' => $payload['paymentCycle'],
+            'payment_method_code' => $payload['paymentMethod'],
             'service_usage_status_code' => 'Under DD',
             'service_contract_status_code' => 'Not Requested',
         ]);

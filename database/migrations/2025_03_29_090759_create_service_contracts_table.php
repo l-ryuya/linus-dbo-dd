@@ -28,6 +28,8 @@ return new class extends Migration {
             $table->string('service_contract_status_code')->comment('サービス契約ステータス');
             $table->string('payment_cycle_type')->comment('支払サイクル選択肢アイテム種別');
             $table->string('payment_cycle_code')->comment('支払サイクル');
+            $table->string('payment_method_type')->comment('支払方法選択肢アイテム種別');
+            $table->string('payment_method_code')->comment('支払方法');
             $table->bigInteger('responsible_user_id')->comment('担当者ユーザーID');
             $table->bigInteger('contract_manager_user_id')->comment('契約担当者ユーザーID');
             $table->date('service_application_date')->comment('サービス申込日');
@@ -56,6 +58,9 @@ return new class extends Migration {
                 ->references(['selection_item_type', 'selection_item_code'])->on('selection_items')
                 ->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign(['payment_cycle_type', 'payment_cycle_code'])
+                ->references(['selection_item_type', 'selection_item_code'])->on('selection_items')
+                ->onUpdate('CASCADE')->onDelete('RESTRICT');
+            $table->foreign(['payment_method_type', 'payment_method_code'])
                 ->references(['selection_item_type', 'selection_item_code'])->on('selection_items')
                 ->onUpdate('CASCADE')->onDelete('RESTRICT');
 
