@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Admin\ServiceContracts;
 
 use App\Models\Company;
+use App\Models\SelectionItemTranslation;
 use App\Models\ServicePlanTranslation;
 use App\Models\ServiceTranslation;
 use Illuminate\Support\Carbon;
@@ -63,10 +64,13 @@ class IndexAction
         ->orderBy('companies.company_id')
         ->paginate(perPage: $displayedNumber, page: $page);
 
+        $statuses = SelectionItemTranslation::filterByTypeAndLanguage('company_status', $languageCode)->get();
         $services = ServiceTranslation::withLanguage($languageCode)->get();
         $servicePlans = ServicePlanTranslation::withLanguage($languageCode)->get();
 
-        $paginator->map(function ($item) use ($services, $servicePlans) {
+        $paginator->map(function ($item) use ($statuses, $services, $servicePlans) {
+            $item->setAttribute('company_status', $statuses->firstWhere('selection_item_code', $item->company_status_code)->selection_item_name);
+
             $item->setAttribute('service_contracts', collect());
             foreach ($item->serviceContracts as $contract) {
                 $item->getAttribute('service_contracts')->push((object) [

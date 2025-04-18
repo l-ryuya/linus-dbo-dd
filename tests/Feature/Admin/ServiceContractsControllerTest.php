@@ -57,8 +57,7 @@ class ServiceContractsControllerTest extends TestCase
                     '*' => [
                         'companyCode',
                         'companyName',
-                        'companyStatusType',
-                        'companyStatusCode',
+                        'companyStatus',
                         'signupDate',
                         'activationDate',
                         'serviceContracts' => [
