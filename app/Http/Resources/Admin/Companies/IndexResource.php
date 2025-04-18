@@ -13,8 +13,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $company_status_type
  * @property string $company_status_code
  * @property \Illuminate\Support\Carbon $created_at
- * @property string $final_dd_completed_date
- * @property \Illuminate\Support\Collection<int, Object> $service_contracts
  */
 class IndexResource extends JsonResource
 {
@@ -28,8 +26,6 @@ class IndexResource extends JsonResource
      *     companyStatusType: string,
      *     companyStatusCode: string,
      *     signupDate: string|null,
-     *     activationDate: string|null,
-     *     serviceContracts: \Illuminate\Http\Resources\Json\AnonymousResourceCollection,
      * }
      */
     public function toArray(Request $request): array
@@ -40,8 +36,6 @@ class IndexResource extends JsonResource
             'companyStatusType' => $this->company_status_type,
             'companyStatusCode' => $this->company_status_code,
             'signupDate' => convertToUserTimezone($this->created_at)->format('Y-m-d H:i:s'),
-            'activationDate' => $this->final_dd_completed_date,
-            'serviceContracts' => IndexServiceContractResource::collection($this->service_contracts),
         ];
     }
 }
