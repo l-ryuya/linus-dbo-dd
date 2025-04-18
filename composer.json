@@ -16,6 +16,7 @@
         "league/csv": "^9.23"
     },
     "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.5",
         "fakerphp/faker": "^1.23",
         "friendsofphp/php-cs-fixer": "^3.75",
         "larastan/larastan": "^3.3",
@@ -60,7 +61,13 @@
         ],
         "php-cs-fixer": "vendor/bin/php-cs-fixer fix",
         "php-cs-check": "vendor/bin/php-cs-fixer fix --dry-run --diff",
-        "phpstan": "vendor/bin/phpstan analyse"
+        "phpstan": "vendor/bin/phpstan analyse",
+        "ide-helper": [
+            "php artisan clear-compiled",
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:models --nowrite",
+            "php artisan ide-helper:meta"
+        ]
     },
     "extra": {
         "laravel": {
