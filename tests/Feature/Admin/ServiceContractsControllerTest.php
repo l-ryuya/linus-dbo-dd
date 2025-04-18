@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
-class CompaniesControllerTest extends TestCase
+class ServiceContractsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -39,11 +39,11 @@ class CompaniesControllerTest extends TestCase
      */
     private function getBaseUrl(): string
     {
-        return '/v1/admin/companies';
+        return '/v1/admin/service-contracts';
     }
 
     /**
-     * 企業一覧APIが正常なレスポンスを返すことをテストする
+     * サービス契約一覧APIが正常なレスポンスを返すことをテストする
      */
     public function test_index_returns_successful_response(): void
     {
