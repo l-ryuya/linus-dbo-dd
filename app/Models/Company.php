@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
@@ -20,6 +21,14 @@ class Company extends Model
     public function serviceContracts(): HasMany
     {
         return $this->hasMany(ServiceContract::class, 'company_id', 'company_id');
+    }
+
+    /**
+     * @return HasOne<DueDiligence, $this>
+     */
+    public function latestDd(): HasOne
+    {
+        return $this->hasOne(DueDiligence::class, 'dd_id', 'latest_dd_id');
     }
 
     /**

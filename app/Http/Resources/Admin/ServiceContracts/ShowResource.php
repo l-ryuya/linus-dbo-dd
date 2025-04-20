@@ -11,22 +11,34 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $company_code
  * @property string $company_name_en
  * @property string $company_status
+ * @property string|null $postal_code_en
+ * @property string|null $prefecture_en
+ * @property string|null $city_en
+ * @property string|null $street_en
+ * @property string|null $building_room_en
+ * @property int|null $latest_dd_id
+ * @property string|null $dd_status
  * @property \Illuminate\Support\Carbon $created_at
- * @property string $final_dd_completed_date
  * @property \Illuminate\Support\Collection<int, Object> $service_contracts
  */
-class IndexResource extends JsonResource
+class ShowResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
      * @param \Illuminate\Http\Request $request
+     *
      * @return array{
      *     companyCode: string,
      *     companyName: string,
      *     companyStatus: string,
-     *     signupDate: string|null,
-     *     activationDate: string|null,
+     *     postalCode: string|null,
+     *     prefecture: string|null,
+     *     city: string|null,
+     *     street: string|null,
+     *     buildingRoom: string|null,
+     *     latestDdId: int|null,
+     *     ddStatus: string|null,
      *     serviceContracts: \Illuminate\Http\Resources\Json\AnonymousResourceCollection,
      * }
      */
@@ -36,9 +48,14 @@ class IndexResource extends JsonResource
             'companyCode' => $this->company_code,
             'companyName' => $this->company_name_en,
             'companyStatus' => $this->company_status,
-            'signupDate' => convertToUserTimezone($this->created_at)->format('Y-m-d'),
-            'activationDate' => $this->final_dd_completed_date,
-            'serviceContracts' => IndexServiceContractResource::collection($this->service_contracts),
+            'postalCode' => $this->postal_code_en,
+            'prefecture' => $this->prefecture_en,
+            'city' => $this->city_en,
+            'street' => $this->street_en,
+            'buildingRoom' => $this->building_room_en,
+            'latestDdId' => $this->latest_dd_id,
+            'ddStatus' => $this->dd_status,
+            'serviceContracts' => ShowServiceContractResource::collection($this->service_contracts),
         ];
     }
 }
