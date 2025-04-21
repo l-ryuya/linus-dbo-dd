@@ -45,7 +45,7 @@ COPY infra/docker/develop/php/scheduler.sh /app/scheduler.sh
 RUN chown bitnami:bitnami /app/scheduler.sh && chmod +x /app/scheduler.sh
 
 # entrypoint.sh を上書きして supervisord を起動
-COPY infra/docker/develop/php/entrypoint-overwrite.sh /opt/bitnami/scripts/laravel/entrypoint.sh
+COPY --chown=bitnami:bitnami --chmod=750 infra/docker/develop/php/entrypoint-overwrite.sh /opt/bitnami/scripts/laravel/entrypoint.sh
 
 USER bitnami
 # EXPOSE 8080
