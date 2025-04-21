@@ -169,10 +169,10 @@ components:
         buildingRoom:
           type: string
           description: 建物名・部屋番号
-        latestDdId:
+        latestDdCode:
           type: string
           nullable: true
-          description: 最新デューデリジェンスID
+          description: 最新デューデリジェンスコード
         ddStatus:
           type: string
           nullable: true

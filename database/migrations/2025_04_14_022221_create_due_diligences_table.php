@@ -84,9 +84,6 @@ return new class extends Migration {
             $table->foreign(['dd_entity_type_type', 'dd_entity_type_code'])
                 ->references(['selection_item_type', 'selection_item_code'])->on('selection_items')
                 ->onUpdate('CASCADE')->onDelete('RESTRICT');
-            $table->foreign(['dd_relation_type_type', 'dd_relation_type_code'])
-                ->references(['selection_item_type', 'selection_item_code'])->on('selection_items')
-                ->onUpdate('CASCADE')->onDelete('RESTRICT');
             $table->foreign(['dd_status_type', 'dd_status'])
                 ->references(['selection_item_type', 'selection_item_code'])->on('selection_items')
                 ->onUpdate('CASCADE')->onDelete('RESTRICT');
