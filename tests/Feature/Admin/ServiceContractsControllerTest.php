@@ -261,5 +261,4 @@ class ServiceContractsControllerTest extends TestCase
 
         $response->assertStatus(404);
     }
-
 }
