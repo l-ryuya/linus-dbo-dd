@@ -49,6 +49,8 @@ paths:
           description: OK
         '400':
           $ref: 'components/error_response.yaml#/components/responses/BadRequest'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
         '500':
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:

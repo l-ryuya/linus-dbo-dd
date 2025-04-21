@@ -30,10 +30,12 @@ jobs:
           mkdir -p out
           redocly build-docs api-docs/auth.yaml --output=out/auth.html
           redocly build-docs api-docs/no_authentication.yaml --output=out/no_authentication.html
+          redocly build-docs api-docs/admin.yaml --output=out/admin.html
 
           echo "<h1>Index for ${{ github.ref_name }}</h1><ul>" > out/index.html
           echo "<li><a href='auth.html'>auth</a></li>" >> out/index.html
           echo "<li><a href='no_authentication.html'>no_authentication</a></li>" >> out/index.html
+          echo "<li><a href='admin.html'>admin</a></li>" >> out/index.html
           echo "</ul>" >> out/index.html
 
       - name: Deploy to GitHub Pages
