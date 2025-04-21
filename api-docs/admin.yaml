@@ -1,0 +1,240 @@
+openapi: 3.1.0
+info:
+  title: デジタルバックオフィスAPI
+  description: |-
+    サービス管理者エンドポイント郡
+  version: '0.1'
+servers:
+  - url: 'https://bizdevforge-backphp.dev.dsbizdev.com/v1'
+    description: プロトタイプ環境
+paths:
+  /service-contracts:
+    get:
+      summary: サービス契約一覧 取得
+      parameters:
+        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
+        - name: companyName
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: companyStatusCode
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: serviceSignupStartDate
+          in: query
+          required: false
+          schema:
+            type: date
+        - name: serviceSignupEndDate
+          in: query
+          required: false
+          schema:
+            type: date
+        - $ref: 'components/parameters.yaml#/components/parameters/DisplayPageNumber'
+        - $ref: 'components/parameters.yaml#/components/parameters/DisplayedResults'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceContractorResponse'
+                  'links':
+                    $ref: 'components/pagination.yaml#/components/schemas/PaginationLinks'
+                  'meta':
+                    $ref: 'components/pagination.yaml#/components/schemas/PaginationMeta'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
+  /service-contracts/{company_code}:
+    get:
+      summary: サービス契約詳細 取得
+      parameters:
+        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
+        - name: company_code
+          in: path
+          description: 法人通番
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServiceContractorDetailResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: 'components/error_response.yaml#/components/responses/NotFound'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
+
+components:
+  schemas:
+    ServiceContractorResponse:
+      description: サービス契約者
+      type: object
+      properties:
+        companyCode:
+          type: string
+          description: 法人通番
+        companyName:
+          type: string
+          description: 法人名称
+        companyStatus:
+          type: string
+          description: 法人ステータス
+        signupDate:
+          type: string
+          format: date
+          description: サービス登録日
+        activationDate:
+          type: string
+          format: date
+          nullable: true
+          description: サービス開始日
+        serviceContracts:
+          type: array
+          description: サービス契約
+          items:
+            $ref: '#/components/schemas/ServiceContractMinimalResponse'
+    ServiceContractMinimalResponse:
+      description: サービス契約
+      type: object
+      properties:
+        serviceContractCode:
+          type: string
+          description: サービス契約通番
+        serviceCode:
+          type: string
+          description: サービスコード
+        serviceName:
+          type: string
+          description: サービス名称
+        servicePlanCode:
+          type: string
+          description: サービスプランコード
+        servicePlanName:
+          type: string
+          description: サービスプラン名称
+    ServiceContractorDetailResponse:
+      description: サービス契約者
+      type: object
+      properties:
+        companyCode:
+          type: string
+          description: 法人通番
+        companyName:
+          type: string
+          description: 法人名称
+        companyStatus:
+          type: string
+          description: 法人ステータス
+        postalCode:
+          type: string
+          description: 郵便番号
+        prefecture:
+          type: string
+          description: 都道府県
+        city:
+          type: string
+          description: 市区町村
+        street:
+          type: string
+          description: 番地
+        buildingRoom:
+          type: string
+          description: 建物名・部屋番号
+        latestDdId:
+          type: string
+          nullable: true
+          description: 最新デューデリジェンスID
+        ddStatus:
+          type: string
+          nullable: true
+          description: デューデリジェンスステータス
+        serviceContracts:
+          type: array
+          description: サービス契約
+          items:
+            $ref: '#/components/schemas/ServiceContractResponse'
+    ServiceContractResponse:
+      description: サービス契約
+      type: object
+      properties:
+        serviceContractCode:
+          type: string
+          description: サービス契約通番
+        serviceCode:
+          type: string
+          description: サービスコード
+        serviceName:
+          type: string
+          description: サービス名称
+        servicePlanCode:
+          type: string
+          description: サービスプランコード
+        servicePlanName:
+          type: string
+          description: サービスプラン名称
+        departmentName:
+          type: string
+          description: 部署名
+        serviceUsageStatus:
+          type: string
+          description: サービス利用ステータス
+        serviceContractStatus:
+          type: string
+          description: サービス契約ステータス
+        personInCharge:
+            $ref: '#/components/schemas/PersonInChargeResponse'
+            description: 担当者
+        contractManager:
+          $ref: '#/components/schemas/PersonInChargeResponse'
+          description: 契約担当者
+    PersonInChargeResponse:
+      type: object
+      properties:
+        lastName:
+          type: string
+          description: 姓
+        middleName:
+          type: string
+          description: ミドルネーム
+        firstName:
+          type: string
+          description: 名
+        position:
+          type: string
+          description: 役職
+        email:
+          type: string
+          description: メールアドレス
+
+  securitySchemes:
+    UserAuth:
+      $ref: 'components/security_schemes.yaml#/components/securitySchemes/BearerAuth'

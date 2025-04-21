@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\NoAuthentication;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -41,8 +43,8 @@ class MiscDataControllerTest extends TestCase
                         'selectionItemCode',
                         'selectionItemName',
                         'selectionItemShortName',
-                    ]
-                ]
+                    ],
+                ],
             ]);
     }
 
@@ -65,7 +67,7 @@ class MiscDataControllerTest extends TestCase
         if (count($response1->json('data')) > 0 && count($response2->json('data')) > 0) {
             $this->assertNotEquals(
                 $response1->json('data'),
-                $response2->json('data')
+                $response2->json('data'),
             );
         }
     }

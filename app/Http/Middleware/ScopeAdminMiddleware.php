@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Middleware;
 
 use Closure;
@@ -22,12 +24,14 @@ class ScopeAdminMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, string ...$scopes): Response
     {
-        if (!$request->user()->tokenCan($role)) {
-            abort(403,__('auth.forbidden'));
-        };
+        foreach ($scopes as $scope) {
+            if ($request->user()?->tokenCan($scope)) {
+                return $next($request);
+            }
+        }
 
-        return $next($request);
+        abort(403, __('auth.forbidden'));
     }
 }

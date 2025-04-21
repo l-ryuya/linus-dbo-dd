@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -9,8 +11,9 @@ class ServicePlan extends Model
 {
     use SoftDeletes;
 
-    protected $primaryKey = ['service_code', 'service_plan_code'];
-    protected $keyType = 'string';
+    // 複合主キーをサポートしていない為、無効化させる
+    protected $primaryKey = 'Not supported Composite Primary Key';
+
     public $incrementing = false;
 
     protected function casts(): array

@@ -1,12 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
@@ -18,11 +19,6 @@ class TokenController extends Controller
 {
     public function login(Request $request): JsonResponse
     {
-        // 期限切れトークンを消す
-        Artisan::call('sanctum:prune-expired', [
-            '--hours' => 24
-        ]);
-
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -44,7 +40,7 @@ class TokenController extends Controller
             'token' => $user->createToken(
                 'bizdevforge',
                 explode(',', $user->roles),
-                now()->addDay()
+                now()->addDay(),
             )->plainTextToken,
         ]);
     }

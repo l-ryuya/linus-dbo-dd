@@ -1,0 +1,47 @@
+name: Deploy OpenAPI via Redocly CLI
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - develop
+      - main
+    types: [closed]
+
+jobs:
+  build-and-deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Redocly CLI
+        run: npm install -g @redocly/cli
+
+      - name: Generate HTML files with Redocly
+        run: |
+          mkdir -p out
+          redocly build-docs api-docs/auth.yaml --output=out/auth.html
+          redocly build-docs api-docs/no_authentication.yaml --output=out/no_authentication.html
+          redocly build-docs api-docs/admin.yaml --output=out/admin.html
+
+          echo "<h1>Index for ${{ github.ref_name }}</h1><ul>" > out/index.html
+          echo "<li><a href='auth.html'>auth</a></li>" >> out/index.html
+          echo "<li><a href='no_authentication.html'>no_authentication</a></li>" >> out/index.html
+          echo "<li><a href='admin.html'>admin</a></li>" >> out/index.html
+          echo "</ul>" >> out/index.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          destination_dir: ${{ github.ref_name }}
+          publish_branch: gh-pages

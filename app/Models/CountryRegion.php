@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -10,6 +12,8 @@ class CountryRegion extends Model
     use SoftDeletes;
 
     protected $primaryKey = 'country_code_alpha3';
+
     protected $keyType = 'string';
+
     public $incrementing = false;
 }

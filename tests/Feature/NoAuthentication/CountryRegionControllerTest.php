@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Feature\NoAuthentication;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -43,10 +45,10 @@ class CountryRegionControllerTest extends TestCase
                         'worldRegion',
                         'countryRegionName',
                         'capitalName',
-                    ]
+                    ],
                 ],
                 'links',
-                'meta'
+                'meta',
             ]);
     }
 
@@ -60,7 +62,7 @@ class CountryRegionControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonFragment([
-                'countryCodeAlpha2' => 'JP'
+                'countryCodeAlpha2' => 'JP',
             ]);
 
         // alpha3コードでフィルタリング
@@ -68,7 +70,7 @@ class CountryRegionControllerTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJsonFragment([
-                'countryCodeAlpha3' => 'JPN'
+                'countryCodeAlpha3' => 'JPN',
             ]);
     }
 
@@ -82,7 +84,7 @@ class CountryRegionControllerTest extends TestCase
         $response->assertStatus(200)
             ->assertJsonCount(10, 'data')
             ->assertJsonStructure([
-                'meta' => ['currentPage', 'from', 'lastPage', 'perPage']
+                'meta' => ['currentPage', 'from', 'lastPage', 'perPage'],
             ]);
     }
 

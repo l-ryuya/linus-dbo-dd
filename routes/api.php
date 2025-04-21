@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,3 +17,7 @@ $path = __DIR__ . DIRECTORY_SEPARATOR . 'endpoints' . DIRECTORY_SEPARATOR;
 
 require $path . 'sanctum.php';
 require $path . 'roots.php';
+require $path . 'users.php';
+
+require $path . 'admin' . DIRECTORY_SEPARATOR . 'companies.php';
+require $path . 'admin' . DIRECTORY_SEPARATOR . 'service_contracts.php';

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders\base;
 
 use App\Enums\RoleType;

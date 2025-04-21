@@ -35,5 +35,17 @@ COPY --chown=bitnami:bitnami --chmod=750 --from=builder /build/ /app/
 
 RUN chown -R bitnami:bitnami /app/
 
+# supervisorをインストール
+RUN install_packages supervisor
+
+COPY supervisord.conf /etc/supervisor/
+COPY laravel-worker.conf /etc/supervisor/conf.d/
+RUN chown bitnami:bitnami /var/log/supervisor && chmod 740 /var/log/supervisor
+COPY scheduler.sh /app/scheduler.sh
+RUN chown bitnami:bitnami /app/scheduler.sh && chmod +x /app/scheduler.sh
+
+# entrypoint.sh を上書きして supervisord を起動
+COPY entrypoint-overwrite.sh /opt/bitnami/scripts/laravel/entrypoint.sh
+
 USER bitnami
 # EXPOSE 8080

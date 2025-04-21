@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -11,8 +13,12 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+    use HasApiTokens;
+
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasApiTokens, HasFactory, SoftDeletes;
+    use HasFactory;
+
+    use SoftDeletes;
 
     protected $primaryKey = 'user_id';
 
@@ -59,6 +65,6 @@ class User extends Authenticatable
 
         $newNumber = $lastNumber + 1;
 
-        return 'U-' . str_pad($newNumber, 6, '0', STR_PAD_LEFT);
+        return 'U-' . str_pad((string) $newNumber, 6, '0', STR_PAD_LEFT);
     }
 }

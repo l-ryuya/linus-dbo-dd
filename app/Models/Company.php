@@ -1,14 +1,35 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
     use SoftDeletes;
+
     protected $primaryKey = 'company_id';
+
+    /**
+     * @return HasMany<ServiceContract, $this>
+     */
+    public function serviceContracts(): HasMany
+    {
+        return $this->hasMany(ServiceContract::class, 'company_id', 'company_id');
+    }
+
+    /**
+     * @return HasOne<DueDiligence, $this>
+     */
+    public function latestDd(): HasOne
+    {
+        return $this->hasOne(DueDiligence::class, 'dd_id', 'latest_dd_id');
+    }
 
     /**
      * C-000001 形式の新しい法人IDを生成
@@ -29,6 +50,6 @@ class Company extends Model
 
         $newNumber = $lastNumber + 1;
 
-        return 'C-' . str_pad($newNumber, 6, '0', STR_PAD_LEFT);
+        return 'C-' . str_pad((string) $newNumber, 6, '0', STR_PAD_LEFT);
     }
 }

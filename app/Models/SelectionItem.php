@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -9,7 +11,8 @@ class SelectionItem extends Model
 {
     use SoftDeletes;
 
+    // 複合主キーをサポートしていない為、無効化させる
+    protected $primaryKey = 'Not supported Composite Primary Key';
+
     public $incrementing = false;
-    protected $primaryKey = ['selection_item_type', 'selection_item_code'];
-    protected $keyType = 'string';
 }

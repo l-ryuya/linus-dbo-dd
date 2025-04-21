@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\CountryRegion;
 
 use App\Http\Requests\Traits\PaginationRules;
@@ -12,7 +14,7 @@ class IndexRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function rules(): array
     {
@@ -21,5 +23,10 @@ class IndexRequest extends FormRequest
             'countryCodeAlpha2' => ['nullable', 'string', 'min:2', 'max:2'],
             'countryCodeNumeric' => ['nullable', 'integer', 'min:1', 'max:3'],
         ]);
+    }
+
+    protected function prepareForValidation(): void
+    {
+        $this->merge($this->paginationDefaults());
     }
 }

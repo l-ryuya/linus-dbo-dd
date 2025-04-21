@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\ServiceSignup;
 
 use App\Dto\ServiceSignup\StoreInput;
@@ -11,7 +13,7 @@ class StoreRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function rules(): array
     {
@@ -25,8 +27,7 @@ class StoreRequest extends FormRequest
                 'required',
                 'string',
                 'size:9',
-                Rule::exists('service_plans', 'service_plan_code')
-                    ->where('service_code', $this->input('serviceCode')),
+                Rule::exists('service_plans', 'service_plan_code'),
             ],
             'paymentCycle' => [
                 'required',

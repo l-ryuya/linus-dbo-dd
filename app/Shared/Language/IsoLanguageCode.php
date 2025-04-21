@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Shared\Language;
 
 use Illuminate\Support\Facades\App;
 
 class IsoLanguageCode
 {
-    const array LOCALE_MAP  = [
+    public const array LOCALE_MAP  = [
         'eng' => 'en', // 英語
         'jpn' => 'ja', // 日本語
         'ind' => 'id', // インドネシア語

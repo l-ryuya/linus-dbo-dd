@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\ServiceSignup;
 
 use App\Dto\ServiceSignup\StoreInput;
@@ -84,6 +86,8 @@ class StoreAction
         $serviceContract->service_contract_status_code = 'Not Requested';
         $serviceContract->payment_cycle_type = 'payment_cycle';
         $serviceContract->payment_cycle_code = $data->paymentCycle;
+        $serviceContract->payment_method_type = 'payment_method';
+        $serviceContract->payment_method_code = $data->paymentMethod;
         $serviceContract->responsible_user_id = $contactPerson->user_id;
         $serviceContract->contract_manager_user_id = $contractPerson->user_id;
         $serviceContract->service_application_date = Carbon::today();
@@ -139,7 +143,7 @@ class StoreAction
         $contractPerson->user_code = User::generateNewUserId();
         $contractPerson->user_status_type = 'user_status';
         $contractPerson->user_status = 'Under DD';
-        $contractPerson->last_name_en = $data->contractPersonFirstName;
+        $contractPerson->last_name_en = $data->contractPersonLastName;
         $contractPerson->middle_name_en = $data->contractPersonMiddleName;
         $contractPerson->first_name_en = $data->contractPersonFirstName;
         $contractPerson->position_en = $data->contractPersonPosition;

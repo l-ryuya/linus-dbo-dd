@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;
@@ -89,7 +91,7 @@ return [
             'handler_with' => [
                 'host' => env('PAPERTRAIL_URL'),
                 'port' => env('PAPERTRAIL_PORT'),
-                'connectionString' => 'tls://'.env('PAPERTRAIL_URL').':'.env('PAPERTRAIL_PORT'),
+                'connectionString' => 'tls://' . env('PAPERTRAIL_URL') . ':' . env('PAPERTRAIL_PORT'),
             ],
             'processors' => [PsrLogMessageProcessor::class],
         ],
@@ -138,6 +140,17 @@ return [
             'path' => storage_path('logs/laravel.log'),
         ],
 
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | SQL Log
+    |--------------------------------------------------------------------------
+    */
+
+    'sql' => [
+        'enable' => env('LOG_SQL_ENABLE', false),
+        'slow_query_time' => env('LOG_SQL_SLOW_QUERY_TIME', 2000), // ms
     ],
 
 ];

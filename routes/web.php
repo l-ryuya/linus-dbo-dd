@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Auth\TokenController;
+declare(strict_types=1);
+
 
 // 無効化
-Route::get('/sanctum/csrf-cookie', fn () => abort(404));
+Route::get('/sanctum/csrf-cookie', fn() => abort(404));

@@ -1,36 +1,27 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property \Illuminate\Support\Carbon|string $service_application_date
+ * @property \Illuminate\Support\Carbon|string $service_start_date
+ * @property \Illuminate\Support\Carbon|string $service_end_date
+ */
 class ServiceContract extends Model
 {
     use SoftDeletes;
 
+    /** @use HasFactory<\Database\Factories\ServiceContractFactory> */
+    use HasFactory;
+
     protected $primaryKey = 'service_contract_id';
-
-    public function company(): BelongsTo
-    {
-        return $this->belongsTo(Company::class);
-    }
-
-    public function serviceCode(): BelongsTo
-    {
-        return $this->belongsTo(Service::class, 'service_code');
-    }
-
-    public function responsibleUser(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'responsible_user_id');
-    }
-
-    public function contractManagerUser(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'contract_manager_user_id');
-    }
 
     protected function casts(): array
     {
@@ -39,6 +30,22 @@ class ServiceContract extends Model
             'service_start_date' => 'date',
             'service_end_date' => 'date',
         ];
+    }
+
+    /**
+     * @return HasOne<User, $this>
+     */
+    public function personInCharge(): HasOne
+    {
+        return $this->hasOne(User::class, 'user_id', 'responsible_user_id');
+    }
+
+    /**
+     * @return HasOne<User, $this>
+     */
+    public function contractManager(): HasOne
+    {
+        return $this->hasOne(User::class, 'user_id', 'contract_manager_user_id');
     }
 
     /**
@@ -60,6 +67,6 @@ class ServiceContract extends Model
 
         $newNumber = $lastNumber + 1;
 
-        return 'SC-' . str_pad($newNumber, 6, '0', STR_PAD_LEFT);
+        return 'SC-' . str_pad((string) $newNumber, 6, '0', STR_PAD_LEFT);
     }
 }

@@ -10,8 +10,10 @@
 .env.testing
 .env.backup
 .env.production
+.env.rds
 .phpactor.json
 .phpunit.result.cache
+.php-cs-fixer.cache
 Homestead.json
 Homestead.yaml
 npm-debug.log

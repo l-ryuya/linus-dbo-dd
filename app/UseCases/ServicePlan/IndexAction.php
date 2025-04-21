@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\UseCases\ServicePlan;
 
 use App\Enums\ServicePlanStatus;
@@ -17,7 +19,7 @@ class IndexAction
      * @param \App\Enums\ServiceStatus     $serviceStatusCode     サービス提供ステータス
      * @param \App\Enums\ServicePlanStatus $servicePlanStatusCode サービスプラン提供ステータス
      *
-     * @return \Illuminate\Support\Collection
+     * @return \Illuminate\Support\Collection<int, ServicePlan>
      */
     public function __invoke(
         string $languageCode,
@@ -45,7 +47,7 @@ class IndexAction
             'service_plan_translations.service_plan_name',
             'service_plan_translations.service_plan_description',
         ])
-        ->join('service_plan_translations', function($join) use ($languageCode) {
+        ->join('service_plan_translations', function ($join) use ($languageCode) {
             $join->on('service_plans.service_plan_code', '=', 'service_plan_translations.service_plan_code')
                 ->where('service_plan_translations.language_code', $languageCode);
         })

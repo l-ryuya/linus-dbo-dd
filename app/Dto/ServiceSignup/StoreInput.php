@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Dto\ServiceSignup;
 
 /**
@@ -13,7 +15,6 @@ final readonly class StoreInput
     public function __construct(
         public string $companyName,
         public ?string $departmentName,
-
         public string $serviceCode,
         public string $servicePlan,
         public string $paymentCycle,
@@ -43,30 +44,32 @@ final readonly class StoreInput
         public ?string $addressLine2,
     ) {}
 
+    /**
+     * リクエストデータから StoreInput オブジェクトを作成する
+     *
+     * @param array<string, mixed> $data リクエストから受け取ったデータ配列
+     * @return self 新しい StoreInput インスタンス
+     */
     public static function fromRequest(array $data): self
     {
         return new self(
             companyName: $data['companyName'],
             departmentName: $data['departmentName'] ?? null,
-
             serviceCode: $data['serviceCode'],
             servicePlan: $data['servicePlan'],
             paymentCycle: $data['paymentCycle'],
             paymentMethod: $data['paymentMethod'],
             secondLanguage: $data['secondLanguage'],
-
             contactPersonLastName: $data['contactPersonLastName'],
             contactPersonFirstName: $data['contactPersonFirstName'],
             contactPersonMiddleName: $data['contactPersonMiddleName'] ?? null,
             contactPersonPosition: $data['contactPersonPosition'] ?? null,
             contactPersonEmail: $data['contactPersonEmail'],
-
             contractPersonLastName: $data['contractPersonLastName'],
             contractPersonFirstName: $data['contractPersonFirstName'],
             contractPersonMiddleName: $data['contractPersonMiddleName'] ?? null,
             contractPersonPosition: $data['contractPersonPosition'] ?? null,
             contractPersonEmail: $data['contractPersonEmail'],
-
             country: $data['country'],
             postalCode: $data['postalCode'],
             state: $data['state'],

@@ -1,9 +1,11 @@
 <?php
 
-//use Database\Seeders\DatabaseSeeder;
-//use Illuminate\Support\Facades\Artisan;
+declare(strict_types=1);
 
-//Artisan::command('cache:seeder-execute-reset', function () {
-//    Cache::forget(DatabaseSeeder::SEEDER_EXECUTE);
-//    $this->line('Seeder execution state has been reset');
-//})->purpose('Resets the Seeder execution state');
+use Illuminate\Support\Facades\Schedule;
+
+Schedule::call(function () {
+    Log::channel('stdout')->info("task is running");
+})->hourly();
+
+Schedule::command('sanctum:prune-expired')->daily();
