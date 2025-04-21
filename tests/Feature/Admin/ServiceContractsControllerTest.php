@@ -4,13 +4,18 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Admin;
 
+use App\Models\Company;
+use App\Models\DueDiligence;
+use App\Models\ServiceContract;
 use App\Models\User;
 use Carbon\Carbon;
+use Database\Seeders\tests\DueDiligencesSeeder;
+use Database\Seeders\tests\UsersSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\TestCase;
 
-class CompaniesControllerTest extends TestCase
+class ServiceContractsControllerTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -39,11 +44,11 @@ class CompaniesControllerTest extends TestCase
      */
     private function getBaseUrl(): string
     {
-        return '/v1/admin/companies';
+        return '/v1/admin/service-contracts';
     }
 
     /**
-     * 企業一覧APIが正常なレスポンスを返すことをテストする
+     * サービス契約一覧APIが正常なレスポンスを返すことをテストする
      */
     public function test_index_returns_successful_response(): void
     {
@@ -57,8 +62,7 @@ class CompaniesControllerTest extends TestCase
                     '*' => [
                         'companyCode',
                         'companyName',
-                        'companyStatusType',
-                        'companyStatusCode',
+                        'companyStatus',
                         'signupDate',
                         'activationDate',
                         'serviceContracts' => [
@@ -163,5 +167,98 @@ class CompaniesControllerTest extends TestCase
         );
 
         $response->assertStatus(422);
+    }
+
+    /**
+     * サービス契約詳細APIが正常なレスポンスを返すことをテストする
+     */
+    public function test_show_returns_successful_response(): void
+    {
+        $this->seed(UsersSeeder::class);
+        $this->seed(DueDiligencesSeeder::class);
+
+        $dd = DueDiligence::where('dd_entity_type_code', 'target_company')
+            ->where('company_name', '株式会社FINOLAB')
+            ->first();
+        $company = Company::firstWhere('company_code', 'C-000003');
+        $company->latest_dd_id = $dd->dd_id;
+        $company->save();
+
+        ServiceContract::factory()->create([
+            'company_id' => $company->company_id,
+            'responsible_user_id' => User::firstWhere('user_code', 'U-900001')->user_id,
+            'contract_manager_user_id' => User::firstWhere('user_code', 'U-900002')->user_id,
+        ]);
+
+        $this->authenticateAsAdmin();
+
+        // テストデータベースに存在する会社コードを使用
+        $companyCode = 'C-000003';
+        $response = $this->getJson($this->getBaseUrl() . '/' . $companyCode);
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'companyCode',
+                    'companyName',
+                    'companyStatus',
+                    'postalCode',
+                    'prefecture',
+                    'city',
+                    'street',
+                    'buildingRoom',
+                    'latestDdId',
+                    'ddStatus',
+                    'serviceContracts' => [
+                        '*' => [
+                            'serviceContractCode',
+                            'serviceCode',
+                            'serviceName',
+                            'servicePlanCode',
+                            'servicePlanName',
+                            'departmentName',
+                            'serviceUsageStatus',
+                            'serviceContractStatus',
+                            'personInCharge' => [
+                                'lastName',
+                                'middleName',
+                                'firstName',
+                                'position',
+                                'email',
+                            ],
+                            'contractManager' => [
+                                'lastName',
+                                'middleName',
+                                'firstName',
+                                'position',
+                                'email',
+                            ],
+                        ],
+                    ],
+                ],
+            ]);
+    }
+
+    /**
+     * 認証されていない場合にサービス契約詳細へのアクセスが拒否されることをテストする
+     */
+    public function test_show_denies_access_without_authentication(): void
+    {
+        $companyCode = 'C-000001';
+        $response = $this->getJson($this->getBaseUrl() . '/' . $companyCode);
+        $response->assertStatus(401);
+    }
+
+    /**
+     * 存在しない会社コードの場合に404が返されることをテストする
+     */
+    public function test_show_returns_404_for_nonexistent_company(): void
+    {
+        $this->authenticateAsAdmin();
+
+        $nonExistentCompanyCode = 'NON-EXISTENT';
+        $response = $this->getJson($this->getBaseUrl() . '/' . $nonExistentCompanyCode);
+
+        $response->assertStatus(404);
     }
 }

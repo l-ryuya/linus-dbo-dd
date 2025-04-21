@@ -133,7 +133,10 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ServiceSignupResponse'
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServiceSignupResponse'
         '422':
           $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
         '500':

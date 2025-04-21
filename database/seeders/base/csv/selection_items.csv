@@ -67,9 +67,9 @@ language_name,中文（简体）,中国語（簡体字）
 language_name,中文（繁體）,中国語（繁体字）
 language_name,Español,スペイン語
 language_name,Tiếng Việt,ベトナム語
-dd_entity_type_type,target_company,取引対象法人
-dd_entity_type_type,related_company,関連法人
-dd_entity_type_type,related_individual,関連個人
+dd_entity_type,target_company,取引対象法人
+dd_entity_type,related_company,関連法人
+dd_entity_type,related_individual,関連個人
 dd_relation_type,Ultimate Beneficial Owner,実質的支配者
 dd_relation_type,Executive,役員
 dd_relation_type,Shareholder,株主

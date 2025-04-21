@@ -86,6 +86,8 @@ class StoreAction
         $serviceContract->service_contract_status_code = 'Not Requested';
         $serviceContract->payment_cycle_type = 'payment_cycle';
         $serviceContract->payment_cycle_code = $data->paymentCycle;
+        $serviceContract->payment_method_type = 'payment_method';
+        $serviceContract->payment_method_code = $data->paymentMethod;
         $serviceContract->responsible_user_id = $contactPerson->user_id;
         $serviceContract->contract_manager_user_id = $contractPerson->user_id;
         $serviceContract->service_application_date = Carbon::today();

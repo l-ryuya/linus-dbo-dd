@@ -63,14 +63,16 @@ class ServiceSignupControllerTest extends TestCase
 
         $response->assertStatus(201)
             ->assertJsonStructure([
-                'contactPersonUserCode',
-                'contractPersonUserCode',
-                'companyCode',
-                'serviceContractCode',
+                'data' => [
+                    'contactPersonUserCode',
+                    'contractPersonUserCode',
+                    'companyCode',
+                    'serviceContractCode',
+                ],
             ]);
 
         // データベースにレコードが作成されたことを確認
-        $responseData = $response->json();
+        $responseData = $response->json('data');
 
         // 会社データが正しく保存されていることを確認
         $this->assertDatabaseHas('companies', [
@@ -116,6 +118,7 @@ class ServiceSignupControllerTest extends TestCase
             'service_code' => $payload['serviceCode'],
             'service_plan_code' => $payload['servicePlan'],
             'payment_cycle_code' => $payload['paymentCycle'],
+            'payment_method_code' => $payload['paymentMethod'],
             'service_usage_status_code' => 'Under DD',
             'service_contract_status_code' => 'Not Requested',
         ]);

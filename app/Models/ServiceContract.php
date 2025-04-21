@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -16,6 +18,9 @@ class ServiceContract extends Model
 {
     use SoftDeletes;
 
+    /** @use HasFactory<\Database\Factories\ServiceContractFactory> */
+    use HasFactory;
+
     protected $primaryKey = 'service_contract_id';
 
     protected function casts(): array
@@ -25,6 +30,22 @@ class ServiceContract extends Model
             'service_start_date' => 'date',
             'service_end_date' => 'date',
         ];
+    }
+
+    /**
+     * @return HasOne<User, $this>
+     */
+    public function personInCharge(): HasOne
+    {
+        return $this->hasOne(User::class, 'user_id', 'responsible_user_id');
+    }
+
+    /**
+     * @return HasOne<User, $this>
+     */
+    public function contractManager(): HasOne
+    {
+        return $this->hasOne(User::class, 'user_id', 'contract_manager_user_id');
     }
 
     /**
