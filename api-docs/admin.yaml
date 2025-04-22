@@ -117,15 +117,6 @@ components:
           format: date
           nullable: true
           description: サービス開始日
-        serviceContracts:
-          type: array
-          description: サービス契約
-          items:
-            $ref: '#/components/schemas/ServiceContractMinimalResponse'
-    ServiceContractMinimalResponse:
-      description: サービス契約
-      type: object
-      properties:
         serviceContractCode:
           type: string
           description: サービス契約通番

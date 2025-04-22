@@ -47,7 +47,7 @@ class ShowAction
 
         $company->setAttribute(
             'dd_status',
-            $statuses->where('selection_item_type', 'company_status')
+            $statuses->where('selection_item_type', $company->latestDd?->dd_status_type)
                 ->where('selection_item_code', $company->latestDd?->dd_status)
                 ->first()?->selection_item_name,
         );

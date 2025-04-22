@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property string|null $service_code
+ * @property string|null $service_plan_code
+ * @property string|null $service_contract_code
+ */
 class Company extends Model
 {
     use SoftDeletes;
