@@ -46,6 +46,22 @@ class User extends Authenticatable
     }
 
     /**
+     * 英語のフルネームを取得
+     *
+     * @return string
+     */
+    public function getFullNameEn(): string
+    {
+        $parts = array_filter([
+            $this->last_name_en,
+            $this->middle_name_en,
+            $this->first_name_en,
+        ]);
+
+        return implode(' ', $parts);
+    }
+
+    /**
      * U-000001 形式の新しいユーザーIDを生成
      *
      * @return string
