@@ -16,7 +16,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string|null $city_en
  * @property string|null $street_en
  * @property string|null $building_room_en
- * @property int|null $latest_dd_id
+ * @property \App\Models\DueDiligence|null $latestDd
  * @property string|null $dd_status
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Collection<int, Object> $service_contracts
@@ -37,7 +37,7 @@ class ShowResource extends JsonResource
      *     city: string|null,
      *     street: string|null,
      *     buildingRoom: string|null,
-     *     latestDdId: int|null,
+     *     latestDdCode: string|null,
      *     ddStatus: string|null,
      *     serviceContracts: \Illuminate\Http\Resources\Json\AnonymousResourceCollection,
      * }
@@ -53,7 +53,7 @@ class ShowResource extends JsonResource
             'city' => $this->city_en,
             'street' => $this->street_en,
             'buildingRoom' => $this->building_room_en,
-            'latestDdId' => $this->latest_dd_id,
+            'latestDdCode' => $this->latestDd?->dd_code,
             'ddStatus' => $this->dd_status,
             'serviceContracts' => ShowServiceContractResource::collection($this->service_contracts),
         ];

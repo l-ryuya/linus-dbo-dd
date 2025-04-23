@@ -65,15 +65,11 @@ class ServiceContractsControllerTest extends TestCase
                         'companyStatus',
                         'signupDate',
                         'activationDate',
-                        'serviceContracts' => [
-                            '*' => [
-                                'serviceContractCode',
-                                'serviceCode',
-                                'serviceName',
-                                'servicePlanCode',
-                                'servicePlanName',
-                            ],
-                        ],
+                        'serviceContractCode',
+                        'serviceCode',
+                        'serviceName',
+                        'servicePlanCode',
+                        'servicePlanName',
                     ],
                 ],
                 'links',
@@ -207,7 +203,7 @@ class ServiceContractsControllerTest extends TestCase
                     'city',
                     'street',
                     'buildingRoom',
-                    'latestDdId',
+                    'latestDdCode',
                     'ddStatus',
                     'serviceContracts' => [
                         '*' => [

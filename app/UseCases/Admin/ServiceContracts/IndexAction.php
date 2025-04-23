@@ -42,11 +42,15 @@ class IndexAction
             'companies.company_status_code',
             'companies.created_at',
             'due_diligences.final_dd_completed_date',
+            'service_contracts.service_code',
+            'service_contracts.service_plan_code',
+            'service_contracts.service_contract_code',
         ])
         ->leftJoin('due_diligences', function ($join) {
             $join->on('companies.latest_dd_id', '=', 'due_diligences.dd_id')
                 ->where('due_diligences.dd_status', 'Business Start/Continue');
         })
+        ->leftJoin('service_contracts', 'service_contracts.company_id', '=', 'companies.company_id')
         ->when($companyName, function ($query) use ($companyName) {
             $query->where('companies.company_name_en', 'LIKE', "%{$companyName}%");
         })
@@ -60,7 +64,6 @@ class IndexAction
         ->when($serviceSignupEndDate, function ($query) use ($serviceSignupEndDate) {
             $query->where('companies.created_at', '<=', $serviceSignupEndDate);
         })
-        ->with('serviceContracts')
         ->orderBy('companies.company_id')
         ->paginate(perPage: $displayedNumber, page: $page);
 
@@ -70,17 +73,8 @@ class IndexAction
 
         $paginator->map(function ($item) use ($statuses, $services, $servicePlans) {
             $item->setAttribute('company_status', $statuses->firstWhere('selection_item_code', $item->company_status_code)->selection_item_name);
-
-            $item->setAttribute('service_contracts', collect());
-            foreach ($item->serviceContracts as $contract) {
-                $item->getAttribute('service_contracts')->push((object) [
-                    'service_code' => $contract->service_code,
-                    'service_plan_code' => $contract->service_plan_code,
-                    'service_contract_code' => $contract->service_contract_code,
-                    'service_name' => $services->firstWhere('service_code', $contract->service_code)->service_name,
-                    'service_plan_name' => $servicePlans->firstWhere('service_plan_code', $contract->service_plan_code)->service_plan_name,
-                ]);
-            }
+            $item->setAttribute('service_name', $services->firstWhere('service_code', $item->service_code)?->service_name);
+            $item->setAttribute('service_plan_name', $servicePlans->firstWhere('service_plan_code', $item->service_plan_code)?->service_plan_name);
 
             return $item;
         });

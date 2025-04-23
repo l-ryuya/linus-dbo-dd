@@ -30,5 +30,10 @@ fi
 # supervisord
 /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
 
+sleep 3
+echo "==== Process Check ===="
+ps -ef | grep supervisord | grep -v grep
+echo "======================="
+
 echo ""
 exec "$@"
