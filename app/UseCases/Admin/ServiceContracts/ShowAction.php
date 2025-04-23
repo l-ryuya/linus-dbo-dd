@@ -35,11 +35,7 @@ class ShowAction
             'companies.created_at',
         ])
         ->where('companies.company_code', $companyCode)
-        ->first();
-
-        if (empty($company)) {
-            abort(404);
-        }
+        ->firstOrFail();
 
         $statuses = SelectionItemTranslation::filterByTypeAndLanguage(null, $languageCode)->get();
         $services = ServiceTranslation::withLanguage($languageCode)->get();
@@ -47,7 +43,7 @@ class ShowAction
 
         $company->setAttribute(
             'dd_status',
-            $statuses->where('selection_item_type', 'company_status')
+            $statuses->where('selection_item_type', $company->latestDd?->dd_status_type)
                 ->where('selection_item_code', $company->latestDd?->dd_status)
                 ->first()?->selection_item_name,
         );

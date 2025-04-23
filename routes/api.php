@@ -20,4 +20,5 @@ require $path . 'roots.php';
 require $path . 'users.php';
 
 require $path . 'admin' . DIRECTORY_SEPARATOR . 'companies.php';
+require $path . 'admin' . DIRECTORY_SEPARATOR . 'due_diligences.php';
 require $path . 'admin' . DIRECTORY_SEPARATOR . 'service_contracts.php';

@@ -92,6 +92,68 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
+  /due-diligences/{dd_code}:
+    get:
+      summary: デューデリジェンス詳細 取得
+      parameters:
+        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
+        - name: dd_code
+          in: path
+          description: デューデリジェンス通番
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DueDiligencesDetailResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: 'components/error_response.yaml#/components/responses/NotFound'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
+  /due-diligences/{dd_code}/result-summary:
+    get:
+      summary: デューデリジェンス結果概要 取得
+      parameters:
+        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
+        - name: dd_code
+          in: path
+          description: デューデリジェンス通番
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/DueDiligencesResultSummaryResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: 'components/error_response.yaml#/components/responses/NotFound'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
 
 components:
   schemas:
@@ -117,15 +179,6 @@ components:
           format: date
           nullable: true
           description: サービス開始日
-        serviceContracts:
-          type: array
-          description: サービス契約
-          items:
-            $ref: '#/components/schemas/ServiceContractMinimalResponse'
-    ServiceContractMinimalResponse:
-      description: サービス契約
-      type: object
-      properties:
         serviceContractCode:
           type: string
           description: サービス契約通番
@@ -169,10 +222,10 @@ components:
         buildingRoom:
           type: string
           description: 建物名・部屋番号
-        latestDdId:
+        latestDdCode:
           type: string
           nullable: true
-          description: 最新デューデリジェンスID
+          description: 最新デューデリジェンスコード
         ddStatus:
           type: string
           nullable: true
@@ -217,6 +270,7 @@ components:
           $ref: '#/components/schemas/PersonInChargeResponse'
           description: 契約担当者
     PersonInChargeResponse:
+      description: 担当者
       type: object
       properties:
         lastName:
@@ -234,6 +288,131 @@ components:
         email:
           type: string
           description: メールアドレス
+    DueDiligencesDetailResponse:
+      description: デューデリジェンス詳細
+      type: object
+      properties:
+        ddCode:
+          type: string
+          description: デューデリジェンス通番
+        companyName:
+          type: string
+          description: 法人名称
+        ddStatus:
+          type: string
+          nullable: true
+          description: デューデリジェンスステータス
+        aiDdResult:
+          type: string
+          nullable: true
+          description: AI審査結果
+        aiDdCompletedDate:
+          type: string
+          format: date
+          nullable: true
+          description: AI審査完了日
+        primaryDdResult:
+          type: string
+          nullable: true
+          description: 一次審査結果
+        primaryDdUserCode:
+          type: string
+          nullable: true
+          description: 一次審査担当ユーザー通番
+        primaryDdUserName:
+          type: string
+          nullable: true
+          description: 一次審査担当ユーザー名
+        primaryDdCompletedDate:
+          type: string
+          format: date
+          nullable: true
+          description: 一次審査完了日
+        primaryDdComment:
+          type: string
+          nullable: true
+          description: 一次審査コメント
+        finalDdResult:
+          type: string
+          nullable: true
+          description: 最終審査結果
+        finalDdUserCode:
+          type: string
+          nullable: true
+          description: 最終審査担当ユーザー通番
+        finalDdUserName:
+          type: string
+          nullable: true
+          description: 最終審査担当ユーザー名
+        finalDdCompletedDate:
+          type: string
+          format: date
+          nullable: true
+          description: 最終審査完了日
+        finalDdComment:
+          type: string
+          nullable: true
+          description: 最終審査コメント
+    DueDiligencesResultSummaryResponse:
+      description: デューデリジェンス結果概要
+      type: object
+      properties:
+        ddCode:
+          type: string
+          description: デューデリジェンス通番
+        companyName:
+          type: string
+          description: 法人名称
+        ddStatus:
+          type: string
+          nullable: true
+          description: デューデリジェンスステータス
+        ddSummaries:
+          type: array
+          description: デューデリジェンス関連情報
+          items:
+            type: object
+            properties:
+              ddCode:
+                type: string
+                description: デューデリジェンス通番
+              companyName:
+                type: string
+                description: 法人名称
+              ddEntityType:
+                type: string
+                description: デューデリジェンス対象種別
+              ddRelationType:
+                type: string
+                description: デューデリジェンス関連種別
+              individualLastName:
+                type: string
+                nullable: true
+                description: 個人氏名（姓）
+              individualMiddleName:
+                type: string
+                nullable: true
+                description: 個人氏名（ミドルネーム）
+              individualFirstName:
+                type: string
+                nullable: true
+                description: 個人氏名（名）
+              position:
+                type: string
+                nullable: true
+                description: 役職
+              investmentSources:
+                type: string
+                nullable: true
+                description: 出資元
+              investmentTargets:
+                type: string
+                nullable: true
+                description: 出資先
+              shareholdingRatio:
+                type: string
+                nullable: true
+                description: 持株比率
 
   securitySchemes:
     UserAuth:

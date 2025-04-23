@@ -36,7 +36,7 @@ COPY --chown=bitnami:bitnami --chmod=750 --from=builder /build/ /app/
 RUN chown -R bitnami:bitnami /app/
 
 # supervisorをインストール
-RUN install_packages supervisor
+RUN install_packages supervisor procps
 
 COPY infra/docker/develop/php/supervisord.conf /etc/supervisor/
 COPY infra/docker/develop/php/laravel-worker.conf /etc/supervisor/conf.d/

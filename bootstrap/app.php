@@ -6,10 +6,12 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Laravel\Sanctum\Console\Commands\PruneExpired;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -52,7 +54,14 @@ return Application::configure(basePath: dirname(__DIR__))
             'password_confirmation',
         ]);
 
-        $exceptions->renderable(function (ValidationException $e) {
+        $exceptions->render(function (NotFoundHttpException $e) {
+            return response()->json([
+                'statusCode' => 404,
+                'message' => 'Not Found.',
+            ], 404);
+        });
+
+        $exceptions->render(function (ValidationException $e) {
             return response()->json([
                 'message' => __('validation.message'),
                 'errors' => $e->errors(),
@@ -66,8 +75,29 @@ return Application::configure(basePath: dirname(__DIR__))
         $exceptions->render(function (HttpException $e) {
             return response()->json([
                 'statusCode' => $e->getStatusCode(),
-                'message' => $e->getMessage() ?: SymfonyResponse::$statusTexts[$e->getStatusCode()],
+                'message' => $e->getMessage() ?: SymfonyResponse::$statusTexts[$e->getStatusCode()] . '.',
             ], $e->getStatusCode());
+        });
+
+        $exceptions->render(function (Throwable $e, Request $request) {
+            if (! strpos($e->getMessage(), 'file_put_contents')) {
+                $xRequestId = $request->header('x-request-id', '');
+                Log::error(
+                    $xRequestId,
+                    [
+                        'client_ip'	  => $request->getClientIp(),
+                        'request_url' => $request->fullUrl(),
+                        'request_params' => $request->all(),
+                        'exception_file' => $e->getFile() . '::' . $e->getLine(),
+                        'exception_message' => get_class($e) . '::' . $e->getMessage(),
+                    ],
+                );
+            }
+
+            return response()->json([
+                'statusCode' => 500,
+                'message' => 'A system error has occurred.',
+            ], 500);
         });
     })
     ->withCommands([
