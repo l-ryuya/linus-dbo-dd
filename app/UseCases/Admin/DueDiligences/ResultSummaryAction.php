@@ -6,7 +6,6 @@ namespace App\UseCases\Admin\DueDiligences;
 
 use App\Models\DueDiligence;
 use App\Models\SelectionItemTranslation;
-use GuzzleHttp\Promise\Each;
 
 class ResultSummaryAction
 {

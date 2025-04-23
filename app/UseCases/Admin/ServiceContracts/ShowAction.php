@@ -35,11 +35,7 @@ class ShowAction
             'companies.created_at',
         ])
         ->where('companies.company_code', $companyCode)
-        ->first();
-
-        if (empty($company)) {
-            abort(404);
-        }
+        ->firstOrFail();
 
         $statuses = SelectionItemTranslation::filterByTypeAndLanguage(null, $languageCode)->get();
         $services = ServiceTranslation::withLanguage($languageCode)->get();

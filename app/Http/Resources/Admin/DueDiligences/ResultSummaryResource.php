@@ -35,4 +35,3 @@ class ResultSummaryResource extends JsonResource
         ];
     }
 }
-
