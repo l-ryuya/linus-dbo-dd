@@ -123,4 +123,83 @@ class DueDiligencesControllerTest extends TestCase
 
         $response->assertStatus(403);
     }
+
+    /**
+     * デューデリジェンス結果概要APIが正常なレスポンスを返すことをテストする
+     */
+    public function test_result_summary_returns_successful_response(): void
+    {
+        $this->seed(UsersSeeder::class);
+        $this->seed(DueDiligencesSeeder::class);
+
+        $dueDiligence = DueDiligence::where('dd_entity_type_code', 'target_company')
+            ->where('company_name', '株式会社FINOLAB')
+            ->first();
+
+        $this->authenticateAsAdmin();
+
+        $response = $this->getJson($this->getBaseUrl() . '/' . $dueDiligence->dd_code . '/result-summary');
+
+        $response->assertStatus(200)
+            ->assertJsonStructure([
+                'data' => [
+                    'ddCode',
+                    'companyName',
+                    'ddStatus',
+                    'ddSummaries' => [
+                        '*' => [
+                            'ddCode',
+                            'companyName',
+                            'ddEntityType',
+                            'ddRelationType',
+                            'individualLastName',
+                            'individualMiddleName',
+                            'individualFirstName',
+                            'position',
+                            'investmentSources',
+                            'investmentTargets',
+                            'shareholdingRatio',
+                        ],
+                    ],
+                ],
+            ]);
+    }
+
+    /**
+     * 認証されていない場合にデューデリジェンス結果概要へのアクセスが拒否されることをテストする
+     */
+    public function test_result_summary_denies_access_without_authentication(): void
+    {
+        $ddCode = 'DD-000001';
+        $response = $this->getJson($this->getBaseUrl() . '/' . $ddCode . '/result-summary');
+        $response->assertStatus(401);
+    }
+
+    /**
+     * 存在しないデューデリジェンスコードの結果概要を取得する場合に404が返されることをテストする
+     */
+    public function test_result_summary_returns_404_for_nonexistent_dd_code(): void
+    {
+        $this->authenticateAsAdmin();
+
+        $nonExistentDdCode = 'NON-EXISTENT';
+        $response = $this->getJson($this->getBaseUrl() . '/' . $nonExistentDdCode . '/result-summary');
+
+        $response->assertStatus(404);
+    }
+
+    /**
+     * 不正なスコープを持つユーザーが結果概要にアクセスできないことをテストする
+     */
+    public function test_result_summary_denies_access_with_invalid_scope(): void
+    {
+        $user = User::where('user_code', 'SYS-000001')->first();
+        // 不正なスコープでアクティングする
+        Sanctum::actingAs($user, ['invalid_scope']);
+
+        $ddCode = 'DD-000001';
+        $response = $this->getJson($this->getBaseUrl() . '/' . $ddCode . '/result-summary');
+
+        $response->assertStatus(403);
+    }
 }

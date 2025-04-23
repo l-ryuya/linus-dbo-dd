@@ -10,7 +10,7 @@ use App\Models\SelectionItemTranslation;
 class ShowAction
 {
     /**
-     * 管理者向けのデューデリジェンスの詳細を取得する
+     * 管理者向けのデューデリジェンス詳細を取得する
      *
      * @param string $languageCode
      * @param string $ddCode
@@ -38,13 +38,7 @@ class ShowAction
             'final_dd_comment',
         ])
         ->where('dd_code', $ddCode)
-        ->where('dd_entity_type_type', 'dd_entity_type')
-        ->where('dd_entity_type_code', 'target_company')
-        ->first();
-
-        if (empty($dueDiligence)) {
-            abort(404);
-        }
+        ->firstOrFail();
 
         $statuses = SelectionItemTranslation::filterByTypeAndLanguage($dueDiligence->dd_status_type, $languageCode)->get();
 
