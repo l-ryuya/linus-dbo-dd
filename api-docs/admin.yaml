@@ -27,12 +27,14 @@ paths:
           in: query
           required: false
           schema:
-            type: date
+            type: string
+            format: date
         - name: serviceSignupEndDate
           in: query
           required: false
           schema:
-            type: date
+            type: string
+            format: date
         - $ref: 'components/parameters.yaml#/components/parameters/DisplayPageNumber'
         - $ref: 'components/parameters.yaml#/components/parameters/DisplayedResults'
       responses:
