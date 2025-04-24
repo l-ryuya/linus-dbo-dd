@@ -8,7 +8,7 @@ servers:
   - url: 'https://bizdevforge-backphp.dev.dsbizdev.com/v1'
     description: プロトタイプ環境
 paths:
-  /service-contracts:
+  /admin/service-contracts:
     get:
       summary: サービス契約一覧 取得
       parameters:
@@ -63,7 +63,7 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
-  /service-contracts/{company_code}:
+  /admin/service-contracts/{company_code}:
     get:
       summary: サービス契約詳細 取得
       parameters:
@@ -94,7 +94,7 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
-  /due-diligences/{dd_code}:
+  /admin/due-diligences/{dd_code}:
     get:
       summary: デューデリジェンス詳細 取得
       parameters:
@@ -125,7 +125,7 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
-  /due-diligences/{dd_code}/result-summary:
+  /admin/due-diligences/{dd_code}/result-summary:
     get:
       summary: デューデリジェンス結果概要 取得
       parameters:
