@@ -79,12 +79,20 @@
         {
           "name": "APP_ENV",
           "value": "develop"
+        },
+        {
+          "name": "MAIL_USERNAME",
+          "value": "AKIAYSE4N4AV6UETVGZT"
         }
       ],
       "secrets": [
         {
           "name": "LARAVEL_DATABASE_PASSWORD",
           "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-bizdevforge-cluster-dev/rds-password-OzjXkJ"
+        },
+        {
+          "name": "MAIL_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-bizdevforge-cluster-dev/ses-password-p8PjOX"
         }
       ]
     }
