@@ -21,6 +21,7 @@ class ResultSummaryResource extends JsonResource
      * @return array{
      *     ddCode: string,
      *     companyName: string,
+     *     companyCode: string|null,
      *     ddStatus: string|null,
      *     ddSummaries: \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      * }
@@ -30,6 +31,7 @@ class ResultSummaryResource extends JsonResource
         return [
             'ddCode' => $this->self->dd_code,
             'companyName' => $this->self->company_name,
+            'companyCode' => $this->self->company_code,
             'ddStatus' => $this->self->dd_status,
             'ddSummaries' => ResultSummaryRelationResource::collection($this->summaries),
         ];

@@ -10,6 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @property string $dd_code
  * @property string $company_name
+ * @property string|null $company_code
  * @property string|null $dd_status
  * @property string|null $ai_dd_result
  * @property \Illuminate\Support\Carbon|null $ai_dd_completed_date
@@ -32,6 +33,7 @@ class ShowResource extends JsonResource
      * @return array{
      *     ddCode: string,
      *     companyName: string,
+     *     companyCode: string|null,
      *     ddStatus: string|null,
      *     aiDdResult: string|null,
      *     aiDdCompletedDate: string|null,
@@ -52,6 +54,7 @@ class ShowResource extends JsonResource
         return [
             'ddCode' => $this->dd_code,
             'companyName' => $this->company_name,
+            'companyCode' => $this->company_code,
             'ddStatus' => $this->dd_status,
             'aiDdResult' => $this->ai_dd_result,
             'aiDdCompletedDate' => $this->ai_dd_completed_date?->format('Y-m-d'),
