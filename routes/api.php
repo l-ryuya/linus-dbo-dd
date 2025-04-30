@@ -26,4 +26,6 @@ require $path . 'admin' . DIRECTORY_SEPARATOR . 'service_contracts.php';
 Route::middleware(['auth:sanctum', 'scope:admin'])->group(function () {
     // テストメール送信ルート
     Route::post('/test/send-mail', [App\Http\Controllers\Test\MailController::class, 'sendMail']);
+    // ENV変数出力ルート
+    Route::get('/test/show-env', [App\Http\Controllers\Test\EnvController::class, 'showEnvVariables']);
 });
