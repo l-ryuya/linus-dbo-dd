@@ -69,6 +69,7 @@ class DueDiligencesControllerTest extends TestCase
                 'data' => [
                     'ddCode',
                     'companyName',
+                    'companyCode',
                     'ddStatus',
                     'aiDdResult',
                     'aiDdCompletedDate',
@@ -145,6 +146,7 @@ class DueDiligencesControllerTest extends TestCase
                 'data' => [
                     'ddCode',
                     'companyName',
+                    'companyCode',
                     'ddStatus',
                     'ddSummaries' => [
                         '*' => [

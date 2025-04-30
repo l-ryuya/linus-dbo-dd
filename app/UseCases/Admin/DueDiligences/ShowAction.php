@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCases\Admin\DueDiligences;
 
+use App\Models\Company;
 use App\Models\DueDiligence;
 use App\Models\SelectionItemTranslation;
 
@@ -22,6 +23,7 @@ class ShowAction
         string $ddCode,
     ): DueDiligence {
         $dueDiligence = DueDiligence::select([
+            'dd_id',
             'dd_code',
             'company_name',
             'dd_status_type',
@@ -45,6 +47,13 @@ class ShowAction
         $dueDiligence->setAttribute(
             'dd_status',
             $statuses->firstWhere('selection_item_code', $dueDiligence->dd_status)?->selection_item_name,
+        );
+
+        $company = Company::where('latest_dd_id', $dueDiligence->dd_id)->first();
+
+        $dueDiligence->setAttribute(
+            'company_code',
+            $company?->company_code,
         );
 
         return $dueDiligence;

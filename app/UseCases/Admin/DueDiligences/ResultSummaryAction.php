@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCases\Admin\DueDiligences;
 
+use App\Models\Company;
 use App\Models\DueDiligence;
 use App\Models\SelectionItemTranslation;
 
@@ -47,6 +48,13 @@ class ResultSummaryAction
             $statuses->where('selection_item_type', $dueDiligence->dd_status_type)
                 ->where('selection_item_code', $dueDiligence->dd_status)
                 ->first()?->selection_item_name,
+        );
+
+        $company = Company::where('latest_dd_id', $dueDiligence->dd_id)->first();
+
+        $dueDiligence->setAttribute(
+            'company_code',
+            $company?->company_code,
         );
 
         $summaries = DueDiligence::select([
