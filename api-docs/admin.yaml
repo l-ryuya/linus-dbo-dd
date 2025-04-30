@@ -300,6 +300,10 @@ components:
         companyName:
           type: string
           description: 法人名称
+        companyCode:
+          type: string
+          nullable: true
+          description: 法人通番
         ddStatus:
           type: string
           nullable: true
@@ -365,6 +369,10 @@ components:
         companyName:
           type: string
           description: 法人名称
+        companyCode:
+          type: string
+          nullable: true
+          description: 法人通番
         ddStatus:
           type: string
           nullable: true
