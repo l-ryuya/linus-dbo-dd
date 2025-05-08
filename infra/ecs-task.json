@@ -66,11 +66,11 @@
         },
         {
           "name": "LARAVEL_DATABASE_NAME",
-          "value": "bizdevforge"
+          "value": "dbo"
         },
         {
           "name": "LARAVEL_DATABASE_USER",
-          "value": "app"
+          "value": "app_dd"
         },
         {
           "name": "APP_KEY",
