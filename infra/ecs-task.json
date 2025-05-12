@@ -88,11 +88,11 @@
       "secrets": [
         {
           "name": "LARAVEL_DATABASE_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/rds-password-OzjXkJ"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/rds-dd-password-zIgmdz"
         },
         {
           "name": "MAIL_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/ses-password-p8PjOX"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/ses-password-TSt6N8"
         }
       ]
     }
