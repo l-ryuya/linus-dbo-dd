@@ -73,6 +73,10 @@
           "value": "app_dd"
         },
         {
+          "name": "DB_SCHEMA",
+          "value": "dbo_dd"
+        },
+        {
           "name": "APP_KEY",
           "value": "base64:2apIENcJjuPnUkC0MZDi+/gfVIOebQkgu7xYCk326VY="
         },
