@@ -4,8 +4,7 @@ on:
     branches:
       - "main"
       - "dockerbuild_release"
-      - "feature/cisra-update"
-      
+
 concurrency:
   group: dbo-dd
   cancel-in-progress: true
