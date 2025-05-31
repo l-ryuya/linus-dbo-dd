@@ -57,6 +57,9 @@ on:
       aws-ecs-cluster-name:
         required: true
         type: string
+      aws-ecs-namespace:
+        required: true
+        type: string
       aws-ecs-service-name:
         required: true
         type: string
@@ -102,8 +105,8 @@ jobs:
         uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
         with:
           registry: ${{ inputs.registry }}
-          username: ${{ secrets.REGISTRY_USER }}
-          password: ${{ secrets.REGISTRY_TOKEN }}
+          username: ${{ secrets.GIT_USER }}
+          password: ${{ secrets.GITPKG_TOKEN }}
 
       # https://github.com/actions/checkout
       - name: GitHub - checkout
@@ -111,7 +114,7 @@ jobs:
 
       # https://github.com/aws-actions/configure-aws-credentials
       - name: AWS - configure-aws-credentials
-        uses: aws-actions/configure-aws-credentials@ececac1a45f3b08a01d2dd070d28d111c5fe6722 # v4.1.0
+        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
         with:
           aws-region: ${{ inputs.aws-region }}
           role-to-assume: ${{ inputs.aws-role-to-assume }}
@@ -132,7 +135,7 @@ jobs:
         uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-service-name, inputs.env) }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest' }}
         with:
           context: ${{ inputs.docker-context }}
@@ -147,7 +150,7 @@ jobs:
       - name: Run - docker-push
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-service-name, inputs.env) }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest' }}
         run: |
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
@@ -166,7 +169,7 @@ jobs:
 
       # https://github.com/aws-actions/configure-aws-credentials
       - name: AWS - configure-aws-credentials
-        uses: aws-actions/configure-aws-credentials@ececac1a45f3b08a01d2dd070d28d111c5fe6722 # v4.1.0
+        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
         with:
           aws-region: ${{ inputs.aws-region }}
           role-to-assume: ${{ inputs.aws-role-to-assume }}
@@ -179,12 +182,13 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
         env:
           REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-service-name, inputs.env) }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+          CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest'}}
         with:
           task-definition: ${{ inputs.aws-ecs-task-definition-filepath }}
           image: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
-          container-name: ${{ inputs.aws-ecs-task-definition-container-name }}
+          container-name: ${{ env.CONTAINER_NAME }}
           environment-variables: ${{ inputs.aws-ecs-task-definition-environment-variables }}
           secrets: ${{ inputs.aws-ecs-task-definition-secrets }}
       
@@ -197,10 +201,10 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@176bcc0288c49ee545288583859af21ee17f4b2c # v2.3.1
         env:
           ECS_CLUSTER_NAME: ${{ format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-cluster-name, inputs.env) }}
-          ECS_SERVICE_NAME: ${{ format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-service-name, inputs.env) }}
+          ECS_SERVICE_NAME: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           ECS_CODEDEPLOY_APPSPEC_FILE_PATH: ${{ inputs.aws-ecs-codedeploy-enabled && inputs.aws-ecs-codedeploy-appspec-filepath || '' }}
-          ECS_CODEDEPLOY_APPLICATION: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-service-name, inputs.env) || '' }}
-          ECS_CODEDEPLOY_DEPLOYMENT_GROUP: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-service-name, inputs.env) || '' }}
+          ECS_CODEDEPLOY_APPLICATION: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) || '' }}
+          ECS_CODEDEPLOY_DEPLOYMENT_GROUP: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) || '' }}
         with:
           cluster: ${{ env.ECS_CLUSTER_NAME }}
           service: ${{ env.ECS_SERVICE_NAME }}
