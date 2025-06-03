@@ -15,7 +15,6 @@ declare(strict_types=1);
 
 $path = __DIR__ . DIRECTORY_SEPARATOR . 'endpoints' . DIRECTORY_SEPARATOR;
 
-require $path . 'sanctum.php';
 require $path . 'roots.php';
 require $path . 'users.php';
 
