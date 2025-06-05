@@ -58,6 +58,7 @@ class M5TokenGuard implements Guard
         );
         if ($response->ok()) {
             $data = $response->json();
+            $data['token'] = $token;
 
             $this->user = new GenericUser($data);
             return $this->user;

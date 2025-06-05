@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Auth;
 
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Support\Facades\Http;
 
 class GenericUser implements Authenticatable
 {
@@ -19,15 +20,19 @@ class GenericUser implements Authenticatable
         $this->attributes = $attributes;
     }
 
+    /**
+     * @throws \Illuminate\Http\Client\ConnectionException
+     */
     public function tokenCan(string $scope): bool
     {
-        // 権限情報はM5のAPIから取得して検証する必要がある
+        $response = Http::withToken($this->attributes['token'])->get(
+            config('m5.auth.token_functions_verify_url') . '/' . $scope,
+        );
+        if ($response->ok()) {
+            return true;
+        }
 
-        return true;
-
-//        $scopes = $this->attributes['scopes'] ?? [];
-//
-//        return in_array($scope, $scopes);
+        return false;
     }
 
     public function getAuthIdentifierName(): string
