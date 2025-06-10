@@ -1,0 +1,7 @@
+"role_id","language_code","name","short_name","remarks","created_at","updated_at","deleted_at"
+16,eng,Operator,Operator,,,,
+17,eng,Customer,Customer,,,,
+18,eng,Customer,Customer,,,,
+16,jpn,オペレーター,オペレーター,,,,
+17,jpn,カスタマー,カスタマー,,,,
+18,jpn,テナント,テナント,,,,

@@ -1,3 +1,0 @@
-user_id,user_code,company_id,latest_dd_id,user_status_type,user_status,last_name_en,last_name_sl,middle_name_en,middle_name_sl,first_name_en,first_name_sl,position_en,position_sl,email,mobile_phone,nationality_code,gender_type,gender,date_of_birth,place_of_birth_en,place_of_birth_sl,profile_en,profile_sl
-,U-900001,,,user_status,Active,Yamada,山田,,,Kojirou,小次郎,,テスト担当,kojirou.yamada@finolab.local,,JPN,gender,Male,,,,,
-,U-900002,,,user_status,Active,Hara,山田,,,Musashi,武蔵,,契約担当,musashi.yamada@finolab.local,,JPN,gender,Male,,,,,

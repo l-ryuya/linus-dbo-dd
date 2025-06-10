@@ -1,0 +1,5 @@
+"customer_id","public_id","tenant_id","company_id","customer_code","latest_dd_id","customer_status_type","customer_status_code","created_at","updated_at","deleted_at"
+1,"131f0a48-a38e-400d-a2ac-16f5fcd1ef99",1,3,C-DSR-0001,0,customer_status,active,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+2,"73fb6c54-4357-463e-8062-c9368f9500b0",1,4,C-DSR-0002,0,customer_status,active,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+3,"9fdf70e2-2c01-4bba-b7bb-03334589a63e",2,5,C-DSD-0001,0,customer_status,active,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+4,"0060fb4a-a7e3-4576-8f32-6c9251c428aa",2,6,C-DSD-0002,0,customer_status,active,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,

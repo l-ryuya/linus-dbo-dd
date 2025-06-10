@@ -14,7 +14,7 @@ class CountryRegionsSeeder extends Seeder
 {
     public function run(): void
     {
-        $filePath = database_path('seeders/base/csv/country_regions.csv');
+        $filePath = database_path('seeders/base/csv/DF16_country_regions.csv');
         if (!file_exists($filePath)) {
             Log::error("CSV file not found: " . $filePath);
             return;
@@ -28,21 +28,19 @@ class CountryRegionsSeeder extends Seeder
 
         foreach ($csv as $row) {
             $data[] = [
-                "country_code_alpha3" => $row['country_code_alpha3'],
-                "country_code_alpha2" => $row['country_code_alpha2'],
-                "country_code_numeric" => (int) $row['country_code_numeric'],
-                "world_region_type" => $row['world_region_type'],
-                "world_region_code" => $row['world_region_code'],
-                "remarks" => $row['remarks'] ?? null,
-                "created_by" => 1, // デフォルトの作成者ID
-                "created_at" => $now,
-                "updated_by" => 1,
-                "updated_at" => $now,
-                "deleted_by" => null,
-                "deleted_at" => null,
+                'country_code_alpha3' => $row['country_code_alpha3'],
+                'country_code_alpha2' => $row['country_code_alpha2'],
+                'country_code_numeric' => (int) $row['country_code_numeric'],
+                'world_region_type' => $row['world_region_type'],
+                'world_region_code' => $row['world_region_code'],
+                'remarks' => $row['remarks'] ?? null,
+                'created_at' => $row['created_at'] ?? $now,
+                'updated_at' => $row['updated_at'] ?? $now,
+                'deleted_at' => $row['deleted_at'] ?? null,
             ];
         }
 
         DB::table('country_regions')->insert($data);
     }
 }
+
