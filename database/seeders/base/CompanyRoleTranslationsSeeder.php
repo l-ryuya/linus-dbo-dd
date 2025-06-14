@@ -30,8 +30,8 @@ class CompanyRoleTranslationsSeeder extends Seeder
             $data[] = [
                 'role_id' => (int) $row['role_id'],
                 'language_code' => $row['language_code'],
-                'name' => $row['name'],
-                'short_name' => $row['short_name'],
+                'role_name' => $row['role_name'],
+                'role_short_name' => $row['role_short_name'],
                 'remarks' => $row['remarks'] ?? null,
                 'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
                 'updated_at' => empty($row['updated_at']) ? $now : $row['updated_at'],

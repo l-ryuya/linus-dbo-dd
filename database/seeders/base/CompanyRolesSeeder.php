@@ -29,8 +29,8 @@ class CompanyRolesSeeder extends Seeder
         foreach ($csv as $row) {
             $data[] = [
                 'role_id' => (int) $row['role_id'],
-                'code' => $row['code'],
-                'name' => $row['name'],
+                'role_code' => $row['role_code'],
+                'role_name' => $row['role_name'],
                 'remarks' => $row['remarks'] ?? null,
                 'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
                 'updated_at' => empty($row['updated_at']) ? $now : $row['updated_at'],

@@ -18,10 +18,10 @@ return new class extends Migration {
                 ->comment('割当対象となる法人のID (companies.company_id)');
             $table->smallInteger('role_id')
                 ->comment('割り当てられた役割の ID (company_roles.role_id)');
-            $table->date('valid_from')->default(DB::raw('current_date'))
-                ->comment('役割適用開始日');
 
             // 任意属性
+            $table->date('valid_from')->default(DB::raw('current_date'))
+                ->comment('役割適用開始日');
             $table->date('valid_to')->nullable()
                 ->comment('役割適用終了日（NULL = 現在も有効）');
             $table->string('remarks')->nullable()

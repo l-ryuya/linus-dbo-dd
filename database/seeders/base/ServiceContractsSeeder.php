@@ -1,0 +1,69 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Database\Seeders\base;
+
+use Carbon\Carbon;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use League\Csv\Reader;
+
+class ServiceContractsSeeder extends Seeder
+{
+    public function run(): void
+    {
+        $filePath = database_path('seeders/base/csv/service_contracts.csv');
+        if (!file_exists($filePath)) {
+            Log::error("CSV file not found: " . $filePath);
+            return;
+        }
+
+        $csv = Reader::createFromPath($filePath, 'r');
+        $csv->setHeaderOffset(0);
+
+        $data = [];
+        $now = Carbon::now();
+
+        foreach ($csv as $row) {
+            $data[] = [
+                'service_contract_id' => (int) $row['service_contract_id'],
+                'public_id' => $row['public_id'],
+                'service_contract_code' => $row['service_contract_code'],
+                'customer_id' => (int) $row['customer_id'],
+                'service_id' => (int) $row['service_id'],
+                'service_plan_id' => (int) $row['service_plan_id'],
+                'customer_contact_user_name' => $row['customer_contact_user_name'],
+                'customer_contact_user_dept' => $row['customer_contact_user_dept'],
+                'customer_contact_user_title' => $row['customer_contact_user_title'],
+                'customer_contact_user_mail' => $row['customer_contact_user_mail'],
+                'customer_contract_user_name' => $row['customer_contract_user_name'],
+                'customer_contract_user_dept' => $row['customer_contract_user_dept'],
+                'customer_contract_user_title' => $row['customer_contract_user_title'],
+                'customer_contract_user_mail' => $row['customer_contract_user_mail'],
+                'contract_officer_sys_user_code' => $row['contract_officer_sys_user_code'],
+                'contract_manager_sys_user_code' => $row['contract_manager_sys_user_code'],
+                'contract_url' => $row['contract_url'],
+                'service_application_date' => $row['service_application_date'],
+                'contract_start_date' => empty($row['contract_start_date']) ? null : $row['contract_start_date'],
+                'contract_end_date' => empty($row['contract_end_date']) ? null : $row['contract_end_date'],
+                'contract_cancel_date' => empty($row['contract_cancel_date']) ? null : $row['contract_cancel_date'],
+                'contract_cancel_reason' => $row['contract_cancel_reason'] ?? null,
+                'service_usage_status_type' => $row['service_usage_status_type'],
+                'service_usage_status_code' => $row['service_usage_status_code'],
+                'contract_status_type' => $row['contract_status_type'],
+                'contract_status_code' => $row['contract_status_code'],
+                'billing_cycle_type' => $row['billing_cycle_type'],
+                'billing_cycle_code' => $row['billing_cycle_code'],
+                'remarks' => $row['remarks'],
+                'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
+                'updated_at' => empty($row['updated_at']) ? $now : $row['updated_at'],
+                'deleted_at' => empty($row['deleted_at']) ? null : $row['deleted_at'],
+            ];
+        }
+
+        DB::table('service_contracts')->insert($data);
+    }
+}
+

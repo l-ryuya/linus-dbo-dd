@@ -1,0 +1,11 @@
+service_id,public_id,tenant_id,service_code,service_status_type,service_status_code,service_start_date,service_end_date,service_condition,remarks,service_admin_sys_user_code
+1,"01976d1e-4752-7644-b02b-987babd2cf8a",1,SV-00001,service_status,active,2024-08-01,,,,USR00000003
+2,"01976d1e-4752-74f3-ad9e-78b87e7af007",1,SV-00002,service_status,active,2024-12-01,,,,USR00000003
+3,"01976d1e-4752-7eb5-a850-229e83204ebb",1,SV-00003,service_status,active,2025-04-01,,,,USR00000003
+4,"01976d1e-4752-7db2-a6fc-47a88a5dffc9",1,SV-00004,service_status,active,2024-10-01,,,,USR00000003
+5,"01976d1e-4752-7ba9-aa35-428ba63d9ec2",1,SV-00005,service_status,active,2025-04-01,,,,USR00000003
+6,"01976d1e-4752-7352-9b5c-7ff65339e109",2,SV-00006,service_status,active,2024-08-01,,,,USR00000003
+7,"01976d1e-4752-7755-be28-070f4cba87d8",2,SV-00007,service_status,active,2024-12-01,,,,USR00000003
+8,"01976d1e-4752-7e9a-93d4-03aa609b2b5f",2,SV-00008,service_status,active,2025-04-01,,,,USR00000003
+9,"01976d1e-4752-7bfe-86b2-5a31fc44cc17",2,SV-00009,service_status,active,2024-10-01,,,,USR00000003
+10,"01976d1e-4752-7016-a5b3-2114ffb7ea6c",2,SV-00010,service_status,active,2025-04-01,,,,USR00000003

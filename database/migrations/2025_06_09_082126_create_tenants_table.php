@@ -25,6 +25,9 @@ return new class extends Migration {
                 ->unique()
                 ->comment('テナントコード（外部公開用）');
 
+            $table->string('sys_organization_code', 12)
+                ->comment('m5 システム組織コード');
+
             $table->string('tenant_name')
                 ->comment('テナント名（会社名）');
 

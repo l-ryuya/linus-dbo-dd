@@ -28,12 +28,12 @@ return new class extends Migration {
                 ->unique()
                 ->comment('紐付く法人 (companies.company_id) — 1:1 関係');
 
+            $table->string('sys_organization_code', 12)
+                ->comment('m5 システム組織コード');
+
             // 必須属性
             $table->string('customer_code')->unique()
                 ->comment('システム内で顧客を識別するユニークなコード');
-
-            $table->unsignedBigInteger('latest_dd_id')
-                ->comment('関連する最新デューデリジェンス ID');
 
             // 状態属性
             $table->string('customer_status_type')

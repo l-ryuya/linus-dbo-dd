@@ -14,14 +14,15 @@ return new class extends Migration {
             $table->comment('法人が持ち得る役割を定義するマスタ');
 
             // ビジネス識別子
-            $table->smallIncrements('role_id')
+            $table->id('role_id')
                 ->comment('役割マスタを一意に識別する連番 ID');
 
-            $table->string('code')->unique()
+            $table->string('role_code')
+                ->unique()
                 ->comment('役割コード（システム内部参照用、ユニーク）');
 
             // 必須属性
-            $table->string('name')
+            $table->string('role_name')
                 ->comment('役割の表示名');
 
             // 任意属性

@@ -15,6 +15,11 @@ use Database\Seeders\base\CountryRegionsTranslationsSeeder;
 use Database\Seeders\base\CustomersSeeder;
 use Database\Seeders\base\SelectionItemsSeeder;
 use Database\Seeders\base\SelectionItemTranslationsSeeder;
+use Database\Seeders\base\ServiceContractsSeeder;
+use Database\Seeders\base\ServicePlansSeeder;
+use Database\Seeders\base\ServicePlanTranslationsSeeder;
+use Database\Seeders\base\ServicesSeeder;
+use Database\Seeders\base\ServiceTranslationsSeeder;
 use Database\Seeders\base\TenantsSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -29,18 +34,23 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-//            SelectionItemsSeeder::class,
-//            SelectionItemTranslationsSeeder::class,
-//            CountryRegionsSeeder::class,
-//            CountryRegionsTranslationsSeeder::class,
-//            AddressFormatRulesSeeder::class,
-//            TenantsSeeder::class,
-//            CompaniesSeeder::class,
-//            CompanyNameTranslationsSeeder::class,
-//            CompanyRolesSeeder::class,
-//            CompanyRoleTranslationsSeeder::class,
+            SelectionItemsSeeder::class,
+            SelectionItemTranslationsSeeder::class,
+            CountryRegionsSeeder::class,
+            CountryRegionsTranslationsSeeder::class,
+            AddressFormatRulesSeeder::class,
+            TenantsSeeder::class,
+            CompaniesSeeder::class,
+            CompanyNameTranslationsSeeder::class,
+            CompanyRolesSeeder::class,
+            CompanyRoleTranslationsSeeder::class,
             CompanyRoleAssignmentsSeeder::class,
-//            CustomersSeeder::class,
+            CustomersSeeder::class,
+            ServicesSeeder::class,
+            ServiceTranslationsSeeder::class,
+            ServicePlansSeeder::class,
+            ServicePlanTranslationsSeeder::class,
+            ServiceContractsSeeder::class,
         ]);
     }
 }

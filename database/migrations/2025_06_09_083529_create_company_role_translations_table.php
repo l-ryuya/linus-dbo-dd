@@ -14,16 +14,17 @@ return new class extends Migration {
             $table->comment('法人役割の多言語訳');
 
             // ビジネス識別子（複合主キー）
-            $table->smallInteger('role_id')
+            $table->id('role_id')
                 ->comment('参照先 role_id');
             $table->char('language_code', 3)
                 ->comment('言語コード (ISO-639-3)');
 
             // 必須属性
-            $table->string('name')->comment('翻訳後の役割名');
+            $table->string('role_name')
+                ->comment('翻訳後の役割名');
 
             // 任意属性
-            $table->string('short_name')->nullable()
+            $table->string('role_short_name')->nullable()
                 ->comment('翻訳後の略称');
             $table->string('remarks')->nullable()
                 ->comment('備考');

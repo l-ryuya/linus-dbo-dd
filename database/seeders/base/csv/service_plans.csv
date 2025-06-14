@@ -1,0 +1,7 @@
+service_plan_id,public_id,tenant_id,service_id,service_plan_code,service_plan_status_type,service_plan_status_code,billing_cycle,unit_price,service_start_date,service_end_date,remarks
+1,"01976d27-148f-7393-bf3d-c2e5a7146335",1,3,SP-000001,service_plan_status,active,1,10000,2025-04-01,,
+2,"01976d27-148f-77b3-ac68-1c16379eb6b1",1,3,SP-000002,service_plan_status,active,1,7500,2025-04-01,,
+3,"01976d27-148f-758d-8bac-dba61bef1054",1,3,SP-000003,service_plan_status,active,1,5000,2025-04-01,,
+4,"01976d27-148f-7fca-8196-8fbd9fb24992",2,8,SP-000004,service_plan_status,active,1,10000,2025-04-01,,
+5,"01976d27-148f-74a5-be97-ce66561afc88",2,8,SP-000005,service_plan_status,active,1,7500,2025-04-01,,
+6,"01976d27-148f-7f95-ac62-67f15266bd8d",2,8,SP-000006,service_plan_status,active,1,5000,2025-04-01,,

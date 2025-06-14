@@ -31,6 +31,7 @@ class TenantsSeeder extends Seeder
                 'tenant_id' => (int) $row['tenant_id'],
                 'public_id' => $row['public_id'],
                 'tenant_code' => $row['tenant_code'],
+                'sys_organization_code' => $row['sys_organization_code'],
                 'tenant_name' => $row['tenant_name'],
                 'remarks' => $row['remarks'] ?? null,
                 'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
