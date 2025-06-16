@@ -18,8 +18,8 @@ return new class extends Migration {
 
             $table->uuid('public_id')
                 ->unique()
-                ->default(DB::raw('uuid_generate_v7()'))
-                ->comment('外部公開用 UUID v7');
+                ->default(DB::raw('gen_random_uuid()'))
+                ->comment('外部公開用 UUID v4');
 
             $table->string('company_code')->unique()
                 ->comment('法人コード（外部公開用）');

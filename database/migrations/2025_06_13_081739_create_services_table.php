@@ -17,8 +17,8 @@ return new class extends Migration {
             $table->id('service_id')->comment('内部連番（PK）');
             $table->uuid('public_id')
                 ->unique()
-                ->default(DB::raw('uuid_generate_v7()'))
-                ->comment('外部公開用 UUID v7');
+                ->default(DB::raw('gen_random_uuid()'))
+                ->comment('外部公開用 UUID v4');
 
             // ビジネス識別子
             $table->unsignedBigInteger('tenant_id')

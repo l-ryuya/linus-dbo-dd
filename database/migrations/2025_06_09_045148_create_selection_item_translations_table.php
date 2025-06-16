@@ -41,7 +41,7 @@ return new class extends Migration {
             $table->primary(['selection_item_type', 'selection_item_code', 'language_code']);
 
             // 一意制約（Laravelでは主キーと重複するがDDLと同様に記載）
-            $table->unique(['selection_item_type', 'selection_item_code', 'language_code']);
+            $table->unique(['selection_item_type', 'selection_item_code', 'language_code'], 'fk_selection_item_translations_selection_items');
 
             // 外部キー制約
             $table->foreign(['selection_item_type', 'selection_item_code'])
