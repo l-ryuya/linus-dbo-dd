@@ -7,6 +7,10 @@ namespace App\Auth;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Http;
 
+/**
+ * @property string $token
+ * @property string $sub
+ */
 class GenericUser implements Authenticatable
 {
     /** @var array<string, mixed> */
