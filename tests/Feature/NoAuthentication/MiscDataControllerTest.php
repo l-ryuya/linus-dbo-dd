@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Tests\Feature\NoAuthentication;
 
+use Database\Seeders\base\SelectionItemsSeeder;
+use Database\Seeders\base\SelectionItemTranslationsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,7 +17,10 @@ class MiscDataControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed();
+        $this->seed([
+            SelectionItemsSeeder::class,
+            SelectionItemTranslationsSeeder::class,
+        ]);
     }
 
     /**

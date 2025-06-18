@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Database\Seeders\base;
 
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -27,22 +26,20 @@ class ServicesSeeder extends Seeder
         $data = [];
         $now = Carbon::now();
 
-        $admin = User::where('user_code', 'SYS-000001')->first();
-
         foreach ($csv as $row) {
             $data[] = [
+                "tenant_id" => $row['tenant_id'],
+                "public_id" => $row['public_id'],
                 "service_code" => $row['service_code'],
                 "service_status_type" => $row['service_status_type'],
                 "service_status_code" => $row['service_status_code'],
                 "service_start_date" => empty($row['service_start_date']) ? null : $row['service_start_date'],
                 "service_end_date" => empty($row['service_end_date']) ? null : $row['service_end_date'],
                 "service_condition" => $row['service_condition'] ?? null,
-                "service_admin_user_id" => $admin->user_id,
-                "created_by" => 1,
+                "remarks" => $row['remarks'] ?? null,
+                "service_admin_sys_user_code" => $row['service_admin_sys_user_code'],
                 "created_at" => $now,
-                "updated_by" => 1,
                 "updated_at" => $now,
-                "deleted_by" => null,
                 "deleted_at" => null,
             ];
         }

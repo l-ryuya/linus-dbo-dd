@@ -14,7 +14,7 @@ class SelectionItemTranslationsSeeder extends Seeder
 {
     public function run(): void
     {
-        $filePath = database_path('seeders/base/csv/selection_item_translations.csv');
+        $filePath = database_path('seeders/base/csv/DF18_selection_item_translations.csv');
         if (!file_exists($filePath)) {
             Log::error("CSV file not found: " . $filePath);
             return;
@@ -28,18 +28,15 @@ class SelectionItemTranslationsSeeder extends Seeder
 
         foreach ($csv as $row) {
             $data[] = [
-                "selection_item_type" => $row['selection_item_type'],
-                "selection_item_code" => $row['selection_item_code'],
-                "language_code" => $row['language_code'],
-                "selection_item_name" => $row['selection_item_name'],
-                "selection_item_short_name" => $row['selection_item_short_name'] ?? null,
-                "remarks" => $row['remarks'] ?? null,
-                "created_by" => 1, // デフォルトの作成者ID
-                "created_at" => $now,
-                "updated_by" => 1,
-                "updated_at" => $now,
-                "deleted_by" => null,
-                "deleted_at" => null,
+                'selection_item_type' => $row['selection_item_type'],
+                'selection_item_code' => $row['selection_item_code'],
+                'language_code' => $row['language_code'],
+                'selection_item_name' => $row['selection_item_name'],
+                'selection_item_short_name' => $row['selection_item_short_name'] ?? null,
+                'remarks' => $row['remarks'] ?? null,
+                'created_at' => $now,
+                'updated_at' => $now,
+                'deleted_at' => null,
             ];
         }
 

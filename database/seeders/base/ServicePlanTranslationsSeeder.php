@@ -28,17 +28,13 @@ class ServicePlanTranslationsSeeder extends Seeder
 
         foreach ($csv as $row) {
             $data[] = [
-                "service_code" => $row['service_code'],
-                "service_plan_code" => $row['service_plan_code'],
+                "service_plan_id" => $row['service_plan_id'],
                 "language_code" => $row['language_code'],
                 "service_plan_name" => $row['service_plan_name'],
                 "service_plan_description" => $row['service_plan_description'],
                 "remarks" => $row['remarks'] ?? null,
-                "created_by" => 1,
                 "created_at" => $now,
-                "updated_by" => 1,
                 "updated_at" => $now,
-                "deleted_by" => null,
                 "deleted_at" => null,
             ];
         }

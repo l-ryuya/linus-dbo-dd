@@ -1,7 +1,0 @@
-dd_issue_id,dd_issue_code,dd_id,ai_dd_result,ai_dd_completed_date,ai_dd_issue_comment,primary_dd_result,primary_dd_user_id,primary_dd_completed_date,primary_dd_issue_comment,final_dd_result,final_dd_user_id,final_dd_completed_date,final_dd_issue_comment,dd_issue_evidences,created_by,created_at,updated_by,updated_at,deleted_by,deleted_at
-31,DDI-20250228-0031,5288,TRUE,2025-02-28,疑義あり,,,,,,,,,,,,,,,
-32,DDI-20250228-0032,5291,TRUE,2025-02-28,疑義あり,,,,,,,,,,,,,,,
-33,DDI-20250228-0033,5292,TRUE,2025-02-28,疑義あり,,,,,,,,,,,,,,,
-34,DDI-20250228-0034,5296,TRUE,2025-02-28,疑義あり,,,,,,,,,,,,,,,
-35,DDI-20250228-0035,5297,TRUE,2025-02-28,疑義あり,,,,,,,,,,,,,,,
-36,DDI-20250228-0036,5298,TRUE,2025-02-28,疑義あり,,,,,,,,,,,,,,,

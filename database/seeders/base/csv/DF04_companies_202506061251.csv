@@ -1,0 +1,7 @@
+"company_id","public_id","company_code","tenant_id","legal_name_en","short_name_en","country_code_alpha3","postal","state","city","street","building","default_locale_code","website_url","remarks","created_at","updated_at","deleted_at"
+1,"b7e2a1c2-3f4b-4e2a-8c1d-1a2b3c4d5e6f",COM-DSR,1,DENTSU SOKEN INC.,Dentsu Soken,JPN,"108-0075",東京都,港区,港南2丁目17-1,,,https://www.dentsusoken.com/english,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+2,"c1d2e3f4-5a6b-4c7d-8e9f-0a1b2c3d4e5f",COM-DSD,2,DENTSU DIGITAL INC.,Dentsu Digital,JPN,"105-7001",東京都,港区,東新橋1丁目8-1,,,https://www.dentsudigital.co.jp/,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+3,"d2e3f4a5-b6c7-4d8e-9f0a-1b2c3d4e5f6a",COM-FINO,1,FINOLAB Inc.,FINOLAB,JPN,"100-0004",東京都,千代田区,大手町1丁目6-1,大手町ビル4F,,https://finolab.co.jp/,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+4,"e3f4a5b6-c7d8-4e9f-0a1b-2c3d4e5f6a7b",COM-SSN,1,"Sansan, Inc.",Sansan,JPN,"150-6228",東京都,渋谷区,桜丘町1丁目1,渋谷サクラステージ28F,,https://www.corp-sansan.com/,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+5,"f4a5b6c7-d8e9-4f0a-1b2c-3d4e5f6a7b8c",COM-SUBARU,2,SUBARU CORPORATION,SUBARU,JPN,"150-8554",東京都,渋谷区,恵比寿1丁目20-8,,,https://www.subaru.co.jp/,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+6,"a5b6c7d8-e9f0-4a1b-2c3d-4e5f6a7b8c9d",COM-SUNT,2,Suntory Holdings Limited,Suntory,JPN,"108-0075",東京都,港区,台場2丁目3-3,サントリーワールド本社,,https://www.suntory.co.jp/company/,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,

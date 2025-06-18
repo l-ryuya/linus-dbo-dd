@@ -15,17 +15,20 @@ declare(strict_types=1);
 
 $path = __DIR__ . DIRECTORY_SEPARATOR . 'endpoints' . DIRECTORY_SEPARATOR;
 
-require $path . 'sanctum.php';
 require $path . 'roots.php';
-require $path . 'users.php';
+require $path . 'tenant' . DIRECTORY_SEPARATOR . 'customers.php';
 
-require $path . 'admin' . DIRECTORY_SEPARATOR . 'companies.php';
-require $path . 'admin' . DIRECTORY_SEPARATOR . 'due_diligences.php';
-require $path . 'admin' . DIRECTORY_SEPARATOR . 'service_contracts.php';
-
-Route::middleware(['auth:sanctum', 'scope:admin'])->group(function () {
-    // テストメール送信ルート
-    Route::post('/test/send-mail', [App\Http\Controllers\Test\MailController::class, 'sendMail']);
-    // ENV変数出力ルート
-    Route::get('/test/show-env', [App\Http\Controllers\Test\EnvController::class, 'showEnvVariables']);
-});
+if (config('app.env') !== 'production') {
+    Route::middleware(['auth'])->group(function () {
+        // テストメール送信ルート
+        Route::post(
+            '/test/send-mail',
+            [App\Http\Controllers\Test\MailController::class, 'sendMail'],
+        );
+        // ENV変数出力ルート
+        Route::get(
+            '/test/show-env',
+            [App\Http\Controllers\Test\EnvController::class, 'showEnvVariables'],
+        );
+    });
+}

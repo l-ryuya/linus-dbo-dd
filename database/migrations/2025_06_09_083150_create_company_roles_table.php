@@ -1,0 +1,54 @@
+<?php
+
+declare(strict_types=1);
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration {
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('company_roles', function (Blueprint $table) {
+            $table->comment('法人が持ち得る役割を定義するマスタ');
+
+            // ビジネス識別子
+            $table->id('role_id')
+                ->comment('役割マスタを一意に識別する連番 ID');
+
+            $table->string('role_code')
+                ->unique()
+                ->comment('役割コード（システム内部参照用、ユニーク）');
+
+            // 必須属性
+            $table->string('role_name')
+                ->comment('役割の表示名');
+
+            // 任意属性
+            $table->string('remarks')->nullable()
+                ->comment('役割に関する備考');
+
+            // 監査系
+            $table->timestamp('created_at')->useCurrent()
+                ->comment('レコード作成日時');
+            $table->timestamp('updated_at')->useCurrent()
+                ->comment('レコード更新日時');
+            $table->timestamp('deleted_at')->nullable()
+                ->comment('レコード削除日時（論理削除）');
+        });
+
+        // パーシャルインデックス
+        DB::statement("CREATE INDEX idx_company_roles_deleted_null ON company_roles (role_id) WHERE deleted_at IS NULL");
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('company_roles');
+    }
+};
