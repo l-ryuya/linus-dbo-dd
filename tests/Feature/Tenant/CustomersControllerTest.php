@@ -22,6 +22,8 @@ class CustomersControllerTest extends TestCase
 
         $this->seed();
 
+        sleep(1); // トランザクションコミット待ち
+
         $tenant = Tenant::where('sys_organization_code', 'ORG00000010')->first();
 
         // UserOrganizationServiceクラスのgetLowestLevelOrganizationメソッドをモック
