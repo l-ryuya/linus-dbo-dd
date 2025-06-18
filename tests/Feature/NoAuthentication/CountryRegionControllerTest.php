@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Tests\Feature\NoAuthentication;
 
+use Database\Seeders\base\CountryRegionsSeeder;
+use Database\Seeders\base\CountryRegionsTranslationsSeeder;
+use Database\Seeders\base\SelectionItemsSeeder;
+use Database\Seeders\base\SelectionItemTranslationsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,7 +19,12 @@ class CountryRegionControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed();
+        $this->seed([
+            SelectionItemsSeeder::class,
+            SelectionItemTranslationsSeeder::class,
+            CountryRegionsSeeder::class,
+            CountryRegionsTranslationsSeeder::class,
+        ]);
     }
 
     /**

@@ -7,6 +7,19 @@ namespace Tests\Feature\Tenant;
 use App\Models\SelectionItemTranslation;
 use App\Models\Tenant;
 use App\Services\M5\UserOrganizationService;
+use Database\Seeders\base\CompaniesSeeder;
+use Database\Seeders\base\CompanyNameTranslationsSeeder;
+use Database\Seeders\base\CountryRegionsSeeder;
+use Database\Seeders\base\CountryRegionsTranslationsSeeder;
+use Database\Seeders\base\CustomersSeeder;
+use Database\Seeders\base\SelectionItemsSeeder;
+use Database\Seeders\base\SelectionItemTranslationsSeeder;
+use Database\Seeders\base\ServiceContractsSeeder;
+use Database\Seeders\base\ServicePlansSeeder;
+use Database\Seeders\base\ServicePlanTranslationsSeeder;
+use Database\Seeders\base\ServicesSeeder;
+use Database\Seeders\base\ServiceTranslationsSeeder;
+use Database\Seeders\base\TenantsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
@@ -20,9 +33,22 @@ class CustomersControllerTest extends TestCase
     {
         parent::setUp();
 
-        $this->seed();
+        $this->seed([
+            SelectionItemsSeeder::class,
+            SelectionItemTranslationsSeeder::class,
+            CountryRegionsSeeder::class,
+            CountryRegionsTranslationsSeeder::class,
+            TenantsSeeder::class,
+            CompaniesSeeder::class,
+            CompanyNameTranslationsSeeder::class,
+            CustomersSeeder::class,
+            ServicesSeeder::class,
+            ServicePlansSeeder::class,
+            ServiceTranslationsSeeder::class,
+            ServicePlanTranslationsSeeder::class,
+            ServiceContractsSeeder::class,
+        ]);
 
-        sleep(1); // トランザクションコミット待ち
 
         $tenant = Tenant::where('sys_organization_code', 'ORG00000010')->first();
 
