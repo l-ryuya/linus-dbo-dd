@@ -3,7 +3,7 @@ info:
   title: デジタルバックオフィスAPI
   description: |-
     認証不要エンドポイント郡
-  version: '0.1'
+  version: '1.0.0'
 servers:
   - url: 'https://dbo-dd.dev.dsbizdev.com/v1'
     description: ステージング環境

@@ -27,8 +27,8 @@ class IndexResource extends JsonResource
      *     customerName: string,
      *     customerStatus: string,
      *     serviceStartDate: string|null,
-     *     service: string|null,
-     *     servicePlan: string|null,
+     *     serviceName: string|null,
+     *     servicePlanName: string|null,
      * }
      */
     public function toArray(Request $request): array
@@ -38,8 +38,8 @@ class IndexResource extends JsonResource
             'customerName' => $this->legal_name,
             'customerStatus' => $this->customer_status,
             'serviceStartDate' => $this->contract_start_date,
-            'service' => $this->service_name,
-            'servicePlan' => $this->service_plan_name,
+            'serviceName' => $this->service_name,
+            'servicePlanName' => $this->service_plan_name,
         ];
     }
 }
