@@ -1,0 +1,104 @@
+openapi: 3.1.0
+info:
+  title: デジタルバックオフィスAPI
+  description: |-
+    テナント管理者エンドポイント郡
+  version: '1.0.0'
+servers:
+  - url: 'https://dbo-dd.dev.dsbizdev.com/v1'
+    description: ステージング環境
+paths:
+  /tenant/customers:
+    get:
+      summary: テナント管理者 顧客一覧
+      parameters:
+        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
+        - name: organizationCode
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: customerName
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: customerStatusCode
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: servicePublicId
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: servicePlanPublicId
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - $ref: 'components/parameters.yaml#/components/parameters/DisplayPageNumber'
+        - $ref: 'components/parameters.yaml#/components/parameters/DisplayedResults'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/TenantCustomersResponse'
+                  'links':
+                    $ref: 'components/pagination.yaml#/components/schemas/PaginationLinks'
+                  'meta':
+                    $ref: 'components/pagination.yaml#/components/schemas/PaginationMeta'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
+
+components:
+  schemas:
+    TenantCustomersResponse:
+      description: 顧客情報
+      type: object
+      properties:
+        customerCompanyPublicId:
+          type: string
+          format: uuid
+          description: 顧客法人ID
+        customerName:
+          type: string
+          description: 顧客名称
+        customerStatus:
+          type: string
+          description: 顧客ステータス
+        serviceStartDate:
+          type: string
+          format: date
+          nullable: true
+          description: 利用開始日
+        serviceName:
+          type: string
+          nullable: true
+          description: サービス名称
+        servicePlanName:
+          type: string
+          nullable: true
+          description: サービスプラン名称
+
+  securitySchemes:
+    UserAuth:
+      $ref: 'components/security_schemes.yaml#/components/securitySchemes/BearerAuth'

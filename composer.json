@@ -10,8 +10,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "doctrine/dbal": "^4.2",
         "laravel/framework": "^12.0",
-        "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.10.1",
         "league/csv": "^9.23"
     },

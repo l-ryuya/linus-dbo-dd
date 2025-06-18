@@ -28,19 +28,19 @@ class ServicePlansSeeder extends Seeder
 
         foreach ($csv as $row) {
             $data[] = [
-                "service_code" => $row['service_code'],
+                "tenant_id" => $row['tenant_id'],
+                "public_id" => $row['public_id'],
+                "service_id" => $row['service_id'],
                 "service_plan_code" => $row['service_plan_code'],
                 "service_plan_status_type" => $row['service_plan_status_type'],
-                "service_plan_status" => $row['service_plan_status'],
+                "service_plan_status_code" => $row['service_plan_status_code'],
                 "billing_cycle" => (int) $row['billing_cycle'],
                 "unit_price" => (float) $row['unit_price'],
                 "service_start_date" => empty($row['service_start_date']) ? null : $row['service_start_date'],
                 "service_end_date" => empty($row['service_end_date']) ? null : $row['service_end_date'],
-                "created_by" => 1,
+                "remarks" => $row['remarks'] ?? null,
                 "created_at" => $now,
-                "updated_by" => 1,
                 "updated_at" => $now,
-                "deleted_by" => null,
                 "deleted_at" => null,
             ];
         }

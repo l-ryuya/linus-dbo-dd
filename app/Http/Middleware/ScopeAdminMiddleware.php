@@ -9,25 +9,29 @@ use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * 権限判定の仮実装版
- * Route::middleware(['auth:sanctum', 'scope:admin,service_manager'])
+ * 権限判定
+ * Route::middleware(['auth', 'scope:FunctionCode1,FunctionCode2'])
  * のようにRouteで指定する
- *
- * 権限は users.roles で管理
- *
- * @see \App\Enums\RoleType 権限種別
  */
 class ScopeAdminMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
+     *
+     * @throws \Illuminate\Http\Client\ConnectionException
      */
     public function handle(Request $request, Closure $next, string ...$scopes): Response
     {
+        if (empty($scopes)) {
+            return $next($request);
+        }
+
         foreach ($scopes as $scope) {
-            if ($request->user()?->tokenCan($scope)) {
+            /** @var \App\Auth\GenericUser|null $user */
+            $user = $request->user();
+            if ($user?->tokenCan($scope)) {
                 return $next($request);
             }
         }

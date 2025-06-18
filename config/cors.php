@@ -6,7 +6,7 @@ return [
     'paths' => ['v1/*'],
     'allowed_methods' => ['*'],
     'allowed_origins' => [
-        'https://bizdevforge-front.dev.dsbizdev.com',
+        'https://dbo-dd.dev.dsbizdev.com',
     ],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],
