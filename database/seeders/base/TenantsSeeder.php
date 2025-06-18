@@ -43,4 +43,3 @@ class TenantsSeeder extends Seeder
         DB::table('tenants')->insert($data);
     }
 }
-

@@ -40,4 +40,3 @@ class SelectionItemsSeeder extends Seeder
         DB::table('selection_items')->insert($data);
     }
 }
-

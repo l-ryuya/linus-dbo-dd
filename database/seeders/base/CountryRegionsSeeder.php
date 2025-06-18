@@ -43,4 +43,3 @@ class CountryRegionsSeeder extends Seeder
         DB::table('country_regions')->insert($data);
     }
 }
-

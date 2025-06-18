@@ -52,4 +52,3 @@ class CompaniesSeeder extends Seeder
         DB::table('companies')->insert($data);
     }
 }
-

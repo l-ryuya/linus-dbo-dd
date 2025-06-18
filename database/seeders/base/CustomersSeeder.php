@@ -45,4 +45,3 @@ class CustomersSeeder extends Seeder
         DB::table('customers')->insert($data);
     }
 }
-

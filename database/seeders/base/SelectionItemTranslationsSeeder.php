@@ -43,4 +43,3 @@ class SelectionItemTranslationsSeeder extends Seeder
         DB::table('selection_item_translations')->insert($data);
     }
 }
-

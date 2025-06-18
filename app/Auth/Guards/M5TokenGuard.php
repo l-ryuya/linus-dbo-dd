@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace App\Auth\Guards;
 
-use Illuminate\Contracts\Auth\Guard;
+use App\Auth\GenericUser;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
-use App\Auth\GenericUser;
 
 class M5TokenGuard implements Guard
 {
     protected Request $request;
+
     protected ?Authenticatable $user = null;
 
     public function __construct(Request $request)
@@ -70,9 +71,11 @@ class M5TokenGuard implements Guard
     /**
      * @throws \Illuminate\Http\Client\ConnectionException
      */
-    public function id(): mixed
+    public function id(): ?\App\Auth\GenericUser
     {
-        return $this->user()?->getAuthIdentifier();
+        /** @var \App\Auth\GenericUser|null $user */
+        $user = $this->user();
+        return $user?->getAuthIdentifier();
     }
 
     /**

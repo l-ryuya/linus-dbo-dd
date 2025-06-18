@@ -40,4 +40,3 @@ class AddressFormatRulesSeeder extends Seeder
         DB::table('address_format_rules')->insert($data);
     }
 }
-

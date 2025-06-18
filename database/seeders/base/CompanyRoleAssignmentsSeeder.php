@@ -42,4 +42,3 @@ class CompanyRoleAssignmentsSeeder extends Seeder
         DB::table('company_role_assignments')->insert($data);
     }
 }
-

@@ -42,4 +42,3 @@ class CompanyRoleTranslationsSeeder extends Seeder
         DB::table('company_role_translations')->insert($data);
     }
 }
-

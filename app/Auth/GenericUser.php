@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Http;
 
 /**
+ * @property string $id
  * @property string $token
  * @property string $sub
  */
@@ -22,6 +23,7 @@ class GenericUser implements Authenticatable
     public function __construct(array $attributes)
     {
         $this->attributes = $attributes;
+        $this->attributes['id'] = $attributes['sub'] ?? null;
     }
 
     /**

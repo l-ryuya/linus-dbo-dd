@@ -66,4 +66,3 @@ class ServiceContractsSeeder extends Seeder
         DB::table('service_contracts')->insert($data);
     }
 }
-
