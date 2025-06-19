@@ -5,30 +5,32 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tenant\Customers\IndexRequest;
-use App\Http\Resources\Tenant\Customers\IndexCollection;
+use App\Http\Requests\Tenant\Customer\IndexRequest;
+use App\Http\Resources\Tenant\Customer\IndexCollection;
 use App\Models\Tenant;
 use App\Services\M5\UserOrganizationService;
 use App\Shared\Language\IsoLanguageCode;
-use App\UseCases\Tenant\Customers\IndexAction;
+use App\UseCases\Tenant\Customer\IndexAction;
 
-class CustomersController extends Controller
+class CustomerController extends Controller
 {
     protected ?Tenant $identifiedTenant;
+    private UserOrganizationService $userOrganizationService;
 
     public function __construct(
-        private UserOrganizationService $userOrganizationService,
+        UserOrganizationService $userOrganizationService,
     ) {
         parent::__construct();
+        $this->userOrganizationService = $userOrganizationService;
     }
 
     /**
      * テナント管理者の顧客一覧を取得する
      *
-     * @param \App\Http\Requests\Tenant\Customers\IndexRequest $request
-     * @param \App\UseCases\Tenant\Customers\IndexAction       $action
+     * @param \App\Http\Requests\Tenant\Customer\IndexRequest $request
+     * @param \App\UseCases\Tenant\Customer\IndexAction       $action
      *
-     * @return \App\Http\Resources\Tenant\Customers\IndexCollection
+     * @return \App\Http\Resources\Tenant\Customer\IndexCollection
      * @throws \Illuminate\Http\Client\ConnectionException
      */
     public function index(

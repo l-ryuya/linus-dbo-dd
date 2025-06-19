@@ -16,7 +16,7 @@ declare(strict_types=1);
 $path = __DIR__ . DIRECTORY_SEPARATOR . 'endpoints' . DIRECTORY_SEPARATOR;
 
 require $path . 'roots.php';
-require $path . 'tenant' . DIRECTORY_SEPARATOR . 'customers.php';
+require $path . 'tenant' . DIRECTORY_SEPARATOR . 'customer.php';
 
 if (config('app.env') !== 'production') {
     Route::middleware(['auth'])->group(function () {
