@@ -6,11 +6,14 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\Customer\IndexRequest;
+use App\Http\Requests\Tenant\Customer\StoreRequest;
 use App\Http\Resources\Tenant\Customer\IndexCollection;
+use App\Http\Resources\Tenant\Customer\StoreResource;
 use App\Models\Tenant;
 use App\Services\M5\UserOrganizationService;
 use App\Shared\Language\IsoLanguageCode;
 use App\UseCases\Tenant\Customer\IndexAction;
+use App\UseCases\Tenant\Customer\StoreAction;
 
 class CustomerController extends Controller
 {
@@ -57,5 +60,36 @@ class CustomerController extends Controller
                 $request->validated('page'),
             ),
         );
+    }
+
+    /**
+     * テナント管理者が顧客登録をする
+     *
+     * @param \App\Http\Requests\Tenant\Customer\StoreRequest $request
+     * @param \App\UseCases\Tenant\Customer\StoreAction       $action
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws \Throwable
+     */
+    public function store(
+        StoreRequest $request,
+        StoreAction $action,
+    ): \Illuminate\Http\JsonResponse {
+        $user = $request->user();
+        /** @var \App\Auth\GenericUser $user */
+        $this->identifiedTenant = $this->userOrganizationService->getTenantByOrganizationCode(
+            $user->token,
+            $user->sub,
+        );
+
+        return (new StoreResource(
+            $action(
+                $this->identifiedTenant->tenant_id,
+                $request->toStoreInput(),
+            ),
+        ))
+        ->response()
+        ->setStatusCode(201);
     }
 }

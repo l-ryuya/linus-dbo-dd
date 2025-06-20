@@ -11,5 +11,8 @@ return [
     'user' => [
         'user_organization_url' => env('M5_USER_ORGANIZATION_URL'),
     ],
+    'customer' => [
+        'fixed_sys_organization_code' => env('M5_CUSTOMER_FIXED_SYS_ORGANIZATION_CODE'),
+    ]
 
 ];
