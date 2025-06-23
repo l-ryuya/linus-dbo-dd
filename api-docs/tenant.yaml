@@ -68,6 +68,29 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
+    post:
+      summary: テナント管理者 顧客登録
+      parameters:
+        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCustomerPostRequest'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TenantCustomerPostResponse'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
 
 components:
   schemas:
@@ -98,6 +121,70 @@ components:
           type: string
           nullable: true
           description: サービスプラン名称
+    TenantCustomerPostRequest:
+      description: 顧客登録情報
+      type: object
+      properties:
+        customerName:
+          type: string
+          description: 顧客名称
+        customerNameEn:
+          type: string
+          description: 顧客英名
+        websiteUrl:
+          type: string
+          format: uri
+          description: 法人サイトURL
+        shareholdersUrl:
+          type: string
+          format: uri
+          description: 株主情報URL
+        executivesUrl:
+          type: string
+          format: uri
+          description: 役員情報URL
+        countryCodeAlpha3:
+          type: string
+          description: '国コード（ISO 3166-1 alpha-3）'
+        languageCode:
+          type: string
+          description: '言語コード（ISO 639-3）'
+        postalCode:
+          type: string
+          nullable: true
+          description: 郵便番号
+        state:
+          type: string
+          nullable: true
+          description: 都道府県
+        city:
+          type: string
+          nullable: true
+          description: 市区町村
+        street:
+          type: string
+          nullable: true
+          description: 番地
+        building:
+          type: string
+          nullable: true
+          description: 建物名・部屋番号
+        remarks:
+          type: string
+          nullable: true
+          description: 備考
+    TenantCustomerPostResponse:
+      description: 顧客登録情報
+      type: object
+      properties:
+        companyPublicId:
+          type: string
+          format: uuid
+          description: '法人 外部公開用 UUID v4'
+        customerPublicId:
+          type: string
+          format: uuid
+          description: '顧客 外部公開用 UUID v4'
 
   securitySchemes:
     UserAuth:

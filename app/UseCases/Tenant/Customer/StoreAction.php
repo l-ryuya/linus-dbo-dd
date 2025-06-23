@@ -75,6 +75,7 @@ class StoreAction
         $company->building = $data->building;
         $company->remarks = $data->remarks;
         $company->save();
+        $company->refresh();
 
         $companyNameTranslation = new CompanyNameTranslation();
         $companyNameTranslation->company_id = $company->company_id;
@@ -105,6 +106,7 @@ class StoreAction
         $customer->customer_status_type = 'customer_status';
         $customer->customer_status_code = 'under_dd';
         $customer->save();
+        $customer->refresh();
 
         return $company;
     }
