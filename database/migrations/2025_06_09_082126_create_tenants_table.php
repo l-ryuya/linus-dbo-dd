@@ -15,7 +15,7 @@ return new class extends Migration {
         Schema::create('tenants', function (Blueprint $table) {
             $table->comment('販売先（テナント）マスタ');
 
-            // ビジネス識別子
+            // システム識別子
             $table->id('tenant_id')->comment('内部用連番 PK');
 
             $table->uuid('public_id')
@@ -23,17 +23,21 @@ return new class extends Migration {
                 ->default(DB::raw('gen_random_uuid()'))
                 ->comment('外部公開用 UUID v4');
 
+            // ビジネス識別子
             $table->string('tenant_code')
                 ->unique()
                 ->comment('テナントコード（外部公開用）');
 
-            $table->string('sys_organization_code', 12)
-                ->comment('m5 システム組織コード');
-
             $table->string('tenant_name')
                 ->comment('テナント名（会社名）');
 
-            // 任意属性
+            $table->string('sys_organization_code', 12)
+                ->comment('m5 システム組織コード');
+
+            // 属性
+            $table->string('customers_sys_organization_code', 12)
+                ->comment('m5 顧客システム組織コード');
+
             $table->string('remarks')->nullable()
                 ->comment('備考');
 

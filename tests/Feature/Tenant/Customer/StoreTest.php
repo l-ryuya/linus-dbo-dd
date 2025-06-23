@@ -13,7 +13,6 @@ use Database\Seeders\base\SelectionItemsSeeder;
 use Database\Seeders\base\SelectionItemTranslationsSeeder;
 use Database\Seeders\base\TenantsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Config;
 use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Tests\TestCase;
@@ -35,8 +34,6 @@ class StoreTest extends TestCase
             CountryRegionsTranslationsSeeder::class,
             TenantsSeeder::class,
         ]);
-
-        Config::set('m5.customer.fixed_sys_organization_code', 'ORG00000001');
 
         $this->tenant = Tenant::where('sys_organization_code', 'ORG00000010')->first();
 
@@ -126,7 +123,7 @@ class StoreTest extends TestCase
         $this->assertDatabaseHas('customers', [
             'tenant_id' => $this->tenant->tenant_id,
             'company_id' => $company->company_id,
-            'sys_organization_code' => Config::get('m5.customer.fixed_sys_organization_code'),
+            'sys_organization_code' => $this->tenant->customers_sys_organization_code,
             'customer_status_type' => 'customer_status',
             'customer_status_code' => 'under_dd',
         ]);

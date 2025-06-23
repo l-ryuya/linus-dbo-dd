@@ -18,6 +18,7 @@ use App\UseCases\Tenant\Customer\StoreAction;
 class CustomerController extends Controller
 {
     protected ?Tenant $identifiedTenant;
+
     private UserOrganizationService $userOrganizationService;
 
     public function __construct(
@@ -85,7 +86,7 @@ class CustomerController extends Controller
 
         return (new StoreResource(
             $action(
-                $this->identifiedTenant->tenant_id,
+                $this->identifiedTenant,
                 $request->toStoreInput(),
             ),
         ))
