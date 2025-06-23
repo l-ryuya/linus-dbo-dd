@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Tenant;
+namespace Tests\Feature\Tenant\Customer;
 
 use App\Models\SelectionItemTranslation;
 use App\Models\Tenant;
@@ -25,7 +25,7 @@ use PHPUnit\Framework\Attributes\PreserveGlobalState;
 use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Tests\TestCase;
 
-class CustomersControllerTest extends TestCase
+class IndexTest extends TestCase
 {
     use RefreshDatabase;
 

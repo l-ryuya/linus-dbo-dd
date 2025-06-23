@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Tenant\Customers;
+namespace App\Http\Requests\Tenant\Customer;
 
 use App\Http\Requests\Traits\PaginationRules;
 use Illuminate\Foundation\Http\FormRequest;

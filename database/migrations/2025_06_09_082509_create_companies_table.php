@@ -23,22 +23,15 @@ return new class extends Migration {
                 ->default(DB::raw('gen_random_uuid()'))
                 ->comment('外部公開用 UUID v4');
 
-            $table->string('company_code')->unique()
-                ->comment('法人コード（外部公開用）');
-
             $table->unsignedBigInteger('tenant_id')
                 ->comment('所属テナント ID（必須）');
 
-            // 必須属性
-            $table->string('legal_name_en')
-                ->comment('法人正式名称（英語）');
-
             // 任意属性
-            $table->string('short_name_en')->nullable()
-                ->comment('法人略称（英語）');
+            $table->string('company_name_en')->nullable()
+                ->comment('法人英名');
 
             $table->char('country_code_alpha3', 3)->nullable()
-                ->comment('所在地国コード (ISO-3166-1 alpha-3)');
+                ->comment('本社所在地国コード (ISO-3166-1 alpha-3)');
 
             $table->string('postal')->nullable()
                 ->comment('郵便番号');
@@ -50,10 +43,12 @@ return new class extends Migration {
                 ->comment('番地');
             $table->string('building')->nullable()
                 ->comment('建物名・部屋番号');
-            $table->char('default_locale_code', 3)->nullable()
-                ->comment('代表ロケール (ISO-639-3)');
-            $table->string('website_url')->nullable()
-                ->comment('公式 Web サイト URL');
+            $table->text('website_url')->nullable()
+                ->comment('法人サイトURL');
+            $table->text('shareholders_url')->nullable()
+                ->comment('株主情報URL');
+            $table->text('executives_url')->nullable()
+                ->comment('役員情報URL');
             $table->string('remarks')->nullable()
                 ->comment('備考');
 
@@ -77,10 +72,15 @@ return new class extends Migration {
                 ->on('country_regions')
                 ->onUpdate('cascade')
                 ->onDelete('set null');
-
-            // 複合一意制約（テナントごとの会社コード）
-            $table->unique(['tenant_id', 'company_code']);
         });
+
+        DB::statement("ALTER TABLE companies ADD COLUMN company_code_seq BIGINT GENERATED ALWAYS AS IDENTITY");
+        DB::statement("COMMENT ON COLUMN companies.company_code_seq IS '法人コード生成用カウンタ'");
+        // 生成列とユニーク制約（PostgreSQLのSQLレベルで追加）
+        DB::statement("ALTER TABLE companies ADD COLUMN company_code TEXT GENERATED ALWAYS AS ('CO-' || lpad(company_code_seq::text, 6, '0')) STORED");
+        DB::statement("ALTER TABLE companies ADD CONSTRAINT uq_company_code UNIQUE (company_code)");
+        DB::statement("COMMENT ON COLUMN companies.company_code IS '法人コード（外部公開用）'");
+        DB::statement("ALTER TABLE companies ADD CONSTRAINT companies_tenant_id_company_code_unique UNIQUE (tenant_id, company_code)");
 
         // 論理削除されていないデータのみ対象の部分インデックス
         DB::statement("CREATE INDEX idx_comp_deleted_null ON companies (company_id) WHERE deleted_at IS NULL");

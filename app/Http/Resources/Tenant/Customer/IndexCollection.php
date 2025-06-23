@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Resources\Tenant\Customers;
+namespace App\Http\Resources\Tenant\Customer;
 
 use App\Http\Resources\Traits\CamelCasePaginationMeta;
 use Illuminate\Http\Request;
