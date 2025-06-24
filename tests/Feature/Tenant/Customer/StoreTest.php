@@ -118,6 +118,7 @@ class StoreTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('customers', [
+            'public_id' => $responseData['customerPublicId'],
             'tenant_id' => $this->tenant->tenant_id,
             'company_id' => $company->company_id,
             'sys_organization_code' => $this->tenant->customers_sys_organization_code,

@@ -98,10 +98,10 @@ components:
       description: 顧客情報
       type: object
       properties:
-        customerCompanyPublicId:
+        customerPublicId:
           type: string
           format: uuid
-          description: 顧客法人ID
+          description: 顧客ID
         customerName:
           type: string
           description: 顧客名称
