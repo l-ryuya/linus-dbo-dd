@@ -28,6 +28,7 @@ class ServicePlansSeeder extends Seeder
 
         foreach ($csv as $row) {
             $data[] = [
+                "service_plan_id" => $row['service_plan_id'],
                 "tenant_id" => $row['tenant_id'],
                 "public_id" => $row['public_id'],
                 "service_id" => $row['service_id'],
