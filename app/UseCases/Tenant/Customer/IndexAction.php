@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\UseCases\Tenant\Customers;
+namespace App\UseCases\Tenant\Customer;
 
 use App\Models\Customer;
 use App\Models\SelectionItemTranslation;

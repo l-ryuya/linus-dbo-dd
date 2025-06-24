@@ -33,7 +33,6 @@ class CustomersSeeder extends Seeder
                 'tenant_id' => $row['tenant_id'],
                 'company_id' => $row['company_id'],
                 'sys_organization_code' => $row['sys_organization_code'],
-                'customer_code' => $row['customer_code'],
                 'customer_status_type' => $row['customer_status_type'],
                 'customer_status_code' => $row['customer_status_code'],
                 'created_at' => empty($row['created_at']) ? $now : $row['created_at'],

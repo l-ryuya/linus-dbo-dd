@@ -33,14 +33,9 @@ return new class extends Migration {
             $table->string('sys_organization_code', 12)
                 ->comment('m5 システム組織コード');
 
-            // 必須属性
-            $table->string('customer_code')->unique()
-                ->comment('システム内で顧客を識別するユニークなコード');
-
             // 状態属性
             $table->string('customer_status_type')
                 ->comment('顧客ステータスタイプ (selection_items.selection_item_type)');
-
             $table->string('customer_status_code')
                 ->comment('顧客ステータスコード (selection_items.selection_item_code)');
 
@@ -71,12 +66,17 @@ return new class extends Migration {
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
 
-            // 複合一意制約
-            $table->unique(['tenant_id', 'customer_code']);
-
             // インデックス（ステータス検索用）
             $table->index('customer_status_code');
         });
+
+        DB::statement("ALTER TABLE customers ADD COLUMN customer_code_seq BIGINT GENERATED ALWAYS AS IDENTITY");
+        DB::statement("COMMENT ON COLUMN customers.customer_code_seq IS '顧客コード生成用カウンタ'");
+        // 生成列とユニーク制約（PostgreSQLのSQLレベルで追加）
+        DB::statement("ALTER TABLE customers ADD COLUMN customer_code TEXT GENERATED ALWAYS AS ('CO-' || lpad(customer_code_seq::text, 6, '0')) STORED");
+        DB::statement("ALTER TABLE customers ADD CONSTRAINT uq_customer_code UNIQUE (customer_code)");
+        DB::statement("COMMENT ON COLUMN customers.customer_code IS '顧客コード（外部公開用）'");
+        DB::statement("ALTER TABLE customers ADD CONSTRAINT customers_tenant_id_customer_code_unique UNIQUE (tenant_id, customer_code)");
 
         // パーシャルインデックス（論理削除されていない行）
         DB::statement("CREATE INDEX idx_customers_deleted_null ON customers (customer_id) WHERE deleted_at IS NULL");

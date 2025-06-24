@@ -47,8 +47,8 @@ class DatabaseSeeder extends Seeder
             CompanyRoleAssignmentsSeeder::class,
             CustomersSeeder::class,
             ServicesSeeder::class,
-            ServiceTranslationsSeeder::class,
             ServicePlansSeeder::class,
+            ServiceTranslationsSeeder::class,
             ServicePlanTranslationsSeeder::class,
             ServiceContractsSeeder::class,
         ]);
