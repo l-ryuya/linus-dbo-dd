@@ -49,5 +49,11 @@ class CompaniesSeeder extends Seeder
         }
 
         DB::table('companies')->insert($data);
+
+        $maxId = DB::table('companies')->max('company_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE companies ALTER COLUMN company_id RESTART WITH {$nextId}");
     }
 }
