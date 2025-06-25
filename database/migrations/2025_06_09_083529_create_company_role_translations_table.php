@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->comment('法人役割の多言語訳');
 
             // ビジネス識別子（複合主キー）
-            $table->id('role_id')
+            $table->unsignedBigInteger('role_id')
                 ->comment('参照先 role_id');
             $table->char('language_code', 3)
                 ->comment('言語コード (ISO-639-3)');

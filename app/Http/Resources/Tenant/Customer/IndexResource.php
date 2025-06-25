@@ -23,7 +23,7 @@ class IndexResource extends JsonResource
      * @param \Illuminate\Http\Request $request
      *
      * @return array{
-     *     customerCompanyPublicId: string,
+     *     customerPublicId: string,
      *     customerName: string,
      *     customerStatus: string,
      *     serviceStartDate: string|null,
@@ -34,7 +34,7 @@ class IndexResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'customerCompanyPublicId' => $this->public_id,
+            'customerPublicId' => $this->public_id,
             'customerName' => $this->legal_name,
             'customerStatus' => $this->customer_status,
             'serviceStartDate' => $this->contract_start_date,

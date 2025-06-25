@@ -21,8 +21,6 @@ use Database\Seeders\base\ServicesSeeder;
 use Database\Seeders\base\ServiceTranslationsSeeder;
 use Database\Seeders\base\TenantsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\Attributes\PreserveGlobalState;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
 use Tests\TestCase;
 
 class IndexTest extends TestCase
@@ -49,20 +47,20 @@ class IndexTest extends TestCase
             ServiceContractsSeeder::class,
         ]);
 
-
         $tenant = Tenant::where('sys_organization_code', 'ORG00000010')->first();
 
         // UserOrganizationServiceクラスのgetLowestLevelOrganizationメソッドをモック
-        $this->mock(UserOrganizationService::class, function ($mock) use ($tenant) {
-            $mock->shouldReceive('getLowestLevelOrganization')
-                ->andReturn([
-                    'sysOrganizationCode' => 'ORG00000010',
-                    'organizationLevelId' => 2,
-                    'organizationLevelCode' => 'TENANT',
-                ]);
-            $mock->shouldReceive('getTenantByOrganizationCode')
-                ->andReturn($tenant);
-        });
+        $mock = \Mockery::mock(UserOrganizationService::class);
+        $mock->allows('getLowestLevelOrganization')
+            ->andReturn([
+                'sysOrganizationCode' => 'ORG00000010',
+                'organizationLevelId' => 2,
+                'organizationLevelCode' => 'TENANT',
+            ]);
+        $mock->allows('getTenantByOrganizationCode')
+            ->andReturn($tenant);
+        // app()->instance() でモックを注入
+        $this->app->instance(UserOrganizationService::class, $mock);
 
         // テスト用の認証を設定
         $this->actingAs($this->createTenantManageUser());
@@ -81,8 +79,6 @@ class IndexTest extends TestCase
     /**
      * 顧客一覧APIが正常なレスポンスを返すことをテストする
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_index_returns_successful_response(): void
     {
         $response = $this->getJson(
@@ -94,7 +90,7 @@ class IndexTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     '*' => [
-                        'customerCompanyPublicId',
+                        'customerPublicId',
                         'customerName',
                         'customerStatus',
                         'serviceStartDate',
@@ -110,8 +106,6 @@ class IndexTest extends TestCase
     /**
      * クエリパラメータでフィルタリングできることをテストする
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_index_filters_by_customer_name(): void
     {
         // テスト用の顧客データを作成
@@ -131,8 +125,6 @@ class IndexTest extends TestCase
     /**
      * 顧客ステータスでフィルタリングできることをテストする
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_index_filters_by_customer_status(): void
     {
         // テスト用のステータスを取得
@@ -153,8 +145,6 @@ class IndexTest extends TestCase
     /**
      * ページネーションが機能することをテストする
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_index_supports_pagination(): void
     {
         $response = $this->getJson(
@@ -171,8 +161,6 @@ class IndexTest extends TestCase
     /**
      * バリデーションエラーが適切に処理されることをテストする
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_index_validates_input(): void
     {
         // 不正なサービスID（UUIDではない）
@@ -191,8 +179,6 @@ class IndexTest extends TestCase
     /**
      * 組織コードでフィルタリングできることをテストする
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_index_filters_by_organization_code(): void
     {
         $response = $this->getJson(

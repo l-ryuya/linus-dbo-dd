@@ -14,6 +14,15 @@ class Customer extends Model
 
     protected $primaryKey = 'customer_id';
 
+    protected $fillable = [
+        'public_id',
+        'tenant_id',
+        'company_id',
+        'sys_organization_code',
+        'customer_status_type',
+        'customer_status_code',
+    ];
+
     /**
      * @return BelongsTo<Tenant, $this>
      */

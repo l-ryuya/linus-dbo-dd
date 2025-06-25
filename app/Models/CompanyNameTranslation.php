@@ -17,6 +17,12 @@ class CompanyNameTranslation extends Model
 
     public $incrementing = false;
 
+    protected $fillable = [
+        'company_id',
+        'language_code',
+        'legal_name',
+    ];
+
     /**
      * @return BelongsTo<\App\Models\Company, $this>
      */

@@ -47,7 +47,7 @@ class StoreAction
     }
 
     /**
-     * 会社を作成する
+     * 法人を作成する
      *
      * @param \App\Models\Tenant                  $identifiedTenant
      * @param \App\Dto\Tenant\Customer\StoreInput $data
@@ -89,12 +89,12 @@ class StoreAction
      * @param \App\Models\Tenant  $identifiedTenant
      * @param \App\Models\Company $company
      *
-     * @return \App\Models\Company
+     * @return \App\Models\Customer
      */
     private function createCustomer(
         Tenant $identifiedTenant,
         Company $company,
-    ): Company {
+    ): Customer {
         $customer = new Customer();
         $customer->tenant_id = $identifiedTenant->tenant_id;
         $customer->company_id = $company->company_id;
@@ -104,6 +104,6 @@ class StoreAction
         $customer->save();
         $customer->refresh();
 
-        return $company;
+        return $customer;
     }
 }

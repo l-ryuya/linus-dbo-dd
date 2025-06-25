@@ -28,6 +28,7 @@ class ServicesSeeder extends Seeder
 
         foreach ($csv as $row) {
             $data[] = [
+                "service_id" => $row['service_id'],
                 "tenant_id" => $row['tenant_id'],
                 "public_id" => $row['public_id'],
                 "service_code" => $row['service_code'],
@@ -45,5 +46,11 @@ class ServicesSeeder extends Seeder
         }
 
         DB::table('services')->insert($data);
+
+        $maxId = DB::table('services')->max('service_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE services ALTER COLUMN service_id RESTART WITH {$nextId}");
     }
 }

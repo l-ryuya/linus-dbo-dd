@@ -87,6 +87,38 @@ paths:
                 properties:
                   data:
                     $ref: '#/components/schemas/TenantCustomerPostResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+  /tenant/customers/{public_id}:
+    put:
+      summary: テナント管理者 顧客更新
+      parameters:
+        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
+        - name: public_id
+          in: path
+          description: 顧客の外部公開用UUID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantCustomerPutRequest'
+      responses:
+        '204':
+          description: OK
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
         '422':
           $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
         '500':
@@ -98,10 +130,10 @@ components:
       description: 顧客情報
       type: object
       properties:
-        customerCompanyPublicId:
+        customerPublicId:
           type: string
           format: uuid
-          description: 顧客法人ID
+          description: 顧客ID
         customerName:
           type: string
           description: 顧客名称
@@ -174,7 +206,7 @@ components:
           nullable: true
           description: 備考
     TenantCustomerPostResponse:
-      description: 顧客登録情報
+      description: 顧客登録結果
       type: object
       properties:
         companyPublicId:
@@ -185,6 +217,15 @@ components:
           type: string
           format: uuid
           description: '顧客 外部公開用 UUID v4'
+    TenantCustomerPutRequest:
+      description: 顧客更新情報
+      allOf:
+        - $ref: '#/components/schemas/TenantCustomerPostRequest'
+        - type: object
+          properties:
+            customerStatusCode:
+              type: string
+              description: 顧客ステータスコード
 
   securitySchemes:
     UserAuth:

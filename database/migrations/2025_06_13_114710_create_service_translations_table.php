@@ -15,10 +15,6 @@ return new class extends Migration {
         Schema::create('service_translations', function (Blueprint $table) {
             $table->comment('サービス名称・説明の翻訳情報');
 
-            // システム識別子
-            $table->id('service_translation_id')
-                ->comment('内部連番（PK）');
-
             // ビジネス識別子
             $table->unsignedBigInteger('service_id')
                 ->comment('サービス内部連番');
@@ -41,8 +37,8 @@ return new class extends Migration {
             $table->timestamp('deleted_at')->nullable()
                 ->comment('レコード削除日時');
 
-            // 一意制約
-            $table->unique(['service_id', 'language_code']);
+            // 複合主キー
+            $table->primary(['service_id', 'language_code']);
 
             // 外部キー
             $table->foreign('service_id')

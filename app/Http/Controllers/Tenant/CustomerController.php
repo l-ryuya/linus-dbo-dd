@@ -7,6 +7,8 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\Customer\IndexRequest;
 use App\Http\Requests\Tenant\Customer\StoreRequest;
+use App\Http\Requests\Tenant\Customer\UpdateRequest;
+use App\Http\Resources\NoContentResource;
 use App\Http\Resources\Tenant\Customer\IndexCollection;
 use App\Http\Resources\Tenant\Customer\StoreResource;
 use App\Models\Tenant;
@@ -14,6 +16,7 @@ use App\Services\M5\UserOrganizationService;
 use App\Shared\Language\IsoLanguageCode;
 use App\UseCases\Tenant\Customer\IndexAction;
 use App\UseCases\Tenant\Customer\StoreAction;
+use App\UseCases\Tenant\Customer\UpdateAction;
 
 class CustomerController extends Controller
 {
@@ -92,5 +95,37 @@ class CustomerController extends Controller
         ))
         ->response()
         ->setStatusCode(201);
+    }
+
+    /**
+     * テナント管理者が顧客更新をする
+     *
+     * @param \App\Http\Requests\Tenant\Customer\UpdateRequest $request
+     * @param string                                           $publicId
+     * @param \App\UseCases\Tenant\Customer\UpdateAction       $action
+     *
+     * @return \App\Http\Resources\NoContentResource
+     * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws \Throwable
+     */
+    public function update(
+        UpdateRequest $request,
+        string $publicId,
+        UpdateAction $action,
+    ): NoContentResource {
+        $user = $request->user();
+        /** @var \App\Auth\GenericUser $user */
+        $this->identifiedTenant = $this->userOrganizationService->getTenantByOrganizationCode(
+            $user->token,
+            $user->sub,
+        );
+
+        $action(
+            $this->identifiedTenant,
+            $publicId,
+            $request->toUpdateInput(),
+        );
+
+        return new NoContentResource();
     }
 }

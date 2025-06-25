@@ -42,5 +42,11 @@ class TenantsSeeder extends Seeder
         }
 
         DB::table('tenants')->insert($data);
+
+        $maxId = DB::table('tenants')->max('tenant_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE tenants ALTER COLUMN tenant_id RESTART WITH {$nextId}");
     }
 }

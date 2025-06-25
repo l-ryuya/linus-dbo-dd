@@ -18,7 +18,7 @@ return new class extends Migration {
             // ビジネス識別子
             $table->unsignedBigInteger('company_id')
                 ->comment('割当対象となる法人のID (companies.company_id)');
-            $table->smallInteger('role_id')
+            $table->unsignedBigInteger('role_id')
                 ->comment('割り当てられた役割の ID (company_roles.role_id)');
 
             // 任意属性
