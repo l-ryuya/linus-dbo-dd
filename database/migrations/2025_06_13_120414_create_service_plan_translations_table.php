@@ -15,10 +15,6 @@ return new class extends Migration {
         Schema::create('service_plan_translations', function (Blueprint $table) {
             $table->comment('サービスプラン名称・説明の翻訳情報');
 
-            // システム識別子
-            $table->id('service_plan_translation_id')
-                ->comment('内部連番（PK）');
-
             // ビジネス識別子
             $table->unsignedBigInteger('service_plan_id')
                 ->comment('対象サービスプランID');
@@ -41,8 +37,8 @@ return new class extends Migration {
             $table->timestamp('deleted_at')->nullable()
                 ->comment('レコード削除日時');
 
-            // 一意制約
-            $table->unique(['service_plan_id', 'language_code']);
+            // 複合主キー
+            $table->primary(['service_plan_id', 'language_code']);
 
             // 外部キー
             $table->foreign('service_plan_id')
@@ -52,8 +48,8 @@ return new class extends Migration {
                 ->onDelete('cascade');
         });
 
-        // パーシャルインデックス: 論理削除されていない言語検索用
-        DB::statement("CREATE INDEX idx_spt_language_alive ON service_plan_translations (language_code) WHERE deleted_at IS NULL");
+        // 論理削除されていない行の部分インデックス
+        DB::statement("CREATE INDEX idx_spt_language_alive ON service_plan_translations (service_plan_id, language_code) WHERE deleted_at IS NULL");
     }
 
     /**

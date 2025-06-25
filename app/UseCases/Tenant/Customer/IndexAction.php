@@ -36,11 +36,11 @@ class IndexAction
         int $page,
     ): \Illuminate\Pagination\LengthAwarePaginator {
         $paginator = Customer::select([
-            'companies.public_id',
-            'company_name_translations.legal_name',
+            'customers.public_id',
             'customers.customer_status_type',
             'customers.customer_status_code',
             'customers.created_at',
+            'company_name_translations.legal_name',
             'service_contracts.service_id',
             'service_contracts.service_plan_id',
             'service_contracts.contract_start_date',

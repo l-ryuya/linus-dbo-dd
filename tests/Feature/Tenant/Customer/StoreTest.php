@@ -13,8 +13,7 @@ use Database\Seeders\base\SelectionItemsSeeder;
 use Database\Seeders\base\SelectionItemTranslationsSeeder;
 use Database\Seeders\base\TenantsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use PHPUnit\Framework\Attributes\PreserveGlobalState;
-use PHPUnit\Framework\Attributes\RunInSeparateProcess;
+use Mockery;
 use Tests\TestCase;
 
 class StoreTest extends TestCase
@@ -38,10 +37,10 @@ class StoreTest extends TestCase
         $this->tenant = Tenant::where('sys_organization_code', 'ORG00000010')->first();
 
         // UserOrganizationServiceクラスのメソッドをモック
-        $this->mock(UserOrganizationService::class, function ($mock) {
-            $mock->shouldReceive('getTenantByOrganizationCode')
-                ->andReturn($this->tenant);
-        });
+        $mock = Mockery::mock(UserOrganizationService::class);
+        $mock->allows('getTenantByOrganizationCode')->andReturn($this->tenant);
+        // サービスのモックをapp()->instance()で注入
+        $this->app->instance(UserOrganizationService::class, $mock);
 
         // テスト用の認証を設定
         $this->actingAs($this->createTenantManageUser());
@@ -60,8 +59,6 @@ class StoreTest extends TestCase
     /**
      * 顧客登録APIが成功すること（正常系）をテストする
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_store_creates_customer_successfully(): void
     {
         $customerData = [
@@ -121,6 +118,7 @@ class StoreTest extends TestCase
         ]);
 
         $this->assertDatabaseHas('customers', [
+            'public_id' => $responseData['customerPublicId'],
             'tenant_id' => $this->tenant->tenant_id,
             'company_id' => $company->company_id,
             'sys_organization_code' => $this->tenant->customers_sys_organization_code,
@@ -132,8 +130,6 @@ class StoreTest extends TestCase
     /**
      * バリデーションエラーが適切に処理されることをテストする（異常系）
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_store_validates_input_properly(): void
     {
         // 必須項目が欠けているデータ
@@ -216,8 +212,6 @@ class StoreTest extends TestCase
     /**
      * 長すぎる値が適切に処理されることをテストする
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_store_validates_input_length(): void
     {
         // 長すぎる値を含むデータ
@@ -244,8 +238,6 @@ class StoreTest extends TestCase
     /**
      * オプションフィールドが正しく処理されることをテストする
      */
-    #[RunInSeparateProcess]
-    #[PreserveGlobalState(false)]
     public function test_store_handles_optional_fields_correctly(): void
     {
         // オプションフィールドを含めないデータ
