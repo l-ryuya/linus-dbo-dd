@@ -90,7 +90,7 @@ class IndexTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     '*' => [
-                        'customerCompanyPublicId',
+                        'customerPublicId',
                         'customerName',
                         'customerStatus',
                         'serviceStartDate',
