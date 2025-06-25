@@ -6,7 +6,6 @@ namespace App\UseCases\Tenant\Customer;
 
 use App\Dto\Tenant\Customer\UpdateInput;
 use App\Models\Company;
-use App\Models\CompanyNameTranslation;
 use App\Models\Customer;
 use App\Models\Tenant;
 use Illuminate\Support\Facades\DB;

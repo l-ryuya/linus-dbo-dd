@@ -24,7 +24,9 @@ class UpdateTest extends TestCase
     use RefreshDatabase;
 
     private Tenant $tenant;
+
     private Company $company;
+
     private string $publicId;
 
     protected function setUp(): void
