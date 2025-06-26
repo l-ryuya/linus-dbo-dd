@@ -10,7 +10,7 @@ use App\Models\SelectionItemTranslation;
 class IndexAction
 {
     /**
-     * テナント管理者の顧客一覧を取得する
+     * 顧客一覧取得
      *
      * @param string      $languageCode $languageCode 言語コード（ISO639-1）
      * @param int         $tenantId

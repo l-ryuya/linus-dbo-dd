@@ -96,6 +96,35 @@ paths:
         '500':
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
   /tenant/customers/{public_id}:
+    get:
+      summary: テナント管理者 顧客詳細
+      parameters:
+        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
+        - name: public_id
+          in: path
+          description: 顧客の外部公開用UUID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TenantCustomerGetRequest'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
     put:
       summary: テナント管理者 顧客更新
       parameters:
@@ -127,7 +156,7 @@ paths:
 components:
   schemas:
     TenantCustomersResponse:
-      description: 顧客情報
+      description: 顧客閲覧情報
       type: object
       properties:
         customerPublicId:
@@ -153,8 +182,8 @@ components:
           type: string
           nullable: true
           description: サービスプラン名称
-    TenantCustomerPostRequest:
-      description: 顧客登録情報
+    TenantCustomer:
+      description: 顧客情報
       type: object
       properties:
         customerName:
@@ -178,9 +207,6 @@ components:
         countryCodeAlpha3:
           type: string
           description: '国コード（ISO 3166-1 alpha-3）'
-        languageCode:
-          type: string
-          description: '言語コード（ISO 639-3）'
         postalCode:
           type: string
           nullable: true
@@ -205,6 +231,15 @@ components:
           type: string
           nullable: true
           description: 備考
+    TenantCustomerPostRequest:
+      description: 顧客登録情報
+      allOf:
+        - $ref: '#/components/schemas/TenantCustomer'
+        - type: object
+          properties:
+            languageCode:
+              type: string
+              description: '言語コード（ISO 639-3）'
     TenantCustomerPostResponse:
       description: 顧客登録結果
       type: object
@@ -220,12 +255,55 @@ components:
     TenantCustomerPutRequest:
       description: 顧客更新情報
       allOf:
-        - $ref: '#/components/schemas/TenantCustomerPostRequest'
+        - $ref: '#/components/schemas/TenantCustomer'
         - type: object
           properties:
+            languageCode:
+              type: string
+              description: '言語コード（ISO 639-3）'
             customerStatusCode:
               type: string
               description: 顧客ステータスコード
+    TenantCustomerGetRequest:
+      description: 顧客情報
+      allOf:
+        - $ref: '#/components/schemas/TenantCustomer'
+        - type: object
+          properties:
+            customerStatus:
+              type: string
+              description: 顧客ステータス名
+            customerStatusCode:
+              type: string
+              description: 顧客ステータスコード
+            serviceContracts:
+              type: array
+              items:
+                type: object
+                description: サービス契約情報
+                properties:
+                  publicId:
+                    type: string
+                    format: uuid
+                    description: 'サービス契約 外部公開用 UUID v4'
+                  serviceName:
+                    type: string
+                    description: サービス名
+                  servicePlanName:
+                    type: string
+                    description: サービスプラン名
+                  serviceUsageStatus:
+                    type: string
+                    description: サービス利用ステータス名
+                  serviceUsageStatusCode:
+                    type: string
+                    description: サービス利用ステータスコード
+                  contractStatus:
+                    type: string
+                    description: 契約ステータス名
+                  contractStatusCode:
+                    type: string
+                    description: 契約ステータスコード
 
   securitySchemes:
     UserAuth:
