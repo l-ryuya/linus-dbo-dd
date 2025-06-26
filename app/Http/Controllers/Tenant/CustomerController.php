@@ -10,13 +10,16 @@ use App\Http\Requests\Tenant\Customer\StoreRequest;
 use App\Http\Requests\Tenant\Customer\UpdateRequest;
 use App\Http\Resources\NoContentResource;
 use App\Http\Resources\Tenant\Customer\IndexCollection;
+use App\Http\Resources\Tenant\Customer\ShowResource;
 use App\Http\Resources\Tenant\Customer\StoreResource;
 use App\Models\Tenant;
 use App\Services\M5\UserOrganizationService;
 use App\Shared\Language\IsoLanguageCode;
 use App\UseCases\Tenant\Customer\IndexAction;
+use App\UseCases\Tenant\Customer\ShowAction;
 use App\UseCases\Tenant\Customer\StoreAction;
 use App\UseCases\Tenant\Customer\UpdateAction;
+use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
@@ -62,6 +65,37 @@ class CustomerController extends Controller
                 $request->validated('servicePlanPublicId'),
                 $request->validated('displayed'),
                 $request->validated('page'),
+            ),
+        );
+    }
+
+    /**
+     * テナント管理者の顧客詳細を取得する
+     *
+     * @param \Illuminate\Http\Request                 $request
+     * @param string                                   $publicId
+     * @param \App\UseCases\Tenant\Customer\ShowAction $action
+     *
+     * @return \App\Http\Resources\Tenant\Customer\ShowResource
+     * @throws \Illuminate\Http\Client\ConnectionException
+     */
+    public function show(
+        Request $request,
+        string $publicId,
+        ShowAction $action,
+    ): ShowResource {
+        $user = $request->user();
+        /** @var \App\Auth\GenericUser $user */
+        $this->identifiedTenant = $this->userOrganizationService->getTenantByOrganizationCode(
+            $user->token,
+            $user->sub,
+        );
+
+        return new ShowResource(
+            $action(
+                IsoLanguageCode::getLocaleIso639_1(),
+                $this->identifiedTenant->tenant_id,
+                $publicId,
             ),
         );
     }
