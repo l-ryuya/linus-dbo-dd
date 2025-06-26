@@ -52,9 +52,14 @@ class UserOrganizationService
     {
         $organization = $this->getLowestLevelOrganization($token, $sysUserCode);
         if (empty($organization['sysOrganizationCode'])) {
-            return null;
+            abort(500, 'Invalid organization code');
         }
 
-        return Tenant::where('sys_organization_code', $organization['sysOrganizationCode'])->first();
+        $tenant = Tenant::where('sys_organization_code', $organization['sysOrganizationCode'])->first();
+        if (empty($tenant)) {
+            abort(500, 'Tenant not found for organization code');
+        }
+
+        return $tenant;
     }
 }

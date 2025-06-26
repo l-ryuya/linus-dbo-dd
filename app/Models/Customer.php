@@ -6,6 +6,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
@@ -23,6 +24,13 @@ class Customer extends Model
         'customer_status_code',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'public_id' => 'string',
+        ];
+    }
+
     /**
      * @return BelongsTo<Tenant, $this>
      */
@@ -39,10 +47,11 @@ class Customer extends Model
         return $this->belongsTo(Company::class, 'company_id', 'company_id');
     }
 
-    protected function casts(): array
+    /**
+     * @return HasMany<ServiceContract, $this>
+     */
+    public function serviceContracts(): HasMany
     {
-        return [
-            'public_id' => 'string',
-        ];
+        return $this->hasMany(ServiceContract::class, 'customer_id');
     }
 }
