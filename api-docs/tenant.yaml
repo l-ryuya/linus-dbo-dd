@@ -270,6 +270,10 @@ components:
         - $ref: '#/components/schemas/TenantCustomer'
         - type: object
           properties:
+            customerPublicId:
+              type: string
+              format: uuid
+              description: 顧客ID
             customerStatus:
               type: string
               description: 顧客ステータス名
