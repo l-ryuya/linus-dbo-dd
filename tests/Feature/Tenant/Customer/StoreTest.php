@@ -67,8 +67,8 @@ class StoreTest extends TestCase
             'websiteUrl' => 'https://example.com',
             'shareholdersUrl' => 'https://example.com/shareholders',
             'executivesUrl' => 'https://example.com/executives',
+            'defaultLanguageCode' => 'jpn', // 日本語
             'countryCodeAlpha3' => 'JPN', // 日本
-            'languageCode' => 'jpn', // 日本語
             'postalCode' => '123-4567',
             'state' => '東京都',
             'city' => '港区',
@@ -97,6 +97,7 @@ class StoreTest extends TestCase
         $this->assertDatabaseHas('companies', [
             'public_id' => $responseData['companyPublicId'],
             'company_name_en' => $customerData['customerNameEn'],
+            'default_language_code' => $customerData['defaultLanguageCode'],
             'country_code_alpha3' => $customerData['countryCodeAlpha3'],
             'website_url' => $customerData['websiteUrl'],
             'shareholders_url' => $customerData['shareholdersUrl'],
@@ -113,7 +114,7 @@ class StoreTest extends TestCase
 
         $this->assertDatabaseHas('company_name_translations', [
             'company_id' => $company->company_id,
-            'language_code' => $customerData['languageCode'],
+            'language_code' => $customerData['defaultLanguageCode'],
             'legal_name' => $customerData['customerName'],
         ]);
 
@@ -139,8 +140,8 @@ class StoreTest extends TestCase
             'websiteUrl' => 'https://example.com',
             'shareholdersUrl' => 'https://example.com/shareholders',
             'executivesUrl' => 'https://example.com/executives',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->postJson(
@@ -158,8 +159,8 @@ class StoreTest extends TestCase
             'websiteUrl' => 'invalid-url',
             'shareholdersUrl' => 'https://example.com/shareholders',
             'executivesUrl' => 'https://example.com/executives',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->postJson(
@@ -177,8 +178,8 @@ class StoreTest extends TestCase
             'websiteUrl' => 'https://example.com',
             'shareholdersUrl' => 'https://example.com/shareholders',
             'executivesUrl' => 'https://example.com/executives',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'XXX', // 存在しない国コード
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->postJson(
@@ -196,8 +197,8 @@ class StoreTest extends TestCase
             'websiteUrl' => 'https://example.com',
             'shareholdersUrl' => 'https://example.com/shareholders',
             'executivesUrl' => 'https://example.com/executives',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->postJson(
@@ -221,8 +222,8 @@ class StoreTest extends TestCase
             'websiteUrl' => 'https://example.com',
             'shareholdersUrl' => 'https://example.com/shareholders',
             'executivesUrl' => 'https://example.com/executives',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
             'remarks' => str_repeat('a', 256), // 255文字以上
         ];
 
@@ -247,8 +248,8 @@ class StoreTest extends TestCase
             'websiteUrl' => 'https://example.com',
             'shareholdersUrl' => 'https://example.com/shareholders',
             'executivesUrl' => 'https://example.com/executives',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
             // 以下のフィールドは省略
             // 'postalCode', 'state', 'city', 'street', 'building', 'remarks'
         ];

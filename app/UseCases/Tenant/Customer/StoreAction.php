@@ -61,6 +61,7 @@ class StoreAction
         $company = new Company();
         $company->tenant_id = $identifiedTenant->tenant_id;
         $company->company_name_en = $data->customerNameEn;
+        $company->default_language_code = $data->defaultLanguageCode;
         $company->country_code_alpha3 = $data->countryCodeAlpha3;
         $company->website_url = $data->websiteUrl;
         $company->shareholders_url = $data->shareholdersUrl;
@@ -76,7 +77,7 @@ class StoreAction
 
         $companyNameTranslation = new CompanyNameTranslation();
         $companyNameTranslation->company_id = $company->company_id;
-        $companyNameTranslation->language_code = $data->languageCode;
+        $companyNameTranslation->language_code = $data->defaultLanguageCode;
         $companyNameTranslation->legal_name = $data->customerName;
         $companyNameTranslation->save();
 

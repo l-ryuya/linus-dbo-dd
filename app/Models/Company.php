@@ -17,6 +17,7 @@ class Company extends Model
         'public_id',
         'tenant_id',
         'company_name_en',
+        'default_language_code',
         'country_code_alpha3',
         'website_url',
         'shareholders_url',

@@ -204,6 +204,9 @@ components:
           type: string
           format: uri
           description: 役員情報URL
+        defaultLanguageCode:
+          type: string
+          description: デフォルト言語
         countryCodeAlpha3:
           type: string
           description: '国コード（ISO 3166-1 alpha-3）'
@@ -235,11 +238,6 @@ components:
       description: 顧客登録情報
       allOf:
         - $ref: '#/components/schemas/TenantCustomer'
-        - type: object
-          properties:
-            languageCode:
-              type: string
-              description: '言語コード（ISO 639-3）'
     TenantCustomerPostResponse:
       description: 顧客登録結果
       type: object
@@ -258,9 +256,6 @@ components:
         - $ref: '#/components/schemas/TenantCustomer'
         - type: object
           properties:
-            languageCode:
-              type: string
-              description: '言語コード（ISO 639-3）'
             customerStatusCode:
               type: string
               description: 顧客ステータスコード

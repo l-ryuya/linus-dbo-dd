@@ -30,19 +30,19 @@ class UpdateRequest extends FormRequest
                 Rule::exists('selection_items', 'selection_item_code')
                     ->where('selection_item_type', 'customer_status'),
             ],
+            'defaultLanguageCode' => [
+                'required',
+                'string',
+                'size:3',
+                Rule::exists('selection_items', 'selection_item_code')
+                    ->where('selection_item_type', 'language_code'),
+            ],
             'countryCodeAlpha3' => [
                 'required',
                 'string',
                 'size:3',
                 Rule::exists('country_regions', 'country_code_alpha3')
                     ->where('world_region_type', 'world_region'),
-            ],
-            'languageCode' => [
-                'required',
-                'string',
-                'size:3',
-                Rule::exists('selection_items', 'selection_item_code')
-                    ->where('selection_item_type', 'language_code'),
             ],
             'postalCode' => ['nullable', 'string', 'max:20'],
             'state' => ['nullable', 'string', 'max:128'],

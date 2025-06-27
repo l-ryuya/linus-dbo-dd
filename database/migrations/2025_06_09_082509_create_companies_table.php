@@ -24,15 +24,15 @@ return new class extends Migration {
                 ->unique()
                 ->default(DB::raw('gen_random_uuid()'))
                 ->comment('外部公開用 UUID v4');
-
             $table->unsignedBigInteger('tenant_id')
                 ->comment('所属テナント ID（必須）');
 
-            // 任意属性
-            $table->string('company_name_en')->nullable()
+            $table->string('company_name_en')
                 ->comment('法人英名');
 
-            $table->char('country_code_alpha3', 3)->nullable()
+            $table->char('default_language_code', 3)
+                ->comment('デフォルト言語');
+            $table->char('country_code_alpha3', 3)
                 ->comment('本社所在地国コード (ISO-3166-1 alpha-3)');
 
             $table->string('postal')->nullable()
