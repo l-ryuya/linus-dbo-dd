@@ -30,5 +30,14 @@ if (config('app.env') !== 'production') {
             '/test/show-env',
             [App\Http\Controllers\Test\EnvController::class, 'showEnvVariables'],
         );
+        // ログ出力ルート
+        Route::get(
+            '/test/log-stdout',
+            [App\Http\Controllers\Test\LogTestController::class, 'putStdout'],
+        );
+        Route::get(
+            '/test/log-stderr',
+            [App\Http\Controllers\Test\LogTestController::class, 'putStderr'],
+        );
     });
 }
