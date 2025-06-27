@@ -56,6 +56,7 @@ class UpdateAction
     ): void {
         $company = Company::findOrFail($customer->company_id);
         $company->company_name_en = $data->customerNameEn;
+        $company->default_language_code = $data->defaultLanguageCode;
         $company->country_code_alpha3 = $data->countryCodeAlpha3;
         $company->website_url = $data->websiteUrl;
         $company->shareholders_url = $data->shareholdersUrl;
@@ -72,7 +73,7 @@ class UpdateAction
         DB::table('company_name_translations')->updateOrInsert(
             [
                 'company_id' => $company->company_id,
-                'language_code' => $data->languageCode,
+                'language_code' => $data->defaultLanguageCode,
             ],
             [
                 'legal_name' => $data->customerName,

@@ -50,6 +50,7 @@ class ShowAction
             'companies.company_code',
             'companies.public_id',
             'companies.company_name_en',
+            'companies.default_language_code',
             'companies.country_code_alpha3',
             'companies.postal',
             'companies.state',
