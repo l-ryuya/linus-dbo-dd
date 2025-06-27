@@ -8,7 +8,6 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
-use Laravel\Sanctum\Console\Commands\PruneExpired;
 use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -98,7 +97,4 @@ return Application::configure(basePath: dirname(__DIR__))
                 'message' => 'A system error has occurred.',
             ], 500);
         });
-    })
-    ->withCommands([
-        PruneExpired::class, // アクセストークン削除
-    ])->create();
+    })->create();

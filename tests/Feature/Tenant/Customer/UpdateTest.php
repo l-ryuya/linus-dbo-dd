@@ -65,6 +65,7 @@ class UpdateTest extends TestCase
         $this->company = Company::create([
             'tenant_id' => $this->tenant->tenant_id,
             'company_name_en' => 'Original Test Corporation',
+            'default_language_code' => 'jpn',
             'country_code_alpha3' => 'JPN',
             'website_url' => 'https://example.com',
             'shareholders_url' => 'https://example.com/shareholders',
@@ -118,8 +119,8 @@ class UpdateTest extends TestCase
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
             'customerStatusCode' => 'dd_completed', // 顧客ステータスを更新
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'USA', // 国を更新
-            'languageCode' => 'jpn',
             'postalCode' => '999-8888',
             'state' => 'カリフォルニア州',
             'city' => 'サンフランシスコ',
@@ -140,6 +141,7 @@ class UpdateTest extends TestCase
         $this->assertDatabaseHas('companies', [
             'company_id' => $this->company->company_id,
             'company_name_en' => $updateData['customerNameEn'],
+            'default_language_code' => $updateData['defaultLanguageCode'],
             'country_code_alpha3' => $updateData['countryCodeAlpha3'],
             'website_url' => $updateData['websiteUrl'],
             'shareholders_url' => $updateData['shareholdersUrl'],
@@ -154,7 +156,7 @@ class UpdateTest extends TestCase
 
         $this->assertDatabaseHas('company_name_translations', [
             'company_id' => $this->company->company_id,
-            'language_code' => $updateData['languageCode'],
+            'language_code' => $updateData['defaultLanguageCode'],
             'legal_name' => $updateData['customerName'],
         ]);
 
@@ -179,8 +181,8 @@ class UpdateTest extends TestCase
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
             'customerStatusCode' => 'completed_dd',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->putJson(
@@ -199,8 +201,8 @@ class UpdateTest extends TestCase
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
             'customerStatusCode' => 'completed_dd',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->putJson(
@@ -219,8 +221,8 @@ class UpdateTest extends TestCase
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
             'customerStatusCode' => 'completed_dd',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'XXX', // 存在しない国コード
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->putJson(
@@ -239,8 +241,8 @@ class UpdateTest extends TestCase
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
             'customerStatusCode' => 'invalid_status', // 存在しない顧客ステータスコード
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->putJson(
@@ -259,8 +261,8 @@ class UpdateTest extends TestCase
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
             'customerStatusCode' => 'completed_dd',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->putJson(
@@ -285,8 +287,8 @@ class UpdateTest extends TestCase
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
             'customerStatusCode' => 'completed_dd',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
             'remarks' => str_repeat('a', 256), // 255文字以上
         ];
 
@@ -313,8 +315,8 @@ class UpdateTest extends TestCase
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
             'customerStatusCode' => 'dd_completed',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
         ];
 
         $response = $this->putJson(
@@ -339,8 +341,8 @@ class UpdateTest extends TestCase
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
             'customerStatusCode' => 'dd_completed',
+            'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
-            'languageCode' => 'jpn',
             // 以下のフィールドは省略
             // 'postalCode', 'state', 'city', 'street', 'building', 'remarks'
         ];

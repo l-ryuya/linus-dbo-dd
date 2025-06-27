@@ -100,6 +100,7 @@ class ShowTest extends TestCase
                     'websiteUrl',
                     'shareholdersUrl',
                     'executivesUrl',
+                    'defaultLanguageCode',
                     'countryCodeAlpha3',
                     'postal',
                     'state',
