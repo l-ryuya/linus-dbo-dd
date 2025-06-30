@@ -29,7 +29,7 @@ class CompanyRoleAssignmentsSeeder extends Seeder
         foreach ($csv as $row) {
             $data[] = [
                 'company_id' => (int) $row['company_id'],
-                'role_id' => (int) $row['role_id'],
+                'company_role_id' => (int) $row['company_role_id'],
                 'valid_from' => $row['valid_from'],
                 'valid_to' => empty($row['valid_to']) ? null : $row['valid_to'],
                 'remarks' => $row['remarks'] ?? null,
@@ -40,5 +40,11 @@ class CompanyRoleAssignmentsSeeder extends Seeder
         }
 
         DB::table('company_role_assignments')->insert($data);
+
+        $maxId = DB::table('company_role_assignments')->max('company_role_assignment_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE company_role_assignments ALTER COLUMN company_role_assignment_id RESTART WITH {$nextId}");
     }
 }

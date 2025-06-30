@@ -30,8 +30,8 @@ class CompanyNameTranslationsSeeder extends Seeder
             $data[] = [
                 'company_id' => (int) $row['company_id'],
                 'language_code' => $row['language_code'],
-                'legal_name' => $row['legal_name'],
-                'short_name' => $row['short_name'],
+                'company_legal_name' => $row['company_legal_name'],
+                'company_short_name' => $row['company_short_name'],
                 'remarks' => $row['remarks'] ?? null,
                 'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
                 'updated_at' => empty($row['updated_at']) ? $now : $row['updated_at'],
@@ -40,5 +40,11 @@ class CompanyNameTranslationsSeeder extends Seeder
         }
 
         DB::table('company_name_translations')->insert($data);
+
+        $maxId = DB::table('company_name_translations')->max('company_name_translation_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE company_name_translations ALTER COLUMN company_name_translation_id RESTART WITH {$nextId}");
     }
 }

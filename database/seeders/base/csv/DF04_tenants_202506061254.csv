@@ -1,3 +1,4 @@
 "tenant_id","public_id","tenant_code","tenant_name","sys_organization_code","customers_sys_organization_code","remarks","created_at","updated_at","deleted_at"
-1,"54a98868-d7ff-47eb-96fc-70c1587e2eff",TEN-DSR,株式会社電通総研,ORG00000010,ORG00000011,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
-2,"d1d90180-442b-40f0-9676-e344a0de58df",TEN-DSD,株式会社電通デジタル,ORG00000110,ORG00000111,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+1,"54a98868-d7ff-47eb-96fc-70c1587e2eff",TEN-DSR,株式会社電通総研,ORG00000010,ORG00000011,,,
+2,"d1d90180-442b-40f0-9676-e344a0de58df",TEN-DSD,株式会社電通デジタル,ORG00000110,ORG00000111,,,
+3,"18ce1b0f-63c3-4630-a0bb-7bb32b040819",TEN-SEC,Securate運営部署,ORG00000015,ORG00000111,,,

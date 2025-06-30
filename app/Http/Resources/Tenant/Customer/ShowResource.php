@@ -46,7 +46,7 @@ class ShowResource extends JsonResource
             'customerStatus' => $this->customer->customer_status,
             'customerStatusCode' => $this->customer->customer_status_code,
             'customerNameEn' => $this->company->company_name_en,
-            'customerName' => $this->company->legal_name,
+            'customerName' => $this->company->company_legal_name,
             'websiteUrl' => $this->company->website_url,
             'shareholdersUrl' => $this->company->shareholders_url,
             'executivesUrl' => $this->company->executives_url,

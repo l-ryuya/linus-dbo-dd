@@ -31,9 +31,12 @@ class ServiceContractsSeeder extends Seeder
                 'service_contract_id' => (int) $row['service_contract_id'],
                 'public_id' => $row['public_id'],
                 'service_contract_code' => $row['service_contract_code'],
+                'tenant_id' => (int) $row['tenant_id'],
                 'customer_id' => (int) $row['customer_id'],
                 'service_id' => (int) $row['service_id'],
                 'service_plan_id' => (int) $row['service_plan_id'],
+                'contract_name' => $row['contract_name'],
+                'contract_language' => $row['contract_language'],
                 'customer_contact_user_name' => $row['customer_contact_user_name'],
                 'customer_contact_user_dept' => $row['customer_contact_user_dept'],
                 'customer_contact_user_title' => $row['customer_contact_user_title'],
@@ -42,14 +45,17 @@ class ServiceContractsSeeder extends Seeder
                 'customer_contract_user_dept' => $row['customer_contract_user_dept'],
                 'customer_contract_user_title' => $row['customer_contract_user_title'],
                 'customer_contract_user_mail' => $row['customer_contract_user_mail'],
-                'contract_officer_sys_user_code' => $row['contract_officer_sys_user_code'],
-                'contract_manager_sys_user_code' => $row['contract_manager_sys_user_code'],
-                'contract_url' => $row['contract_url'],
-                'service_application_date' => $row['service_application_date'],
+                'customer_payment_user_name' => $row['customer_payment_user_name'],
+                'customer_payment_user_dept' => $row['customer_payment_user_dept'],
+                'customer_payment_user_title' => $row['customer_payment_user_title'],
+                'customer_payment_user_mail' => $row['customer_payment_user_mail'],
+                'service_rep_user_option_id' => (int) $row['service_rep_user_option_id'],
+                'service_mgr_user_option_id' => (int) $row['service_mgr_user_option_id'],
+                'contract_preview_pdf_url' => $row['contract_preview_pdf_url'],
+                'contract_date' => empty($row['contract_date']) ? null : $row['contract_date'],
                 'contract_start_date' => empty($row['contract_start_date']) ? null : $row['contract_start_date'],
                 'contract_end_date' => empty($row['contract_end_date']) ? null : $row['contract_end_date'],
-                'contract_cancel_date' => empty($row['contract_cancel_date']) ? null : $row['contract_cancel_date'],
-                'contract_cancel_reason' => $row['contract_cancel_reason'] ?? null,
+                'contract_auto_update' => isset($row['contract_auto_update']) ? (bool) $row['contract_auto_update'] : null,
                 'service_usage_status_type' => $row['service_usage_status_type'],
                 'service_usage_status_code' => $row['service_usage_status_code'],
                 'contract_status_type' => $row['contract_status_type'],
@@ -64,5 +70,11 @@ class ServiceContractsSeeder extends Seeder
         }
 
         DB::table('service_contracts')->insert($data);
+
+        $maxId = DB::table('service_contracts')->max('service_contract_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE service_contracts ALTER COLUMN service_contract_id RESTART WITH {$nextId}");
     }
 }

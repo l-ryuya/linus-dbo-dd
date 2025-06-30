@@ -11,8 +11,5 @@ class SelectionItem extends Model
 {
     use SoftDeletes;
 
-    // 複合主キーをサポートしていない為、無効化させる
-    protected $primaryKey = 'Not supported Composite Primary Key';
-
-    public $incrementing = false;
+    protected $primaryKey = 'selection_item_id';
 }

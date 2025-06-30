@@ -21,6 +21,8 @@ use Database\Seeders\base\ServicePlanTranslationsSeeder;
 use Database\Seeders\base\ServicesSeeder;
 use Database\Seeders\base\ServiceTranslationsSeeder;
 use Database\Seeders\base\TenantsSeeder;
+use Database\Seeders\base\TimeZonesSeeder;
+use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -34,6 +36,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
+            TimeZonesSeeder::class,
             SelectionItemsSeeder::class,
             SelectionItemTranslationsSeeder::class,
             CountryRegionsSeeder::class,
@@ -51,6 +54,7 @@ class DatabaseSeeder extends Seeder
             ServiceTranslationsSeeder::class,
             ServicePlanTranslationsSeeder::class,
             ServiceContractsSeeder::class,
+            UserOptionsSeeder::class,
         ]);
     }
 }

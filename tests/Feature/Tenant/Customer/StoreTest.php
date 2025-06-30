@@ -115,7 +115,7 @@ class StoreTest extends TestCase
         $this->assertDatabaseHas('company_name_translations', [
             'company_id' => $company->company_id,
             'language_code' => $customerData['defaultLanguageCode'],
-            'legal_name' => $customerData['customerName'],
+            'company_legal_name' => $customerData['customerName'],
         ]);
 
         $this->assertDatabaseHas('customers', [

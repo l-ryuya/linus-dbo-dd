@@ -1,4 +1,4 @@
-"company_id","role_id","valid_from","valid_to","remarks","created_at","updated_at","deleted_at"
+"company_id","company_role_id","valid_from","valid_to","remarks","created_at","updated_at","deleted_at"
 1,16,2025-06-05,,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
 6,17,2025-06-05,,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
 5,17,2025-06-05,,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,

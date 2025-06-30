@@ -11,10 +11,7 @@ class Service extends Model
 {
     use SoftDeletes;
 
-    // 複合主キーをサポートしていない為、無効化させる
-    protected $primaryKey = 'Not supported Composite Primary Key';
-
-    public $incrementing = false;
+    protected $primaryKey = 'service_id';
 
     protected function casts(): array
     {

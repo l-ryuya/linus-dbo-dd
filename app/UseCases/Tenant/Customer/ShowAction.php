@@ -62,7 +62,7 @@ class ShowAction
             'companies.executives_url',
             'companies.remarks',
             'companies.updated_at',
-            'company_name_translations.legal_name',
+            'company_name_translations.company_legal_name',
         ])
         ->leftJoin('company_name_translations', function ($join) use ($languageCode) {
             $join->on('companies.company_id', '=', 'company_name_translations.company_id')
@@ -75,6 +75,7 @@ class ShowAction
             'service_contracts.public_id',
             'service_contracts.service_id',
             'service_contracts.service_plan_id',
+            'service_contracts.contract_name',
             'service_contracts.service_usage_status_type',
             'service_contracts.service_usage_status_code',
             'service_contracts.contract_status_type',

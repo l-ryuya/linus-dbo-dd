@@ -1,4 +1,4 @@
-"role_id","language_code","role_name","role_short_name","remarks","created_at","updated_at","deleted_at"
+"company_role_id","language_code","company_role_name","company_role_short_name","remarks","created_at","updated_at","deleted_at"
 16,eng,Operator,Operator,,,,
 17,eng,Customer,Customer,,,,
 18,eng,Customer,Customer,,,,

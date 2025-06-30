@@ -28,10 +28,10 @@ class CompanyRoleTranslationsSeeder extends Seeder
 
         foreach ($csv as $row) {
             $data[] = [
-                'role_id' => (int) $row['role_id'],
+                'company_role_id' => (int) $row['company_role_id'],
                 'language_code' => $row['language_code'],
-                'role_name' => $row['role_name'],
-                'role_short_name' => $row['role_short_name'],
+                'company_role_name' => $row['company_role_name'],
+                'company_role_short_name' => $row['company_role_short_name'],
                 'remarks' => $row['remarks'] ?? null,
                 'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
                 'updated_at' => empty($row['updated_at']) ? $now : $row['updated_at'],
@@ -40,5 +40,11 @@ class CompanyRoleTranslationsSeeder extends Seeder
         }
 
         DB::table('company_role_translations')->insert($data);
+
+        $maxId = DB::table('company_role_translations')->max('company_role_translation_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE company_role_translations ALTER COLUMN company_role_translation_id RESTART WITH {$nextId}");
     }
 }
