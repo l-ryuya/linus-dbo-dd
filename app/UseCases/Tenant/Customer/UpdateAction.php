@@ -76,7 +76,7 @@ class UpdateAction
                 'language_code' => $data->defaultLanguageCode,
             ],
             [
-                'legal_name' => $data->customerName,
+                'company_legal_name' => $data->customerName,
                 'updated_at' => now(),
                 'created_at' => now(),
             ],

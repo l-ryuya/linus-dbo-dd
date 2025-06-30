@@ -285,6 +285,9 @@ components:
                     type: string
                     format: uuid
                     description: 'サービス契約 外部公開用 UUID v4'
+                  contractName:
+                    type: string
+                    description: 契約書名
                   serviceName:
                     type: string
                     description: サービス名

@@ -78,7 +78,7 @@ class StoreAction
         $companyNameTranslation = new CompanyNameTranslation();
         $companyNameTranslation->company_id = $company->company_id;
         $companyNameTranslation->language_code = $data->defaultLanguageCode;
-        $companyNameTranslation->legal_name = $data->customerName;
+        $companyNameTranslation->company_legal_name = $data->customerName;
         $companyNameTranslation->save();
 
         return $company;

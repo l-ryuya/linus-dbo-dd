@@ -15,21 +15,22 @@ return new class extends Migration {
         Schema::create('companies', function (Blueprint $table) {
             $table->comment('法人テーブル（顧客・運営会社・協業先など）');
 
-            // ビジネス識別子
+            // システム識別子
             $table->unsignedBigInteger('company_id')
                 ->primary()
                 ->comment('内部用連番 PK');
-
             $table->uuid('public_id')
                 ->unique()
                 ->default(DB::raw('gen_random_uuid()'))
                 ->comment('外部公開用 UUID v4');
+
+            // ビジネス識別子
             $table->unsignedBigInteger('tenant_id')
                 ->comment('所属テナント ID（必須）');
 
+            // 属性
             $table->string('company_name_en')
                 ->comment('法人英名');
-
             $table->char('default_language_code', 3)
                 ->comment('デフォルト言語');
             $table->char('country_code_alpha3', 3)

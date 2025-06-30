@@ -82,7 +82,7 @@ class UpdateTest extends TestCase
         CompanyNameTranslation::create([
             'company_id' => $this->company->company_id,
             'language_code' => 'jpn',
-            'legal_name' => '元のテスト株式会社',
+            'company_legal_name' => '元のテスト株式会社',
         ]);
 
         // 顧客情報を作成
@@ -157,7 +157,7 @@ class UpdateTest extends TestCase
         $this->assertDatabaseHas('company_name_translations', [
             'company_id' => $this->company->company_id,
             'language_code' => $updateData['defaultLanguageCode'],
-            'legal_name' => $updateData['customerName'],
+            'company_legal_name' => $updateData['customerName'],
         ]);
 
         $this->assertDatabaseHas('customers', [

@@ -9,6 +9,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
  * @property string $public_id
+ * @property string $contract_name
  * @property string $service_name
  * @property string $service_plan_name
  * @property string $service_usage_status
@@ -25,6 +26,7 @@ class ServiceContractResource extends JsonResource
      *
      * @return array{
      *     publicId: string,
+     *     contractName: string,
      *     serviceName: string,
      *     servicePlanName: string,
      *     serviceUsageStatus: string,
@@ -37,6 +39,7 @@ class ServiceContractResource extends JsonResource
     {
         return [
             'publicId' => $this->public_id,
+            'contractName' => $this->contract_name,
             'serviceName' => $this->service_name,
             'servicePlanName' => $this->service_plan_name,
             'serviceUsageStatus' => $this->service_usage_status,
