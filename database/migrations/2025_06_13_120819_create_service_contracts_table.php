@@ -107,9 +107,9 @@ return new class extends Migration {
                 ->onUpdate('cascade')->onDelete('restrict');
 
             // インデックス
-            $table->index('customer_id', 'idx_sc_customer_id');
-            $table->index(['service_usage_status_type', 'service_usage_status_code'], 'idx_sc_service_usage_status');
-            $table->index(['contract_status_type', 'contract_status_code'], 'idx_sc_contracts_status');
+            $table->index('customer_id');
+            $table->index(['service_usage_status_type', 'service_usage_status_code']);
+            $table->index(['contract_status_type', 'contract_status_code']);
         });
 
         // ID列にIDENTITYを追加する
