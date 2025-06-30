@@ -42,7 +42,9 @@ return new class extends Migration {
             $table->string('service_condition')->nullable()
                 ->comment('メンテナンス・トラブル等の場合にサービスの状態を説明する項目');
             $table->string('service_admin_sys_user_code', 12)
-                ->comment('サービスを管理するユーザーID M5システムユーザコード');
+                ->comment('サービス管理ユーザーの m5 ユーザーコード');
+            $table->string('service_sys_organization_code', 12)
+                ->comment('サービス管理組織の m5 組織コード');
             $table->string('remarks')->nullable()
                 ->comment('備考');
 

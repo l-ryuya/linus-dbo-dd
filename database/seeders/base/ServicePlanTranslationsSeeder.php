@@ -40,5 +40,11 @@ class ServicePlanTranslationsSeeder extends Seeder
         }
 
         DB::table('service_plan_translations')->insert($data);
+
+        $maxId = DB::table('service_plan_translations')->max('service_plan_translation_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE service_plan_translations ALTER COLUMN service_plan_translation_id RESTART WITH {$nextId}");
     }
 }

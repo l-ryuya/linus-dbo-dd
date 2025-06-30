@@ -38,5 +38,11 @@ class SelectionItemsSeeder extends Seeder
         }
 
         DB::table('selection_items')->insert($data);
+
+        $maxId = DB::table('selection_items')->max('selection_item_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE selection_items ALTER COLUMN selection_item_id RESTART WITH {$nextId}");
     }
 }

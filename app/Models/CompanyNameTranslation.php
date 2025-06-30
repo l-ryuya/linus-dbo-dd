@@ -12,15 +12,12 @@ class CompanyNameTranslation extends Model
 {
     use SoftDeletes;
 
-    // 複合主キーをサポートしていない為、無効化させる
-    protected $primaryKey = 'Not supported Composite Primary Key';
-
-    public $incrementing = false;
+    protected $primaryKey = 'company_name_translation_id';
 
     protected $fillable = [
         'company_id',
         'language_code',
-        'legal_name',
+        'company_legal_name',
     ];
 
     /**

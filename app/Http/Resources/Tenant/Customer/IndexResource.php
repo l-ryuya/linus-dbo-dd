@@ -35,7 +35,7 @@ class IndexResource extends JsonResource
     {
         return [
             'customerPublicId' => $this->public_id,
-            'customerName' => $this->legal_name,
+            'customerName' => $this->company_legal_name,
             'customerStatus' => $this->customer_status,
             'serviceStartDate' => $this->contract_start_date,
             'serviceName' => $this->service_name,

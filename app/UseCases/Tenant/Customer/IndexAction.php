@@ -40,7 +40,7 @@ class IndexAction
             'customers.customer_status_type',
             'customers.customer_status_code',
             'customers.created_at',
-            'company_name_translations.legal_name',
+            'company_name_translations.company_legal_name',
             'service_contracts.service_id',
             'service_contracts.service_plan_id',
             'service_contracts.contract_start_date',
@@ -66,7 +66,7 @@ class IndexAction
             $query->where('customers.sys_organization_code', $organizationCode);
         })
         ->when($customerName, function ($query) use ($customerName) {
-            $query->where('company_name_translations.legal_name', 'LIKE', "%{$customerName}%");
+            $query->where('company_name_translations.company_legal_name', 'LIKE', "%{$customerName}%");
         })
         ->when($customerStatusCode, function ($query) use ($customerStatusCode) {
             $query->where('customers.customer_status_type', 'customer_status')

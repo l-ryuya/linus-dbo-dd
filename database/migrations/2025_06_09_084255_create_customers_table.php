@@ -68,7 +68,8 @@ return new class extends Migration {
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
 
-            // インデックス（ステータス検索用）
+            // インデックス
+            $table->index('tenant_id');
             $table->index('customer_status_code');
         });
 

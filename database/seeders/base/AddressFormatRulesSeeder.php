@@ -38,5 +38,11 @@ class AddressFormatRulesSeeder extends Seeder
         }
 
         DB::table('address_format_rules')->insert($data);
+
+        $maxId = DB::table('address_format_rules')->max('address_format_rule_id') ?? 0;
+        $nextId = $maxId + 1;
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE address_format_rules ALTER COLUMN address_format_rule_id RESTART WITH {$nextId}");
     }
 }
