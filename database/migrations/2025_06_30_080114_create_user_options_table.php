@@ -35,6 +35,8 @@ return new class extends Migration {
             $table->boolean('platform_user')->nullable()->comment('プラットフォームユーザー識別');
 
             // 属性
+            $table->string('user_name')->comment('ユーザー氏名');
+            $table->string('user_mail')->comment('ユーザーメール');
             $table->text('user_icon_url')->nullable()->comment('ユーザーアイコン画像URL');
             $table->char('country_code_alpha3', 3)->default('JPN')->comment('ユーザーが設定する国・地域コード');
             $table->char('language_code', 3)->default('jpn')->comment('ユーザーが設定する言語コード');
