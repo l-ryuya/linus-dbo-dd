@@ -13,7 +13,7 @@ class IndexAction
      * 顧客一覧取得
      *
      * @param string      $languageCode $languageCode 言語コード（ISO639-1）
-     * @param int         $tenantId
+     * @param int|null    $tenantId
      * @param string|null $organizationCode
      * @param string|null $customerName
      * @param string|null $customerStatusCode
@@ -26,7 +26,7 @@ class IndexAction
      */
     public function __invoke(
         string $languageCode,
-        int $tenantId,
+        ?int $tenantId,
         ?string $organizationCode,
         ?string $customerName,
         ?string $customerStatusCode,
@@ -61,7 +61,9 @@ class IndexAction
             $join->on('service_contracts.service_plan_id', '=', 'service_plan_translations.service_plan_id')
                 ->where('service_plan_translations.language_code', $languageCode);
         })
-        ->where('customers.tenant_id', $tenantId)
+        ->when($tenantId, function ($query) use ($tenantId) {
+            $query->where('customers.tenant_id', $tenantId);
+        })
         ->when($organizationCode, function ($query) use ($organizationCode) {
             $query->where('customers.sys_organization_code', $organizationCode);
         })

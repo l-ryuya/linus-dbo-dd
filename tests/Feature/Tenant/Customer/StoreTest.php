@@ -6,14 +6,14 @@ namespace Tests\Feature\Tenant\Customer;
 
 use App\Models\Company;
 use App\Models\Tenant;
-use App\Services\M5\UserOrganizationService;
 use Database\Seeders\base\CountryRegionsSeeder;
 use Database\Seeders\base\CountryRegionsTranslationsSeeder;
 use Database\Seeders\base\SelectionItemsSeeder;
 use Database\Seeders\base\SelectionItemTranslationsSeeder;
 use Database\Seeders\base\TenantsSeeder;
+use Database\Seeders\base\TimeZonesSeeder;
+use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Mockery;
 use Tests\TestCase;
 
 class StoreTest extends TestCase
@@ -27,23 +27,20 @@ class StoreTest extends TestCase
         parent::setUp();
 
         $this->seed([
+            TimeZonesSeeder::class,
             SelectionItemsSeeder::class,
             SelectionItemTranslationsSeeder::class,
             CountryRegionsSeeder::class,
             CountryRegionsTranslationsSeeder::class,
             TenantsSeeder::class,
+            UserOptionsSeeder::class,
         ]);
 
-        $this->tenant = Tenant::where('sys_organization_code', 'ORG00000010')->first();
-
-        // UserOrganizationServiceクラスのメソッドをモック
-        $mock = Mockery::mock(UserOrganizationService::class);
-        $mock->allows('getTenantByOrganizationCode')->andReturn($this->tenant);
-        // サービスのモックをapp()->instance()で注入
-        $this->app->instance(UserOrganizationService::class, $mock);
+        $authUser = $this->createTenantManageUser();
+        $this->tenant = $authUser->getUserOption()->tenant;
 
         // テスト用の認証を設定
-        $this->actingAs($this->createTenantManageUser());
+        $this->actingAs($authUser);
     }
 
     /**
