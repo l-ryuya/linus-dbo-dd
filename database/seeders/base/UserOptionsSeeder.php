@@ -29,6 +29,7 @@ class UserOptionsSeeder extends Seeder
         foreach ($csv as $row) {
             $data[] = [
                 'public_id' => $row['public_id'],
+                'company_id' => empty($row['company_id']) ? null : (int) $row['company_id'],
                 'tenant_id' => empty($row['tenant_id']) ? null : (int) $row['tenant_id'],
                 'customer_id' => empty($row['customer_id']) ? null : (int) $row['customer_id'],
                 'service_id' => empty($row['service_id']) ? null : (int) $row['service_id'],
