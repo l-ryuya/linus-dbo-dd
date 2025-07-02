@@ -58,7 +58,7 @@ paths:
         - name: type
           description: 選択肢アイテムコード
           in: query
-          required: true
+          required: false
           schema:
             type: string
           examples:
