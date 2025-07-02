@@ -16,12 +16,3 @@ components:
         type: integer
         minimum: 10
       description: 1ページに表示する件数
-    AcceptLanguage:
-      in: header
-      name: Accept-Language
-      schema:
-        type: string
-      description:
-        |-
-        リクエストの言語を指定します。
-        例: eng, jpn

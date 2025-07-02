@@ -10,6 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 /**
  * @property string $public_id
  * @property string $company_legal_name
+ * @property string $company_name_en
  * @property string $customer_status
  * @property string $contract_start_date
  * @property string $service_name
@@ -25,6 +26,7 @@ class IndexResource extends JsonResource
      * @return array{
      *     customerPublicId: string,
      *     customerName: string,
+     *     customerNameEn: string,
      *     customerStatus: string,
      *     serviceStartDate: string|null,
      *     serviceName: string|null,
@@ -36,6 +38,7 @@ class IndexResource extends JsonResource
         return [
             'customerPublicId' => $this->public_id,
             'customerName' => $this->company_legal_name,
+            'customerNameEn' => $this->company_name_en,
             'customerStatus' => $this->customer_status,
             'serviceStartDate' => $this->contract_start_date,
             'serviceName' => $this->service_name,

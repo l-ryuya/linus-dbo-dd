@@ -26,6 +26,7 @@ return new class extends Migration {
                 ->comment('外部公開用 UUID v4');
 
             // ビジネス識別子
+            $table->unsignedBigInteger('company_id')->nullable()->comment('法人ID');
             $table->unsignedBigInteger('tenant_id')->nullable()->comment('テナントID');
             $table->unsignedBigInteger('customer_id')->nullable()->comment('顧客ID');
             $table->unsignedBigInteger('service_id')->nullable()->comment('サービスID');
@@ -35,8 +36,8 @@ return new class extends Migration {
             $table->boolean('platform_user')->nullable()->comment('プラットフォームユーザー識別');
 
             // 属性
-            $table->string('user_name')->comment('ユーザー氏名');
-            $table->string('user_mail')->comment('ユーザーメール');
+            $table->string('user_name')->nullable()->comment('ユーザー氏名');
+            $table->string('user_mail')->nullable()->comment('ユーザーメール');
             $table->text('user_icon_url')->nullable()->comment('ユーザーアイコン画像URL');
             $table->char('country_code_alpha3', 3)->default('JPN')->comment('ユーザーが設定する国・地域コード');
             $table->char('language_code', 3)->default('jpn')->comment('ユーザーが設定する言語コード');
@@ -51,7 +52,28 @@ return new class extends Migration {
             $table->timestamp('deleted_at')->nullable()->comment('削除日時');
 
             // 外部キー
-            $table->foreign('time_zone_id', 'fk_time_zone')
+            $table->foreign('company_id')
+                ->references('company_id')
+                ->on('companies')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+            $table->foreign('tenant_id')
+                ->references('tenant_id')
+                ->on('tenants')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+            $table->foreign('customer_id')
+                ->references('customer_id')
+                ->on('customers')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+            $table->foreign('service_id')
+                ->references('service_id')
+                ->on('services')
+                ->onUpdate('restrict')
+                ->onDelete('restrict');
+
+            $table->foreign('time_zone_id')
                 ->references('time_zone_id')
                 ->on('time_zones')
                 ->onUpdate('restrict')

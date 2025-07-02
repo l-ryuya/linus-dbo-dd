@@ -2,12 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\NoAuthentication;
+namespace App\Http\Controllers\MasterData;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CountryRegion\IndexRequest;
 use App\Http\Resources\CountryRegion\IndexCollection;
-use App\Shared\Language\IsoLanguageCode;
 use App\UseCases\CountryRegion\IndexAction;
 
 class CountryRegionController extends Controller
@@ -24,9 +23,12 @@ class CountryRegionController extends Controller
         IndexRequest $request,
         IndexAction $action,
     ): IndexCollection {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
         return new IndexCollection(
             $action(
-                IsoLanguageCode::getLocaleIso639_1(),
+                $user->getUserOption()->language_code,
                 $request->validated('countryCodeAlpha3'),
                 $request->validated('countryCodeAlpha2'),
                 $request->validated('countryCodeNumeric'),
