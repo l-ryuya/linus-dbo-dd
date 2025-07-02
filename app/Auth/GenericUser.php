@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Auth;
 
+use App\Models\UserOption;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Support\Facades\Http;
 
@@ -17,6 +18,8 @@ class GenericUser implements Authenticatable
     /** @var array<string, mixed> */
     protected array $attributes;
 
+    protected UserOption $userOption;
+
     /**
      * @param array<string, mixed> $attributes
      */
@@ -24,6 +27,22 @@ class GenericUser implements Authenticatable
     {
         $this->attributes = $attributes;
         $this->attributes['id'] = $attributes['sub'] ?? null;
+
+        abort_if(
+            empty($this->attributes['id']),
+            500,
+            'User must have a valid ID attribute.',
+        );
+
+        $this->userOption = UserOption::where('sys_user_code', $this->attributes['id'])->firstOrFail();
+    }
+
+    /**
+     * @return \App\Models\UserOption
+     */
+    public function getUserOption(): UserOption
+    {
+        return $this->userOption;
     }
 
     /**

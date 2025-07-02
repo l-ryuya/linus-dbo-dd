@@ -2,10 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\NoAuthentication;
+namespace Tests\Feature\MasterData;
 
+use Database\Seeders\base\CompaniesSeeder;
+use Database\Seeders\base\CompanyNameTranslationsSeeder;
+use Database\Seeders\base\CountryRegionsSeeder;
+use Database\Seeders\base\CountryRegionsTranslationsSeeder;
+use Database\Seeders\base\CustomersSeeder;
 use Database\Seeders\base\SelectionItemsSeeder;
 use Database\Seeders\base\SelectionItemTranslationsSeeder;
+use Database\Seeders\base\ServicePlansSeeder;
+use Database\Seeders\base\ServicePlanTranslationsSeeder;
+use Database\Seeders\base\ServicesSeeder;
+use Database\Seeders\base\ServiceTranslationsSeeder;
+use Database\Seeders\base\TenantsSeeder;
+use Database\Seeders\base\TimeZonesSeeder;
+use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,9 +30,24 @@ class MiscDataControllerTest extends TestCase
         parent::setUp();
 
         $this->seed([
+            TimeZonesSeeder::class,
             SelectionItemsSeeder::class,
             SelectionItemTranslationsSeeder::class,
+            CountryRegionsSeeder::class,
+            CountryRegionsTranslationsSeeder::class,
+            TenantsSeeder::class,
+            CompaniesSeeder::class,
+            CompanyNameTranslationsSeeder::class,
+            CustomersSeeder::class,
+            ServicesSeeder::class,
+            ServicePlansSeeder::class,
+            ServiceTranslationsSeeder::class,
+            ServicePlanTranslationsSeeder::class,
+            UserOptionsSeeder::class,
         ]);
+
+        // テスト用の認証を設定
+        $this->actingAs($this->createTenantManageUser());
     }
 
     /**
@@ -38,7 +65,7 @@ class MiscDataControllerTest extends TestCase
      */
     public function test_index_returns_successful_response(): void
     {
-        $response = $this->getJson($this->getBaseUrl() . '?type=test_type');
+        $response = $this->getJson($this->getBaseUrl());
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -59,12 +86,12 @@ class MiscDataControllerTest extends TestCase
     public function test_index_filters_by_different_types(): void
     {
         // type1でフィルタリング
-        $response1 = $this->getJson($this->getBaseUrl() . '?type=type1');
+        $response1 = $this->getJson($this->getBaseUrl() . '?type=user_status');
 
         $response1->assertStatus(200);
 
         // type2で別のフィルタリング
-        $response2 = $this->getJson($this->getBaseUrl() . '?type=type2');
+        $response2 = $this->getJson($this->getBaseUrl() . '?type=world_region');
 
         $response2->assertStatus(200);
 
@@ -82,10 +109,6 @@ class MiscDataControllerTest extends TestCase
      */
     public function test_index_validates_input(): void
     {
-        // typeパラメータが無い場合
-        $response = $this->getJson($this->getBaseUrl());
-        $response->assertStatus(422);
-
         // typeパラメータが短すぎる場合
         $response = $this->getJson($this->getBaseUrl() . '?type=ab');
         $response->assertStatus(422);

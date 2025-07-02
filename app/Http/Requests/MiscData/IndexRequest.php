@@ -16,7 +16,7 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type' => ['required', 'string', 'min:3', 'max:64'],
+            'type' => ['nullable', 'string', 'min:3', 'max:64'],
         ];
     }
 }

@@ -29,12 +29,15 @@ class UserOptionsSeeder extends Seeder
         foreach ($csv as $row) {
             $data[] = [
                 'public_id' => $row['public_id'],
+                'company_id' => empty($row['company_id']) ? null : (int) $row['company_id'],
                 'tenant_id' => empty($row['tenant_id']) ? null : (int) $row['tenant_id'],
                 'customer_id' => empty($row['customer_id']) ? null : (int) $row['customer_id'],
                 'service_id' => empty($row['service_id']) ? null : (int) $row['service_id'],
                 'sys_user_code' => $row['sys_user_code'],
                 'sys_organization_code' => $row['sys_organization_code'],
                 'platform_user' => (bool) $row['platform_user'],
+                'user_name' => $row['user_name'],
+                'user_mail' => $row['user_mail'],
                 'user_icon_url' => $row['user_icon_url'] ?? null,
                 'country_code_alpha3' => $row['country_code_alpha3'],
                 'language_code' => $row['language_code'],

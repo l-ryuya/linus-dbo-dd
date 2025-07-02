@@ -39,6 +39,7 @@ class ServicesSeeder extends Seeder
                 "service_condition" => $row['service_condition'] ?? null,
                 "service_admin_sys_user_code" => $row['service_admin_sys_user_code'],
                 "service_sys_organization_code" => $row['service_sys_organization_code'],
+                "dd_plan" => $row['dd_plan'],
                 "remarks" => $row['remarks'] ?? null,
                 "created_at" => $now,
                 "updated_at" => $now,

@@ -101,7 +101,7 @@ class StoreAction
         $customer->company_id = $company->company_id;
         $customer->sys_organization_code = $identifiedTenant->customers_sys_organization_code;
         $customer->customer_status_type = 'customer_status';
-        $customer->customer_status_code = 'under_dd';
+        $customer->customer_status_code = 'customer_registered';
         $customer->save();
         $customer->refresh();
 

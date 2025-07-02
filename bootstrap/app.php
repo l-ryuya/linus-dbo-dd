@@ -29,12 +29,9 @@ return Application::configure(basePath: dirname(__DIR__))
             ),
         );
 
-        $middleware->api(append: [
-            App\Http\Middleware\LocaleMiddleware::class,
-        ]);
-
         $middleware->alias([
-            'scope' => App\Http\Middleware\ScopeAdminMiddleware::class,
+            'functions' => App\Http\Middleware\FunctionsVerifyMiddleware::class,
+            'roles' => App\Http\Middleware\RoleSelectorMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {

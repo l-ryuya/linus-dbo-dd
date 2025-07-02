@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Tenant\Customer;
 
 use App\Models\SelectionItemTranslation;
-use App\Models\Tenant;
-use App\Services\M5\UserOrganizationService;
 use Database\Seeders\base\CompaniesSeeder;
 use Database\Seeders\base\CompanyNameTranslationsSeeder;
 use Database\Seeders\base\CountryRegionsSeeder;
@@ -20,6 +18,8 @@ use Database\Seeders\base\ServicePlanTranslationsSeeder;
 use Database\Seeders\base\ServicesSeeder;
 use Database\Seeders\base\ServiceTranslationsSeeder;
 use Database\Seeders\base\TenantsSeeder;
+use Database\Seeders\base\TimeZonesSeeder;
+use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -32,6 +32,7 @@ class IndexTest extends TestCase
         parent::setUp();
 
         $this->seed([
+            TimeZonesSeeder::class,
             SelectionItemsSeeder::class,
             SelectionItemTranslationsSeeder::class,
             CountryRegionsSeeder::class,
@@ -45,22 +46,8 @@ class IndexTest extends TestCase
             ServiceTranslationsSeeder::class,
             ServicePlanTranslationsSeeder::class,
             ServiceContractsSeeder::class,
+            UserOptionsSeeder::class,
         ]);
-
-        $tenant = Tenant::where('sys_organization_code', 'ORG00000010')->first();
-
-        // UserOrganizationServiceクラスのgetLowestLevelOrganizationメソッドをモック
-        $mock = \Mockery::mock(UserOrganizationService::class);
-        $mock->allows('getLowestLevelOrganization')
-            ->andReturn([
-                'sysOrganizationCode' => 'ORG00000010',
-                'organizationLevelId' => 2,
-                'organizationLevelCode' => 'TENANT',
-            ]);
-        $mock->allows('getTenantByOrganizationCode')
-            ->andReturn($tenant);
-        // app()->instance() でモックを注入
-        $this->app->instance(UserOrganizationService::class, $mock);
 
         // テスト用の認証を設定
         $this->actingAs($this->createTenantManageUser());
@@ -92,6 +79,7 @@ class IndexTest extends TestCase
                     '*' => [
                         'customerPublicId',
                         'customerName',
+                        'customerNameEn',
                         'customerStatus',
                         'serviceStartDate',
                         'serviceName',
