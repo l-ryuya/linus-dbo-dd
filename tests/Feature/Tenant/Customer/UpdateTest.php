@@ -8,10 +8,17 @@ use App\Models\Company;
 use App\Models\CompanyNameTranslation;
 use App\Models\Customer;
 use App\Models\Tenant;
+use Database\Seeders\base\CompaniesSeeder;
+use Database\Seeders\base\CompanyNameTranslationsSeeder;
 use Database\Seeders\base\CountryRegionsSeeder;
 use Database\Seeders\base\CountryRegionsTranslationsSeeder;
+use Database\Seeders\base\CustomersSeeder;
 use Database\Seeders\base\SelectionItemsSeeder;
 use Database\Seeders\base\SelectionItemTranslationsSeeder;
+use Database\Seeders\base\ServicePlansSeeder;
+use Database\Seeders\base\ServicePlanTranslationsSeeder;
+use Database\Seeders\base\ServicesSeeder;
+use Database\Seeders\base\ServiceTranslationsSeeder;
 use Database\Seeders\base\TenantsSeeder;
 use Database\Seeders\base\TimeZonesSeeder;
 use Database\Seeders\base\UserOptionsSeeder;
@@ -36,10 +43,12 @@ class UpdateTest extends TestCase
         $this->seed([
             TimeZonesSeeder::class,
             SelectionItemsSeeder::class,
-            SelectionItemTranslationsSeeder::class,
             CountryRegionsSeeder::class,
-            CountryRegionsTranslationsSeeder::class,
             TenantsSeeder::class,
+            CompaniesSeeder::class,
+            CustomersSeeder::class,
+            ServicesSeeder::class,
+            ServicePlansSeeder::class,
             UserOptionsSeeder::class,
         ]);
 
@@ -90,7 +99,7 @@ class UpdateTest extends TestCase
             'company_id' => $this->company->company_id,
             'sys_organization_code' => $this->tenant->customers_sys_organization_code,
             'customer_status_type' => 'customer_status',
-            'customer_status_code' => 'under_dd',
+            'customer_status_code' => 'customer_registered',
         ]);
     }
 
@@ -177,7 +186,7 @@ class UpdateTest extends TestCase
             'websiteUrl' => 'https://updated-example.com',
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
-            'customerStatusCode' => 'completed_dd',
+            'customerStatusCode' => 'dd_completed',
             'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
         ];
@@ -217,7 +226,7 @@ class UpdateTest extends TestCase
             'websiteUrl' => 'https://updated-example.com',
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
-            'customerStatusCode' => 'completed_dd',
+            'customerStatusCode' => 'dd_completed',
             'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'XXX', // 存在しない国コード
         ];
@@ -257,7 +266,7 @@ class UpdateTest extends TestCase
             'websiteUrl' => 'https://updated-example.com',
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
-            'customerStatusCode' => 'completed_dd',
+            'customerStatusCode' => 'dd_completed',
             'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
         ];
@@ -283,7 +292,7 @@ class UpdateTest extends TestCase
             'websiteUrl' => 'https://updated-example.com',
             'shareholdersUrl' => 'https://updated-example.com/shareholders',
             'executivesUrl' => 'https://updated-example.com/executives',
-            'customerStatusCode' => 'completed_dd',
+            'customerStatusCode' => 'dd_completed',
             'defaultLanguageCode' => 'jpn',
             'countryCodeAlpha3' => 'JPN',
             'remarks' => str_repeat('a', 256), // 255文字以上
