@@ -28,11 +28,11 @@ jobs:
       - name: Generate HTML files with Redocly
         run: |
           mkdir -p out
-          redocly build-docs api-docs/no_authentication.yaml --output=out/no_authentication.html
+          redocly build-docs api-docs/master_data.yaml --output=out/master_data.html
           redocly build-docs api-docs/tenant.yaml --output=out/tenant.html
 
           echo "<h1>Index for ${{ github.ref_name }}</h1><ul>" > out/index.html
-          echo "<li><a href='no_authentication.html'>no_authentication</a></li>" >> out/index.html
+          echo "<li><a href='master_data.html'>master_data</a></li>" >> out/index.html
           echo "<li><a href='tenant.html'>tenant</a></li>" >> out/index.html
           echo "</ul>" >> out/index.html
 

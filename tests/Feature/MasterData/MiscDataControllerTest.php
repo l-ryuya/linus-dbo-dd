@@ -2,10 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\NoAuthentication;
+namespace Tests\Feature\MasterData;
 
+use Database\Seeders\base\CompaniesSeeder;
+use Database\Seeders\base\CompanyNameTranslationsSeeder;
+use Database\Seeders\base\CountryRegionsSeeder;
+use Database\Seeders\base\CountryRegionsTranslationsSeeder;
+use Database\Seeders\base\CustomersSeeder;
 use Database\Seeders\base\SelectionItemsSeeder;
 use Database\Seeders\base\SelectionItemTranslationsSeeder;
+use Database\Seeders\base\ServicePlansSeeder;
+use Database\Seeders\base\ServicePlanTranslationsSeeder;
+use Database\Seeders\base\ServicesSeeder;
+use Database\Seeders\base\ServiceTranslationsSeeder;
+use Database\Seeders\base\TenantsSeeder;
+use Database\Seeders\base\TimeZonesSeeder;
+use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,9 +30,24 @@ class MiscDataControllerTest extends TestCase
         parent::setUp();
 
         $this->seed([
+            TimeZonesSeeder::class,
             SelectionItemsSeeder::class,
             SelectionItemTranslationsSeeder::class,
+            CountryRegionsSeeder::class,
+            CountryRegionsTranslationsSeeder::class,
+            TenantsSeeder::class,
+            CompaniesSeeder::class,
+            CompanyNameTranslationsSeeder::class,
+            CustomersSeeder::class,
+            ServicesSeeder::class,
+            ServicePlansSeeder::class,
+            ServiceTranslationsSeeder::class,
+            ServicePlanTranslationsSeeder::class,
+            UserOptionsSeeder::class,
         ]);
+
+        // テスト用の認証を設定
+        $this->actingAs($this->createTenantManageUser());
     }
 
     /**

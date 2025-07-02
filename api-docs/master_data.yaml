@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: デジタルバックオフィスAPI
   description: |-
-    認証不要エンドポイント郡
+    マスタデータ
   version: '1.0.0'
 servers:
   - url: 'https://dbo-dd.dev.dsbizdev.com/v1'
@@ -12,7 +12,6 @@ paths:
     get:
       summary: 国・地域 取得
       parameters:
-        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
         - name: countryCodeAlpha3
           in: query
           required: false
@@ -50,11 +49,12 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
         '500':
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
   /misc-data:
     get:
       summary: 汎用テーブル選択肢 取得
       parameters:
-        - $ref: 'components/parameters.yaml#/components/parameters/AcceptLanguage'
         - name: type
           description: 選択肢アイテムコード
           in: query
@@ -90,6 +90,8 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
         '500':
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
 
 components:
   schemas:
