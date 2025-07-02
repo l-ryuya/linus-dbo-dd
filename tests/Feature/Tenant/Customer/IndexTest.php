@@ -79,6 +79,7 @@ class IndexTest extends TestCase
                     '*' => [
                         'customerPublicId',
                         'customerName',
+                        'customerNameEn',
                         'customerStatus',
                         'serviceStartDate',
                         'serviceName',

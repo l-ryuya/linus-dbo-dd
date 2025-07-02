@@ -12,9 +12,7 @@ use App\Http\Resources\NoContentResource;
 use App\Http\Resources\Tenant\Customer\IndexCollection;
 use App\Http\Resources\Tenant\Customer\ShowResource;
 use App\Http\Resources\Tenant\Customer\StoreResource;
-use App\Models\Tenant;
 use App\Services\Role\TenantUserRoleService;
-use App\Shared\Language\IsoLanguageCode;
 use App\UseCases\Tenant\Customer\IndexAction;
 use App\UseCases\Tenant\Customer\ShowAction;
 use App\UseCases\Tenant\Customer\StoreAction;
@@ -23,8 +21,6 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    protected ?Tenant $identifiedTenant;
-
     /**
      * テナント管理者の顧客一覧を取得する
      *
@@ -42,7 +38,7 @@ class CustomerController extends Controller
 
         return new IndexCollection(
             $action(
-                IsoLanguageCode::getLocaleIso639_1(),
+                $user->getUserOption()->language_code,
                 (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
                 $request->validated('organizationCode'),
                 $request->validated('customerName'),
@@ -74,7 +70,7 @@ class CustomerController extends Controller
 
         return new ShowResource(
             $action(
-                IsoLanguageCode::getLocaleIso639_1(),
+                $user->getUserOption()->language_code,
                 (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
                 $publicId,
             ),
