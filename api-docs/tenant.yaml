@@ -120,6 +120,8 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
         '403':
           $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: 'components/error_response.yaml#/components/responses/NotFound'
         '422':
           $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
         '500':
@@ -154,11 +156,92 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
+  /tenant/service-contracts:
+    get:
+      summary: テナント管理者 顧客契約情報一覧
+      parameters:
+        - name: tenantName
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: servicePublicId
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: servicePlanPublicId
+          in: query
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: customerName
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: contractName
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: contractStatusCode
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: serviceUsageStatusCode
+          in: query
+          required: false
+          schema:
+            type: string
+        - name: contractDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - name: contractStartDate
+          in: query
+          required: false
+          schema:
+            type: string
+            format: date
+        - $ref: 'components/parameters.yaml#/components/parameters/DisplayPageNumber'
+        - $ref: 'components/parameters.yaml#/components/parameters/DisplayedResults'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceContractsResponse'
+                  'links':
+                    $ref: 'components/pagination.yaml#/components/schemas/PaginationLinks'
+                  'meta':
+                    $ref: 'components/pagination.yaml#/components/schemas/PaginationMeta'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
 
 components:
   schemas:
     TenantCustomersResponse:
-      description: 顧客閲覧情報
+      description: 顧客一覧
       type: object
       properties:
         customerPublicId:
@@ -311,6 +394,44 @@ components:
                   contractStatusCode:
                     type: string
                     description: 契約ステータスコード
+    ServiceContractsResponse:
+      description: 顧客契約一覧
+      type: object
+      properties:
+        tenantName:
+          type: string
+          description: テナント名
+        serviceName:
+          type: string
+          description: サービス名
+        servicePlanName:
+          type: string
+          description: サービスプラン名
+        customerName:
+          type: string
+          description: 顧客名
+        customerNameEn:
+          type: string
+          description: 顧客英名
+        contractName:
+          type: string
+          description: 契約書名
+        contractStatus:
+          type: string
+          description: 契約ステータス
+        serviceUsageStatus:
+          type: string
+          description: 利用ステータス
+        contractDate:
+          type: string
+          format: date
+          nullable: true
+          description: 契約締結日
+        contractStartDate:
+          type: string
+          format: date
+          nullable: true
+          description: 契約開始日
 
   securitySchemes:
     UserAuth:

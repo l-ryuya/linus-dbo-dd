@@ -30,10 +30,12 @@ jobs:
           mkdir -p out
           redocly build-docs api-docs/master_data.yaml --output=out/master_data.html
           redocly build-docs api-docs/tenant.yaml --output=out/tenant.html
+          redocly build-docs api-docs/external.yaml --output=out/external.html
 
           echo "<h1>Index for ${{ github.ref_name }}</h1><ul>" > out/index.html
           echo "<li><a href='master_data.html'>master_data</a></li>" >> out/index.html
           echo "<li><a href='tenant.html'>tenant</a></li>" >> out/index.html
+          echo "<li><a href='external.html'>external</a></li>" >> out/index.html
           echo "</ul>" >> out/index.html
 
       - name: Deploy to GitHub Pages
