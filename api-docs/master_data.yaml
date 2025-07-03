@@ -139,3 +139,7 @@ components:
         selectionItemShortName:
           type: string
           description: 選択肢アイテム短縮名称
+
+  securitySchemes:
+    UserAuth:
+      $ref: 'components/security_schemes.yaml#/components/securitySchemes/BearerAuth'
