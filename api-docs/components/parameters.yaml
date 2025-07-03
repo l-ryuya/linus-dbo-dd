@@ -16,3 +16,13 @@ components:
         type: integer
         minimum: 10
       description: 1ページに表示する件数
+    ExternalAuthenticationKey:
+      in: header
+      name: X-API-Key
+      schema:
+        type: string
+      description: |
+        外部システムからのAPIアクセスに必要な認証キーです。
+        このキーは、デジタルバックオフィスの管理者が発行します。
+        APIキーは、リクエストヘッダーの `X-API-Key` フィールドに設定してください。
+        認証キーが無効または存在しない場合、401 Unauthorized エラーが返されます。
