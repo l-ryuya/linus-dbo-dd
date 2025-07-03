@@ -1,0 +1,59 @@
+openapi: 3.1.0
+info:
+  title: デジタルバックオフィスAPI
+  description: |-
+    外部システム向け
+  version: '1.0.0'
+servers:
+  - url: 'https://dbo-dd.dev.dsbizdev.com/v1'
+    description: ステージング環境
+paths:
+  /external/service-contracts/{public_id}/salesreps:
+    get:
+      summary: サービス担当者情報 取得
+      parameters:
+        - $ref: 'components/parameters.yaml#/components/parameters/ExternalAuthenticationKey'
+        - name: public_id
+          in: path
+          description: サービス契約UUID
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServiceContractsSalesRepsGetRequest'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: 'components/error_response.yaml#/components/responses/NotFound'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+
+components:
+  schemas:
+    ServiceContractsSalesRepsGetRequest:
+      description: サービス担当者情報
+      type: object
+      properties:
+        salesRepCompanyName:
+          type: string
+          description: 会社名
+        salesRepName:
+          type: string
+          description: 担当者名
+        salesRepEmail:
+          type: string
+          description: 担当者メールアドレス
+        salesRepPhoneNumber:
+          type: string
+          description: 担当者電話番号
