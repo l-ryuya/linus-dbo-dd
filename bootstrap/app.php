@@ -32,6 +32,7 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'functions' => App\Http\Middleware\FunctionsVerifyMiddleware::class,
             'roles' => App\Http\Middleware\RoleSelectorMiddleware::class,
+            'auth.external' => App\Http\Middleware\CheckApiKeyMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
