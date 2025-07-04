@@ -1,3 +1,25 @@
+# builder ステージ（composer:ltsイメージを使用）
+FROM composer:lts AS builder
+
+# Laravelプロジェクトの必要ファイルを /build/ にコピー
+COPY composer.json composer.lock .env.develop artisan /build/
+COPY app/ /build/app/
+COPY bootstrap/ /build/bootstrap/
+COPY config/ /build/config/
+COPY database/ /build/database/
+COPY lang/ /build/lang/
+COPY public/ /build/public/
+# COPY resources/ /build/resources/  # 必要に応じて有効化してください
+COPY routes/ /build/routes/
+COPY storage/ /build/storage/
+
+WORKDIR /build/
+
+# Composerで依存インストール（本番用にno-devオプション）
+RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
+    composer dump-autoload
+
+
 FROM php:8.4-apache
 
 #  Apacheのmod_rewrite（URL書き換え）モジュールを有効化
@@ -37,16 +59,16 @@ RUN cd /usr/bin \
   && curl -s http://getcomposer.org/installer | php \
   && ln -s /usr/bin/composer.phar /usr/bin/composer
 
-#  Composerの環境変数と実行ファイルのコピー（推奨のインストール方法）
-ENV COMPOSER_ALLOW_SUPERUSER 1
-ENV COMPOSER_HOME /composer
-ENV PATH $PATH:/composer/vendor/bin
+# #  Composerの環境変数と実行ファイルのコピー（推奨のインストール方法）
+# ENV COMPOSER_ALLOW_SUPERUSER 1
+# ENV COMPOSER_HOME /composer
+# ENV PATH $PATH:/composer/vendor/bin
 
-#  最新のcomposerバイナリを別ステージからコピー（推奨）
-COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+# #  最新のcomposerバイナリを別ステージからコピー（推奨）
+# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 #  Composerのバージョンを2に固定
-RUN composer self-update --2
+# RUN composer self-update --2
 
 #  Node.js 20.x のインストール（最新のLTS対応）
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
@@ -67,12 +89,8 @@ WORKDIR /var/www/html
 # # .envファイルのコピーは composer install より前に
 # COPY ../example-api/env.example .env
 
-# Laravel依存のインストールと準備
-RUN composer install --no-dev --optimize-autoloader \
- && touch database/database.sqlite && chmod 666 database/database.sqlite \
- && php artisan config:cache \
- && php artisan route:cache \
- && php artisan migrate --force
+# # Laravel依存のインストールと準備
+# RUN composer install --no-dev --optimize-autoloader
 
 
 # # # Command : docker buildx build -t backendphp -f ./infra/docker/develop/php/Dockerfile .
