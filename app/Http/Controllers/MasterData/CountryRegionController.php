@@ -32,8 +32,6 @@ class CountryRegionController extends Controller
                 $request->validated('countryCodeAlpha3'),
                 $request->validated('countryCodeAlpha2'),
                 $request->validated('countryCodeNumeric'),
-                $request->validated('displayed'),
-                $request->validated('page'),
             ),
         );
     }

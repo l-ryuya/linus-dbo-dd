@@ -27,8 +27,6 @@ paths:
           required: false
           schema:
             type: integer
-        - $ref: 'components/parameters.yaml#/components/parameters/DisplayPageNumber'
-        - $ref: 'components/parameters.yaml#/components/parameters/DisplayedResults'
       responses:
         '200':
           description: OK
@@ -41,10 +39,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/CountryRegionResponse'
-                  'links':
-                    $ref: 'components/pagination.yaml#/components/schemas/PaginationLinks'
-                  'meta':
-                    $ref: 'components/pagination.yaml#/components/schemas/PaginationMeta'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
         '422':
           $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
         '500':
@@ -86,6 +82,8 @@ paths:
                     type: array
                     items:
                       $ref: '#/components/schemas/MiscDataResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
         '422':
           $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
         '500':
