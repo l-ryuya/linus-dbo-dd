@@ -55,9 +55,9 @@ RUN docker-php-ext-configure gd \
 
 #  Composerのインストール（古典的な方法）
 # 後で COPY --from=composer:latest でも上書きされるので冗長かも
-RUN cd /usr/bin \
-  && curl -s http://getcomposer.org/installer | php \
-  && ln -s /usr/bin/composer.phar /usr/bin/composer
+# RUN cd /usr/bin \
+#   && curl -s http://getcomposer.org/installer | php \
+#   && ln -s /usr/bin/composer.phar /usr/bin/composer
 
 # #  Composerの環境変数と実行ファイルのコピー（推奨のインストール方法）
 # ENV COMPOSER_ALLOW_SUPERUSER 1
