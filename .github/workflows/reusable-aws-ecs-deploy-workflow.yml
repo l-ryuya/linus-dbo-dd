@@ -137,6 +137,7 @@ jobs:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest' }}
+
         with:
           context: ${{ inputs.docker-context }}
           file: ${{ inputs.docker-file }}
@@ -154,6 +155,7 @@ jobs:
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest' }}
         run: |
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          echo ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
 
   aws-ecs-deploy:
     name: AWS - ECS Deployment.
