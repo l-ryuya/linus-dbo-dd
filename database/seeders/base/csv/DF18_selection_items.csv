@@ -1,0 +1,85 @@
+selection_item_type,selection_item_code,remarks
+customer_status,under_dd,初回申込受付済
+customer_status,dd_completed,初回審査完了
+customer_status,active,利用中
+customer_status,all_paused,全サービス利用停止中
+customer_status,all_suspended,全サービス利用停止中（疑義あり）
+customer_status,all_closed,全サービス利用終了
+customer_status,all_terminated,全サービス利用終了（疑義あり）
+language_code,eng,ISO 639-3 英語
+language_code,jpn,ISO 639-3 日本語
+language_code,ind,ISO 639-3 インドネシア語
+language_code,tha,ISO 639-3 タイ語
+language_code,cmn,ISO 639-3 中文（簡体字）
+language_code,yue,ISO 639-3 中文（繁体字）
+language_code,spa,ISO 639-3 スペイン語
+language_code,vie,ISO 639-3 ベトナム語
+company_type,public,上場
+company_type,private,非上場
+user_status,under_dd,初回申込受付済
+user_status,dd_completed,初回審査完了
+user_status,active,利用中
+user_status,all_paused,全サービス利用停止中
+user_status,all_suspended,全サービス利用停止中（疑義あり）
+user_status,all_closed,全サービス利用終了
+user_status,all_terminated,全サービス利用終了（疑義あり）
+gender,male,男性
+gender,female,女性
+gender,other,その他
+world_region,asia,アジア
+world_region,europe,ヨーロッパ
+world_region,north_america,北アメリカ
+world_region,south_america,南アメリカ
+world_region,africa,アフリカ
+world_region,oceania,オセアニア
+service_status,preparing,準備中
+service_status,active,稼動中
+service_status,suspended,停止中
+service_status,terminated,終了
+service_plan_status,preparing,準備中
+service_plan_status,active,稼動中
+service_plan_status,suspended,停止中
+service_plan_status,terminated,終了
+service_usage_status,under_dd,申込受付済（審査中）
+service_usage_status,dd_completed,審査完了（未ログイン）
+service_usage_status,active,利用中
+service_usage_status,paused,利用停止中
+service_usage_status,suspended,利用停止中（疑義あり）
+service_usage_status,closed,利用終了
+service_usage_status,terminated,利用終了（疑義あり）
+service_contract_status,not_requested,未締結
+service_contract_status,in_progress,締結中
+service_contract_status,completed,締結済
+payment_cycle,monthly,1ヶ月ごと
+payment_cycle,quarterly,3ヶ月ごと
+payment_cycle,semi_annually,6ヶ月ごと
+payment_cycle,annually,12ヶ月ごと
+payment_method,card,クレジット/デビット/プリペイドカード
+payment_method,bank_transfer,銀行振込
+language_name,english,英語
+language_name,日本語,日本語
+language_name,bahasa_indonesia,インドネシア語
+language_name,ภาษาไทย,タイ語
+language_name,中文（简体）,中国語（簡体字）
+language_name,中文（繁體）,中国語（繁体字）
+language_name,español,スペイン語
+language_name,tiếng_việt,ベトナム語
+dd_entity_type,target_company,取引対象法人
+dd_entity_type,related_company,関連法人
+dd_entity_type,related_individual,関連個人
+dd_relation_type,ultimate_beneficial_owner,実質的支配者
+dd_relation_type,executive,役員
+dd_relation_type,shareholder,株主
+dd_relation_type,executive_of_shareholder,株主の役員
+dd_relation_type,indirect_shareholder,間接株主
+dd_relation_type,executive_of_indirect_shareholder,間接株主の役員
+dd_relation_type,investee,出資先
+dd_relation_type,executive_of_investee,出資先の役員
+dd_relation_type,indirect_investee,間接出資先
+dd_relation_type,executive_of_indirect_investee,間接出資先の役員
+dd_status,under_continuous_dd,継続審査中
+dd_status,dd_requested,依頼済
+dd_status,ai_dd_completed,AI審査完了
+dd_status,primary_dd_completed,一次審査完了
+dd_status,final_dd_completed,最終審査完了
+dd_status,business_start_continue,取引開始/継続済
