@@ -61,7 +61,7 @@ RUN npm install webpack --save                       # webpackインストール
 RUN npm install node-sass --nodedir=/usr/include/node # node-sassビルド用にnodeヘッダ指定
 
 # Laravelプロジェクトのコピー（Laravel全体を /var/www/html に置く場合）
-COPY ../example-api /var/www/html
+COPY ./ /var/www/html
 WORKDIR /var/www/html
 
 # # .envファイルのコピーは composer install より前に
