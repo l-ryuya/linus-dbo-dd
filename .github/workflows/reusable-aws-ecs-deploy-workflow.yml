@@ -212,6 +212,6 @@ jobs:
           desired-count: ${{ inputs.aws-ecs-desired-count }}
           propagate-tags: ${{ inputs.aws-ecs-propagate-tags }}
           wait-for-service-stability: ${{ inputs.aws-ecs-wait-for-service-stability }}
-          codedeploy-aws-codedeploy-appspec: ${{ env.ECS_CODEDEPLOY_APPSPEC_FILE_PATH }}
+          codedeploy-appspec: ${{ env.ECS_CODEDEPLOY_APPSPEC_FILE_PATH }}
           codedeploy-application: ${{ env.ECS_CODEDEPLOY_APPLICATION }}
           codedeploy-deployment-group: ${{ env.ECS_CODEDEPLOY_DEPLOYMENT_GROUP }}
