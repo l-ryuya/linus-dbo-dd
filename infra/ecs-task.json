@@ -1,7 +1,7 @@
 {
   "family": "dsbizdev-dbo-dd-dev",
-  "taskRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-default-dev",
-  "executionRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-execution-secrets-default-dev",
+  "taskRoleArn": "arn:aws:iam::734908905460:role/linus-dbo-dd",
+  "executionRoleArn": "arn:aws:iam::734908905460:role/linus-dbo-dd",
   "networkMode": "awsvpc",
   "cpu": "256",
   "memory": "512",
