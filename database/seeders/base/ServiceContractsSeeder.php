@@ -60,6 +60,7 @@ class ServiceContractsSeeder extends Seeder
                 'service_usage_status_code' => $row['service_usage_status_code'],
                 'contract_status_type' => $row['contract_status_type'],
                 'contract_status_code' => $row['contract_status_code'],
+                'invoice_remind_days' => empty($row['invoice_remind_days']) ? null : $row['invoice_remind_days'],
                 'billing_cycle_type' => $row['billing_cycle_type'],
                 'billing_cycle_code' => $row['billing_cycle_code'],
                 'remarks' => $row['remarks'],
