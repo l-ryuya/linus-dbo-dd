@@ -28,7 +28,11 @@ RUN cd /etc/apache2/mods-enabled \
 
 #  カスタムPHP設定とApacheのバーチャルホスト設定を追加
 ADD infra/docker/develop/php/php.dev.ini /usr/local/etc/php/
-ADD infra/docker/develop/php/000-default.conf /etc/apache2/sites-enabled/
+
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+# Apache設定ファイル内のDocumentRootを置換
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf && \
+    sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}/../!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
 
 RUN apt-get update \
   && apt-get install -y \
@@ -53,23 +57,6 @@ RUN docker-php-ext-configure gd \
   --with-jpeg=/usr/include \
   && docker-php-ext-install -j$(nproc) gd
 
-#  Composerのインストール（古典的な方法）
-# 後で COPY --from=composer:latest でも上書きされるので冗長かも
-# RUN cd /usr/bin \
-#   && curl -s http://getcomposer.org/installer | php \
-#   && ln -s /usr/bin/composer.phar /usr/bin/composer
-
-# #  Composerの環境変数と実行ファイルのコピー（推奨のインストール方法）
-# ENV COMPOSER_ALLOW_SUPERUSER 1
-# ENV COMPOSER_HOME /composer
-# ENV PATH $PATH:/composer/vendor/bin
-
-# #  最新のcomposerバイナリを別ステージからコピー（推奨）
-# COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-
-#  Composerのバージョンを2に固定
-# RUN composer self-update --2
-
 #  Node.js 20.x のインストール（最新のLTS対応）
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
@@ -88,62 +75,3 @@ COPY --from=builder /build/vendor /var/www/html/vendor
 WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data storage
-
-# # .envファイルのコピーは composer install より前に
-# COPY ../example-api/env.example .env
-
-# # Laravel依存のインストールと準備
-# RUN composer install --no-dev --optimize-autoloader
-
-
-# # # Command : docker buildx build -t backendphp -f ./infra/docker/develop/php/Dockerfile .
-# # Command : docker run -it --rm backendphp bash
-# # builder
-# # https://hub.docker.com/_/composer
-# FROM composer:lts AS builder
-
-# COPY composer.json composer.lock .env.develop artisan /build/
-# COPY /app/ /build/app/
-# COPY /bootstrap/ /build/bootstrap/
-# COPY /config/ /build/config/
-# COPY /database/ /build/database/
-# COPY /lang/ /build/lang/
-# COPY /public/ /build/public/
-# # COPY /resources/ /build/resources/
-# COPY /routes/ /build/routes/
-# COPY /storage/ /build/storage/
-
-# WORKDIR /build/
-# RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
-#   composer dump-autoload
-
-# # runtime
-# # https://hub.docker.com/r/bitnami/laravel
-# FROM bitnami/laravel:10.3.3-debian-12-r27 AS runtime
-
-# ENV LARAVEL_PORT_NUMBER=3000
-# ENV LARAVEL_SKIP_DATABASE=yes
-# ENV LARAVEL_SKIP_COMPOSER_UPDATE=yes
-
-# RUN chown -R bitnami:bitnami /opt/bitnami/
-# RUN chmod -R 750 /opt/bitnami/
-
-# COPY --chown=bitnami:bitnami --chmod=750 infra/docker/develop/php/php.dev.ini /opt/bitnami/php/etc/conf.d/
-# COPY --chown=bitnami:bitnami --chmod=750 --from=builder /build/ /app/
-
-# RUN chown -R bitnami:bitnami /app/
-
-# # supervisorをインストール
-# RUN install_packages supervisor procps
-
-# COPY infra/docker/develop/php/supervisord.conf /etc/supervisor/
-# COPY infra/docker/develop/php/laravel-worker.conf /etc/supervisor/conf.d/
-# RUN chown bitnami:bitnami /var/log/supervisor && chmod 740 /var/log/supervisor
-# COPY infra/docker/develop/php/scheduler.sh /app/scheduler.sh
-# RUN chown bitnami:bitnami /app/scheduler.sh && chmod +x /app/scheduler.sh
-
-# # entrypoint.sh を上書きして supervisord を起動
-# COPY --chown=bitnami:bitnami --chmod=750 infra/docker/develop/php/entrypoint-overwrite.sh /opt/bitnami/scripts/laravel/entrypoint.sh
-
-# USER bitnami
-# # EXPOSE 8080
