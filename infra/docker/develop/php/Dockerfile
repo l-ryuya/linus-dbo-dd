@@ -69,10 +69,10 @@ RUN npm cache clear --force                          # npmキャッシュ削除�
 RUN npm install webpack --save                       # webpackインストール（ローカルプロジェクト想定）
 RUN npm install node-sass --nodedir=/usr/include/node # node-sassビルド用にnodeヘッダ指定
 
-# Laravelプロジェクトのコピー（Laravel全体を /var/www/html に置く場合）
-COPY ./ /var/www/html
-# vendorだけは builder から持ってくる
-COPY --from=builder /build/vendor /var/www/html/vendor
+# # Laravelプロジェクトのコピー（Laravel全体を /var/www/html に置く場合）
+# COPY ./ /var/www/html
+# # vendorだけは builder から持ってくる
+# COPY --from=builder /build/vendor /var/www/html/vendo
 WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data storage
