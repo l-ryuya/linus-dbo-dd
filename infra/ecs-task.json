@@ -69,10 +69,10 @@
         },
         {
           "name": "DB_USERNAME",
-          "value": "postgres"
+          "value": "app_dd"
         },
         {
-          "name": "DB_SCHEMA",
+          "name": "SEARCH_PATH",
           "value": "dbo_dd"
         },
         {
@@ -86,6 +86,12 @@
         {
           "name": "MAIL_USERNAME",
           "value": "AKIAYSE4N4AV6UETVGZT"
+        }
+      ],
+       "secrets": [
+        {
+          "name": "DB_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:DB_PASSWORD-ujfNwU"
         }
       ]
     }
