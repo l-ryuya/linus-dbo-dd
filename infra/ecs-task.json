@@ -72,7 +72,7 @@
           "value": "app_dd"
         },
         {
-          "name": "SEARCH_PATH",
+          "name": "DB_SCHEMA",
           "value": "dbo_dd"
         },
         {
