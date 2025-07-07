@@ -33,15 +33,19 @@ RUN apt-get update && \
     apt-get install -y \
     zip unzip \
     libzip-dev \
+    libpng-dev \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
     vim \
     libpq-dev \
     libonig-dev \
-    libxml2-dev \
-    pdo pdo_mysql mysqli zip gd pdo_pgsql && \
+    libxml2-dev && \
     docker-php-ext-configure zip && \
-    docker-php-ext-install && \
+    docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-install pdo pdo_mysql mysqli zip gd pdo_pgsql && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
 
 # Laravelプロジェクトのコピー（Laravel全体を /var/www/html に置く場合）
 COPY --from=builder /build /var/www/html
