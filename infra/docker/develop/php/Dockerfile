@@ -10,18 +10,14 @@ RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-pr
 
 FROM php:8.4-apache
 
-#  Apacheのmod_rewrite（URL書き換え）モジュールを有効化
-RUN cd /etc/apache2/mods-enabled \
-  && ln -s ../mods-available/rewrite.load
+RUN a2enmod rewrite
 
-#  カスタムPHP設定とApacheのバーチャルホスト設定を追加
-ADD infra/docker/develop/php/php.dev.ini /usr/local/etc/php/
-
-# 下記公式推奨
+# 下記公式の記述方法
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 # Apache設定ファイル内のDocumentRootを置換
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf && \
     sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}/../!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+COPY infra/docker/develop/php/php.dev.ini /usr/local/etc/php/
 
 RUN apt-get update \
   && apt-get install -y \

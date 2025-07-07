@@ -15,9 +15,6 @@ declare(strict_types=1);
 
 $path = __DIR__ . DIRECTORY_SEPARATOR . 'endpoints' . DIRECTORY_SEPARATOR;
 
-        Route::get('/test', function (){
-                        dd(config('app.key'));
-        });
 require $path . 'roots.php';
 require $path . 'tenant' . DIRECTORY_SEPARATOR . 'customer.php';
 
