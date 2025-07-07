@@ -18,7 +18,7 @@ WORKDIR /build/
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
     composer dump-autoload
 
-FROM php:8.3-apache
+FROM php:8.4-apache
 
 RUN a2enmod rewrite
 # 下記公式の記述方法
