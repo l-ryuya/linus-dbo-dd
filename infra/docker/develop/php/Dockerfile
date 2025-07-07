@@ -87,6 +87,7 @@ COPY ./ /var/www/html
 COPY --from=builder /build/vendor /var/www/html/vendor
 WORKDIR /var/www/html
 
+RUN chown -R www-data:www-data storage
 
 # # .envファイルのコピーは composer install より前に
 # COPY ../example-api/env.example .env
