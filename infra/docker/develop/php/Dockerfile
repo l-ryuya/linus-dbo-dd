@@ -74,8 +74,6 @@ RUN docker-php-ext-configure gd \
 RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
 
-ENV NAMAE=ryuya
-
 #  npm環境構築（フロントビルドツール用）
 RUN rm -rf node_modules                              # node_modules削除（前段のゴミ削除）
 RUN npm install -g npm n cross-env                   # npm自体 + cross-envなどツールをグローバルに
