@@ -84,7 +84,10 @@ RUN npm install node-sass --nodedir=/usr/include/node # node-sassビルド用に
 
 # Laravelプロジェクトのコピー（Laravel全体を /var/www/html に置く場合）
 COPY ./ /var/www/html
+# vendorだけは builder から持ってくる
+COPY --from=builder /build/vendor /var/www/html/vendor
 WORKDIR /var/www/html
+
 
 # # .envファイルのコピーは composer install より前に
 # COPY ../example-api/env.example .env
