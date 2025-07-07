@@ -48,6 +48,10 @@
       },
       "environment": [
         {
+          "name": "III",
+          "value": "shimoji"
+        },
+        {
           "name": "LARAVEL_SKIP_DATABASE",
           "value": "no"
         },
