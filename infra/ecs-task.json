@@ -57,7 +57,7 @@
         },
         {
           "name": "LARAVEL_DATABASE_HOST",
-          "value": "dsbizdev-dbo-cluster-dev.cluster-c906g0qeiekr.ap-northeast-1.rds.amazonaws.com"
+          "value": "dbo.ctei2wkaaszp.ap-northeast-1.rds.amazonaws.com"
         },
         {
           "name": "LARAVEL_DATABASE_PORT_NUMBER",
@@ -69,7 +69,7 @@
         },
         {
           "name": "LARAVEL_DATABASE_USER",
-          "value": "app_dd"
+          "value": "postgres"
         },
         {
           "name": "DB_SCHEMA",
