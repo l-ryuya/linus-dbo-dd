@@ -91,7 +91,7 @@
        "secrets": [
         {
           "name": "DB_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:DB_PASSWORD-ujfNwU"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/rds-dd-password-oy0yoz-oJBR0L:password"
         }
       ]
     }
