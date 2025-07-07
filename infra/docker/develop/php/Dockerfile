@@ -1,24 +1,12 @@
 # # builder ステージ（composer:ltsイメージを使用）
 FROM composer:lts AS builder
 
-# # Laravelプロジェクトの必要ファイルを /build/ にコピー
-# COPY composer.json composer.lock .env.develop artisan /build/
-# COPY bootstrap/ /build/bootstrap/
-# COPY config/ /build/config/
-# COPY database/ /build/database/
-# COPY lang/ /build/lang/
-# COPY public/ /build/public/
-# # COPY resources/ /build/resources/  # 必要に応じて有効化してください
-# COPY routes/ /build/routes/
-# COPY storage/ /build/storage/
-
 COPY ./ /app/
 WORKDIR /app
 
 # Composerで依存インストール（本番用にno-devオプション）
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
     composer dump-autoload
-
 
 FROM php:8.4-apache
 
@@ -58,20 +46,7 @@ RUN docker-php-ext-configure gd \
   --with-jpeg=/usr/include \
   && docker-php-ext-install -j$(nproc) gd
 
-#  Node.js 20.x のインストール（最新のLTS対応）
-RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
-RUN apt-get install -y nodejs
-
-#  npm環境構築（フロントビルドツール用）
-RUN rm -rf node_modules                              # node_modules削除（前段のゴミ削除）
-RUN npm install -g npm n cross-env                   # npm自体 + cross-envなどツールをグローバルに
-RUN npm cache clear --force                          # npmキャッシュ削除でクリーンな状態に
-RUN npm install webpack --save                       # webpackインストール（ローカルプロジェクト想定）
-RUN npm install node-sass --nodedir=/usr/include/node # node-sassビルド用にnodeヘッダ指定
-
 # # Laravelプロジェクトのコピー（Laravel全体を /var/www/html に置く場合）
-# COPY ./ /var/www/html
-# # vendorだけは builder から持ってくる
 COPY --from=builder /app /var/www/html
 WORKDIR /var/www/html
 
