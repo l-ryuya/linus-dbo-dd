@@ -1,19 +1,19 @@
-# builder ステージ（composer:ltsイメージを使用）
+# # builder ステージ（composer:ltsイメージを使用）
 FROM composer:lts AS builder
 
-# Laravelプロジェクトの必要ファイルを /build/ にコピー
-COPY composer.json composer.lock .env.develop artisan /build/
-COPY app/ /build/app/
-COPY bootstrap/ /build/bootstrap/
-COPY config/ /build/config/
-COPY database/ /build/database/
-COPY lang/ /build/lang/
-COPY public/ /build/public/
-# COPY resources/ /build/resources/  # 必要に応じて有効化してください
-COPY routes/ /build/routes/
-COPY storage/ /build/storage/
+# # Laravelプロジェクトの必要ファイルを /build/ にコピー
+# COPY composer.json composer.lock .env.develop artisan /build/
+# COPY bootstrap/ /build/bootstrap/
+# COPY config/ /build/config/
+# COPY database/ /build/database/
+# COPY lang/ /build/lang/
+# COPY public/ /build/public/
+# # COPY resources/ /build/resources/  # 必要に応じて有効化してください
+# COPY routes/ /build/routes/
+# COPY storage/ /build/storage/
 
-WORKDIR /build/
+COPY ./ /app/
+WORKDIR /app
 
 # Composerで依存インストール（本番用にno-devオプション）
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
@@ -29,6 +29,7 @@ RUN cd /etc/apache2/mods-enabled \
 #  カスタムPHP設定とApacheのバーチャルホスト設定を追加
 ADD infra/docker/develop/php/php.dev.ini /usr/local/etc/php/
 
+# 下記公式推奨
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
 # Apache設定ファイル内のDocumentRootを置換
 RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/000-default.conf && \
