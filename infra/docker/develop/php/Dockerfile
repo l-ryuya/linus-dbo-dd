@@ -72,7 +72,7 @@ RUN npm install node-sass --nodedir=/usr/include/node # node-sassビルド用に
 # # Laravelプロジェクトのコピー（Laravel全体を /var/www/html に置く場合）
 # COPY ./ /var/www/html
 # # vendorだけは builder から持ってくる
-# COPY --from=builder /build/vendor /var/www/html/vendo
+COPY --from=builder /app var/www/thml
 WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data storage
