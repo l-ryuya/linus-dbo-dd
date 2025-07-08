@@ -6,7 +6,6 @@ namespace Tests\Feature\Tenant\ServiceContract;
 
 use App\Models\Customer;
 use App\Models\Service;
-use App\Models\ServiceContract;
 use App\Models\ServicePlan;
 use App\Models\Tenant;
 use App\Models\UserOption;
@@ -27,10 +26,15 @@ class StoreTest extends TestCase
     use RefreshDatabase;
 
     private Tenant $tenant;
+
     private Customer $customer;
+
     private Service $service;
+
     private ServicePlan $servicePlan;
+
     private UserOption $serviceRepUserOption;
+
     private UserOption $serviceMgrUserOption;
 
     protected function setUp(): void
