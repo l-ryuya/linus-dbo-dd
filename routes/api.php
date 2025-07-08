@@ -17,6 +17,7 @@ $path = __DIR__ . DIRECTORY_SEPARATOR . 'endpoints' . DIRECTORY_SEPARATOR;
 
 require $path . 'roots.php';
 require $path . 'tenant' . DIRECTORY_SEPARATOR . 'customer.php';
+require $path . 'tenant' . DIRECTORY_SEPARATOR . 'service_contract.php';
 require $path . 'external' . DIRECTORY_SEPARATOR . 'service_contract.php';
 
 Route::middleware(['auth'])->group(function () {

@@ -50,7 +50,7 @@ class ShowTest extends TestCase
         ]);
 
         // テスト用の認証を設定
-        $this->actingAs($this->createTenantManageUser());
+        $this->actingAs($this->createServiceManageUser());
     }
 
     /**
@@ -71,10 +71,7 @@ class ShowTest extends TestCase
         // テスト用のCustomerデータを取得
         $customer = Customer::first();
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . '/' . $customer->public_id,
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . '/' . $customer->public_id);
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -115,10 +112,7 @@ class ShowTest extends TestCase
      */
     public function test_show_returns_404_for_non_existent_customer(): void
     {
-        $response = $this->getJson(
-            $this->getBaseUrl() . '/non-existent-customer-id',
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . '/non-existent-customer-id');
 
         $response->assertStatus(404);
     }
@@ -132,10 +126,7 @@ class ShowTest extends TestCase
         $customerWithContracts = Customer::whereHas('serviceContracts')->first();
 
         if ($customerWithContracts) {
-            $response = $this->getJson(
-                $this->getBaseUrl() . '/' . $customerWithContracts->public_id,
-                ['Accept-Language' => 'jpn'],
-            );
+            $response = $this->getJson($this->getBaseUrl() . '/' . $customerWithContracts->public_id);
 
             $response->assertStatus(200)
                 ->assertJsonPath('data.serviceContracts', fn($contracts) => count($contracts) > 0);
