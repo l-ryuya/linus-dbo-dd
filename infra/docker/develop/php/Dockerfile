@@ -41,7 +41,6 @@ RUN apt-get update && \
     libonig-dev \
     libxml2-dev && \
     docker-php-ext-configure zip && \
-    docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install pdo pdo_mysql mysqli zip gd pdo_pgsql && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
