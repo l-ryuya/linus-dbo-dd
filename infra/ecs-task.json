@@ -48,10 +48,6 @@
       },
       "environment": [
         {
-          "name": "LARAVEL_SKIP_DATABASE",
-          "value": "no"
-        },
-        {
           "name": "DB_CONNECTION",
           "value": "pgsql"
         },
