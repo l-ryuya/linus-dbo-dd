@@ -18,7 +18,7 @@
       "portMappings": [
         {
           "name": "dbo-dd",
-          "containerPort": 80,
+          "containerPort": 3000,
           "protocol": "tcp"
         }
       ],
