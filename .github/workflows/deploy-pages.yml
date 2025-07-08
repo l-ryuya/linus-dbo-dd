@@ -8,6 +8,8 @@ on:
       - main
     types: [closed]
 
+permissions:
+  contents: write
 jobs:
   build-and-deploy:
     # if: github.event.pull_request.merged == true
