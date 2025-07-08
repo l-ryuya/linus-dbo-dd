@@ -50,7 +50,7 @@ class IndexTest extends TestCase
         ]);
 
         // テスト用の認証を設定
-        $this->actingAs($this->createTenantManageUser());
+        $this->actingAs($this->createServiceManageUser());
     }
 
     /**
@@ -68,10 +68,7 @@ class IndexTest extends TestCase
      */
     public function test_index_returns_successful_response(): void
     {
-        $response = $this->getJson(
-            $this->getBaseUrl() . '?page=1',
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . '?page=1');
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -99,10 +96,7 @@ class IndexTest extends TestCase
         // テスト用の顧客データを作成
         $customerName = '株式会社FINOLAB';
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?customerName={$customerName}&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?customerName={$customerName}&page=1");
 
         $response->assertStatus(200)
             ->assertJsonFragment([
@@ -120,10 +114,7 @@ class IndexTest extends TestCase
             ->first();
 
         if ($status) {
-            $response = $this->getJson(
-                $this->getBaseUrl() . "?customerStatusCode={$status->selection_item_code}&page=1",
-                ['Accept-Language' => 'jpn'],
-            );
+            $response = $this->getJson($this->getBaseUrl() . "?customerStatusCode={$status->selection_item_code}&page=1");
 
             $response->assertStatus(200);
             // ステータス名は変換されて返されるためフラグメントの検証は省略
@@ -135,10 +126,7 @@ class IndexTest extends TestCase
      */
     public function test_index_supports_pagination(): void
     {
-        $response = $this->getJson(
-            $this->getBaseUrl() . '?displayed=10&page=1',
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . '?displayed=10&page=1');
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -169,10 +157,7 @@ class IndexTest extends TestCase
      */
     public function test_index_filters_by_organization_code(): void
     {
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?organizationCode=ORG00000022&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?organizationCode=ORG00000022&page=1");
 
         $response->assertStatus(200);
     }

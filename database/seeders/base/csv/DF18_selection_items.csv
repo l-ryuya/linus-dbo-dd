@@ -17,6 +17,10 @@ language_code,cmn,ISO 639-3 中文（簡体字）
 language_code,yue,ISO 639-3 中文（繁体字）
 language_code,spa,ISO 639-3 スペイン語
 language_code,vie,ISO 639-3 ベトナム語
+contract_language_code,eng,ISO 639-3 英語
+contract_language_code,jpn,ISO 639-3 日本語
+contract_language_code,cmn,ISO 639-3 中文（簡体字）
+contract_language_code,yue,ISO 639-3 中文（繁体字）
 company_type,public,上場
 company_type,private,非上場
 user_status,active,利用中
@@ -79,13 +83,33 @@ dd_relation_type,executive_of_investee,出資先の役員
 dd_relation_type,indirect_investee,間接出資先
 dd_relation_type,executive_of_indirect_investee,間接出資先の役員
 dd_status,cdd_awaiting,継続DD準備中
-dd_status,ai_pre_dd_started,DD準備AI処理開始
-dd_status,ai_pre_dd_completed,DD準備AI処理完了
+dd_status,pre_dd_ai_started,DD準備AI処理開始
+dd_status,pre_dd_ai_completed,DD準備AI処理完了
 dd_status,pre_dd_primary_completed,DD準備一次確認完了
 dd_status,pre_dd_final_completed,DD準備二次確認完了
 dd_status,add_info_input_requested,追加入力依頼完了
 dd_status,add_info_input_completed,追加入力完了
-dd_status,ai_dd_started,DDAI処理開始
-dd_status,ai_dd_completed,DDAI処理完了
+dd_status,dd_ai_started,DDAI処理開始
+dd_status,dd_ai_completed,DDAI処理完了
 dd_status,dd_primary_completed,DD一次審査完了
 dd_status,dd_final_completed,DD二次審査完了
+dd_step_type,pre_dd_ai,DD準備AI処理
+dd_step_type,pre_dd_primary,DD準備一次確認
+dd_step_type,pre_dd_final,DD準備二次確認
+dd_step_type,add_info_input,追加入力
+dd_step_type,dd_ai,DDAI処理
+dd_step_type,dd_primary,DD一次審査
+dd_step_type,dd_final,DD二次審査
+dd_result_type,registry_acquisition,登記簿情報取得
+dd_result_type,stakeholder_acquisition,株主・役員情報取得
+dd_result_type,industry_screening,業種業態チェック
+dd_result_type,risk_screening,顧客リスクレベル判定
+dd_result_type,add_info_entry,顧客情報追加入力
+dd_result_type,asf_acreening,反社チェック
+dd_result_type,reputation_screening,風評チェック
+dd_result_code,ok,OK
+dd_result_code,ng,NG
+dd_result_code,high_risk,ハイリスク
+dd_result_code,low_risk,ローリスク
+dd_result_code,suspicious,疑わしい
+dd_result_code,no_problem,問題なし

@@ -40,7 +40,7 @@ class StoreTest extends TestCase
             UserOptionsSeeder::class,
         ]);
 
-        $authUser = $this->createTenantManageUser();
+        $authUser = $this->createServiceManageUser();
         $this->tenant = $authUser->getUserOption()->tenant;
 
         // テスト用の認証を設定
@@ -81,7 +81,6 @@ class StoreTest extends TestCase
         $response = $this->postJson(
             $this->getBaseUrl(),
             $customerData,
-            ['Accept-Language' => 'jpn'],
         );
 
         $response->assertStatus(201)
@@ -258,7 +257,6 @@ class StoreTest extends TestCase
         $response = $this->postJson(
             $this->getBaseUrl(),
             $dataWithoutOptionalFields,
-            ['Accept-Language' => 'jpn'],
         );
 
         $response->assertStatus(201)

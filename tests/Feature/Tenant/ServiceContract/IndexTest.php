@@ -50,7 +50,7 @@ class IndexTest extends TestCase
         ]);
 
         // テスト用の認証を設定
-        $this->actingAs($this->createTenantManageUser());
+        $this->actingAs($this->createServiceManageUser());
     }
 
     /**
@@ -68,10 +68,7 @@ class IndexTest extends TestCase
      */
     public function test_index_returns_successful_response(): void
     {
-        $response = $this->getJson(
-            $this->getBaseUrl() . '?page=1',
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . '?page=1');
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -100,12 +97,9 @@ class IndexTest extends TestCase
     public function test_index_filters_by_tenant_name(): void
     {
         // テスト用のテナント名
-        $tenantName = '株式会社電通総研';
+        $tenantName = 'Securate運営部署';
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?tenantName={$tenantName}&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?tenantName={$tenantName}&page=1");
 
         $response->assertStatus(200)
             ->assertJsonFragment([
@@ -121,10 +115,7 @@ class IndexTest extends TestCase
         // テスト用の顧客データを作成
         $customerName = '株式会社FINOLAB';
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?customerName={$customerName}&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?customerName={$customerName}&page=1");
 
         $response->assertStatus(200)
             ->assertJsonFragment([
@@ -140,10 +131,7 @@ class IndexTest extends TestCase
         // テスト用の契約名
         $contractName = 'サービスAクラウド契約';
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?contractName={$contractName}&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?contractName={$contractName}&page=1");
 
         $response->assertStatus(200)
             ->assertJsonFragment([
@@ -161,10 +149,7 @@ class IndexTest extends TestCase
             ->first();
 
         if ($status) {
-            $response = $this->getJson(
-                $this->getBaseUrl() . "?contractStatusCode={$status->selection_item_code}&page=1",
-                ['Accept-Language' => 'jpn'],
-            );
+            $response = $this->getJson($this->getBaseUrl() . "?contractStatusCode={$status->selection_item_code}&page=1");
 
             $response->assertStatus(200);
             // ステータス名は変換されて返されるためフラグメントの検証は省略
@@ -181,10 +166,7 @@ class IndexTest extends TestCase
             ->first();
 
         if ($status) {
-            $response = $this->getJson(
-                $this->getBaseUrl() . "?serviceUsageStatusCode={$status->selection_item_code}&page=1",
-                ['Accept-Language' => 'jpn'],
-            );
+            $response = $this->getJson($this->getBaseUrl() . "?serviceUsageStatusCode={$status->selection_item_code}&page=1");
 
             $response->assertStatus(200);
             // ステータス名は変換されて返されるためフラグメントの検証は省略
@@ -199,10 +181,7 @@ class IndexTest extends TestCase
         // テスト用のサービスIDを取得（実際の値はテスト環境に応じて調整が必要）
         $servicePublicId = '013e67d2-d289-4981-a8c5-394961d8814f';
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?servicePublicId={$servicePublicId}&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?servicePublicId={$servicePublicId}&page=1");
 
         $response->assertStatus(200);
     }
@@ -215,10 +194,7 @@ class IndexTest extends TestCase
         // テスト用のサービスプランIDを取得（実際の値はテスト環境に応じて調整が必要）
         $servicePlanPublicId = 'b7e2a1c2-3f4b-4e2a-8c1d-1a2b3c4d5e6f';
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?servicePlanPublicId={$servicePlanPublicId}&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?servicePlanPublicId={$servicePlanPublicId}&page=1");
 
         $response->assertStatus(200);
     }
@@ -231,10 +207,7 @@ class IndexTest extends TestCase
         // テスト用の契約日
         $contractDate = '2025-05-20';
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?contractDate={$contractDate}&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?contractDate={$contractDate}&page=1");
 
         $response->assertStatus(200);
     }
@@ -247,10 +220,7 @@ class IndexTest extends TestCase
         // テスト用の契約開始日
         $contractStartDate = '2025-06-01';
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?contractStartDate={$contractStartDate}&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?contractStartDate={$contractStartDate}&page=1");
 
         $response->assertStatus(200);
     }
@@ -260,10 +230,7 @@ class IndexTest extends TestCase
      */
     public function test_index_supports_pagination(): void
     {
-        $response = $this->getJson(
-            $this->getBaseUrl() . '?displayed=10&page=1',
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . '?displayed=10&page=1');
 
         $response->assertStatus(200)
             ->assertJsonStructure([

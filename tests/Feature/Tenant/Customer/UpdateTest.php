@@ -47,7 +47,7 @@ class UpdateTest extends TestCase
             UserOptionsSeeder::class,
         ]);
 
-        $authUser = $this->createTenantManageUser();
+        $authUser = $this->createServiceManageUser();
         $this->tenant = $authUser->getUserOption()->tenant;
 
         // テスト用の認証を設定
@@ -133,7 +133,6 @@ class UpdateTest extends TestCase
         $response = $this->putJson(
             $this->getBaseUrl(),
             $updateData,
-            ['Accept-Language' => 'jpn'],
         );
 
         $response->assertStatus(204);
@@ -323,7 +322,6 @@ class UpdateTest extends TestCase
         $response = $this->putJson(
             '/v1/tenant/customers/' . $nonexistentId,
             $updateData,
-            ['Accept-Language' => 'jpn'],
         );
 
         $response->assertStatus(404);
@@ -351,7 +349,6 @@ class UpdateTest extends TestCase
         $response = $this->putJson(
             $this->getBaseUrl(),
             $dataWithoutOptionalFields,
-            ['Accept-Language' => 'jpn'],
         );
 
         $response->assertStatus(204);
