@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-and-deploy:
-    if: github.event.pull_request.merged == true
+    # if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
@@ -43,3 +43,10 @@ jobs:
           publish_dir: ./out
           destination_dir: ${{ github.ref_name }}
           publish_branch: gh-pages
+
+
+
+
+
+
+
