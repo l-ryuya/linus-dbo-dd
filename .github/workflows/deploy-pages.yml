@@ -12,7 +12,7 @@ permissions:
   contents: write
 jobs:
   build-and-deploy:
-    # if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
@@ -42,13 +42,6 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out          # ワークフロー実行ディレクトリ内の out フォルダをコピー
-          publish_branch: gh-pages    # デプロイ先のブランチ
-          destination_dir: docs       # gh-pages/docs 配下にファイルを配置
-
-
-
-
-
-
-
+          publish_dir: ./out
+          destination_dir: ${{ github.ref_name }}
+          publish_branch: gh-pages
