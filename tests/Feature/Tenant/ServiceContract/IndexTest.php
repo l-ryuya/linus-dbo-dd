@@ -97,7 +97,7 @@ class IndexTest extends TestCase
     public function test_index_filters_by_tenant_name(): void
     {
         // テスト用のテナント名
-        $tenantName = 'Securate運営部署';
+        $tenantName = '株式会社電通総研';
 
         $response = $this->getJson($this->getBaseUrl() . "?tenantName={$tenantName}&page=1");
 
