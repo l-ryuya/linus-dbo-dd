@@ -1,3 +1,2 @@
-service_id,public_id,tenant_id,service_code,service_status_type,service_status_code,service_start_date,service_end_date,service_condition,service_admin_sys_user_code,service_sys_organization_code,dd_plan,remarks
-1,"4077ee54-8700-4bcd-91d6-0cb998db70ea",1,SV-00001,service_status,active,2026-01-01,,,USR00000003,ORG00000010,MIDDLE,
-2,"cd440e71-a90f-4a03-8ee6-270ab5d72bfc",1,SV-00002,service_status,active,2026-02-01,,,USR00000003,ORG00000010,MIDDLE,
+"service_id","public_id","tenant_id","service_code","service_status_type","service_status_code","service_start_date","service_end_date","service_condition","service_mgr_user_option_id","service_mgr_sys_user_code","service_sys_organization_code","dd_plan","remarks","created_at","updated_at","deleted_at"
+1,f712fdb4-20fa-4252-84bc-66724aa0b7bb,1,Securate,service_status,active,2025-07-01,,,3,USR00000004,ORG00000015,MIDDLE,,,,

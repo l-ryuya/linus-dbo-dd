@@ -30,7 +30,6 @@ class ServiceContractsSeeder extends Seeder
             $data[] = [
                 'service_contract_id' => (int) $row['service_contract_id'],
                 'public_id' => $row['public_id'],
-                'service_contract_code' => $row['service_contract_code'],
                 'tenant_id' => (int) $row['tenant_id'],
                 'customer_id' => (int) $row['customer_id'],
                 'service_id' => (int) $row['service_id'],

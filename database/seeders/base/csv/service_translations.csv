@@ -1,5 +1,3 @@
-service_id,language_code,service_name,service_description,remarks
-1,eng,Securate,"Securate is a security checklist response proposal service. We analyze the items of the security checklist based on the input of past answers to other companies (natural language processing by AI), and propose the contents of the security checklist for new customers.",
-2,eng,UNVEIL,UNVEIL is a unique solution developed by Dentsu Institute that uses 3DCG technology to provide a realistic video experience that is almost indistinguishable from the real world.,
-1,jpn,Securate,"Securateは、セキュリティチェックリストの回答案作成サービスです。過去の他社回答の入力内容（AIによる自然言語処理）を基に、セキュリティチェックリストの項目を分析し、新規顧客向けのセキュリティチェックリストの内容を提案します。",
-2,jpn,UNVEIL,UNVEILは、電通総研が開発した独自のソリューションで、3DCG技術により現実世界とほとんど見分けがつかないほどリアルな映像体験を提供します。,
+"service_translation_id","service_id","language_code","service_name","service_description","remarks","created_at","updated_at","deleted_at"
+1,1,jpn,Securate,Securateは、お客様から求められるセキュリティチェックシート回答をAIと人手で解決します,,,,
+2,1,eng,Securate,Securate uses AI and human expertise to handle the security questionnaires your customers require.,,,,
