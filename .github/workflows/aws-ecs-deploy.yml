@@ -20,20 +20,27 @@ jobs:
     name: Call Workflow - Docker Build & Push / AWS ECS Deployment
     uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow.yml
     with:
+      # docker関連
+      docker-context: '.' #ビルド時のディレクトリ指定
+      docker-file: './infra/docker/develop/php/Dockerfile' # dockerfileのパス指定
+      docker-build-args: '' # build実行時に引数に渡す値を指定
+
+      # AWS関連
+      # リポジトリ名を作成、指定に使用パラメーター(format('{0}-{1}-{2}-{3}): roject, aws-ecs-namespace, aws-ecs-service-name, env = dsbizdev-dbo-dd-dev
+      # ECSクラスタ名に使用パラメータ(format('{0}-{1}-{2}): project, aws-ecs-cluster-name, env = dsbizdev-dbo-cluster-dev
+      # ECSサービス名に使用パラメータ(format('{0}-{1}-{2}-{3}): project, aws-ecs-namespace, aws-ecs-service-name, env = dsbizdev-dbo-dd-dev
+      # ECSコンテナ名に使用パラメーター(format('{0}-{1}-{2}):aws-ecs-namespace, aws-ecs-service-name = dbo-dd
       project: 'dsbizdev'
       env: "dev"
-      docker-context: '.'
-      docker-file: './infra/docker/develop/php/Dockerfile'
-      docker-build-args: ''
-      aws-role-to-assume: 'arn:aws:iam::734908905460:role/linus-dbo-dd'
-      aws-region: "ap-northeast-1"
       aws-ecs-cluster-name: "dbo-cluster"
       aws-ecs-namespace: "dbo"
       aws-ecs-service-name: "dd"
-      aws-ecs-task-definition-filepath: "./infra/ecs-task.json"
-      aws-ecs-task-definition-container-name: ''
-      aws-ecs-task-definition-environment-variables: ''
-      aws-ecs-task-definition-secrets: ''
-      aws-ecs-desired-count: 1
-      aws-ecs-wait-for-service-stability: false
+      # aws-role-to-assume: 'arn:aws:iam::734908905460:role/linus-dbo-dd' # AWS認証時に使用するロールを指定(github secretsで指定したほうが良い：別AWSアカウントで運する際に書き換える手間があるかつセキュリティ上)
+      aws-region: "ap-northeast-1" #AWSリージョン
+      aws-ecs-task-definition-filepath: "./infra/ecs-task.json" #ECSタスク定義のファイルパス
+      aws-ecs-task-definition-container-name: '' #コンテナ名
+      aws-ecs-task-definition-environment-variables: '' #コンテナに設定する環境変数（タスク定義ファイルにて定義しています）
+      aws-ecs-task-definition-secrets: '' # コンテナに設定するシークレット環境変数(テスク定義ファイルにて定義しています)
+      aws-ecs-desired-count: 1 # 維持するタスク数
+      aws-ecs-wait-for-service-stability: false # ECSサービス更新後、安定状態になるまで GitHub Actions のジョブを待機させるかどうか(今回はその後のactions処理がないためfalseでOK)
     secrets: inherit
