@@ -197,6 +197,10 @@ jobs:
       - name: Run - run-show-ecs-task-definition
         run: |
           cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
+          sed -i -e 's!"taskRoleArn": "hogehoge"!"taskRoleArn": "${{secrets.TASKROLEARN  }}"#' ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
+          sed -i -e 's!"executionRoleArn": "hogehoge"!"taskRoleArn": "${{secrets.EXECUTIONROLEARN  }}"#' ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
+          cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
+
 
       # https://github.com/aws-actions/amazon-ecs-deploy-task-definition
       - name: AWS - amazon-ecs-deploy-task-definition
