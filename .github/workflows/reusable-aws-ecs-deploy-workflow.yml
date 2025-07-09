@@ -40,9 +40,6 @@ on:
 
       ### AWS
       # credentials
-      # aws-role-to-assume:
-      #   required: true
-      #   type: string
       aws-region:
         type: string
         default: 'ap-northeast-1'
@@ -118,9 +115,8 @@ jobs:
       - name: AWS - configure-aws-credentials
         uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
         with:
-          # 下記でリージョン、ロール、有効期限時間、
           aws-region: ${{ inputs.aws-region }}
-          role-to-assume: ${{ secrets.AWSROLETOASSUME }}
+          role-to-assume: ${{ secrets.ROLE_TO_ASSUME }}
           role-duration-seconds: ${{ inputs.aws-role-duration-seconds }}
           role-session-name: ${{ inputs.aws-role-session-name }}
 
@@ -140,7 +136,6 @@ jobs:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest' }}
-
         with:
           context: ${{ inputs.docker-context }}
           file: ${{ inputs.docker-file }}
@@ -183,18 +178,15 @@ jobs:
 
       - name: task.jsonファイルのロール変更
         env:
-          TASKROLEARN: ${{ secrets.TASKROLEARN }}
-          EXECUTIONROLEARN: ${{ secrets.EXECUTIONROLEARN }}
+          TASKROLEARN: ${{ secrets.TASK_ROLE_ARN }}
+          EXECUTIONROLEARN: ${{ secrets.EXECUTION_ROLE_ARN }}
+        # 下記でタスク定義ファイルのロールをsecretsで定義したロールに置換
         run: |
-          cat ${{ inputs.aws-ecs-task-definition-filepath }}
-
-
-
-
           sed -i 's#"taskRoleArn": "hogehoge"#"taskRoleArn": "'"${TASKROLEARN}"'"#' ${{ inputs.aws-ecs-task-definition-filepath }}
           sed -i 's#"executionRoleArn": "hogehoge"#"executionRoleArn": "'"${EXECUTIONROLEARN}"'"#' ${{ inputs.aws-ecs-task-definition-filepath }}
           cat ${{ inputs.aws-ecs-task-definition-filepath }}
 
+      # 下記タスク定義ファイル読み込み
       # https://github.com/aws-actions/amazon-ecs-render-task-definition
       - name: AWS - amazon-ecs-render-task-definition
         id: amazon-ecs-render-task-definition
@@ -211,11 +203,7 @@ jobs:
           environment-variables: ${{ inputs.aws-ecs-task-definition-environment-variables }}
           secrets: ${{ inputs.aws-ecs-task-definition-secrets }}
 
-      - name: Run - run-show-ecs-task-definition
-        run: |
-          cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
-
-
+      # ecs作成したタスク定義をデプロイする
       # https://github.com/aws-actions/amazon-ecs-deploy-task-definition
       - name: AWS - amazon-ecs-deploy-task-definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@176bcc0288c49ee545288583859af21ee17f4b2c # v2.3.1
