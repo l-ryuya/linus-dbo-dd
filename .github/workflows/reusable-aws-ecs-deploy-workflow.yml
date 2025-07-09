@@ -208,6 +208,7 @@ jobs:
         run: |
           cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
 
+
       # https://github.com/aws-actions/amazon-ecs-deploy-task-definition
       - name: AWS - amazon-ecs-deploy-task-definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@176bcc0288c49ee545288583859af21ee17f4b2c # v2.3.1
