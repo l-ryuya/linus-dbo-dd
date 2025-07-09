@@ -178,6 +178,13 @@ jobs:
           role-duration-seconds: ${{ inputs.aws-role-duration-seconds }}
           role-session-name: ${{ inputs.aws-role-session-name }}
 
+      - name: task.jsonファイルのロール変更
+        run: |
+          cat ${{ inputs.aws-ecs-task-definition-filepath }}
+          sed -i -e 's!"taskRoleArn": "hogehoge"!"taskRoleArn": "${{secrets.TASKROLEARN  }}"#' ${{ inputs.aws-ecs-task-definition-filepath }}
+          sed -i -e 's!"executionRoleArn": "hogehoge"!"taskRoleArn": "${{secrets.TASKROLEARN  }}"#' ${{ inputs.aws-ecs-task-definition-filepath }}
+          cat ${{ inputs.aws-ecs-task-definition-filepath }}
+
       # https://github.com/aws-actions/amazon-ecs-render-task-definition
       - name: AWS - amazon-ecs-render-task-definition
         id: amazon-ecs-render-task-definition
@@ -196,9 +203,6 @@ jobs:
 
       - name: Run - run-show-ecs-task-definition
         run: |
-          cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
-          sed -i -e 's!"taskRoleArn": "hogehoge"!"taskRoleArn": "${{secrets.TASKROLEARN  }}"#' ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
-          sed -i -e 's!"executionRoleArn": "hogehoge"!"taskRoleArn": "${{secrets.EXECUTIONROLEARN  }}"#' ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
           cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
 
 
