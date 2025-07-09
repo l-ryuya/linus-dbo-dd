@@ -23,7 +23,7 @@ jobs:
       project: 'dsbizdev'
       env: "dev"
       docker-context: '.'
-      docker-file: './infra/docker/develop/Dockerfile'
+      docker-file: './infra/docker/develop/php/Dockerfile'
       docker-build-args: ''
       aws-role-to-assume: 'arn:aws:iam::734908905460:role/linus-dbo-dd'
       aws-region: "ap-northeast-1"
