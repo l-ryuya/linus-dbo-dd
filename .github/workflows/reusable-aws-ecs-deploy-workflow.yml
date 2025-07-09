@@ -1,5 +1,8 @@
 on:
   workflow_call:
+    secrets:
+      aws-role-to-assume:
+        required: true
     inputs:
       ### Common
       project:
@@ -40,9 +43,9 @@ on:
 
       ### AWS
       # credentials
-      aws-role-to-assume:
-        required: true
-        type: string
+      # aws-role-to-assume:
+      #   required: true
+      #   type: string
       aws-region:
         type: string
         default: 'ap-northeast-1'
@@ -101,6 +104,7 @@ jobs:
     steps:
       # https://github.com/marketplace/actions/docker-login
       - name: Docker - login-action
+        # 下記条件でどのレジストリを指定するのかを決める（registory-loginがデフォルトでfalseなのでこの処理自体が現状無視されます）
         if: inputs.registry-login
         uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
         with:
@@ -113,11 +117,13 @@ jobs:
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
       # https://github.com/aws-actions/configure-aws-credentials
+      # AWS認証処理
       - name: AWS - configure-aws-credentials
         uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
         with:
+          # 下記でリージョン、ロール、有効期限時間、
           aws-region: ${{ inputs.aws-region }}
-          role-to-assume: ${{ inputs.aws-role-to-assume }}
+          role-to-assume: ${{ secrets.AWSROLETOASSUME }}
           role-duration-seconds: ${{ inputs.aws-role-duration-seconds }}
           role-session-name: ${{ inputs.aws-role-session-name }}
 
@@ -174,7 +180,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
         with:
           aws-region: ${{ inputs.aws-region }}
-          role-to-assume: ${{ inputs.aws-role-to-assume }}
+          role-to-assume: ${{ secrets.AWSROLETOASSUME }}
           role-duration-seconds: ${{ inputs.aws-role-duration-seconds }}
           role-session-name: ${{ inputs.aws-role-session-name }}
 
