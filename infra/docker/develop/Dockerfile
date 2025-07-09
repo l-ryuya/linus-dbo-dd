@@ -2,15 +2,15 @@
 FROM composer:lts AS builder
 # Laravelプロジェクトの必要ファイルを /build/ にコピー
 COPY composer.json composer.lock .env.develop artisan /build/
-COPY app/ /build/app/
-COPY bootstrap/ /build/bootstrap/
-COPY config/ /build/config/
-COPY database/ /build/database/
-COPY lang/ /build/lang/
-COPY public/ /build/public/
+COPY /app/ /build/app/
+COPY /bootstrap/ /build/bootstrap/
+COPY /config/ /build/config/
+COPY /database/ /build/database/
+COPY /lang/ /build/lang/
+COPY /public/ /build/public/
 # COPY resources/ /build/resources/  # 必要に応じて有効化してください
-COPY routes/ /build/routes/
-COPY storage/ /build/storage/
+COPY /routes/ /build/routes/
+COPY /storage/ /build/storage/
 
 WORKDIR /build/
 
@@ -28,7 +28,7 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-av
     sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}/../!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf && \
     sed -ri 's/<VirtualHost \*:80>/<VirtualHost *:3000>/g' /etc/apache2/sites-available/000-default.conf
 
-COPY infra/docker/develop/php/ports.conf /etc/apache2/ports.conf
+COPY infra/docker/develop/apache/ports.conf /etc/apache2/ports.conf
 
 COPY infra/docker/develop/php/php.dev.ini /usr/local/etc/php/
 
