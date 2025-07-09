@@ -32,26 +32,4 @@ class ServiceContract extends Model
             'invoice_remind_days' => 'string',
         ];
     }
-
-    /**
-     * SC-000001 形式の新しいサービス契約IDを生成
-     *
-     * @return string
-     */
-    public static function generateNewServiceContractId(): string
-    {
-        $lastContract = self::select('service_contract_code')
-            ->orderBy('service_contract_code', 'desc')
-            ->withTrashed()
-            ->first();
-        if (empty($lastContract)) {
-            $lastNumber = 0;
-        } else {
-            $lastNumber = (int) substr($lastContract->service_contract_code, 3); // "SC-" を除く
-        }
-
-        $newNumber = $lastNumber + 1;
-
-        return 'SC-' . str_pad((string) $newNumber, 6, '0', STR_PAD_LEFT);
-    }
 }

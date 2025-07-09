@@ -62,7 +62,7 @@ class StoreTest extends TestCase
         // テスト用データの設定
         $this->customer = Customer::where('tenant_id', $this->tenant->tenant_id)->first();
         $this->service = Service::where('tenant_id', $this->tenant->tenant_id)
-            ->where('service_code', 'SV-00001')
+            ->where('service_code', 'Securate')
             ->first();
         $this->servicePlan = ServicePlan::where('service_id', $this->service->service_id)->first();
 
@@ -166,7 +166,7 @@ class StoreTest extends TestCase
             'customer_payment_user_mail' => $contractData['customerPaymentUserMail'],
             'service_rep_user_option_id' => $this->serviceRepUserOption->user_option_id,
             'service_mgr_user_option_id' => $this->serviceMgrUserOption->user_option_id,
-            'billing_cycle_type' => 'payment_cycle',
+            'billing_cycle_type' => 'billing_cycle',
             'billing_cycle_code' => $contractData['billingCycleCode'],
             'invoice_remind_days' => '{' . $contractData['invoiceRemindDays'] . '}',
             'remarks' => $contractData['remarks'],

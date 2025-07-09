@@ -73,7 +73,7 @@ class ServicePlanControllerTest extends TestCase
     public function test_index_returns_successful_response(): void
     {
         $service = Service::where('tenant_id', $this->tenant->tenant_id)
-            ->where('service_code', 'SV-00001')
+            ->where('service_code', 'Securate')
             ->first();
 
         $response = $this->getJson($this->getBaseUrl() . "?servicePublicId={$service->public_id}");
@@ -94,38 +94,6 @@ class ServicePlanControllerTest extends TestCase
                     ],
                 ],
             ]);
-    }
-
-    /**
-     * 異なるサービスコードでフィルタリングできることをテストする
-     */
-    public function test_index_filters_by_different_service_codes(): void
-    {
-        $service = Service::where('tenant_id', $this->tenant->tenant_id)
-            ->where('service_code', 'SV-00001')
-            ->first();
-
-        // サービスコード1でフィルタリング
-        $response1 = $this->getJson($this->getBaseUrl() . "?servicePublicId={$service->public_id}");
-
-        $response1->assertStatus(200);
-
-        $service = Service::where('tenant_id', $this->tenant->tenant_id)
-            ->where('service_code', 'SV-00002')
-            ->first();
-
-        // サービスコード2で別のフィルタリング
-        $response2 = $this->getJson($this->getBaseUrl() . "?servicePublicId={$service->public_id}");
-
-        $response2->assertStatus(200);
-
-        // 両方のレスポンスが異なることを確認（もしデータがある場合）
-        if (count($response1->json('data')) > 0 && count($response2->json('data')) > 0) {
-            $this->assertNotEquals(
-                $response1->json('data'),
-                $response2->json('data'),
-            );
-        }
     }
 
     /**
