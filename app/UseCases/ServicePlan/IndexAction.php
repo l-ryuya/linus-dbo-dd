@@ -14,7 +14,7 @@ class IndexAction
     /**
      * サービスプランを取得する
      *
-     * @param string                       $languageCode          言語コード（ISO639-1）
+     * @param string                       $languageCode 言語コード（ISO639-1）
      * @param int|null                     $tenantId
      * @param string                       $servicePublicId
      * @param \App\Enums\ServiceStatus     $serviceStatusCode

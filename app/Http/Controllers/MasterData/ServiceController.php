@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace App\Http\Controllers\MasterData;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ServicePlan\IndexRequest;
-use App\Http\Resources\ServicePlan\IndexResource;
+use App\Http\Resources\Service\IndexResource;
 use App\Services\Role\TenantUserRoleService;
-use App\UseCases\ServicePlan\IndexAction;
+use App\UseCases\Service\IndexAction;
+use Illuminate\Http\Request;
 
-class ServicePlanController extends Controller
+class ServiceController extends Controller
 {
     /**
-     * 指定サービス毎のサービスプラン一覧を取得する
+     * サービス一覧を取得する
      *
-     * @param \App\Http\Requests\ServicePlan\IndexRequest $request
-     * @param \App\UseCases\ServicePlan\IndexAction       $action
+     * @param \Illuminate\Http\Request              $request
+     * @param \App\UseCases\Service\IndexAction $action
      *
      * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
      */
     public function index(
-        IndexRequest $request,
+        Request $request,
         IndexAction $action,
     ): \Illuminate\Http\Resources\Json\AnonymousResourceCollection {
         /** @var \App\Auth\GenericUser $user */
@@ -31,7 +31,6 @@ class ServicePlanController extends Controller
             $action(
                 $user->getUserOption()->language_code,
                 (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
-                $request->validated('servicePublicId'),
             ),
         );
     }
