@@ -184,6 +184,10 @@ jobs:
           EXECUTIONROLEARN: ${{ secrets.EXECUTIONROLEARN }}
         run: |
           cat ${{ inputs.aws-ecs-task-definition-filepath }}
+
+
+
+
           sed -i 's#"taskRoleArn": "hogehoge"#"taskRoleArn": "'"${TASKROLEARN}"'"#' ${{ inputs.aws-ecs-task-definition-filepath }}
           sed -i 's#"executionRoleArn": "hogehoge"#"executionRoleArn": "'"${EXECUTIONROLEARN}"'"#' ${{ inputs.aws-ecs-task-definition-filepath }}
           cat ${{ inputs.aws-ecs-task-definition-filepath }}
