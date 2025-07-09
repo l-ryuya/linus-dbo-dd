@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: デジタルバックオフィスAPI
+  description: |-
+    ユーザー管理
+  version: '1.0.0'
+servers:
+  - url: 'https://dbo-dd.dev.dsbizdev.com/v1'
+    description: ステージング環境
+paths:
+  /users/me:
+    get:
+      summary: ユーザー情報 取得
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/UserMeGetResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
+
+components:
+  schemas:
+    UserMeGetResponse:
+      type: object
+      properties:
+        userPublicId:
+          type: string
+          format: uuid
+          description: ユーザー 外部公開用 UUID v4
+        roleName:
+          type: string
+          description: ロール名（admin,tenant,customer）
+        companyName:
+          type: string
+          description: 会社名
+        serviceName:
+          type: string
+          nullable: true
+          description: サービス名
+        userName:
+          type: string
+          description: ユーザー氏名
+        userMail:
+          type: string
+          format: email
+          description: ユーザーメールアドレス
+        userIconUrl:
+          type: string
+          nullable: true
+          description: ユーザーアイコンURL
+        countryRegionName:
+          type: string
+          description: 国・地域名
+        countryCodeAlpha3:
+          type: string
+          description: 3文字の国コード
+        languageName:
+          type: string
+          description: 言語名
+        languageCode:
+          type: string
+          description: 言語コード
+        timeZoneName:
+          type: string
+          description: タイムゾーン名
+        timeZoneId:
+          type: integer
+          description: タイムゾーンID
+        dateFormat:
+          type: string
+          description: 日付フォーマット
+        phoneNumber:
+          type: string
+          nullable: true
+          description: 電話番号
+
+  securitySchemes:
+    UserAuth:
+      $ref: 'components/security_schemes.yaml#/components/securitySchemes/BearerAuth'

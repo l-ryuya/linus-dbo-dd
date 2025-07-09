@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: デジタルバックオフィスAPI
   description: |-
-    外部システム向け
+    外部システム向けAPI
   version: '1.0.0'
 servers:
   - url: 'https://dbo-dd.dev.dsbizdev.com/v1'

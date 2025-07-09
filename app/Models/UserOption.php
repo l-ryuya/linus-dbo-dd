@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class UserOption extends Model
@@ -22,38 +22,42 @@ class UserOption extends Model
         ];
     }
 
-    /**
-     * @return BelongsTo<Tenant, $this>
-     */
-    public function tenant(): BelongsTo
-    {
-        return $this->belongsTo(Tenant::class, 'tenant_id', 'tenant_id');
-    }
-
-    /**
-     * @return BelongsTo<Customer, $this>
-     */
-    public function customer(): BelongsTo
-    {
-        return $this->belongsTo(Customer::class, 'customer_id', 'customer_id');
-    }
-
-    /**
-     * @return BelongsTo<Service, $this>
-     */
-    public function service(): BelongsTo
-    {
-        return $this->belongsTo(Service::class, 'service_id', 'service_id');
-    }
-
     public function isAdmin(): bool
     {
-        return $this->platform_user;
+        if ($this->platform_user && !empty($this->company_id)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return HasOne<Tenant, $this>
+     */
+    public function tenant(): HasOne
+    {
+        return $this->hasOne(Tenant::class, 'tenant_id', 'tenant_id');
+    }
+
+    /**
+     * @return HasOne<Customer, $this>
+     */
+    public function customer(): HasOne
+    {
+        return $this->hasOne(Customer::class, 'customer_id', 'customer_id');
+    }
+
+    /**
+     * @return HasOne<Service, $this>
+     */
+    public function service(): HasOne
+    {
+        return $this->hasOne(Service::class, 'service_id', 'service_id');
     }
 
     public function isTenant(): bool
     {
-        if (!empty($this->tenant_id) && empty($this->customer_id)) {
+        if (!$this->platform_user && !empty($this->tenant_id) && empty($this->customer_id)) {
             return true;
         }
 
@@ -62,7 +66,7 @@ class UserOption extends Model
 
     public function isCustomer(): bool
     {
-        if (!empty($this->tenant_id) && !empty($this->customer_id)) {
+        if (!$this->platform_user && !empty($this->tenant_id) && !empty($this->customer_id)) {
             return true;
         }
 
