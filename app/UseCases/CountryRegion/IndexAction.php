@@ -36,6 +36,7 @@ class IndexAction
             $join->on('country_regions.country_code_alpha3', '=', 'country_regions_translations.country_code_alpha3')
                 ->where('country_regions_translations.language_code', $languageCode);
         })
+        ->where('country_regions.selectable', true)
         ->where('country_regions.world_region_type', 'world_region')
         ->when($countryCodeAlpha3, function ($query) use ($countryCodeAlpha3) {
             $query->where('country_regions.country_code_alpha3', $countryCodeAlpha3);
@@ -46,7 +47,7 @@ class IndexAction
         ->when($countryCodeNumeric, function ($query) use ($countryCodeNumeric) {
             $query->where('country_regions.country_code_numeric', $countryCodeNumeric);
         })
-        ->orderBy('country_regions.country_code_numeric')
+        ->orderBy('country_regions.display_order')
         ->get();
     }
 }
