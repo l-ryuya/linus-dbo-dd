@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\Users\MeResource;
 use App\UseCases\Users\MeAction;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class MeController extends Controller
 {
     /**
      * ログインユーザの情報を取得する
@@ -18,7 +19,7 @@ class UserController extends Controller
      *
      * @return \App\Http\Resources\Users\MeResource
      */
-    public function me(
+    public function show(
         Request $request,
         MeAction $action,
     ): MeResource {
