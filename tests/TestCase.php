@@ -37,7 +37,7 @@ abstract class TestCase extends BaseTestCase
     protected function createServiceManageUser(): GenericUser
     {
         $data = [
-            'sub' => 'USR00000004',
+            'sub' => 'USR00000003',
             'aud' => 'PMX',
             'exp' => 'none',
             'iss' => 'M5',
