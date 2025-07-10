@@ -6,9 +6,12 @@ namespace App\Http\Controllers\Tenant;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\ServiceContract\IndexRequest;
+use App\Http\Requests\Tenant\ServiceContract\StoreRequest;
 use App\Http\Resources\Tenant\ServiceContract\IndexCollection;
+use App\Http\Resources\Tenant\ServiceContract\StoreResource;
 use App\Services\Role\TenantUserRoleService;
 use App\UseCases\Tenant\ServiceContract\IndexAction;
+use App\UseCases\Tenant\ServiceContract\StoreAction;
 
 class ServiceContractController extends Controller
 {
@@ -44,5 +47,31 @@ class ServiceContractController extends Controller
                 $request->validated('page'),
             ),
         );
+    }
+
+    /**
+     * テナント管理者の顧客サービス契約を登録する
+     *
+     * @param \App\Http\Requests\Tenant\ServiceContract\StoreRequest $request
+     * @param \App\UseCases\Tenant\ServiceContract\StoreAction       $action
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function store(
+        StoreRequest $request,
+        StoreAction $action,
+    ): \Illuminate\Http\JsonResponse {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        return (new StoreResource(
+            $action(
+                $user->getUserOption()->tenant,
+                $request->toStoreInput(),
+            ),
+        ))
+        ->response()
+        ->setStatusCode(201);
     }
 }

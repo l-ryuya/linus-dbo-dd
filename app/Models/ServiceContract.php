@@ -9,9 +9,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * @property \Illuminate\Support\Carbon|string $service_application_date
- * @property \Illuminate\Support\Carbon|string $service_start_date
- * @property \Illuminate\Support\Carbon|string $service_end_date
+ * @property \Illuminate\Support\Carbon|string $contract_date
+ * @property \Illuminate\Support\Carbon|string $contract_start_date
+ * @property \Illuminate\Support\Carbon|string $contract_end_date
+ * @property string|null $invoice_remind_days
  */
 class ServiceContract extends Model
 {
@@ -25,9 +26,10 @@ class ServiceContract extends Model
     protected function casts(): array
     {
         return [
-            'service_application_date' => 'date',
-            'service_start_date' => 'date',
-            'service_end_date' => 'date',
+            'contract_date' => 'date',
+            'contract_start_date' => 'date',
+            'contract_end_date' => 'date',
+            'invoice_remind_days' => 'string',
         ];
     }
 }

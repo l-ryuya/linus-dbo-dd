@@ -35,9 +35,9 @@ class CustomersSeeder extends Seeder
                 'sys_organization_code' => $row['sys_organization_code'],
                 'customer_status_type' => $row['customer_status_type'],
                 'customer_status_code' => $row['customer_status_code'],
-                'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
-                'updated_at' => empty($row['updated_at']) ? $now : $row['updated_at'],
-                'deleted_at' => empty($row['deleted_at']) ? null : $row['deleted_at'],
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
 

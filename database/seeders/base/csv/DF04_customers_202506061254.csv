@@ -1,5 +1,5 @@
 "customer_id","public_id","tenant_id","company_id","sys_organization_code","customer_status_type","customer_status_code","created_at","updated_at","deleted_at"
-1,"b7e2a1c2-3f4b-4e2a-8c1d-1a2b3c4d5e6f",1,3,ORG00000021,customer_status,active,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
-2,"c1d2e3f4-5a6b-4c7d-8e9f-0a1b2c3d4e5f",1,4,ORG00000022,customer_status,active,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
-3,"d2e3f4a5-b6c7-4d8e-9f0a-1b2c3d4e5f6a",2,5,ORG00000114,customer_status,active,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
-4,"e3f4a5b6-c7d8-4e9f-0a1b-2c3d4e5f6a7b",2,6,ORG00000115,customer_status,active,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+1,"b7e2a1c2-3f4b-4e2a-8c1d-1a2b3c4d5e6f",1,3,ORG00000021,customer_status,active,,,
+2,"c1d2e3f4-5a6b-4c7d-8e9f-0a1b2c3d4e5f",1,4,ORG00000022,customer_status,active,,,
+3,"d2e3f4a5-b6c7-4d8e-9f0a-1b2c3d4e5f6a",1,5,ORG00000114,customer_status,active,,,
+4,"e3f4a5b6-c7d8-4e9f-0a1b-2c3d4e5f6a7b",1,6,ORG00000115,customer_status,active,,,

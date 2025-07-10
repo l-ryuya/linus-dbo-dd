@@ -1,91 +1,119 @@
-selection_item_type,selection_item_code,remarks
-customer_status,customer_registered,顧客登録完了
-customer_status,dd_started,顧客審査開始
-customer_status,dd_completed,顧客審査完了
-customer_status,contract_proc_started,契約手続開始
-customer_status,contract_proc_completed,契約手続完了
-customer_status,active,利用中
-customer_status,all_paused,全サービス利用停止中
-customer_status,all_suspended,全サービス利用停止中（疑義あり）
-customer_status,all_closed,全サービス利用終了
-customer_status,all_terminated,全サービス利用終了（疑義あり）
-language_code,eng,ISO 639-3 英語
-language_code,jpn,ISO 639-3 日本語
-language_code,ind,ISO 639-3 インドネシア語
-language_code,tha,ISO 639-3 タイ語
-language_code,cmn,ISO 639-3 中文（簡体字）
-language_code,yue,ISO 639-3 中文（繁体字）
-language_code,spa,ISO 639-3 スペイン語
-language_code,vie,ISO 639-3 ベトナム語
-company_type,public,上場
-company_type,private,非上場
-user_status,active,利用中
-user_status,all_paused,全サービス利用停止中
-user_status,all_suspended,全サービス利用停止中（疑義あり）
-user_status,all_closed,全サービス利用終了
-user_status,all_terminated,全サービス利用終了（疑義あり）
-gender,male,男性
-gender,female,女性
-gender,other,その他
-world_region,asia,アジア
-world_region,europe,ヨーロッパ
-world_region,north_america,北アメリカ
-world_region,south_america,南アメリカ
-world_region,africa,アフリカ
-world_region,oceania,オセアニア
-service_status,preparing,準備中
-service_status,active,稼動中
-service_status,suspended,停止中
-service_status,terminated,終了
-service_plan_status,preparing,準備中
-service_plan_status,active,稼動中
-service_plan_status,suspended,停止中
-service_plan_status,terminated,終了
-service_usage_status,awaiting_activation,サービス利用準備中
-service_usage_status,active,サービス利用中
-service_usage_status,paused,サービス利用停止中
-service_usage_status,suspended,サービス利用停止中（疑義あり）
-service_usage_status,closed,サービス利用終了
-service_usage_status,terminated,サービス利用終了（疑義あり）
-service_contract_status,contract_info_registered,契約登録完了
-service_contract_status,contract_draft_completed,契約書作成完了
-service_contract_status,contract_document_sent,契約書送信完了
-service_contract_status,contract_executed,契約締結完了
-payment_cycle,monthly,1ヶ月ごと
-payment_cycle,quarterly,3ヶ月ごと
-payment_cycle,semi_annually,6ヶ月ごと
-payment_cycle,annually,12ヶ月ごと
-payment_method,card,クレジット/デビット/プリペイドカード
-payment_method,bank_transfer,銀行振込
-language_name,english,英語
-language_name,日本語,日本語
-language_name,bahasa_indonesia,インドネシア語
-language_name,ภาษาไทย,タイ語
-language_name,中文（简体）,中国語（簡体字）
-language_name,中文（繁體）,中国語（繁体字）
-language_name,español,スペイン語
-language_name,tiếng_việt,ベトナム語
-dd_entity_type,target_company,取引対象法人
-dd_entity_type,related_company,関連法人
-dd_entity_type,related_individual,関連個人
-dd_relation_type,ultimate_beneficial_owner,実質的支配者
-dd_relation_type,executive,役員
-dd_relation_type,shareholder,株主
-dd_relation_type,executive_of_shareholder,株主の役員
-dd_relation_type,indirect_shareholder,間接株主
-dd_relation_type,executive_of_indirect_shareholder,間接株主の役員
-dd_relation_type,investee,出資先
-dd_relation_type,executive_of_investee,出資先の役員
-dd_relation_type,indirect_investee,間接出資先
-dd_relation_type,executive_of_indirect_investee,間接出資先の役員
-dd_status,cdd_awaiting,継続DD準備中
-dd_status,ai_pre_dd_started,DD準備AI処理開始
-dd_status,ai_pre_dd_completed,DD準備AI処理完了
-dd_status,pre_dd_primary_completed,DD準備一次確認完了
-dd_status,pre_dd_final_completed,DD準備二次確認完了
-dd_status,add_info_input_requested,追加入力依頼完了
-dd_status,add_info_input_completed,追加入力完了
-dd_status,ai_dd_started,DDAI処理開始
-dd_status,ai_dd_completed,DDAI処理完了
-dd_status,dd_primary_completed,DD一次審査完了
-dd_status,dd_final_completed,DD二次審査完了
+"selection_item_id","selection_item_type","selection_item_code","remarks","created_at","updated_at","deleted_at"
+119,customer_status,customer_registered,顧客登録完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+120,customer_status,dd_started,顧客審査開始,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+121,customer_status,dd_completed,顧客審査完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+122,customer_status,contract_proc_started,契約手続開始,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+123,customer_status,contract_proc_completed,契約手続完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+124,customer_status,active,利用中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+125,customer_status,all_paused,全サービス利用停止中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+126,customer_status,all_suspended,全サービス利用停止中（疑義あり）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+127,customer_status,all_closed,全サービス利用終了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+128,customer_status,all_terminated,全サービス利用終了（疑義あり）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+129,language_code,eng,ISO 639-3 英語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+130,language_code,jpn,ISO 639-3 日本語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+131,language_code,ind,ISO 639-3 インドネシア語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+132,language_code,tha,ISO 639-3 タイ語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+133,language_code,cmn,ISO 639-3 中文（簡体字）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+134,language_code,yue,ISO 639-3 中文（繁体字）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+135,language_code,spa,ISO 639-3 スペイン語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+136,language_code,vie,ISO 639-3 ベトナム語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+137,contract_language_code,eng,ISO 639-3 英語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+138,contract_language_code,jpn,ISO 639-3 日本語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+139,contract_language_code,cmn,ISO 639-3 中文（簡体字）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+140,contract_language_code,yue,ISO 639-3 中文（繁体字）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+141,company_type,public,上場,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+142,company_type,private,非上場,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+143,user_status,active,利用中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+144,user_status,all_paused,全サービス利用停止中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+145,user_status,all_suspended,全サービス利用停止中（疑義あり）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+146,user_status,all_closed,全サービス利用終了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+147,user_status,all_terminated,全サービス利用終了（疑義あり）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+148,gender,male,男性,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+149,gender,female,女性,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+150,gender,other,その他,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+151,world_region,asia,アジア,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+152,world_region,europe,ヨーロッパ,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+153,world_region,north_america,北アメリカ,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+154,world_region,south_america,南アメリカ,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+155,world_region,africa,アフリカ,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+156,world_region,oceania,オセアニア,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+157,service_status,preparing,準備中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+158,service_status,active,稼動中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+159,service_status,suspended,停止中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+160,service_status,terminated,終了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+161,service_plan_status,preparing,準備中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+162,service_plan_status,active,稼動中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+163,service_plan_status,suspended,停止中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+164,service_plan_status,terminated,終了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+165,service_usage_status,awaiting_activation,サービス利用準備中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+166,service_usage_status,active,サービス利用中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+167,service_usage_status,paused,サービス利用停止中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+168,service_usage_status,suspended,サービス利用停止中（疑義あり）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+169,service_usage_status,closed,サービス利用終了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+170,service_usage_status,terminated,サービス利用終了（疑義あり）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+171,service_contract_status,contract_info_registered,契約登録完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+172,service_contract_status,contract_draft_completed,契約書作成完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+173,service_contract_status,contract_document_sent,契約書送信完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+174,service_contract_status,contract_executed,契約締結完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+179,payment_method,card,クレジット/デビット/プリペイドカード,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+180,payment_method,bank_transfer,銀行振込,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+181,language_name,english,英語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+182,language_name,日本語,日本語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+183,language_name,bahasa_indonesia,インドネシア語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+184,language_name,ภาษาไทย,タイ語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+185,language_name,中文（简体）,中国語（簡体字）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+186,language_name,中文（繁體）,中国語（繁体字）,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+187,language_name,español,スペイン語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+188,language_name,tiếng_việt,ベトナム語,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+189,dd_entity_type,target_company,取引対象法人,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+190,dd_entity_type,related_company,関連法人,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+191,dd_entity_type,related_individual,関連個人,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+192,dd_relation_type,ultimate_beneficial_owner,実質的支配者,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+193,dd_relation_type,executive,役員,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+194,dd_relation_type,shareholder,株主,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+195,dd_relation_type,executive_of_shareholder,株主の役員,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+196,dd_relation_type,indirect_shareholder,間接株主,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+175,billing_cycle,monthly,"1ヶ月ごと",2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+176,billing_cycle,quarterly,"3ヶ月ごと",2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+177,billing_cycle,semi_annually,"6ヶ月ごと",2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+178,billing_cycle,annually,"12ヶ月ごと",2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+197,dd_relation_type,executive_of_indirect_shareholder,間接株主の役員,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+198,dd_relation_type,investee,出資先,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+199,dd_relation_type,executive_of_investee,出資先の役員,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+200,dd_relation_type,indirect_investee,間接出資先,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+201,dd_relation_type,executive_of_indirect_investee,間接出資先の役員,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+202,dd_status,cdd_awaiting,継続DD準備中,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+203,dd_status,pre_dd_ai_started,DD準備AI処理開始,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+204,dd_status,pre_dd_ai_completed,DD準備AI処理完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+205,dd_status,pre_dd_review_completed,DD準備再鑑完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+206,dd_status,pre_dd_approve_completed,DD準備承認完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+207,dd_status,add_info_input_requested,追加入力依頼完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+208,dd_status,add_info_input_completed,追加入力完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+209,dd_status,add_info_review_completed,追加入力再鑑完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+210,dd_status,add_info_approve_completed,追加入力承認完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+211,dd_status,dd_ai_started,DDAI処理開始,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+212,dd_status,dd_ai_completed,DDAI処理完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+213,dd_status,dd_review_completed,DD再鑑完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+214,dd_status,dd_approve_completed,DD承認完了,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+215,dd_step_type,pre_dd_ai,DD準備AI処理,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+216,dd_step_type,pre_dd_review,DD準備再鑑,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+217,dd_step_type,pre_dd_approve,DD準備承認,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+218,dd_step_type,add_info_input,追加入力,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+219,dd_step_type,add_info_review,追加入力再鑑,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+220,dd_step_type,add_info_approve,追加入力承認,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+221,dd_step_type,dd_ai,DDAI処理,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+222,dd_step_type,dd_review,DD再鑑,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+223,dd_step_type,dd_approve,DD承認,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+224,dd_result_type,registry_acquisition,登記簿情報取得,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+225,dd_result_type,stakeholder_acquisition,株主・役員情報取得,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+226,dd_result_type,industry_screening,業種業態チェック,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+227,dd_result_type,risk_screening,顧客リスクレベル判定,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+228,dd_result_type,add_info_entry,顧客情報追加入力,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+229,dd_result_type,asf_acreening,反社チェック,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+230,dd_result_type,reputation_screening,風評チェック,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+231,dd_result_code,ok,OK,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+232,dd_result_code,ng,NG,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+233,dd_result_code,high_risk,ハイリスク,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+234,dd_result_code,low_risk,ローリスク,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+235,dd_result_code,suspicious,疑わしい,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,
+236,dd_result_code,no_problem,問題なし,2025-07-08 19:14:23.321,2025-07-08 19:14:23.321,

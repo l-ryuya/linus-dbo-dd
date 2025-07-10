@@ -90,6 +90,57 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
+  /services:
+    get:
+      summary: サービス 取得
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
+  /service-plans:
+    get:
+      summary: サービス利用プラン 取得
+      parameters:
+        - name: servicePublicId
+          description: サービス 外部公開用 UUID v4
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServicePlanResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
 
 components:
   schemas:
@@ -137,6 +188,77 @@ components:
         selectionItemShortName:
           type: string
           description: 選択肢アイテム短縮名称
+    ServiceResponse:
+      description: サービス情報
+      type: object
+      properties:
+        servicePublicId:
+          type: string
+          format: uuid
+          description: 'サービス公開ID'
+        serviceStatus:
+          type: string
+          description: 'サービスステータス'
+        serviceStatusCode:
+          type: string
+          description: 'サービスステータスコード'
+        serviceStartDate:
+          type: string
+          format: date
+          description: 'サービス開始日'
+        serviceEndDate:
+          type: string
+          format: date
+          nullable: true
+          description: 'サービス終了日'
+        serviceCondition:
+          type: string
+          description: 'サービス条件'
+        ddPlan:
+          type: string
+          description: 'DDプラン'
+        serviceName:
+          type: string
+          description: 'サービス名'
+        serviceDescription:
+          type: string
+          description: 'サービス説明'
+    ServicePlanResponse:
+      type: object
+      properties:
+        servicePlanPublicId:
+          type: string
+          format: uuid
+          description: サービスプランの公開ID
+        servicePlanStatus:
+          type: string
+          description: サービスプランのステータス
+        servicePlanStatusCode:
+          type: string
+          description: サービスプランのステータスコード
+        billingCycle:
+          type: string
+          description: 請求サイクル
+        unitPrice:
+          type: number
+          format: float
+          description: 単価
+        serviceStartDate:
+          type: string
+          format: date
+          nullable: true
+          description: サービス開始日(YYYY-MM-DD形式)
+        serviceEndDate:
+          type: string
+          format: date
+          nullable: true
+          description: サービス終了日(YYYY-MM-DD形式)
+        servicePlanName:
+          type: string
+          description: サービスプラン名
+        servicePlanDescription:
+          type: string
+          description: サービスプランの説明
 
   securitySchemes:
     UserAuth:

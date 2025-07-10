@@ -18,8 +18,8 @@ enum ServicePlanStatus: String
     use EnumToGet;
     use EnumToEqual;
 
-    case Preparing = 'Preparing';
-    case Active = 'Active';
-    case Suspended = 'Suspended';
-    case Terminated = 'Terminated';
+    case Preparing = 'preparing';
+    case Active = 'active';
+    case Suspended = 'suspended';
+    case Terminated = 'terminated';
 }

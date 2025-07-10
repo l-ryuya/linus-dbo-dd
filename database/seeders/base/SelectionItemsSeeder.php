@@ -31,9 +31,9 @@ class SelectionItemsSeeder extends Seeder
                 'selection_item_type' => $row['selection_item_type'],
                 'selection_item_code' => $row['selection_item_code'],
                 'remarks' => $row['remarks'],
-                'created_at' => $now,
-                'updated_at' => $now,
-                'deleted_at' => null,
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
 

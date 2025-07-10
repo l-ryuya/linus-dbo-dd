@@ -40,9 +40,9 @@ class ServicePlansSeeder extends Seeder
                 "service_start_date" => empty($row['service_start_date']) ? null : $row['service_start_date'],
                 "service_end_date" => empty($row['service_end_date']) ? null : $row['service_end_date'],
                 "remarks" => $row['remarks'] ?? null,
-                "created_at" => $now,
-                "updated_at" => $now,
-                "deleted_at" => null,
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
 

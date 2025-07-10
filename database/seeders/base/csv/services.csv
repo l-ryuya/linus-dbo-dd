@@ -1,11 +1,2 @@
-service_id,public_id,tenant_id,service_code,service_status_type,service_status_code,service_start_date,service_end_date,service_condition,service_admin_sys_user_code,service_sys_organization_code,dd_plan,remarks
-1,"4077ee54-8700-4bcd-91d6-0cb998db70ea",1,SV-00001,service_status,active,2024-08-01,,,USR00000003,ORG00000010,MIDDLE,
-2,"cd440e71-a90f-4a03-8ee6-270ab5d72bfc",1,SV-00002,service_status,active,2024-12-01,,,USR00000003,ORG00000010,MIDDLE,
-3,"013e67d2-d289-4981-a8c5-394961d8814f",1,SV-00003,service_status,active,2025-04-01,,,USR00000003,ORG00000010,MIDDLE,
-4,"031f6892-d770-48f6-8ad9-eb29da997cdc",1,SV-00004,service_status,active,2024-10-01,,,USR00000003,ORG00000010,MIDDLE,
-5,"d25e8eef-f7af-49f0-a6a2-075204826a4c",1,SV-00005,service_status,active,2025-04-01,,,USR00000003,ORG00000010,MIDDLE,
-6,"cf99bafb-beda-42da-a227-e089d39e23d6",2,SV-00006,service_status,active,2024-08-01,,,USR00000003,ORG00000010,MIDDLE,
-7,"922bdfbf-703d-4080-8811-3e748bd959ed",2,SV-00007,service_status,active,2024-12-01,,,USR00000003,ORG00000010,MIDDLE,
-8,"1fa704a0-0e9e-4c02-9f69-8040ff76effe",2,SV-00008,service_status,active,2025-04-01,,,USR00000003,ORG00000010,MIDDLE,
-9,"ee0b1ea6-5381-4df3-9ebc-b30704ae8de8",2,SV-00009,service_status,active,2024-10-01,,,USR00000003,ORG00000010,MIDDLE,
-10,"e4a9a9d1-29ee-4029-b231-7d112f66ace6",2,SV-00010,service_status,active,2025-04-01,,,USR00000003,ORG00000010,MIDDLE,
+"service_id","public_id","tenant_id","service_code","service_status_type","service_status_code","service_start_date","service_end_date","service_condition","service_mgr_user_option_id","service_mgr_sys_user_code","service_sys_organization_code","dd_plan","remarks","created_at","updated_at","deleted_at"
+1,f712fdb4-20fa-4252-84bc-66724aa0b7bb,1,Securate,service_status,active,2025-07-01,,,3,USR00000004,ORG00000015,MIDDLE,,,,
