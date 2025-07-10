@@ -30,7 +30,6 @@ class ServiceContractsSeeder extends Seeder
             $data[] = [
                 'service_contract_id' => (int) $row['service_contract_id'],
                 'public_id' => $row['public_id'],
-                'service_contract_code' => $row['service_contract_code'],
                 'tenant_id' => (int) $row['tenant_id'],
                 'customer_id' => (int) $row['customer_id'],
                 'service_id' => (int) $row['service_id'],
@@ -64,9 +63,9 @@ class ServiceContractsSeeder extends Seeder
                 'billing_cycle_type' => $row['billing_cycle_type'],
                 'billing_cycle_code' => $row['billing_cycle_code'],
                 'remarks' => $row['remarks'],
-                'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
-                'updated_at' => empty($row['updated_at']) ? $now : $row['updated_at'],
-                'deleted_at' => empty($row['deleted_at']) ? null : $row['deleted_at'],
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
 

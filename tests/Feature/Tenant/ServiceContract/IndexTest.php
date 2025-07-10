@@ -97,7 +97,7 @@ class IndexTest extends TestCase
     public function test_index_filters_by_tenant_name(): void
     {
         // テスト用のテナント名
-        $tenantName = 'Securate運営部署';
+        $tenantName = '株式会社電通総研';
 
         $response = $this->getJson($this->getBaseUrl() . "?tenantName={$tenantName}&page=1");
 
@@ -113,7 +113,7 @@ class IndexTest extends TestCase
     public function test_index_filters_by_customer_name(): void
     {
         // テスト用の顧客データを作成
-        $customerName = '株式会社FINOLAB';
+        $customerName = 'Sansan株式会社';
 
         $response = $this->getJson($this->getBaseUrl() . "?customerName={$customerName}&page=1");
 
@@ -129,7 +129,7 @@ class IndexTest extends TestCase
     public function test_index_filters_by_contract_name(): void
     {
         // テスト用の契約名
-        $contractName = 'サービスAクラウド契約';
+        $contractName = 'Sansan様 Securate スタンダードプラン サービス契約書';
 
         $response = $this->getJson($this->getBaseUrl() . "?contractName={$contractName}&page=1");
 

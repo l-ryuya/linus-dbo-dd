@@ -97,19 +97,13 @@ class StoreAction
         $serviceContract->service_id = $serviceId;
         $serviceContract->service_plan_id = $servicePlanId;
 
-        // サービス契約コード
-        $serviceContract->service_contract_code = ServiceContract::generateNewServiceContractId();
-
         $serviceContract->contract_name = $data->contractName;
         $serviceContract->contract_language = $data->contractLanguage;
-
         // ステータスタイプ設定
         $serviceContract->contract_status_type = 'service_contract_status';
         $serviceContract->contract_status_code = $data->contractStatusCode;
-
         $serviceContract->service_usage_status_type = 'service_usage_status';
         $serviceContract->service_usage_status_code = $data->serviceUsageStatusCode;
-
         $serviceContract->contract_date = $data->contractDate;
         $serviceContract->contract_start_date = $data->contractStartDate;
         $serviceContract->contract_end_date = $data->contractEndDate;
@@ -120,25 +114,22 @@ class StoreAction
         $serviceContract->customer_contact_user_dept = $data->customerContactUserDept;
         $serviceContract->customer_contact_user_title = $data->customerContactUserTitle;
         $serviceContract->customer_contact_user_mail = $data->customerContactUserMail;
-
         // 顧客契約担当者情報
         $serviceContract->customer_contract_user_name = $data->customerContractUserName;
         $serviceContract->customer_contract_user_dept = $data->customerContractUserDept;
         $serviceContract->customer_contract_user_title = $data->customerContractUserTitle;
         $serviceContract->customer_contract_user_mail = $data->customerContractUserMail;
-
         // 顧客支払担当者情報
         $serviceContract->customer_payment_user_name = $data->customerPaymentUserName;
         $serviceContract->customer_payment_user_dept = $data->customerPaymentUserDept;
         $serviceContract->customer_payment_user_title = $data->customerPaymentUserTitle;
         $serviceContract->customer_payment_user_mail = $data->customerPaymentUserMail;
-
         // サービス担当者・管理者情報
         $serviceContract->service_rep_user_option_id = $serviceRepUserOptionId;
         $serviceContract->service_mgr_user_option_id = $serviceMgrUserOptionId;
 
         // 請求サイクル情報
-        $serviceContract->billing_cycle_type = 'payment_cycle';
+        $serviceContract->billing_cycle_type = 'billing_cycle';
         $serviceContract->billing_cycle_code = $data->billingCycleCode ?? 'monthly'; // デフォルト値としてmonthlyを設定
 
         // 請求書督促タイミング設定

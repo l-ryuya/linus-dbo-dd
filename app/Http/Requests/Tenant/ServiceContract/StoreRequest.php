@@ -64,7 +64,7 @@ class StoreRequest extends FormRequest
                 'min:3',
                 'max:128',
                 Rule::exists('selection_items', 'selection_item_code')
-                    ->where('selection_item_type', 'payment_cycle'),
+                    ->where('selection_item_type', 'billing_cycle'),
             ],
             'remarks' => ['nullable', 'string', 'max:255'],
         ];
