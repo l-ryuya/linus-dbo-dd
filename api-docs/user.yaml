@@ -27,6 +27,25 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
+  /service-representatives:
+    get:
+      summary: サービス担当者情報 取得
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/ServiceRepresentativesGetResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
 
 components:
   schemas:
@@ -83,6 +102,16 @@ components:
           type: string
           nullable: true
           description: 電話番号
+    ServiceRepresentativesGetResponse:
+      type: object
+      properties:
+        userPublicId:
+          type: string
+          format: uuid
+          description: ユーザー 外部公開用 UUID v4
+        userName:
+          type: string
+          description: ユーザー氏名
 
   securitySchemes:
     UserAuth:

@@ -29,4 +29,13 @@ class TenantUserRoleService
 
         return $this->userOption->tenant_id;
     }
+
+    public function getServiceId(): ?int
+    {
+        if ($this->userOption->isAdmin()) {
+            return null;
+        }
+
+        return $this->userOption->service_id;
+    }
 }
