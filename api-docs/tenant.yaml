@@ -243,7 +243,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TenantServiceContractsPostRequest'
+              $ref: '#/components/schemas/TenantServiceContractPostRequest'
       responses:
         '201':
           description: OK
@@ -476,7 +476,7 @@ components:
           format: date
           nullable: true
           description: 契約開始日
-    TenantServiceContracts:
+    TenantServiceContract:
       description: 顧客契約情報
       type: object
       properties:
@@ -609,10 +609,10 @@ components:
           maxLength: 255
           nullable: true
           description: 備考
-    TenantServiceContractsPostRequest:
+    TenantServiceContractPostRequest:
       description: 顧客契約情報登録
       allOf:
-        - $ref: '#/components/schemas/TenantServiceContracts'
+        - $ref: '#/components/schemas/TenantServiceContract'
       required:
         - servicePublicId
         - servicePlanPublicId
