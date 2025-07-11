@@ -10,4 +10,5 @@ Route::prefix('tenant')->middleware(['auth', 'roles:admin,tenant'])->group(funct
 
 Route::prefix('tenant')->middleware(['auth', 'roles:tenant'])->group(function () {
     Route::post('/service-contracts', [ServiceContractController::class, 'store']);
+    Route::put('/service-contracts/{public_id}', [ServiceContractController::class, 'update']);
 });

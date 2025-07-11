@@ -7,16 +7,19 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\ServiceContract\IndexRequest;
 use App\Http\Requests\Tenant\ServiceContract\StoreRequest;
+use App\Http\Requests\Tenant\ServiceContract\UpdateRequest;
+use App\Http\Resources\NoContentResource;
 use App\Http\Resources\Tenant\ServiceContract\IndexCollection;
 use App\Http\Resources\Tenant\ServiceContract\StoreResource;
 use App\Services\Role\TenantUserRoleService;
 use App\UseCases\Tenant\ServiceContract\IndexAction;
 use App\UseCases\Tenant\ServiceContract\StoreAction;
+use App\UseCases\Tenant\ServiceContract\UpdateAction;
 
 class ServiceContractController extends Controller
 {
     /**
-     * テナント管理者の顧客サービス契約一覧を取得する
+     * テナント管理者 顧客サービス契約一覧を取得する
      *
      * @param \App\Http\Requests\Tenant\ServiceContract\IndexRequest $request
      * @param \App\UseCases\Tenant\ServiceContract\IndexAction       $action
@@ -50,7 +53,7 @@ class ServiceContractController extends Controller
     }
 
     /**
-     * テナント管理者の顧客サービス契約を登録する
+     * テナント管理者 顧客サービス契約を登録する
      *
      * @param \App\Http\Requests\Tenant\ServiceContract\StoreRequest $request
      * @param \App\UseCases\Tenant\ServiceContract\StoreAction       $action
@@ -73,5 +76,32 @@ class ServiceContractController extends Controller
         ))
         ->response()
         ->setStatusCode(201);
+    }
+
+    /**
+     * テナント管理者 顧客サービス契約を更新する
+     *
+     * @param \App\Http\Requests\Tenant\ServiceContract\UpdateRequest $request
+     * @param string                                                  $publicId
+     * @param \App\UseCases\Tenant\ServiceContract\UpdateAction       $action
+     *
+     * @return \App\Http\Resources\NoContentResource
+     * @throws \Throwable
+     */
+    public function update(
+        UpdateRequest $request,
+        string $publicId,
+        UpdateAction $action,
+    ): NoContentResource {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        $action(
+            $user->getUserOption()->tenant,
+            $publicId,
+            $request->toUpdateInput(),
+        );
+
+        return new NoContentResource();
     }
 }

@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Tenant\ServiceContract;
 
-use App\Dto\Tenant\ServiceContract\StoreInput;
+use App\Dto\Tenant\ServiceContract\UpdateInput;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class StoreRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -70,8 +70,8 @@ class StoreRequest extends FormRequest
         ];
     }
 
-    public function toStoreInput(): StoreInput
+    public function toUpdateInput(): UpdateInput
     {
-        return StoreInput::fromRequest($this->validated());
+        return UpdateInput::fromRequest($this->validated());
     }
 }
