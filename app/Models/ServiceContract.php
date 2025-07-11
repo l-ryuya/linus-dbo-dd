@@ -68,7 +68,4 @@ class ServiceContract extends Model
             'invoice_remind_days' => 'string',
         ];
     }
-
-
-
 }

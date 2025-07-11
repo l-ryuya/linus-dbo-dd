@@ -29,11 +29,17 @@ class UpdateTest extends TestCase
     use RefreshDatabase;
 
     private Tenant $tenant;
+
     private Customer $customer;
+
     private Service $service;
+
     private ServicePlan $servicePlan;
+
     private UserOption $serviceRepUserOption;
+
     private UserOption $serviceMgrUserOption;
+
     private string $publicId;
 
     protected function setUp(): void
