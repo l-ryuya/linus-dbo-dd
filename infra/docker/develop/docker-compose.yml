@@ -5,14 +5,16 @@ services:
     ports:
       - 3000:80
     volumes:
-      - ./apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - /:/var/www/html
+    - ../../../:/var/www/html
+    - .infra/docker/develop/apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
     depends_on:
       - php-fpm
   php-fpm:
-    image: php:8.3-fpm
+    build:
+        context: ../../../
+        dockerfile: ./infra/docker/develop/php/Dockerfile
     container_name: php_fpm
     volumes:
-      - /:/var/www/html
+    - ../../../:/var/www/html
 volumes:
   public_html:
