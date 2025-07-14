@@ -1,0 +1,18 @@
+services:
+  apache:
+    image: httpd:2.4
+    container_name: apache
+    ports:
+      - 3000:80
+    volumes:
+      - ./apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - /:/var/www/html
+    depends_on:
+      - php-fpm
+  php-fpm:
+    image: php:8.3-fpm
+    container_name: php_fpm
+    volumes:
+      - /:/var/www/html
+volumes:
+  public_html:
