@@ -9,8 +9,8 @@ COPY /database/ /build/database/
 COPY /lang/ /build/lang/
 COPY /public/ /build/public/
 # COPY resources/ /build/resources/  # 必要に応じて有効化してください
-COPY /routes/ /build/routes/
-COPY /storage/ /build/storage/
+COPY ./routes/ /build/routes/
+COPY ./storage/ /build/storage/
 
 WORKDIR /build/
 
