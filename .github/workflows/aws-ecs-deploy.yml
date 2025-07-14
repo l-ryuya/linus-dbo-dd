@@ -24,6 +24,8 @@ jobs:
       docker-context: '.'                                   #ビルド時のディレクトリ指定
       docker-file-php-fpm: './infra/docker/develop/php/Dockerfile'  # dockerfileのパス指定
       docker-file-apache: './infra/docker/develop/apache/Dockerfile'  # dockerfileのパス指定
+      image-tag-type-apache: 'image-tag-type-apache'
+      image-tag-type-php-fpm: 'image-tag-type-php-fpm'
       docker-build-args: ''                                 # build実行時に引数に渡す値を指定
 
       # AWS関連
