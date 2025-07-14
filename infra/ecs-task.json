@@ -17,7 +17,7 @@
       "readonlyRootFilesystem": false,
       "portMappings": [
         {
-          "name": "dbo-dd",
+          "name": "dbo-dd-1",
           "containerPort": 3000,
           "protocol": "tcp"
         }
@@ -102,7 +102,7 @@
       "readonlyRootFilesystem": false,
       "portMappings": [
         {
-          "name": "dbo-dd",
+          "name": "dbo-dd-2",
           "containerPort": 3001,
           "protocol": "tcp"
         }
