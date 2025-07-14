@@ -195,7 +195,7 @@ jobs:
           REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
           REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           # CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
-          CONTAINER_NAME: 'dbo-dd-1'
+          CONTAINER_NAME: 'dbo-dd-apache'
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest'}}
         with:
           task-definition: ${{ inputs.aws-ecs-task-definition-filepath }}
@@ -213,7 +213,7 @@ jobs:
           REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
           REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           # CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
-          CONTAINER_NAME: 'dbo-dd-2'
+          CONTAINER_NAME: 'dbo-dd-php-fpm'
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest'}}
         with:
           task-definition: ${{ steps.amazon-ecs-render-task-definition-1.outputs.task-definition }}

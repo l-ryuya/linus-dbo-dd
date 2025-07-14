@@ -6,14 +6,14 @@ services:
       - 3000:80
     volumes:
     - ../../../:/var/www/html
-    - .infra/docker/develop/apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf:ro
+    - ./apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
     depends_on:
       - php-fpm
   php-fpm:
     build:
         context: ../../../
         dockerfile: ./infra/docker/develop/php/Dockerfile
-    container_name: php_fpm
+    container_name: php-fpm
     volumes:
     - ../../../:/var/www/html
 volumes:
