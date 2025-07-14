@@ -36,6 +36,8 @@
         }
       },
       "healthCheck": {
+        "command": [
+        ],
         "interval": 20,
         "timeout": 5,
         "retries": 3,
