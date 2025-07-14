@@ -40,6 +40,8 @@ class SelectionItemTranslationsSeeder extends Seeder
             ];
         }
 
+        DB::statement("ALTER TABLE selection_item_translations ALTER COLUMN selection_item_translation_id RESTART WITH 1");
+
         DB::table('selection_item_translations')->insert($data);
 
         $maxId = DB::table('selection_item_translations')->max('selection_item_translation_id') ?? 0;

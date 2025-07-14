@@ -39,6 +39,8 @@ class CompanyNameTranslationsSeeder extends Seeder
             ];
         }
 
+        DB::statement("ALTER TABLE company_name_translations ALTER COLUMN company_name_translation_id RESTART WITH 1");
+
         DB::table('company_name_translations')->insert($data);
 
         $maxId = DB::table('company_name_translations')->max('company_name_translation_id') ?? 0;

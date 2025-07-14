@@ -69,6 +69,8 @@ class ServiceContractsSeeder extends Seeder
             ];
         }
 
+        DB::statement("ALTER TABLE service_contracts ALTER COLUMN service_contract_id RESTART WITH 1");
+
         DB::table('service_contracts')->insert($data);
 
         $maxId = DB::table('service_contracts')->max('service_contract_id') ?? 0;

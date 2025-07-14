@@ -37,6 +37,8 @@ class CompanyRolesSeeder extends Seeder
             ];
         }
 
+        DB::statement("ALTER TABLE company_roles ALTER COLUMN company_role_id RESTART WITH 1");
+
         DB::table('company_roles')->insert($data);
 
         $maxId = DB::table('company_roles')->max('company_role_id') ?? 0;

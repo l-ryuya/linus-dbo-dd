@@ -41,6 +41,8 @@ class TenantsSeeder extends Seeder
             ];
         }
 
+        DB::statement("ALTER TABLE tenants ALTER COLUMN tenant_id RESTART WITH 1");
+
         DB::table('tenants')->insert($data);
 
         $maxId = DB::table('tenants')->max('tenant_id') ?? 0;

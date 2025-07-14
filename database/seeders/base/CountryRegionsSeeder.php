@@ -42,6 +42,8 @@ class CountryRegionsSeeder extends Seeder
             ];
         }
 
+        DB::statement("ALTER TABLE country_regions ALTER COLUMN country_region_id RESTART WITH 1");
+
         DB::table('country_regions')->insert($data);
 
         $maxId = DB::table('country_regions')->max('country_region_id') ?? 0;
