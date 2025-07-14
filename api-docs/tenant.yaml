@@ -94,14 +94,13 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
-
   /tenant/customers/{public_id}:
     get:
       summary: テナント管理者 顧客詳細
       parameters:
         - name: public_id
           in: path
-          description: 顧客の外部公開用UUID
+          description: '顧客 外部公開用 UUID v4'
           required: true
           schema:
             type: string
@@ -286,6 +285,39 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
         '403':
           $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
+  /tenant/service-contracts/{public_id}:
+    get:
+      summary: テナント管理者 顧客契約情報詳細
+      parameters:
+        - name: public_id
+          in: path
+          description: 'サービス契約 外部公開用 UUID v4'
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TenantServiceContractGetRequest'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: 'components/error_response.yaml#/components/responses/NotFound'
         '422':
           $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
         '500':
@@ -511,15 +543,15 @@ components:
         servicePublicId:
           type: string
           format: uuid
-          description: サービスID
+          description: 'サービス 外部公開用 UUID v4'
         servicePlanPublicId:
           type: string
           format: uuid
-          description: サービスプランID
+          description: 'サービスプラン 外部公開用 UUID v4'
         customerPublicId:
           type: string
           format: uuid
-          description: 顧客ID
+          description: '顧客 外部公開用 UUID v4'
         contractName:
           type: string
           maxLength: 255
@@ -615,11 +647,11 @@ components:
         serviceRepUserOptionPublicId:
           type: string
           format: uuid
-          description: サービス担当者オプションID
+          description: 'サービス担当者 外部公開用 UUID v4'
         serviceMgrUserOptionPublicId:
           type: string
           format: uuid
-          description: サービス管理者オプションID
+          description: 'サービス管理者 外部公開用 UUID v4'
         invoiceRemindDays:
           type: string
           maxLength: 255
@@ -691,6 +723,49 @@ components:
         - customerPaymentUserMail
         - serviceRepUserOptionPublicId
         - serviceMgrUserOptionPublicId
+    TenantServiceContractGetRequest:
+      description: 顧客契約情報詳細
+      allOf:
+        - $ref: '#/components/schemas/TenantServiceContract'
+        - type: object
+          properties:
+            serviceContractsPublicId:
+              type: string
+              format: uuid
+              description: 顧客契約ID
+            tenantName:
+              type: string
+              description: テナント名
+            serviceName:
+              type: string
+              description: サービス名
+            servicePlanName:
+              type: string
+              description: サービスプラン名
+            customerName:
+              type: string
+              description: 顧客名
+            customerNameEn:
+              type: string
+              description: 顧客英名
+            contractLanguageName:
+              type: string
+              description: 契約言語名
+            contractStatus:
+              type: string
+              description: 契約ステータス名
+            serviceUsageStatus:
+              type: string
+              description: サービス利用ステータス名
+            serviceRepUserName:
+              type: string
+              description: サービス担当者名
+            serviceMgrUserName:
+              type: string
+              description: サービス管理者名
+            billingCycle:
+              type: string
+              description: 支払いサイクル名
 
   securitySchemes:
     UserAuth:

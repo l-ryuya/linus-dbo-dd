@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Tenant\Customer;
+namespace Tests\Feature\Tenant\ServiceContract;
 
-use App\Models\Customer;
+use App\Models\ServiceContract;
 use Database\Seeders\base\CompaniesSeeder;
 use Database\Seeders\base\CompanyNameTranslationsSeeder;
 use Database\Seeders\base\CountryRegionsSeeder;
@@ -60,79 +60,74 @@ class ShowTest extends TestCase
      */
     private function getBaseUrl(): string
     {
-        return '/v1/tenant/customers';
+        return '/v1/tenant/service-contracts';
     }
 
     /**
-     * 顧客詳細APIが正常なレスポンスを返すことをテストする
+     * サービス契約詳細APIが正常なレスポンスを返すことをテストする
      */
     public function test_show_returns_successful_response(): void
     {
-        // テスト用のCustomerデータを取得
-        $customer = Customer::first();
+        // テスト用のServiceContractデータを取得
+        $serviceContract = ServiceContract::first();
 
-        $response = $this->getJson($this->getBaseUrl() . '/' . $customer->public_id);
+        $response = $this->getJson($this->getBaseUrl() . '/' . $serviceContract->public_id);
 
         $response->assertStatus(200)
             ->assertJsonStructure([
                 'data' => [
+                    'serviceContractPublicId',
+                    'tenantName',
+                    'servicePublicId',
+                    'serviceName',
+                    'servicePlanPublicId',
+                    'servicePlanName',
                     'customerPublicId',
-                    'customerStatus',
-                    'customerStatusCode',
-                    'customerNameEn',
                     'customerName',
-                    'websiteUrl',
-                    'shareholdersUrl',
-                    'executivesUrl',
-                    'defaultLanguageCode',
-                    'countryCodeAlpha3',
-                    'postal',
-                    'state',
-                    'city',
-                    'street',
-                    'building',
+                    'customerNameEn',
+                    'contractName',
+                    'contractLanguageName',
+                    'contractLanguage',
+                    'contractStatus',
+                    'contractStatusCode',
+                    'serviceUsageStatus',
+                    'serviceUsageStatusCode',
+                    'contractDate',
+                    'contractStartDate',
+                    'contractEndDate',
+                    'contractAutoUpdate',
+                    'customerContactUserName',
+                    'customerContactUserDept',
+                    'customerContactUserTitle',
+                    'customerContactUserMail',
+                    'customerContractUserName',
+                    'customerContractUserDept',
+                    'customerContractUserTitle',
+                    'customerContractUserMail',
+                    'customerPaymentUserName',
+                    'customerPaymentUserDept',
+                    'customerPaymentUserTitle',
+                    'customerPaymentUserMail',
+                    'serviceRepUserName',
+                    'serviceRepUserOptionId',
+                    'serviceMgrUserName',
+                    'serviceMgrUserOptionId',
+                    'invoiceRemindDays',
+                    'billingCycle',
+                    'billingCycleCode',
                     'remarks',
-                    'serviceContracts' => [
-                        '*' => [
-                            'publicId',
-                            'serviceName',
-                            'servicePlanName',
-                            'serviceUsageStatus',
-                            'serviceUsageStatusCode',
-                            'contractStatus',
-                            'contractStatusCode',
-                        ],
-                    ],
                 ],
             ]);
     }
 
     /**
-     * 存在しない顧客IDを指定した場合に404エラーが返されることをテストする
+     * 存在しないサービス契約IDを指定した場合に404エラーが返されることをテストする
      */
-    public function test_show_returns_404_for_non_existent_customer(): void
+    public function test_show_returns_404_for_non_existent_service_contract(): void
     {
-        $response = $this->getJson($this->getBaseUrl() . '/non-existent-customer-id');
+        $response = $this->getJson($this->getBaseUrl() . '/non-existent-service-contract-id');
 
         $response->assertStatus(404);
-    }
-
-    /**
-     * レスポンスに関連するサービス契約情報が含まれていることをテストする
-     */
-    public function test_show_includes_service_contracts(): void
-    {
-        // サービス契約が紐づいているカスタマーを取得
-        $customerWithContracts = Customer::whereHas('serviceContracts')->first();
-
-        if ($customerWithContracts) {
-            $response = $this->getJson($this->getBaseUrl() . '/' . $customerWithContracts->public_id);
-
-            $response->assertStatus(200)
-                ->assertJsonPath('data.serviceContracts', fn($contracts) => count($contracts) > 0);
-        } else {
-            $this->markTestSkipped('サービス契約が紐づいた顧客データがありません。');
-        }
     }
 
     /**
@@ -143,7 +138,7 @@ class ShowTest extends TestCase
         // 認証なしでアクセス
         $this->app['auth']->forgetGuards();
 
-        $serviceContract = Customer::first();
+        $serviceContract = ServiceContract::first();
         $response = $this->getJson($this->getBaseUrl() . '/' . $serviceContract->public_id);
 
         $response->assertStatus(401);
@@ -157,7 +152,7 @@ class ShowTest extends TestCase
         // テナント権限のユーザーでテスト
         $this->actingAs($this->createTenantManageUser());
 
-        $serviceContract = Customer::first();
+        $serviceContract = ServiceContract::first();
         $response = $this->getJson($this->getBaseUrl() . '/' . $serviceContract->public_id);
 
         $response->assertStatus(200);

@@ -10,11 +10,14 @@ use App\Http\Requests\Tenant\ServiceContract\StoreRequest;
 use App\Http\Requests\Tenant\ServiceContract\UpdateRequest;
 use App\Http\Resources\NoContentResource;
 use App\Http\Resources\Tenant\ServiceContract\IndexCollection;
+use App\Http\Resources\Tenant\ServiceContract\ShowResource;
 use App\Http\Resources\Tenant\ServiceContract\StoreResource;
 use App\Services\Role\TenantUserRoleService;
 use App\UseCases\Tenant\ServiceContract\IndexAction;
+use App\UseCases\Tenant\ServiceContract\ShowAction;
 use App\UseCases\Tenant\ServiceContract\StoreAction;
 use App\UseCases\Tenant\ServiceContract\UpdateAction;
+use Illuminate\Http\Request;
 
 class ServiceContractController extends Controller
 {
@@ -48,6 +51,32 @@ class ServiceContractController extends Controller
                 $request->validated('contractStartDate'),
                 $request->validated('displayed'),
                 $request->validated('page'),
+            ),
+        );
+    }
+
+    /**
+     * テナント管理者 顧客サービス契約詳細を取得する
+     *
+     * @param \Illuminate\Http\Request                        $request
+     * @param string                                          $publicId
+     * @param \App\UseCases\Tenant\ServiceContract\ShowAction $action
+     *
+     * @return \App\Http\Resources\Tenant\ServiceContract\ShowResource
+     */
+    public function show(
+        Request $request,
+        string $publicId,
+        ShowAction $action,
+    ): ShowResource {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        return new ShowResource(
+            $action(
+                $user->getUserOption()->language_code,
+                (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
+                $publicId,
             ),
         );
     }

@@ -259,4 +259,30 @@ class IndexTest extends TestCase
         $response = $this->getJson($this->getBaseUrl() . '?contractDate=invalid-date');
         $response->assertStatus(422);
     }
+
+    /**
+     * 権限のないユーザーがアクセスした場合のテスト
+     */
+    public function test_show_requires_authentication(): void
+    {
+        // 認証なしでアクセス
+        $this->app['auth']->forgetGuards();
+
+        $response = $this->getJson($this->getBaseUrl() . '?page=1');
+
+        $response->assertStatus(401);
+    }
+
+    /**
+     * テナント権限でアクセスできることをテストする
+     */
+    public function test_show_accessible_by_tenant_role(): void
+    {
+        // テナント権限のユーザーでテスト
+        $this->actingAs($this->createTenantManageUser());
+
+        $response = $this->getJson($this->getBaseUrl() . '?page=1');
+
+        $response->assertStatus(200);
+    }
 }
