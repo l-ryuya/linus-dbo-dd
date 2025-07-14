@@ -37,6 +37,7 @@ class UserOptionsSeeder extends Seeder
                 'sys_organization_code' => $row['sys_organization_code'],
                 'platform_user' => (bool) $row['platform_user'],
                 'user_name' => $row['user_name'],
+                'user_name_en' => $row['user_name_en'],
                 'user_mail' => $row['user_mail'],
                 'user_icon_url' => $row['user_icon_url'] ?? null,
                 'country_code_alpha3' => $row['country_code_alpha3'],

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\External;
 
 use App\Models\ServiceContract;
+use Illuminate\Support\Facades\DB;
 
 class InvoiceInfoAction
 {
@@ -20,8 +21,14 @@ class InvoiceInfoAction
     ): ServiceContract {
         return ServiceContract::select([
             'service_contracts.public_id',
+            'service_contracts.contract_language',
             'company_name_translations.company_legal_name AS sales_rep_company_name',
-            'user_options.user_name AS service_rep_name',
+            DB::raw("
+                CASE
+                    WHEN service_contracts.contract_language = 'eng' THEN user_options.user_name_en
+                    ELSE user_options.user_name
+                END AS service_rep_name
+            "),
             'user_options.user_mail AS service_rep_mail',
             'user_options.phone_number AS service_rep_phone_number',
             'service_contracts.customer_payment_user_name',
