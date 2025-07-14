@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\LogicValidationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -42,6 +43,7 @@ return Application::configure(basePath: dirname(__DIR__))
             HttpException::class,
             ModelNotFoundException::class,
             ValidationException::class,
+            LogicValidationException::class,
         ]);
 
         $exceptions->dontFlash([
