@@ -37,6 +37,7 @@ return new class extends Migration {
 
             // 属性
             $table->string('user_name')->nullable()->comment('ユーザー氏名');
+            $table->string('user_name_en')->nullable()->comment('ユーザー氏名（英）');
             $table->string('user_mail')->nullable()->comment('ユーザーメール');
             $table->text('user_icon_url')->nullable()->comment('ユーザーアイコン画像URL');
             $table->char('country_code_alpha3', 3)->default('JPN')->comment('ユーザーが設定する国・地域コード');
@@ -44,7 +45,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('time_zone_id')->comment('選択されたタイムゾーン (time_zones FK)');
             $table->char('date_format', 8)->default('yyyymmdd')->comment('日付表示形式 (yyyymmdd / mmddyyyy / ddmmyyyy)');
             $table->string('phone_number')->nullable()->comment('電話番号');
-            $table->string('remarks')->nullable()->comment('備考');
+            $table->text('remarks')->nullable()->comment('備考');
 
             // 監査
             $table->timestamp('created_at')->useCurrent()->comment('作成日時');
