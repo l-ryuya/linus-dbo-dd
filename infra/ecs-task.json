@@ -7,7 +7,7 @@
   "memory": "512",
   "containerDefinitions": [
     {
-      "name": "dbo-dd-1",
+      "name": "dbo-dd-apache",
       "image": "<IMAGE_URI>",
       "cpu": 128,
       "memory": 256,
@@ -17,7 +17,7 @@
       "readonlyRootFilesystem": false,
       "portMappings": [
         {
-          "name": "dbo-dd-1",
+          "name": "dbo-dd-apache",
           "containerPort": 3000,
           "protocol": "tcp"
         }
@@ -92,7 +92,7 @@
       ]
     },
      {
-      "name": "dbo-dd-2",
+      "name": "dbo-dd-php-fpm",
       "image": "<IMAGE_URI>",
       "cpu": 128,
       "memory": 256,
@@ -102,7 +102,7 @@
       "readonlyRootFilesystem": false,
       "portMappings": [
         {
-          "name": "dbo-dd-2",
+          "name": "dbo-dd-php-fpm",
           "containerPort": 3001,
           "protocol": "tcp"
         }
