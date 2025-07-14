@@ -103,7 +103,7 @@
       "portMappings": [
         {
           "name": "dbo-dd-php-fpm",
-          "containerPort": 3001,
+          "containerPort": 9000,
           "protocol": "tcp"
         }
       ],
