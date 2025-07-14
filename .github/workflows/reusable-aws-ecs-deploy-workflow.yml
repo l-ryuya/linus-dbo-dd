@@ -211,17 +211,16 @@ jobs:
           sed -i 's#"executionRoleArn": "hogehoge"#"executionRoleArn": "'"${EXECUTIONROLEARN}"'"#' ${{ inputs.aws-ecs-task-definition-filepath }}
           cat ${{ inputs.aws-ecs-task-definition-filepath }}
 
-      # 下記タスク定義ファイル読み込み
+      # 下記タスク定義ファイル読み込み apache用
       # https://github.com/aws-actions/amazon-ecs-render-task-definition
       - name: AWS - amazon-ecs-render-task-definition
-        id: amazon-ecs-render-task-definition-1
+        id: amazon-ecs-render-task-apche
         uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
         env:
           REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
-          # CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-tag-type-apache) }}
           CONTAINER_NAME: 'dbo-dd-apache'
-          IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest'}}
+          IMAGE_TAG: ${{ inputs.image-tag-type-apache == 'hash' && github.sha || 'latest'}}
         with:
           task-definition: ${{ inputs.aws-ecs-task-definition-filepath }}
           image: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
@@ -229,19 +228,18 @@ jobs:
           environment-variables: ${{ inputs.aws-ecs-task-definition-environment-variables }}
           secrets: ${{ inputs.aws-ecs-task-definition-secrets }}
 
-      # 下記タスク定義ファイル読み込み
+      # 下記タスク定義ファイル読み込み php-fpm用
       # https://github.com/aws-actions/amazon-ecs-render-task-definition
       - name: AWS - amazon-ecs-render-task-definition
         id: amazon-ecs-render-task-definition-2
         uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
         env:
           REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
-          # CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-tag-type-php-fpm) }}
           CONTAINER_NAME: 'dbo-dd-php-fpm'
-          IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest'}}
+          IMAGE_TAG: ${{ inputs.image-tag-type-php-fpm == 'hash' && github.sha || 'latest'}}
         with:
-          task-definition: ${{ steps.amazon-ecs-render-task-definition-1.outputs.task-definition }}
+          task-definition: ${{ steps.amazon-ecs-render-task-apche.outputs.task-definition }}
           image: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
           container-name: ${{ env.CONTAINER_NAME }}
           environment-variables: ${{ inputs.aws-ecs-task-definition-environment-variables }}
