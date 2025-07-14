@@ -216,7 +216,7 @@ jobs:
           CONTAINER_NAME: 'dbo-dd-2'
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest'}}
         with:
-          task-definition: ${{ inputs.aws-ecs-task-definition-filepath }}
+          task-definition: ${{ steps.amazon-ecs-render-task-definition-1.outputs.task-definition }}
           image: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
           container-name: ${{ env.CONTAINER_NAME }}
           environment-variables: ${{ inputs.aws-ecs-task-definition-environment-variables }}
@@ -235,7 +235,7 @@ jobs:
         with:
           cluster: ${{ env.ECS_CLUSTER_NAME }}
           service: ${{ env.ECS_SERVICE_NAME }}
-          task-definition: ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
+          task-definition: ${{ steps.amazon-ecs-render-task-definition-2.outputs.task-definition }}
           desired-count: ${{ inputs.aws-ecs-desired-count }}
           propagate-tags: ${{ inputs.aws-ecs-propagate-tags }}
           wait-for-service-stability: ${{ inputs.aws-ecs-wait-for-service-stability }}
