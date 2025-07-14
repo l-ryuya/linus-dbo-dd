@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use League\Csv\Reader;
 
-class AddressFormatRulesSeeder extends Seeder
+class CountryFieldDisplayOrdersSeeder extends Seeder
 {
     public function run(): void
     {
-        $filePath = database_path('seeders/base/csv/DF04_address_format_rules_202506061250.csv');
+        $filePath = database_path('seeders/base/csv/DF04_country_field_display_orders_202506061250.csv');
         if (!file_exists($filePath)) {
             Log::error("CSV file not found: " . $filePath);
             return;
@@ -29,7 +29,8 @@ class AddressFormatRulesSeeder extends Seeder
         foreach ($csv as $row) {
             $data[] = [
                 'country_code_alpha3' => $row['country_code_alpha3'],
-                'format_string' => $row['format_string'],
+                'name_fields_order' => $row['name_fields_order'],
+                'address_fields_order' => $row['address_fields_order'],
                 'remarks' => $row['remarks'],
                 'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
                 'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
@@ -37,14 +38,14 @@ class AddressFormatRulesSeeder extends Seeder
             ];
         }
 
-        DB::statement("ALTER TABLE address_format_rules ALTER COLUMN address_format_rule_id RESTART WITH 1");
+        DB::statement("ALTER TABLE country_field_display_orders ALTER COLUMN country_field_display_order_id RESTART WITH 1");
 
-        DB::table('address_format_rules')->insert($data);
+        DB::table('country_field_display_orders')->insert($data);
 
-        $maxId = DB::table('address_format_rules')->max('address_format_rule_id') ?? 0;
+        $maxId = DB::table('country_field_display_orders')->max('country_field_display_order_id') ?? 0;
         $nextId = $maxId + 1;
 
         // シーケンスの再始動
-        DB::statement("ALTER TABLE address_format_rules ALTER COLUMN address_format_rule_id RESTART WITH {$nextId}");
+        DB::statement("ALTER TABLE country_field_display_orders ALTER COLUMN country_field_display_order_id RESTART WITH {$nextId}");
     }
 }
