@@ -22,13 +22,17 @@ on:
       docker-context:
         type: string
         default: '.'
-      docker-file:
+      docker-file-apache:
+        type: string
+      docker-file-php-fpm:
         type: string
       docker-build-args:
         type: string
       docker-build-target:
         type: string
-      image-tag-type:
+      image-tag-type-apache:
+        type: string
+      image-tag-type-php-fpm:
         type: string
         default: 'hash'
       cache-from-type:
@@ -129,31 +133,52 @@ jobs:
       - name: Docker - setup-buildx-action
         uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
 
+    # apache用
       # https://github.com/docker/build-push-action
       - name: Docker - build-push-action
         uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
-          IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest' }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-tag-type-apache) }}
+          IMAGE_TAG: ${{ inputs.image-tag-type-apache == 'hash' && github.sha || 'latest' }}
         with:
           context: ${{ inputs.docker-context }}
-          file: ${{ inputs.docker-file }}
+          file: ${{ inputs.docker-file-apache }}
           build-args: ${{ inputs.docker-build-args }}
           load: true
           target: ${{ inputs.docker-build-target }}
           tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
           cache-from: ${{ inputs.cache-from-type }}
           cache-to: ${{ inputs.cache-from-type }},mode=max
+          push: true
 
-      - name: Run - docker-push
+      # php-fpm用
+      # https://github.com/docker/build-push-action
+      - name: Docker - build-push-action
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
-          IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest' }}
-        run: |
-          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
-          echo ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-tag-type-php-fpm) }}
+          IMAGE_TAG: ${{ inputs.image-tag-type-php-fpm == 'hash' && github.sha || 'latest' }}
+        with:
+          context: ${{ inputs.docker-context }}
+          file: ${{ inputs.docker-file-php-fpm }}
+          build-args: ${{ inputs.docker-build-args }}
+          load: true
+          target: ${{ inputs.docker-build-target }}
+          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          cache-from: ${{ inputs.cache-from-type }}
+          cache-to: ${{ inputs.cache-from-type }},mode=max
+          push: true
+
+      # - name: Run - docker-push
+      #   env:
+      #     REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+      #     REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+      #     IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest' }}
+      #   run: |
+      #     docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+      #     echo ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
 
   aws-ecs-deploy:
     name: AWS - ECS Deployment.
