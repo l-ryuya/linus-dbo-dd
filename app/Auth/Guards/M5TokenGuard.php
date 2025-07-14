@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace App\Auth\Guards;
 
 use App\Auth\GenericUser;
+use App\Shared\Language\IsoLanguageCode;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 
 class M5TokenGuard implements Guard
@@ -62,6 +64,11 @@ class M5TokenGuard implements Guard
             $data['token'] = $token;
 
             $this->user = new GenericUser($data);
+            $iso639_3 = IsoLanguageCode::getIso639_1From3($this->user->getUserOption()->language_code);
+            if (! empty($iso639_3)) {
+                App::setLocale($iso639_3);
+            }
+
             return $this->user;
         }
 

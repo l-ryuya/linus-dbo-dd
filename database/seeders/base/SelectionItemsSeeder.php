@@ -37,6 +37,8 @@ class SelectionItemsSeeder extends Seeder
             ];
         }
 
+        DB::statement("ALTER TABLE selection_items ALTER COLUMN selection_item_id RESTART WITH 1");
+
         DB::table('selection_items')->insert($data);
 
         $maxId = DB::table('selection_items')->max('selection_item_id') ?? 0;

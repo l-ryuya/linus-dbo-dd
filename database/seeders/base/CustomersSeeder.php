@@ -41,6 +41,8 @@ class CustomersSeeder extends Seeder
             ];
         }
 
+        DB::statement("ALTER TABLE customers ALTER COLUMN customer_id RESTART WITH 1");
+
         DB::table('customers')->insert($data);
 
         $maxId = DB::table('customers')->max('customer_id') ?? 0;

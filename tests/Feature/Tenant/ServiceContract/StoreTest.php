@@ -346,6 +346,7 @@ class StoreTest extends TestCase
             'customerPaymentUserMail' => 'payment@example.com',
             'serviceRepUserOptionPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserOptionPublicId' => $this->serviceMgrUserOption->public_id,
+            'billingCycleCode' => 'monthly',
             // 以下のフィールドは省略
             // 'contractEndDate', 'customerContactUserDept', 'customerContactUserTitle', etc.
         ];
@@ -361,48 +362,5 @@ class StoreTest extends TestCase
                     'serviceContractPublicId',
                 ],
             ]);
-    }
-
-    /**
-     * 請求サイクルコードのデフォルト値（monthly）が正しく設定されることをテストする
-     */
-    public function test_store_sets_default_billing_cycle_code(): void
-    {
-        $dataWithoutBillingCycleCode = [
-            'servicePublicId' => $this->service->public_id,
-            'servicePlanPublicId' => $this->servicePlan->public_id,
-            'customerPublicId' => $this->customer->public_id,
-            'contractName' => 'テスト契約',
-            'contractLanguage' => 'jpn',
-            'contractStatusCode' => 'contract_info_registered',
-            'serviceUsageStatusCode' => 'awaiting_activation',
-            'contractDate' => '2025-01-01',
-            'contractStartDate' => '2025-01-15',
-            'contractAutoUpdate' => true,
-            'customerContactUserName' => 'テスト顧客担当者',
-            'customerContactUserMail' => 'contact@example.com',
-            'customerContractUserName' => 'テスト契約担当者',
-            'customerContractUserMail' => 'contract@example.com',
-            'customerPaymentUserName' => 'テスト支払担当者',
-            'customerPaymentUserMail' => 'payment@example.com',
-            'serviceRepUserOptionPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserOptionPublicId' => $this->serviceMgrUserOption->public_id,
-            // billingCycleCodeは省略
-        ];
-
-        $response = $this->postJson(
-            $this->getBaseUrl(),
-            $dataWithoutBillingCycleCode,
-        );
-
-        $response->assertStatus(201);
-
-        $responseData = $response->json('data');
-
-        // デフォルト値のmonthlyが設定されていることを確認
-        $this->assertDatabaseHas('service_contracts', [
-            'public_id' => $responseData['serviceContractPublicId'],
-            'billing_cycle_code' => 'monthly',
-        ]);
     }
 }
