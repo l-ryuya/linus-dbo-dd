@@ -189,12 +189,31 @@ jobs:
       # 下記タスク定義ファイル読み込み
       # https://github.com/aws-actions/amazon-ecs-render-task-definition
       - name: AWS - amazon-ecs-render-task-definition
-        id: amazon-ecs-render-task-definition
+        id: amazon-ecs-render-task-definition-1
         uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
         env:
           REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
           REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
-          CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
+          # CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
+          CONTAINER_NAME: 'dbo-dd-1'
+          IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest'}}
+        with:
+          task-definition: ${{ inputs.aws-ecs-task-definition-filepath }}
+          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          environment-variables: ${{ inputs.aws-ecs-task-definition-environment-variables }}
+          secrets: ${{ inputs.aws-ecs-task-definition-secrets }}
+
+      # 下記タスク定義ファイル読み込み
+      # https://github.com/aws-actions/amazon-ecs-render-task-definition
+      - name: AWS - amazon-ecs-render-task-definition
+        id: amazon-ecs-render-task-definition-2
+        uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
+        env:
+          REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+          # CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
+          CONTAINER_NAME: 'dbo-dd-2'
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest'}}
         with:
           task-definition: ${{ inputs.aws-ecs-task-definition-filepath }}
