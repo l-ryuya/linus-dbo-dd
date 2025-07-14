@@ -75,7 +75,7 @@ class IndexAction
                 ->where('service_plan_translations.language_code', $languageCode);
         })
         ->when($tenantId, function ($query) use ($tenantId) {
-            $query->where('customers.tenant_id', $tenantId);
+            $query->where('service_contracts.tenant_id', $tenantId);
         })
         ->when($tenantName, function ($query) use ($tenantName) {
             $query->where('tenants.tenant_name', 'LIKE', "%{$tenantName}%");

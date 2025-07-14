@@ -48,6 +48,9 @@ class ServicesSeeder extends Seeder
             ];
         }
 
+        // シーケンスの初期化
+        DB::statement("ALTER TABLE services ALTER COLUMN service_id RESTART WITH 1");
+
         DB::table('services')->insert($data);
 
         $maxId = DB::table('services')->max('service_id') ?? 0;

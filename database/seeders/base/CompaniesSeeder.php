@@ -49,6 +49,8 @@ class CompaniesSeeder extends Seeder
             ];
         }
 
+        DB::statement("ALTER TABLE companies ALTER COLUMN company_id RESTART WITH 1");
+
         DB::table('companies')->insert($data);
 
         $maxId = DB::table('companies')->max('company_id') ?? 0;

@@ -51,6 +51,9 @@ class UserOptionsSeeder extends Seeder
             ];
         }
 
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE user_options ALTER COLUMN user_option_id RESTART WITH 1");
+
         DB::table('user_options')->insert($data);
 
         $maxId = DB::table('user_options')->max('user_option_id') ?? 0;

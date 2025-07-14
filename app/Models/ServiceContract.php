@@ -62,9 +62,9 @@ class ServiceContract extends Model
     protected function casts(): array
     {
         return [
-            'contract_date' => 'date',
-            'contract_start_date' => 'date',
-            'contract_end_date' => 'date',
+            'contract_date' => 'date:Y-m-d',
+            'contract_start_date' => 'date:Y-m-d',
+            'contract_end_date' => 'date:Y-m-d',
             'invoice_remind_days' => 'string',
         ];
     }
