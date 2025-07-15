@@ -3,7 +3,7 @@ services:
     image: httpd:2.4
     container_name: apache
     ports:
-      - 3000:3000
+      - 3000:80
     volumes:
     - ../../../:/var/www/html
     - ./apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
