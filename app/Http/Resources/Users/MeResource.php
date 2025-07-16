@@ -13,7 +13,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $company_name
  * @property string $service_name
  * @property string $user_name
- * @property string $user_mail
+ * @property string $user_email
  * @property string|null $user_icon_url
  * @property string $country_region_name
  * @property string $country_code_alpha3
@@ -37,7 +37,7 @@ class MeResource extends JsonResource
      *     companyName: string,
      *     serviceName: string|null,
      *     userName: string,
-     *     userMail: string,
+     *     userEmail: string,
      *     userIconUrl: string|null,
      *     countryRegionName: string,
      *     countryCodeAlpha3: string,
@@ -57,7 +57,7 @@ class MeResource extends JsonResource
             'companyName' => $this->company_name,
             'serviceName' => $this->service_name,
             'userName' => $this->user_name,
-            'userMail' => $this->user_mail,
+            'userEmail' => $this->user_email,
             'userIconUrl' => $this->user_icon_url,
             'countryRegionName' => $this->country_region_name,
             'countryCodeAlpha3' => $this->country_code_alpha3,

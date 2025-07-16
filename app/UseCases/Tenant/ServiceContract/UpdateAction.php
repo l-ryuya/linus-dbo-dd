@@ -128,17 +128,17 @@ class UpdateAction
         $serviceContract->customer_contact_user_name = $data->customerContactUserName;
         $serviceContract->customer_contact_user_dept = $data->customerContactUserDept;
         $serviceContract->customer_contact_user_title = $data->customerContactUserTitle;
-        $serviceContract->customer_contact_user_mail = $data->customerContactUserMail;
+        $serviceContract->customer_contact_user_email = $data->customerContactUserEmail;
         // 顧客契約担当者情報
         $serviceContract->customer_contract_user_name = $data->customerContractUserName;
         $serviceContract->customer_contract_user_dept = $data->customerContractUserDept;
         $serviceContract->customer_contract_user_title = $data->customerContractUserTitle;
-        $serviceContract->customer_contract_user_mail = $data->customerContractUserMail;
+        $serviceContract->customer_contract_user_email = $data->customerContractUserEmail;
         // 顧客支払担当者情報
         $serviceContract->customer_payment_user_name = $data->customerPaymentUserName;
         $serviceContract->customer_payment_user_dept = $data->customerPaymentUserDept;
         $serviceContract->customer_payment_user_title = $data->customerPaymentUserTitle;
-        $serviceContract->customer_payment_user_mail = $data->customerPaymentUserMail;
+        $serviceContract->customer_payment_user_email = $data->customerPaymentUserEmail;
         // サービス担当者・管理者情報
         $serviceContract->service_rep_user_option_id = $serviceRepUserOptionId;
         $serviceContract->service_mgr_user_option_id = $serviceMgrUserOptionId;

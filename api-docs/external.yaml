@@ -55,16 +55,34 @@ components:
           properties:
             salesRepCompanyName:
               type: string
-              description: 会社名
+              description: サービス担当者 会社名
             salesRepName:
               type: string
-              description: 担当者名
+              description: サービス担当者 氏名
             salesRepEmail:
               type: string
-              description: 担当者メールアドレス
+              description: サービス担当者 メールアドレス
             salesRepPhoneNumber:
               type: string
-              description: 担当者電話番号
+              description: サービス担当者 電話番号
+            salesRepManagerCompanyName:
+              type: string
+              description: サービス管理者 会社名
+            salesRepManagerName:
+              type: string
+              description: サービス管理者 氏名
+            salesRepManagerEmail:
+              type: string
+              description: サービス管理者 メールアドレス
+            salesRepManagerPhoneNumber:
+              type: string
+              description: サービス管理者 電話番号
+            serviceDeptGroupEmail:
+              type: string
+              description: サービス部署メールアドレス
+            backofficeGroupEmail:
+              type: string
+              description: バックオフィス部署メールアドレス
         recipient:
           type: object
           description: 請求先情報
@@ -78,6 +96,6 @@ components:
             userTitle:
               type: string
               description: 顧客側支払担当者役職
-            userMail:
+            userEmail:
               type: string
               description: 顧客側支払担当者メール

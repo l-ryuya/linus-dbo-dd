@@ -41,6 +41,10 @@ return new class extends Migration {
                 ->comment('サービス提供終了日');
             $table->string('service_condition')->nullable()
                 ->comment('メンテナンス・トラブル等の場合にサービスの状態を説明する項目');
+            $table->string('service_dept_group_email')
+                ->comment('サービス部署メールアドレス');
+            $table->string('backoffice_group_email')
+                ->comment('バックオフィス部署メールアドレス');
             $table->unsignedBigInteger('service_mgr_user_option_id')
                 ->comment('サービス管理者ユーザー設定ID');
             $table->string('service_mgr_sys_user_code', 12)

@@ -38,7 +38,7 @@ class UserOptionsSeeder extends Seeder
                 'platform_user' => (bool) $row['platform_user'],
                 'user_name' => $row['user_name'],
                 'user_name_en' => $row['user_name_en'],
-                'user_mail' => $row['user_mail'],
+                'user_email' => $row['user_email'],
                 'user_icon_url' => $row['user_icon_url'] ?? null,
                 'country_code_alpha3' => $row['country_code_alpha3'],
                 'language_code' => $row['language_code'],
