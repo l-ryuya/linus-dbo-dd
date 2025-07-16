@@ -601,7 +601,7 @@ components:
           maxLength: 255
           nullable: true
           description: 顧客担当者役職
-        customerContactUserMail:
+        customerContactUserEmail:
           type: string
           format: email
           maxLength: 255
@@ -620,7 +620,7 @@ components:
           maxLength: 255
           nullable: true
           description: 顧客契約担当者役職
-        customerContractUserMail:
+        customerContractUserEmail:
           type: string
           format: email
           maxLength: 255
@@ -639,7 +639,7 @@ components:
           maxLength: 255
           nullable: true
           description: 顧客支払担当者役職
-        customerPaymentUserMail:
+        customerPaymentUserEmail:
           type: string
           format: email
           maxLength: 255
@@ -685,11 +685,11 @@ components:
         - contractStartDate
         - contractAutoUpdate
         - customerContactUserName
-        - customerContactUserMail
+        - customerContactUserEmail
         - customerContractUserName
-        - customerContractUserMail
+        - customerContractUserEmail
         - customerPaymentUserName
-        - customerPaymentUserMail
+        - customerPaymentUserEmail
         - serviceRepUserOptionPublicId
         - serviceMgrUserOptionPublicId
     TenantServiceContractPostResponse:
@@ -716,11 +716,11 @@ components:
         - contractStartDate
         - contractAutoUpdate
         - customerContactUserName
-        - customerContactUserMail
+        - customerContactUserEmail
         - customerContractUserName
-        - customerContractUserMail
+        - customerContractUserEmail
         - customerPaymentUserName
-        - customerPaymentUserMail
+        - customerPaymentUserEmail
         - serviceRepUserOptionPublicId
         - serviceMgrUserOptionPublicId
     TenantServiceContractGetRequest:

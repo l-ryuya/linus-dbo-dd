@@ -27,7 +27,7 @@ class MeAction
             'user_options.service_id',
             'user_options.platform_user',
             'user_options.user_name',
-            'user_options.user_mail',
+            'user_options.user_email',
             'user_options.user_icon_url',
             'user_options.country_code_alpha3',
             'user_options.language_code',

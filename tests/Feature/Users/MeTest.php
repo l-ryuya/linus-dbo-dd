@@ -77,7 +77,7 @@ class MeTest extends TestCase
                     'companyName',
                     'serviceName',
                     'userName',
-                    'userMail',
+                    'userEmail',
                     'userIconUrl',
                     'countryRegionName',
                     'countryCodeAlpha3',

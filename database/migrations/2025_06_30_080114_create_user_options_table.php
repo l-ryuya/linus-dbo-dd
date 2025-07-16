@@ -38,7 +38,7 @@ return new class extends Migration {
             // 属性
             $table->string('user_name')->nullable()->comment('ユーザー氏名');
             $table->string('user_name_en')->nullable()->comment('ユーザー氏名（英）');
-            $table->string('user_mail')->nullable()->comment('ユーザーメール');
+            $table->string('user_email')->nullable()->comment('ユーザーメール');
             $table->text('user_icon_url')->nullable()->comment('ユーザーアイコン画像URL');
             $table->char('country_code_alpha3', 3)->default('JPN')->comment('ユーザーが設定する国・地域コード');
             $table->char('language_code', 3)->default('jpn')->comment('ユーザーが設定する言語コード');

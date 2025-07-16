@@ -37,6 +37,8 @@ class ServicesSeeder extends Seeder
                 "service_start_date" => empty($row['service_start_date']) ? null : $row['service_start_date'],
                 "service_end_date" => empty($row['service_end_date']) ? null : $row['service_end_date'],
                 "service_condition" => $row['service_condition'] ?? null,
+                "service_dept_group_email" => $row['service_dept_group_email'],
+                "backoffice_group_email" => $row['backoffice_group_email'],
                 "service_mgr_user_option_id" => (int) $row['service_mgr_user_option_id'],
                 "service_mgr_sys_user_code" => $row['service_mgr_sys_user_code'],
                 "service_sys_organization_code" => $row['service_sys_organization_code'],
