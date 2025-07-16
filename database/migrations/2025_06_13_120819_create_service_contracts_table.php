@@ -54,19 +54,19 @@ return new class extends Migration {
             $table->string('customer_contact_user_name')->comment('顧客側担当者氏名');
             $table->string('customer_contact_user_dept')->nullable()->comment('顧客側担当者部署');
             $table->string('customer_contact_user_title')->nullable()->comment('顧客側担当者役職');
-            $table->string('customer_contact_user_mail')->comment('顧客側担当者メール');
+            $table->string('customer_contact_user_email')->comment('顧客側担当者メール');
 
             // 顧客契約担当者
             $table->string('customer_contract_user_name')->comment('顧客側契約担当者氏名');
             $table->string('customer_contract_user_dept')->nullable()->comment('顧客側契約担当者部署');
             $table->string('customer_contract_user_title')->nullable()->comment('顧客側契約担当者役職');
-            $table->string('customer_contract_user_mail')->comment('顧客側契約担当者メール');
+            $table->string('customer_contract_user_email')->comment('顧客側契約担当者メール');
 
             // 顧客支払担当者
             $table->string('customer_payment_user_name')->comment('顧客側支払担当者氏名');
             $table->string('customer_payment_user_dept')->nullable()->comment('顧客側支払担当者部署');
             $table->string('customer_payment_user_title')->nullable()->comment('顧客側支払担当者役職');
-            $table->string('customer_payment_user_mail')->comment('顧客側支払担当者メール');
+            $table->string('customer_payment_user_email')->comment('顧客側支払担当者メール');
 
             $table->unsignedBigInteger('service_rep_user_option_id')->comment('サービス担当者ユーザー設定ID');
             $table->unsignedBigInteger('service_mgr_user_option_id')->comment('サービス管理者ユーザー設定ID');

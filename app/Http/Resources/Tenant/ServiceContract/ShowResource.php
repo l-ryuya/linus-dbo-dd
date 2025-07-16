@@ -31,15 +31,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $customer_contact_user_name
  * @property string $customer_contact_user_dept
  * @property string $customer_contact_user_title
- * @property string $customer_contact_user_mail
+ * @property string $customer_contact_user_email
  * @property string $customer_contract_user_name
  * @property string $customer_contract_user_dept
  * @property string $customer_contract_user_title
- * @property string $customer_contract_user_mail
+ * @property string $customer_contract_user_email
  * @property string $customer_payment_user_name
  * @property string $customer_payment_user_dept
  * @property string $customer_payment_user_title
- * @property string $customer_payment_user_mail
+ * @property string $customer_payment_user_email
  * @property string $service_rep_user_name
  * @property int $service_rep_user_option_id
  * @property string $service_mgr_user_name
@@ -80,15 +80,15 @@ class ShowResource extends JsonResource
      *     customerContactUserName: string,
      *     customerContactUserDept: string,
      *     customerContactUserTitle: string,
-     *     customerContactUserMail: string,
+     *     customerContactUserEmail: string,
      *     customerContractUserName: string,
      *     customerContractUserDept: string,
      *     customerContractUserTitle: string,
-     *     customerContractUserMail: string,
+     *     customerContractUserEmail: string,
      *     customerPaymentUserName: string,
      *     customerPaymentUserDept: string,
      *     customerPaymentUserTitle: string,
-     *     customerPaymentUserMail: string,
+     *     customerPaymentUserEmail: string,
      *     serviceRepUserName: string,
      *     serviceRepUserOptionId: int,
      *     serviceMgrUserName: string,
@@ -125,15 +125,15 @@ class ShowResource extends JsonResource
             'customerContactUserName' => $this->customer_contact_user_name,
             'customerContactUserDept' => $this->customer_contact_user_dept,
             'customerContactUserTitle' => $this->customer_contact_user_title,
-            'customerContactUserMail' => $this->customer_contact_user_mail,
+            'customerContactUserEmail' => $this->customer_contact_user_email,
             'customerContractUserName' => $this->customer_contract_user_name,
             'customerContractUserDept' => $this->customer_contract_user_dept,
             'customerContractUserTitle' => $this->customer_contract_user_title,
-            'customerContractUserMail' => $this->customer_contract_user_mail,
+            'customerContractUserEmail' => $this->customer_contract_user_email,
             'customerPaymentUserName' => $this->customer_payment_user_name,
             'customerPaymentUserDept' => $this->customer_payment_user_dept,
             'customerPaymentUserTitle' => $this->customer_payment_user_title,
-            'customerPaymentUserMail' => $this->customer_payment_user_mail,
+            'customerPaymentUserEmail' => $this->customer_payment_user_email,
             'serviceRepUserName' => $this->service_rep_user_name,
             'serviceRepUserOptionId' => $this->service_rep_user_option_id,
             'serviceMgrUserName' => $this->service_mgr_user_name,

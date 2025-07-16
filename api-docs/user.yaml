@@ -39,7 +39,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    $ref: '#/components/schemas/ServiceRepresentativesGetResponse'
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ServiceRepresentativesGetResponse'
         '401':
           $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
         '500':
@@ -69,7 +71,7 @@ components:
         userName:
           type: string
           description: ユーザー氏名
-        userMail:
+        userEmail:
           type: string
           format: email
           description: ユーザーメールアドレス
