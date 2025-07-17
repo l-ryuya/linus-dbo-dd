@@ -74,6 +74,7 @@ class IndexTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     '*' => [
+                        'serviceContractPublicId',
                         'tenantName',
                         'serviceName',
                         'servicePlanName',
