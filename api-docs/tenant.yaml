@@ -263,34 +263,6 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
-    put:
-      summary: テナント管理者 顧客契約情報更新
-      parameters:
-        - name: public_id
-          in: path
-          description: 'サービス契約 外部公開用 UUID v4'
-          required: true
-          schema:
-            type: string
-            format: uuid
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/TenantServiceContractPutRequest'
-      responses:
-        '204':
-          description: OK
-        '401':
-          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
-        '403':
-          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
-        '422':
-          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
-        '500':
-          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
-      security:
-        - UserAuth: []
   /tenant/service-contracts/{public_id}:
     get:
       summary: テナント管理者 顧客契約情報詳細
@@ -318,6 +290,34 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/Forbidden'
         '404':
           $ref: 'components/error_response.yaml#/components/responses/NotFound'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
+    put:
+      summary: テナント管理者 顧客契約情報更新
+      parameters:
+        - name: public_id
+          in: path
+          description: 'サービス契約 外部公開用 UUID v4'
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantServiceContractPutRequest'
+      responses:
+        '204':
+          description: OK
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
         '422':
           $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
         '500':
@@ -502,6 +502,10 @@ components:
       description: 顧客契約一覧
       type: object
       properties:
+        serviceContractPublicId:
+          type: string
+          format: uuid
+          description: 'サービス契約 外部公開用 UUID v4'
         tenantName:
           type: string
           description: テナント名

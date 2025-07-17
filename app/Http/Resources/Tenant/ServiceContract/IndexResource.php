@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
+ * @property string $public_id
  * @property string $tenant_name
  * @property string $service_name
  * @property string $service_plan_name
@@ -27,6 +28,7 @@ class IndexResource extends JsonResource
      * @param \Illuminate\Http\Request $request
      *
      * @return array{
+     *     serviceContractPublicId: string,
      *     tenantName: string,
      *     serviceName: string|null,
      *     servicePlanName: string|null,
@@ -42,6 +44,7 @@ class IndexResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
+            'serviceContractPublicId' => $this->public_id,
             'tenantName' => $this->tenant_name,
             'serviceName' => $this->service_name,
             'servicePlanName' => $this->service_plan_name,

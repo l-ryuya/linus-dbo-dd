@@ -49,6 +49,7 @@ class IndexAction
             'service_plan_translations.service_plan_name',
             'company_name_translations.company_legal_name',
             'companies.company_name_en',
+            'service_contracts.public_id',
             'service_contracts.contract_name',
             'service_contracts.contract_status_type',
             'service_contracts.contract_status_code',
