@@ -138,7 +138,7 @@ class ShowResource extends JsonResource
             'serviceRepUserOptionId' => $this->service_rep_user_option_id,
             'serviceMgrUserName' => $this->service_mgr_user_name,
             'serviceMgrUserOptionId' => $this->service_mgr_user_option_id,
-            'invoiceRemindDays' => trim($this->invoice_remind_days, '{}'),
+            'invoiceRemindDays' => empty($this->invoice_remind_days) ? null : trim($this->invoice_remind_days, '{}'),
             'billingCycle' => $this->billing_cycle,
             'billingCycleCode' => $this->billing_cycle_code,
             'remarks' => $this->remarks,
