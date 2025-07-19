@@ -37,13 +37,17 @@ return new class extends Migration {
                 ->comment('サービスプラン提供ステータスの選択肢アイテム種別');
             $table->string('service_plan_status_code')
                 ->comment('サービスプラン提供ステータスコード');
+            $table->string('contract_template_en_id')->nullable()
+                ->comment('契約書（英）テンプレートID（CLOUDSIGN用）');
+            $table->string('contract_template_jp_id')->nullable()
+                ->comment('契約書（日）テンプレートID（CLOUDSIGN用）');
             $table->integer('billing_cycle')
                 ->comment('課金・契約の単位期間（例：1ヶ月）');
             $table->decimal('unit_price')
                 ->comment('単位期間あたりの料金');
-            $table->date('service_start_date')->nullable()
+            $table->date('service_plan_start_date')->nullable()
                 ->comment('サービスプラン提供が開始された日');
-            $table->date('service_end_date')->nullable()
+            $table->date('service_plan_end_date')->nullable()
                 ->comment('サービスプラン提供が終了する日');
             $table->string('remarks')->nullable()
                 ->comment('備考');
