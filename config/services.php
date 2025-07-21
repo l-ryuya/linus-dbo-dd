@@ -37,4 +37,9 @@ return [
         ],
     ],
 
+    'cloudsign' => [
+        'host' => env('CLOUDSIGN_HOST'),
+        'client_id' => env('CLOUDSIGN_CLIENT_ID'),
+    ],
+
 ];
