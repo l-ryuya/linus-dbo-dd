@@ -34,7 +34,7 @@ jobs:
       aws-ecs-cluster-name: "dbo-cluster"
       aws-ecs-namespace: "dbo"
       aws-ecs-service-name: "dd"
-      aws-ecs-task-definition-filepath: "./infra/ecs-task.json"
+      aws-ecs-task-definition-filepath: "./infra/docker/ecs-task.json"
       aws-ecs-task-definition-container-name: ''
       aws-ecs-task-definition-environment-variables: ''
       aws-ecs-task-definition-secrets: ''
