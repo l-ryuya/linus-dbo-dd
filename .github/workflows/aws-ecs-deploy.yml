@@ -5,44 +5,61 @@ on:
       - "main"
       - "dockerbuild_release"
 
-# 下記追記
-permissions:
-  id-token: write
-  contents: read
-# 上記まで追記
-
 concurrency:
   group: dbo-dd
   cancel-in-progress: true
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
+  # apache+php-fpm環境
   call-workflow-aws-ecs-deploy:
-    name: Call Workflow - Docker Build & Push / AWS ECS Deployment
+    name: Call Apache + PHP-FPM Workflow - Docker Build & Push / AWS ECS Deployment
     uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow.yml
     with:
       # docker関連
-      docker-context: '.'                                   #ビルド時のディレクトリ指定
-      docker-file-php-fpm: './infra/docker/develop/php/Dockerfile'  # dockerfileのパス指定
-      docker-file-apache: './infra/docker/develop/apache/Dockerfile'  # dockerfileのパス指定
-      image-tag-type-apache: 'image-tag-type-apache'
-      image-tag-type-php-fpm: 'image-tag-type-php-fpm'
-      docker-build-args: ''                                 # build実行時に引数に渡す値を指定
+      docker-context: '.'                                            #ビルド時のディレクトリ指定
+      docker-file-php-fpm: './infra/docker/develop/php/Dockerfile'   # dockerfileのパス指定
+      docker-file-apache: './infra/docker/develop/apache/Dockerfile' # dockerfileのパス指定
+      docker-build-args-apache: ''                                   # build実行時に引数に渡す値を指定
+      image-name-apache: 'apache'
+      image-name-php-fpm: 'php-fpm'
 
       # AWS関連
-      # リポジトリ名を作成、指定に使用パラメーター(format('{0}-{1}-{2}-{3}): project, aws-ecs-namespace, aws-ecs-service-name, env = dsbizdev-dbo-dd-dev
-      # ECSクラスタ名に使用パラメータ(format('{0}-{1}-{2}): project, aws-ecs-cluster-name, env = dsbizdev-dbo-cluster-dev
-      # ECSサービス名に使用パラメータ(format('{0}-{1}-{2}-{3}): project, aws-ecs-namespace, aws-ecs-service-name, env = dsbizdev-dbo-dd-dev
-      # ECSコンテナ名に使用パラメーター(format('{0}-{1}-{2}):aws-ecs-namespace, aws-ecs-service-name = dbo-dd
       project: 'dsbizdev'
       env: "dev"
+      aws-region: "ap-northeast-1"
       aws-ecs-cluster-name: "dbo-cluster"
       aws-ecs-namespace: "dbo"
       aws-ecs-service-name: "dd"
-      aws-region: "ap-northeast-1"                              #AWSリージョン
-      aws-ecs-task-definition-filepath: "./infra/ecs-task.json" #ECSタスク定義のファイルパス
-      aws-ecs-task-definition-container-name: ''                #コンテナ名
-      aws-ecs-task-definition-environment-variables: ''         #コンテナに設定する環境変数（タスク定義ファイルにて定義しています）
-      aws-ecs-task-definition-secrets: ''                       # コンテナに設定するシークレット環境変数(テスク定義ファイルにて定義しています)
-      aws-ecs-desired-count: 1                                  # 維持するタスク数
-      aws-ecs-wait-for-service-stability: false                 # ECSサービス更新後、安定状態になるまで GitHub Actions のジョブを待機させるかどうか(今回はその後のactions処理がないためfalseでOK)
+      aws-ecs-task-definition-filepath: "./infra/ecs-task.json"
+      aws-ecs-task-definition-container-name: ''
+      aws-ecs-task-definition-environment-variables: ''
+      aws-ecs-task-definition-secrets: ''
+      aws-ecs-desired-count: 1
+      aws-ecs-wait-for-service-stability: false
+    secrets: inherit
+
+  # bitnami環境
+  call-workflow-aws-ecs-deploy-bitnami:
+    name: Call BitNami Workflow - Docker Build & Push / AWS ECS Deployment
+    uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow-bitnami.yml
+    with:
+      project: 'dsbizdev'
+      env: "dev"
+      docker-context: '.'
+      docker-file: './infra/docker/bitnami/php/Dockerfile'
+      docker-build-args: ''
+      aws-region: "ap-northeast-1"
+      aws-ecs-cluster-name: "dbo-cluster"
+      aws-ecs-namespace: "dbo"
+      aws-ecs-service-name: "dd"
+      aws-ecs-task-definition-filepath: "./infra/docker/bitnami/ecs-task.json"
+      aws-ecs-task-definition-container-name: 'bitnami'
+      aws-ecs-task-definition-environment-variables: ''
+      aws-ecs-task-definition-secrets: ''
+      aws-ecs-desired-count: 1
+      aws-ecs-wait-for-service-stability: false
     secrets: inherit
