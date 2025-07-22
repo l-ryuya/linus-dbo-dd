@@ -1,0 +1,117 @@
+{
+  "family": "dsbizdev-dbo-dd-dev-bitnami",
+  "taskRoleArn": "hogehoge",
+  "executionRoleArn": "hogehoge",
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
+  "containerDefinitions": [
+    {
+      "name": "bitnami",
+      "image": "<IMAGE_URI>",
+      "cpu": 128,
+      "memory": 256,
+      "essential": true,
+      "versionConsistency": "enabled",
+      "user": "bitnami",
+      "privileged": false,
+      "readonlyRootFilesystem": false,
+      "portMappings": [
+        {
+          "name": "bitnami",
+          "containerPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "linuxParameters": {
+        "initProcessEnabled": true
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-dev",
+          "mode": "non-blocking",
+          "max-buffer-size": "1m",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "container"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "php",
+          "artisan",
+          "--version"
+        ],
+        "interval": 20,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 0
+      },
+      "environment": [
+        {
+          "name": "LARAVEL_SKIP_DATABASE",
+          "value": "no"
+        },
+        {
+          "name": "LARAVEL_DATABASE_TYPE",
+          "value": "pgsql"
+        },
+        {
+          "name": "LARAVEL_DATABASE_HOST",
+          "value": "dsbizdev-dbo-cluster-dev.cluster-c906g0qeiekr.ap-northeast-1.rds.amazonaws.com"
+        },
+        {
+          "name": "LARAVEL_DATABASE_PORT_NUMBER",
+          "value": "5432"
+        },
+        {
+          "name": "LARAVEL_DATABASE_NAME",
+          "value": "dbo"
+        },
+        {
+          "name": "LARAVEL_DATABASE_USER",
+          "value": "app_dd"
+        },
+        {
+          "name": "DB_SCHEMA",
+          "value": "dbo_dd"
+        },
+        {
+          "name": "APP_KEY",
+          "value": "base64:2apIENcJjuPnUkC0MZDi+/gfVIOebQkgu7xYCk326VY="
+        },
+        {
+          "name": "APP_ENV",
+          "value": "develop"
+        },
+        {
+          "name": "MAIL_USERNAME",
+          "value": "AKIAYSE4N4AV6UETVGZT"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "LARAVEL_DATABASE_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        }
+      ]
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "tags": [
+    {
+      "key": "Name",
+      "value": "dsbizdev-dbo-dd-dev"
+    },
+    {
+      "key": "project",
+      "value": "dsbizdev"
+    },
+    {
+      "key": "env",
+      "value": "dev"
+    }
+  ]
+}
