@@ -45,11 +45,11 @@ class UpdateAction
             $servicePlan = ServicePlan::where('public_id', $data->servicePlanPublicId)
                 ->where('service_id', $service->service_id)
                 ->firstOrFail();
-            $serviceRepUserOption = UserOption::where('public_id', $data->serviceRepUserOptionPublicId)
+            $serviceRepUserOption = UserOption::where('public_id', $data->serviceRepUserPublicId)
                 ->where('tenant_id', $identifiedTenant->tenant_id)
                 ->where('service_id', $service->service_id)
                 ->firstOrFail();
-            $serviceMgrUserOption = UserOption::where('public_id', $data->serviceMgrUserOptionPublicId)
+            $serviceMgrUserOption = UserOption::where('public_id', $data->serviceMgrUserPublicId)
                 ->where('tenant_id', $identifiedTenant->tenant_id)
                 ->where('service_id', $service->service_id)
                 ->firstOrFail();

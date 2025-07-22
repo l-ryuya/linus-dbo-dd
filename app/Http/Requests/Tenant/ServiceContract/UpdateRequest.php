@@ -55,8 +55,8 @@ class UpdateRequest extends FormRequest
             'customerPaymentUserDept' => ['nullable', 'string', 'max:255'],
             'customerPaymentUserTitle' => ['nullable', 'string', 'max:255'],
             'customerPaymentUserEmail' => ['required', 'email', 'max:255'],
-            'serviceRepUserOptionPublicId' => ['required', 'uuid'],
-            'serviceMgrUserOptionPublicId' => ['required', 'uuid'],
+            'serviceRepUserPublicId' => ['required', 'uuid'],
+            'serviceMgrUserPublicId' => ['required', 'uuid'],
             'invoiceRemindDays' => ['nullable', 'string', 'max:255', 'regex:/^-?\d+(,-?\d+)*$/'],
             'billingCycleCode' => [
                 'required',

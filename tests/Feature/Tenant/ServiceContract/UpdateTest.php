@@ -161,8 +161,8 @@ class UpdateTest extends TestCase
             'customerPaymentUserDept' => 'Updated Payment Dept',
             'customerPaymentUserTitle' => 'Updated Payment Title',
             'customerPaymentUserEmail' => 'updated.payment@example.com',
-            'serviceRepUserOptionPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserOptionPublicId' => $this->serviceMgrUserOption->public_id,
+            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
+            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
             'billingCycleCode' => 'quarterly',
             'invoiceRemindDays' => '10,20,30',
             'remarks' => 'Updated remarks',
@@ -227,8 +227,8 @@ class UpdateTest extends TestCase
             'customerContractUserEmail' => 'updated.contract@example.com',
             'customerPaymentUserName' => 'Updated Payment User',
             'customerPaymentUserEmail' => 'updated.payment@example.com',
-            'serviceRepUserOptionPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserOptionPublicId' => $this->serviceMgrUserOption->public_id,
+            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
+            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
             'billingCycleCode' => 'quarterly',
             'invoiceRemindDays' => '10,20,30',
         ];
@@ -266,8 +266,8 @@ class UpdateTest extends TestCase
             'customerContractUserEmail' => 'contract@example.com',
             'customerPaymentUserName' => 'Payment User',
             'customerPaymentUserEmail' => 'payment@example.com',
-            'serviceRepUserOptionPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserOptionPublicId' => $this->serviceMgrUserOption->public_id,
+            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
+            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
             'billingCycleCode' => 'quarterly',
         ];
 
@@ -301,8 +301,8 @@ class UpdateTest extends TestCase
             'customerContractUserEmail' => 'contract@example.com',
             'customerPaymentUserName' => 'Payment User',
             'customerPaymentUserEmail' => 'payment@example.com',
-            'serviceRepUserOptionPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserOptionPublicId' => $this->serviceMgrUserOption->public_id,
+            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
+            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
             'billingCycleCode' => 'quarterly',
             // 以下のオプションフィールドは省略
             // 'contractEndDate', 'invoiceRemindDays', 'remarks'
@@ -346,8 +346,8 @@ class UpdateTest extends TestCase
             'customerContractUserEmail' => 'contract@example.com',
             'customerPaymentUserName' => 'Payment User',
             'customerPaymentUserEmail' => 'payment@example.com',
-            'serviceRepUserOptionPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserOptionPublicId' => $this->serviceMgrUserOption->public_id,
+            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
+            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
             'invoiceRemindDays' => 'invalid-format', // 不正な形式
         ];
 

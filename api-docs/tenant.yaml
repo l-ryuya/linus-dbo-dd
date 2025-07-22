@@ -648,11 +648,11 @@ components:
           format: email
           maxLength: 255
           description: 顧客支払担当者メールアドレス
-        serviceRepUserOptionPublicId:
+        serviceRepUserPublicId:
           type: string
           format: uuid
           description: 'サービス担当者 外部公開用 UUID v4'
-        serviceMgrUserOptionPublicId:
+        serviceMgrUserPublicId:
           type: string
           format: uuid
           description: 'サービス管理者 外部公開用 UUID v4'
