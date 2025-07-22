@@ -733,7 +733,7 @@ components:
         - $ref: '#/components/schemas/TenantServiceContract'
         - type: object
           properties:
-            serviceContractsPublicId:
+            serviceContractPublicId:
               type: string
               format: uuid
               description: 顧客契約ID
