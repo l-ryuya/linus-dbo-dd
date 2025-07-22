@@ -19,6 +19,7 @@ RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-pr
 FROM php:8.3-fpm
 
 RUN apt-get update && apt-get install -y \
+    libpq-dev \
     libonig-dev && \
     docker-php-ext-install \
         pdo \
