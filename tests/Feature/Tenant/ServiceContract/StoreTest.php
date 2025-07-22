@@ -114,8 +114,8 @@ class StoreTest extends TestCase
             'customerPaymentUserDept' => '経理部',
             'customerPaymentUserTitle' => '担当',
             'customerPaymentUserEmail' => 'payment@example.com',
-            'serviceRepUserOptionPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserOptionPublicId' => $this->serviceMgrUserOption->public_id,
+            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
+            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
             'billingCycleCode' => 'monthly',
             'invoiceRemindDays' => '7,14,30',
             'remarks' => 'テスト契約の備考',
@@ -196,8 +196,8 @@ class StoreTest extends TestCase
             'customerContractUserEmail' => 'contract@example.com',
             'customerPaymentUserName' => 'テスト支払担当者',
             'customerPaymentUserEmail' => 'payment@example.com',
-            'serviceRepUserOptionPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserOptionPublicId' => $this->serviceMgrUserOption->public_id,
+            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
+            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
             'billingCycleCode' => 'monthly',
             // 以下のフィールドは省略
             // 'contractEndDate', 'customerContactUserDept', 'customerContactUserTitle', etc.
