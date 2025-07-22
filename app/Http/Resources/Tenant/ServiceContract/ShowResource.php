@@ -41,9 +41,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $customer_payment_user_title
  * @property string $customer_payment_user_email
  * @property string $service_rep_user_name
- * @property int $service_rep_user_option_id
+ * @property string $service_rep_user_public_id
  * @property string $service_mgr_user_name
- * @property int $service_mgr_user_option_id
+ * @property string $service_mgr_user_public_id
  * @property string $invoice_remind_days
  * @property string $billing_cycle
  * @property string $billing_cycle_code
@@ -90,9 +90,9 @@ class ShowResource extends JsonResource
      *     customerPaymentUserTitle: string,
      *     customerPaymentUserEmail: string,
      *     serviceRepUserName: string,
-     *     serviceRepUserOptionId: int,
+     *     serviceRepUserPublicId: string,
      *     serviceMgrUserName: string,
-     *     serviceMgrUserOptionId: int,
+     *     serviceMgrUserPublicId: string,
      *     invoiceRemindDays: string,
      *     billingCycle: string,
      *     billingCycleCode: string,
@@ -135,9 +135,9 @@ class ShowResource extends JsonResource
             'customerPaymentUserTitle' => $this->customer_payment_user_title,
             'customerPaymentUserEmail' => $this->customer_payment_user_email,
             'serviceRepUserName' => $this->service_rep_user_name,
-            'serviceRepUserOptionId' => $this->service_rep_user_option_id,
+            'serviceRepUserPublicId' => $this->service_rep_user_public_id,
             'serviceMgrUserName' => $this->service_mgr_user_name,
-            'serviceMgrUserOptionId' => $this->service_mgr_user_option_id,
+            'serviceMgrUserPublicId' => $this->service_mgr_user_public_id,
             'invoiceRemindDays' => empty($this->invoice_remind_days) ? null : trim($this->invoice_remind_days, '{}'),
             'billingCycle' => $this->billing_cycle,
             'billingCycleCode' => $this->billing_cycle_code,
