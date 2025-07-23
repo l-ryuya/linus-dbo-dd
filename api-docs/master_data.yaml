@@ -243,16 +243,16 @@ components:
           type: number
           format: float
           description: 単価
-        serviceStartDate:
+        servicePlanStartDate:
           type: string
           format: date
           nullable: true
-          description: サービス開始日(YYYY-MM-DD形式)
-        serviceEndDate:
+          description: サービスプラン開始日(YYYY-MM-DD形式)
+        servicePlanEndDate:
           type: string
           format: date
           nullable: true
-          description: サービス終了日(YYYY-MM-DD形式)
+          description: サービスプラン終了日(YYYY-MM-DD形式)
         servicePlanName:
           type: string
           description: サービスプラン名

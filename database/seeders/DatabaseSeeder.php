@@ -9,6 +9,7 @@ use Database\Seeders\base\CompanyNameTranslationsSeeder;
 use Database\Seeders\base\CompanyRoleAssignmentsSeeder;
 use Database\Seeders\base\CompanyRolesSeeder;
 use Database\Seeders\base\CompanyRoleTranslationsSeeder;
+use Database\Seeders\base\ContractWidgetSettingsSeeder;
 use Database\Seeders\base\CountryFieldDisplayOrdersSeeder;
 use Database\Seeders\base\CountryRegionsSeeder;
 use Database\Seeders\base\CountryRegionsTranslationsSeeder;
@@ -54,6 +55,7 @@ class DatabaseSeeder extends Seeder
             ServiceTranslationsSeeder::class,
             ServicePlanTranslationsSeeder::class,
             ServiceContractsSeeder::class,
+            ContractWidgetSettingsSeeder::class,
             UserOptionsSeeder::class,
         ]);
     }

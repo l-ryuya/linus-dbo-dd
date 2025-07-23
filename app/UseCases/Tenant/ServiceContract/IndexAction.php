@@ -79,7 +79,7 @@ class IndexAction
             $query->where('service_contracts.tenant_id', $tenantId);
         })
         ->when($tenantName, function ($query) use ($tenantName) {
-            $query->where('tenants.tenant_name', 'LIKE', "%{$tenantName}%");
+            $query->where('tenants.tenant_name', 'ILIKE', "%{$tenantName}%");
         })
         ->when($servicePublicId, function ($query) use ($servicePublicId) {
             $query->where('services.public_id', $servicePublicId);
@@ -89,10 +89,10 @@ class IndexAction
         })
         ->when($customerName, function ($query) use ($customerName) {
             $query->where('company_name_translations.company_legal_name', 'LIKE', "%{$customerName}%")
-                ->orWhere('companies.company_name_en', 'LIKE', "%{$customerName}%");
+                ->orWhere('companies.company_name_en', 'ILIKE', "%{$customerName}%");
         })
         ->when($contractName, function ($query) use ($contractName) {
-            $query->where('service_contracts.contract_name', 'LIKE', "%{$contractName}%");
+            $query->where('service_contracts.contract_name', 'ILIKE', "%{$contractName}%");
         })
         ->when($contractStatusCode, function ($query) use ($contractStatusCode) {
             $query->where('service_contracts.contract_status_type', 'service_contract_status')

@@ -22,6 +22,6 @@ class ServicePlanTranslation extends Model
      */
     public function scopeWithLanguage(Builder $query, string $languageCode): Builder
     {
-        return $query->withTrashed()->where('language_code', $languageCode);
+        return $query->where('language_code', $languageCode);
     }
 }
