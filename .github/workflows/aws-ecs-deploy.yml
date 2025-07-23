@@ -23,19 +23,20 @@ jobs:
       docker-context: '.'                                            #ビルド時のディレクトリ指定
       docker-file-php-fpm: './infra/docker/develop2/php/Dockerfile'   # dockerfileのパス指定
       docker-file-apache: './infra/docker/develop2/apache/Dockerfile' # dockerfileのパス指定
-      docker-build-args-apache: ''                                   # build実行時に引数に渡す値を指定
+      docker-build-args-apache: ''                                    # build実行時に引数に渡す値を指定
+      docker-build-args-php-fpm: ''                                   # build実行時に引数に渡す値を指定
       image-name-apache: 'apache'
       image-name-php-fpm: 'php-fpm'
 
       # AWS関連
       project: 'dsbizdev'
+      aws-role-to-assume: 'arn:aws:iam::734908905460:role/dbo-dd'
       env: "dev"
       aws-region: "ap-northeast-1"
       aws-ecs-cluster-name: "dbo-cluster"
       aws-ecs-namespace: "dbo"
       aws-ecs-service-name: "dd"
       aws-ecs-task-definition-filepath: "./infra/docker/develop2/ecs-task.json"
-      aws-ecs-task-definition-container-name: ''
       aws-ecs-task-definition-environment-variables: ''
       aws-ecs-task-definition-secrets: ''
       aws-ecs-desired-count: 1
@@ -48,6 +49,7 @@ jobs:
     uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow.yml
     with:
       project: 'dsbizdev'
+      aws-role-to-assume: 'arn:aws:iam::734908905460:role/dbo-dd'
       env: "dev"
       docker-context: '.'
       docker-file: './infra/docker/develop/php/Dockerfile'
@@ -57,7 +59,7 @@ jobs:
       aws-ecs-namespace: "dbo"
       aws-ecs-service-name: "dd"
       aws-ecs-task-definition-filepath: "./infra/docker/ecs-task.json"
-      aws-ecs-task-definition-container-name: 'bitnami'
+      aws-ecs-task-definition-container-name: ''
       aws-ecs-task-definition-environment-variables: ''
       aws-ecs-task-definition-secrets: ''
       aws-ecs-desired-count: 1
