@@ -4,9 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\MasterData;
 
-use App\Enums\ServiceStatus;
-use App\Models\Service;
-use App\Models\Tenant;
 use Database\Seeders\base\CompaniesSeeder;
 use Database\Seeders\base\CompanyNameTranslationsSeeder;
 use Database\Seeders\base\CountryRegionsSeeder;
@@ -24,11 +21,9 @@ use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ServiceControllerTest extends TestCase
+class MiscDataControllerTest extends TestCase
 {
     use RefreshDatabase;
-
-    private Tenant $tenant;
 
     protected function setUp(): void
     {
@@ -51,11 +46,8 @@ class ServiceControllerTest extends TestCase
             UserOptionsSeeder::class,
         ]);
 
-        $authUser = $this->createServiceManageUser();
-        $this->tenant = $authUser->getUserOption()->tenant;
-
         // テスト用の認証を設定
-        $this->actingAs($authUser);
+        $this->actingAs($this->createTenantManageUser());
     }
 
     /**
@@ -65,11 +57,11 @@ class ServiceControllerTest extends TestCase
      */
     private function getBaseUrl(): string
     {
-        return '/v1/services';
+        return '/v1/misc-data';
     }
 
     /**
-     * サービス一覧APIが正常なレスポンスを返すことをテストする
+     * 選択肢アイテム一覧APIが正常なレスポンスを返すことをテストする
      */
     public function test_index_returns_successful_response(): void
     {
@@ -79,63 +71,63 @@ class ServiceControllerTest extends TestCase
             ->assertJsonStructure([
                 'data' => [
                     '*' => [
-                        'servicePublicId',
-                        'serviceStatus',
-                        'serviceStatusCode',
-                        'serviceStartDate',
-                        'serviceEndDate',
-                        'serviceCondition',
-                        'ddPlan',
-                        'serviceName',
-                        'serviceDescription',
+                        'selectionItemType',
+                        'selectionItemCode',
+                        'selectionItemName',
+                        'selectionItemShortName',
                     ],
                 ],
             ]);
     }
 
     /**
-     * テナントに関連するサービスのみが返されることをテストする
+     * 異なる種別でフィルタリングできることをテストする
      */
-    public function test_index_returns_only_tenant_related_services(): void
+    public function test_index_filters_by_different_types(): void
     {
-        $response = $this->getJson($this->getBaseUrl());
+        // type1でフィルタリング
+        $response1 = $this->getJson($this->getBaseUrl() . '?type=user_status');
 
-        $response->assertStatus(200);
-        $responseData = $response->json('data');
+        $response1->assertStatus(200);
 
-        // 返されたサービスがテナントに関連付けられたものであることを確認
-        foreach ($responseData as $service) {
-            $serviceModel = Service::where('public_id', $service['servicePublicId'])->first();
-            $this->assertEquals($this->tenant->tenant_id, $serviceModel->tenant_id);
+        // type2で別のフィルタリング
+        $response2 = $this->getJson($this->getBaseUrl() . '?type=world_region');
+
+        $response2->assertStatus(200);
+
+        // 両方のレスポンスが異なることを確認（もしデータがある場合）
+        if (count($response1->json('data')) > 0 && count($response2->json('data')) > 0) {
+            $this->assertNotEquals(
+                $response1->json('data'),
+                $response2->json('data'),
+            );
         }
     }
 
     /**
-     * アクティブなサービスのみが返されることをテストする
+     * バリデーションエラーが適切に処理されることをテストする
      */
-    public function test_index_returns_only_active_services_by_default(): void
+    public function test_index_validates_input(): void
     {
-        $response = $this->getJson($this->getBaseUrl());
+        // typeパラメータが短すぎる場合
+        $response = $this->getJson($this->getBaseUrl() . '?type=ab');
+        $response->assertStatus(422);
 
-        $response->assertStatus(200);
-        $responseData = $response->json('data');
-
-        // 返されたサービスがすべてアクティブなステータスであることを確認
-        foreach ($responseData as $service) {
-            $this->assertEquals(ServiceStatus::Active->value, $service['serviceStatusCode']);
-        }
+        // typeパラメータが長すぎる場合
+        $tooLongType = str_repeat('a', 65);
+        $response = $this->getJson($this->getBaseUrl() . '?type=' . $tooLongType);
+        $response->assertStatus(422);
     }
 
     /**
-     * 未認証ユーザーがアクセスした場合に401エラーが返ることをテストする
+     * 存在しない種別でもエラーにならないことをテストする
      */
-    public function test_index_returns_unauthorized_for_unauthenticated_user(): void
+    public function test_index_returns_empty_array_for_nonexistent_type(): void
     {
-        // 認証をリセット
-        $this->app['auth']->forgetGuards();
+        // 存在しない種別を指定
+        $response = $this->getJson($this->getBaseUrl() . '?type=nonexistent_type');
 
-        $response = $this->getJson($this->getBaseUrl());
-
-        $response->assertStatus(401);
+        $response->assertStatus(200)
+            ->assertJsonCount(0, 'data');
     }
 }
