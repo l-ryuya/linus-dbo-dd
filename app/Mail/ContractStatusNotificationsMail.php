@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Mail;
 
 use App\Models\ServiceContract;
@@ -16,7 +18,9 @@ class ContractStatusNotificationsMail extends Mailable implements ShouldQueue
     use SerializesModels;
 
     public ServiceContract $serviceContract;
+
     public string $contractStatus;
+
     public string $contractMessage;
 
     public function __construct(

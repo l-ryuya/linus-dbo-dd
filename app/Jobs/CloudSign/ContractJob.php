@@ -58,6 +58,7 @@ class ContractJob implements ShouldQueue, ShouldBeUnique
     public bool $deleteWhenMissingModels = true;
 
     public int $serviceContractId;
+
     public ?ServiceContract $serviceContract = null;
 
     public function __construct(int $serviceContractId)
