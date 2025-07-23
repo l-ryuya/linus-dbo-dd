@@ -40,6 +40,9 @@ on:
 
       ### AWS
       # credentials
+      aws-role-to-assume:
+        required: true
+        type: string
       aws-region:
         type: string
         default: 'ap-northeast-1'
