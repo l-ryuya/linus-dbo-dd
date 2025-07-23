@@ -15,33 +15,33 @@ permissions:
 
 jobs:
   # apache+php-fpm環境
-  # call-workflow-aws-ecs-deploy-apache-php-fpm:
-  #   name: Call Apache + PHP-FPM Workflow - Docker Build & Push / AWS ECS Deployment
-  #   uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow-apache-php-fpm.yml
-  #   with:
-  #     # docker関連
-  #     docker-context: '.'                                            #ビルド時のディレクトリ指定
-  #     docker-file-php-fpm: './infra/docker/develop2/php/Dockerfile'   # dockerfileのパス指定
-  #     docker-file-apache: './infra/docker/develop2/apache/Dockerfile' # dockerfileのパス指定
-  #     docker-build-args-apache: ''                                    # build実行時に引数に渡す値を指定
-  #     docker-build-args-php-fpm: ''                                   # build実行時に引数に渡す値を指定
-  #     image-name-apache: 'apache'
-  #     image-name-php-fpm: 'php-fpm'
+  call-workflow-aws-ecs-deploy-apache-php-fpm:
+    name: Call Apache + PHP-FPM Workflow - Docker Build & Push / AWS ECS Deployment
+    uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow-apache-php-fpm.yml
+    with:
+      # docker関連
+      docker-context: '.'                                            #ビルド時のディレクトリ指定
+      docker-file-php-fpm: './infra/docker/develop2/php/Dockerfile'   # dockerfileのパス指定
+      docker-file-apache: './infra/docker/develop2/apache/Dockerfile' # dockerfileのパス指定
+      docker-build-args-apache: ''                                    # build実行時に引数に渡す値を指定
+      docker-build-args-php-fpm: ''                                   # build実行時に引数に渡す値を指定
+      image-name-apache: 'apache'
+      image-name-php-fpm: 'php-fpm'
 
-  #     # AWS関連
-  #     project: 'dsbizdev'
-  #     aws-role-to-assume: 'arn:aws:iam::734908905460:role/dbo-dd'
-  #     env: "dev"
-  #     aws-region: "ap-northeast-1"
-  #     aws-ecs-cluster-name: "dbo-cluster"
-  #     aws-ecs-namespace: "dbo"
-  #     aws-ecs-service-name: "dd"
-  #     aws-ecs-task-definition-filepath: "./infra/docker/develop2/ecs-task.json"
-  #     aws-ecs-task-definition-environment-variables: ''
-  #     aws-ecs-task-definition-secrets: ''
-  #     aws-ecs-desired-count: 1
-  #     aws-ecs-wait-for-service-stability: false
-  #   secrets: inherit
+      # AWS関連
+      project: 'dsbizdev'
+      aws-role-to-assume: 'arn:aws:iam::734908905460:role/dbo-dd'
+      env: "dev"
+      aws-region: "ap-northeast-1"
+      aws-ecs-cluster-name: "dbo-cluster"
+      aws-ecs-namespace: "dbo"
+      aws-ecs-service-name: "dd"
+      aws-ecs-task-definition-filepath: "./infra/docker/develop2/ecs-task.json"
+      aws-ecs-task-definition-environment-variables: ''
+      aws-ecs-task-definition-secrets: ''
+      aws-ecs-desired-count: 1
+      aws-ecs-wait-for-service-stability: false
+    secrets: inherit
 
   # bitnami環境
   call-workflow-aws-ecs-deploy:
