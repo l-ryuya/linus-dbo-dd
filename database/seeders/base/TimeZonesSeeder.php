@@ -14,6 +14,8 @@ class TimeZonesSeeder extends Seeder
      */
     public function run(): void
     {
+        DB::statement("ALTER TABLE time_zones ALTER COLUMN time_zone_id RESTART WITH 1");
+
         DB::table('time_zones')->insert([
             ['tz_name' => 'UTC', 'utc_offset' => '+00:00', 'display_label' => '(UTC+00:00) Coordinated Universal Time'],
             ['tz_name' => 'Europe/London', 'utc_offset' => '+00:00', 'display_label' => '(UTC+00:00) London'],

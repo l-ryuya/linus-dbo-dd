@@ -37,14 +37,21 @@ class ServicesSeeder extends Seeder
                 "service_start_date" => empty($row['service_start_date']) ? null : $row['service_start_date'],
                 "service_end_date" => empty($row['service_end_date']) ? null : $row['service_end_date'],
                 "service_condition" => $row['service_condition'] ?? null,
-                "service_admin_sys_user_code" => $row['service_admin_sys_user_code'],
+                "service_dept_group_email" => $row['service_dept_group_email'],
+                "backoffice_group_email" => $row['backoffice_group_email'],
+                "service_mgr_user_option_id" => (int) $row['service_mgr_user_option_id'],
+                "service_mgr_sys_user_code" => $row['service_mgr_sys_user_code'],
                 "service_sys_organization_code" => $row['service_sys_organization_code'],
+                "dd_plan" => $row['dd_plan'],
                 "remarks" => $row['remarks'] ?? null,
-                "created_at" => $now,
-                "updated_at" => $now,
-                "deleted_at" => null,
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
+
+        // シーケンスの初期化
+        DB::statement("ALTER TABLE services ALTER COLUMN service_id RESTART WITH 1");
 
         DB::table('services')->insert($data);
 

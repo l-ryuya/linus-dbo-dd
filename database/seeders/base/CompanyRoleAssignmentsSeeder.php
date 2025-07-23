@@ -33,11 +33,13 @@ class CompanyRoleAssignmentsSeeder extends Seeder
                 'valid_from' => $row['valid_from'],
                 'valid_to' => empty($row['valid_to']) ? null : $row['valid_to'],
                 'remarks' => $row['remarks'] ?? null,
-                'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
-                'updated_at' => empty($row['updated_at']) ? $now : $row['updated_at'],
-                'deleted_at' => empty($row['deleted_at']) ? null : $row['deleted_at'],
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
+
+        DB::statement("ALTER TABLE company_role_assignments ALTER COLUMN company_role_assignment_id RESTART WITH 1");
 
         DB::table('company_role_assignments')->insert($data);
 

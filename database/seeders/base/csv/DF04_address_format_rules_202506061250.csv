@@ -1,7 +1,0 @@
-"country_code_alpha3","format_string","remarks","created_at","updated_at","deleted_at"
-USA,"{{street}}, {{city}}, {{state}} {{postal}}{{building}}",USA address: street → city → state → ZIP,2025-06-05 15:11:57.130,2025-06-05 15:13:12.987,
-JPN,{{postal}} {{state}}{{city}}{{street}}{{building}},日本語住所：郵便番号→都道府県→市区町村→番地→建物,2025-06-05 15:11:57.130,2025-06-05 15:13:12.987,
-CHN,{{postal}} {{state}}{{city}}{{street}}{{building}},中国語住所：郵便番号→省/直轄市→市→街道→番地→楼/室,2025-06-05 15:11:57.130,2025-06-05 15:13:12.987,
-HKG,"{{building}}{{street}}, {{city}}, Hong Kong",香港住所：建物→街→地区→Hong Kong（郵便番号なし）,2025-06-05 15:11:57.130,2025-06-05 15:13:12.987,
-THA,"{{building}} {{street}}, {{city}}, {{state}} {{postal}}",タイ住所：建物/番地→区→県→郵便番号,2025-06-05 15:11:57.130,2025-06-05 15:13:12.987,
-IDN,"{{building}} {{street}}, {{city}}, {{state}} {{postal}}",インドネシア住所：建物/番地→市→州→郵便番号,2025-06-05 15:11:57.130,2025-06-05 15:13:12.987,

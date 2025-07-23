@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
@@ -29,4 +30,23 @@ class Company extends Model
         'building',
         'remarks',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne<CompanyNameTranslation, $this>
+     */
+    public function companyNameTranslations(): HasOne
+    {
+        return $this->hasOne(CompanyNameTranslation::class, 'company_id', 'company_id');
+    }
+
+    /**
+     * 特定の言語コードの会社名翻訳を取得
+     *
+     * @param string $languageCode
+     * @return CompanyNameTranslation|null
+     */
+    public function nameTranslation(string $languageCode): ?CompanyNameTranslation
+    {
+        return $this->companyNameTranslations()->where('language_code', $languageCode)->first();
+    }
 }

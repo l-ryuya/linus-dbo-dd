@@ -15,19 +15,15 @@ class IndexAction
      * @param string|null $countryCodeAlpha3
      * @param string|null $countryCodeAlpha2
      * @param int|null    $countryCodeNumeric
-     * @param int         $displayedNumber 表示件数
-     * @param int         $page ページ番号
      *
-     * @return \Illuminate\Pagination\LengthAwarePaginator<int, CountryRegion>
+     * @return \Illuminate\Support\Collection<int, CountryRegion>
      */
     public function __invoke(
         string $languageCode,
         ?string $countryCodeAlpha3,
         ?string $countryCodeAlpha2,
         ?int $countryCodeNumeric,
-        int $displayedNumber,
-        int $page,
-    ): \Illuminate\Pagination\LengthAwarePaginator {
+    ): \Illuminate\Support\Collection {
         return CountryRegion::select([
             'country_regions.country_code_alpha3',
             'country_regions.country_code_alpha2',
@@ -40,6 +36,7 @@ class IndexAction
             $join->on('country_regions.country_code_alpha3', '=', 'country_regions_translations.country_code_alpha3')
                 ->where('country_regions_translations.language_code', $languageCode);
         })
+        ->where('country_regions.selectable', true)
         ->where('country_regions.world_region_type', 'world_region')
         ->when($countryCodeAlpha3, function ($query) use ($countryCodeAlpha3) {
             $query->where('country_regions.country_code_alpha3', $countryCodeAlpha3);
@@ -50,7 +47,7 @@ class IndexAction
         ->when($countryCodeNumeric, function ($query) use ($countryCodeNumeric) {
             $query->where('country_regions.country_code_numeric', $countryCodeNumeric);
         })
-        ->orderBy('country_regions.country_code_numeric')
-        ->paginate(perPage: $displayedNumber, page: $page);
+        ->orderBy('country_regions.display_order')
+        ->get();
     }
 }

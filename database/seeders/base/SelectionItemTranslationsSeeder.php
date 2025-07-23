@@ -34,11 +34,13 @@ class SelectionItemTranslationsSeeder extends Seeder
                 'selection_item_name' => $row['selection_item_name'],
                 'selection_item_short_name' => $row['selection_item_short_name'] ?? null,
                 'remarks' => $row['remarks'] ?? null,
-                'created_at' => $now,
-                'updated_at' => $now,
-                'deleted_at' => null,
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
+
+        DB::statement("ALTER TABLE selection_item_translations ALTER COLUMN selection_item_translation_id RESTART WITH 1");
 
         DB::table('selection_item_translations')->insert($data);
 

@@ -34,11 +34,13 @@ class CountryRegionsTranslationsSeeder extends Seeder
                 'country_region_name' => $row['country_region_name'],
                 'capital_name' => $row['capital_name'],
                 'remarks' => $row['remarks'] ?? null,
-                'created_at' => $row['created_at'] ?? $now,
-                'updated_at' => $row['updated_at'] ?? $now,
-                'deleted_at' => $row['deleted_at'] ?? null,
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
+
+        DB::statement("ALTER TABLE country_regions_translations ALTER COLUMN country_region_translation_id RESTART WITH 1");
 
         DB::table('country_regions_translations')->insert($data);
 

@@ -33,12 +33,16 @@ class CountryRegionsSeeder extends Seeder
                 'country_code_numeric' => (int) $row['country_code_numeric'],
                 'world_region_type' => $row['world_region_type'],
                 'world_region_code' => $row['world_region_code'],
+                'selectable' => $row['selectable'] === 'true',
+                'display_order' => $row['display_order'] === '' ? null : (int) $row['display_order'],
                 'remarks' => $row['remarks'] ?? null,
-                'created_at' => $row['created_at'] ?? $now,
-                'updated_at' => $row['updated_at'] ?? $now,
-                'deleted_at' => $row['deleted_at'] ?? null,
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
+
+        DB::statement("ALTER TABLE country_regions ALTER COLUMN country_region_id RESTART WITH 1");
 
         DB::table('country_regions')->insert($data);
 

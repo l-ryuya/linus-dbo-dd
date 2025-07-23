@@ -6,14 +6,16 @@ namespace Tests\Feature\Tenant\Customer;
 
 use App\Models\Company;
 use App\Models\Tenant;
-use App\Services\M5\UserOrganizationService;
+use Database\Seeders\base\CompaniesSeeder;
 use Database\Seeders\base\CountryRegionsSeeder;
-use Database\Seeders\base\CountryRegionsTranslationsSeeder;
+use Database\Seeders\base\CustomersSeeder;
 use Database\Seeders\base\SelectionItemsSeeder;
-use Database\Seeders\base\SelectionItemTranslationsSeeder;
+use Database\Seeders\base\ServicePlansSeeder;
+use Database\Seeders\base\ServicesSeeder;
 use Database\Seeders\base\TenantsSeeder;
+use Database\Seeders\base\TimeZonesSeeder;
+use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Mockery;
 use Tests\TestCase;
 
 class StoreTest extends TestCase
@@ -27,23 +29,22 @@ class StoreTest extends TestCase
         parent::setUp();
 
         $this->seed([
+            TimeZonesSeeder::class,
             SelectionItemsSeeder::class,
-            SelectionItemTranslationsSeeder::class,
             CountryRegionsSeeder::class,
-            CountryRegionsTranslationsSeeder::class,
             TenantsSeeder::class,
+            CompaniesSeeder::class,
+            CustomersSeeder::class,
+            ServicesSeeder::class,
+            ServicePlansSeeder::class,
+            UserOptionsSeeder::class,
         ]);
 
-        $this->tenant = Tenant::where('sys_organization_code', 'ORG00000010')->first();
-
-        // UserOrganizationServiceクラスのメソッドをモック
-        $mock = Mockery::mock(UserOrganizationService::class);
-        $mock->allows('getTenantByOrganizationCode')->andReturn($this->tenant);
-        // サービスのモックをapp()->instance()で注入
-        $this->app->instance(UserOrganizationService::class, $mock);
+        $authUser = $this->createServiceManageUser();
+        $this->tenant = $authUser->getUserOption()->tenant;
 
         // テスト用の認証を設定
-        $this->actingAs($this->createTenantManageUser());
+        $this->actingAs($authUser);
     }
 
     /**
@@ -80,7 +81,6 @@ class StoreTest extends TestCase
         $response = $this->postJson(
             $this->getBaseUrl(),
             $customerData,
-            ['Accept-Language' => 'jpn'],
         );
 
         $response->assertStatus(201)
@@ -124,7 +124,7 @@ class StoreTest extends TestCase
             'company_id' => $company->company_id,
             'sys_organization_code' => $this->tenant->customers_sys_organization_code,
             'customer_status_type' => 'customer_status',
-            'customer_status_code' => 'under_dd',
+            'customer_status_code' => 'customer_registered',
         ]);
     }
 
@@ -257,7 +257,6 @@ class StoreTest extends TestCase
         $response = $this->postJson(
             $this->getBaseUrl(),
             $dataWithoutOptionalFields,
-            ['Accept-Language' => 'jpn'],
         );
 
         $response->assertStatus(201)

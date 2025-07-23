@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\LogicValidationException;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -29,12 +30,10 @@ return Application::configure(basePath: dirname(__DIR__))
             ),
         );
 
-        $middleware->api(append: [
-            App\Http\Middleware\LocaleMiddleware::class,
-        ]);
-
         $middleware->alias([
-            'scope' => App\Http\Middleware\ScopeAdminMiddleware::class,
+            'functions' => App\Http\Middleware\FunctionsVerifyMiddleware::class,
+            'roles' => App\Http\Middleware\RoleSelectorMiddleware::class,
+            'auth.external' => App\Http\Middleware\CheckApiKeyMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
@@ -44,6 +43,7 @@ return Application::configure(basePath: dirname(__DIR__))
             HttpException::class,
             ModelNotFoundException::class,
             ValidationException::class,
+            LogicValidationException::class,
         ]);
 
         $exceptions->dontFlash([

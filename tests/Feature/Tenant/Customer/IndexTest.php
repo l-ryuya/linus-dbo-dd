@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Tests\Feature\Tenant\Customer;
 
 use App\Models\SelectionItemTranslation;
-use App\Models\Tenant;
-use App\Services\M5\UserOrganizationService;
 use Database\Seeders\base\CompaniesSeeder;
 use Database\Seeders\base\CompanyNameTranslationsSeeder;
 use Database\Seeders\base\CountryRegionsSeeder;
@@ -20,6 +18,8 @@ use Database\Seeders\base\ServicePlanTranslationsSeeder;
 use Database\Seeders\base\ServicesSeeder;
 use Database\Seeders\base\ServiceTranslationsSeeder;
 use Database\Seeders\base\TenantsSeeder;
+use Database\Seeders\base\TimeZonesSeeder;
+use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -32,6 +32,7 @@ class IndexTest extends TestCase
         parent::setUp();
 
         $this->seed([
+            TimeZonesSeeder::class,
             SelectionItemsSeeder::class,
             SelectionItemTranslationsSeeder::class,
             CountryRegionsSeeder::class,
@@ -45,25 +46,11 @@ class IndexTest extends TestCase
             ServiceTranslationsSeeder::class,
             ServicePlanTranslationsSeeder::class,
             ServiceContractsSeeder::class,
+            UserOptionsSeeder::class,
         ]);
 
-        $tenant = Tenant::where('sys_organization_code', 'ORG00000010')->first();
-
-        // UserOrganizationServiceクラスのgetLowestLevelOrganizationメソッドをモック
-        $mock = \Mockery::mock(UserOrganizationService::class);
-        $mock->allows('getLowestLevelOrganization')
-            ->andReturn([
-                'sysOrganizationCode' => 'ORG00000010',
-                'organizationLevelId' => 2,
-                'organizationLevelCode' => 'TENANT',
-            ]);
-        $mock->allows('getTenantByOrganizationCode')
-            ->andReturn($tenant);
-        // app()->instance() でモックを注入
-        $this->app->instance(UserOrganizationService::class, $mock);
-
         // テスト用の認証を設定
-        $this->actingAs($this->createTenantManageUser());
+        $this->actingAs($this->createServiceManageUser());
     }
 
     /**
@@ -81,10 +68,7 @@ class IndexTest extends TestCase
      */
     public function test_index_returns_successful_response(): void
     {
-        $response = $this->getJson(
-            $this->getBaseUrl() . '?page=1',
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . '?page=1');
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -92,6 +76,7 @@ class IndexTest extends TestCase
                     '*' => [
                         'customerPublicId',
                         'customerName',
+                        'customerNameEn',
                         'customerStatus',
                         'serviceStartDate',
                         'serviceName',
@@ -111,10 +96,7 @@ class IndexTest extends TestCase
         // テスト用の顧客データを作成
         $customerName = '株式会社FINOLAB';
 
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?customerName={$customerName}&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?customerName={$customerName}&page=1");
 
         $response->assertStatus(200)
             ->assertJsonFragment([
@@ -132,10 +114,7 @@ class IndexTest extends TestCase
             ->first();
 
         if ($status) {
-            $response = $this->getJson(
-                $this->getBaseUrl() . "?customerStatusCode={$status->selection_item_code}&page=1",
-                ['Accept-Language' => 'jpn'],
-            );
+            $response = $this->getJson($this->getBaseUrl() . "?customerStatusCode={$status->selection_item_code}&page=1");
 
             $response->assertStatus(200);
             // ステータス名は変換されて返されるためフラグメントの検証は省略
@@ -147,10 +126,7 @@ class IndexTest extends TestCase
      */
     public function test_index_supports_pagination(): void
     {
-        $response = $this->getJson(
-            $this->getBaseUrl() . '?displayed=10&page=1',
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . '?displayed=10&page=1');
 
         $response->assertStatus(200)
             ->assertJsonStructure([
@@ -181,10 +157,33 @@ class IndexTest extends TestCase
      */
     public function test_index_filters_by_organization_code(): void
     {
-        $response = $this->getJson(
-            $this->getBaseUrl() . "?organizationCode=ORG00000022&page=1",
-            ['Accept-Language' => 'jpn'],
-        );
+        $response = $this->getJson($this->getBaseUrl() . "?organizationCode=ORG00000022&page=1");
+
+        $response->assertStatus(200);
+    }
+
+    /**
+     * 権限のないユーザーがアクセスした場合のテスト
+     */
+    public function test_show_requires_authentication(): void
+    {
+        // 認証なしでアクセス
+        $this->app['auth']->forgetGuards();
+
+        $response = $this->getJson($this->getBaseUrl() . '?page=1');
+
+        $response->assertStatus(401);
+    }
+
+    /**
+     * テナント権限でアクセスできることをテストする
+     */
+    public function test_show_accessible_by_tenant_role(): void
+    {
+        // テナント権限のユーザーでテスト
+        $this->actingAs($this->createTenantManageUser());
+
+        $response = $this->getJson($this->getBaseUrl() . '?page=1');
 
         $response->assertStatus(200);
     }

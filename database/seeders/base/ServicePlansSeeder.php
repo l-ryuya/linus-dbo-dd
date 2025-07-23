@@ -35,16 +35,20 @@ class ServicePlansSeeder extends Seeder
                 "service_plan_code" => $row['service_plan_code'],
                 "service_plan_status_type" => $row['service_plan_status_type'],
                 "service_plan_status_code" => $row['service_plan_status_code'],
+                "contract_template_en_id" => empty($row['contract_template_en_id']) ? null : $row['contract_template_en_id'],
+                "contract_template_jp_id" => empty($row['contract_template_jp_id']) ? null : $row['contract_template_jp_id'],
                 "billing_cycle" => (int) $row['billing_cycle'],
                 "unit_price" => (float) $row['unit_price'],
-                "service_start_date" => empty($row['service_start_date']) ? null : $row['service_start_date'],
-                "service_end_date" => empty($row['service_end_date']) ? null : $row['service_end_date'],
+                "service_plan_start_date" => empty($row['service_plan_start_date']) ? null : $row['service_plan_start_date'],
+                "service_plan_end_date" => empty($row['service_plan_end_date']) ? null : $row['service_plan_end_date'],
                 "remarks" => $row['remarks'] ?? null,
-                "created_at" => $now,
-                "updated_at" => $now,
-                "deleted_at" => null,
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
+
+        DB::statement("ALTER TABLE service_plans ALTER COLUMN service_plan_id RESTART WITH 1");
 
         DB::table('service_plans')->insert($data);
 
