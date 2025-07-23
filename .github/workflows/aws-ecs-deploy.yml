@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   # apache+php-fpm環境
-  call-workflow-aws-ecs-deploy:
+  call-workflow-aws-ecs-deploy-apache-php-fpm:
     name: Call Apache + PHP-FPM Workflow - Docker Build & Push / AWS ECS Deployment
     uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow-apache-php-fpm.yml
     with:
@@ -44,21 +44,21 @@ jobs:
     secrets: inherit
 
   # bitnami環境
-  call-workflow-aws-ecs-deploy-bitnami:
-    name: Call BitNami Workflow - Docker Build & Push / AWS ECS Deployment
+  call-workflow-aws-ecs-deploy:
+    name: Call Workflow - Docker Build & Push / AWS ECS Deployment
     uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow.yml
     with:
       project: 'dsbizdev'
-      aws-role-to-assume: 'arn:aws:iam::734908905460:role/dbo-dd'
       env: "dev"
       docker-context: '.'
       docker-file: './infra/docker/develop/php/Dockerfile'
       docker-build-args: ''
+      aws-role-to-assume: 'arn:aws:iam::734908905460:role/dbo-dd'
       aws-region: "ap-northeast-1"
       aws-ecs-cluster-name: "dbo-cluster"
       aws-ecs-namespace: "dbo"
       aws-ecs-service-name: "dd"
-      aws-ecs-task-definition-filepath: "./infra/docker/ecs-task.json"
+      aws-ecs-task-definition-filepath: "./infra/ecs-task.json"
       aws-ecs-task-definition-container-name: ''
       aws-ecs-task-definition-environment-variables: ''
       aws-ecs-task-definition-secrets: ''
