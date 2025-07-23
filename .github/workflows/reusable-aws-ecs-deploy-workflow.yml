@@ -177,26 +177,14 @@ jobs:
           role-duration-seconds: ${{ inputs.aws-role-duration-seconds }}
           role-session-name: ${{ inputs.aws-role-session-name }}
 
-      - name: task.jsonファイルのロール変更
-        env:
-          TASKROLEARN: ${{ vars.TASK_ROLE_ARN }}
-          EXECUTIONROLEARN: ${{ vars.EXECUTION_ROLE_ARN }}
-        # 下記でタスク定義ファイルのロールをsecretsで定義したロールに置換
-        run: |
-          sed -i 's#"taskRoleArn": "hogehoge"#"taskRoleArn": "'"${TASKROLEARN}"'"#' ${{ inputs.aws-ecs-task-definition-filepath }}
-          sed -i 's#"executionRoleArn": "hogehoge"#"executionRoleArn": "'"${EXECUTIONROLEARN}"'"#' ${{ inputs.aws-ecs-task-definition-filepath }}
-          cat ${{ inputs.aws-ecs-task-definition-filepath }}
-
-
       # https://github.com/aws-actions/amazon-ecs-render-task-definition
       - name: AWS - amazon-ecs-render-task-definition
         id: amazon-ecs-render-task-definition
         uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
         env:
           REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.aws-ecs-task-definition-container-name) }}
-          # CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
-          CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+          CONTAINER_NAME: ${{ inputs.aws-ecs-task-definition-container-name != '' && inputs.aws-ecs-task-definition-container-name || format('{0}-{1}', inputs.aws-ecs-namespace, inputs.aws-ecs-service-name) }}
           IMAGE_TAG: ${{ inputs.image-tag-type == 'hash' && github.sha || 'latest'}}
         with:
           task-definition: ${{ inputs.aws-ecs-task-definition-filepath }}
@@ -213,8 +201,8 @@ jobs:
       - name: AWS - amazon-ecs-deploy-task-definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@176bcc0288c49ee545288583859af21ee17f4b2c # v2.3.1
         env:
-          ECS_CLUSTER_NAME: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-cluster-name, inputs.env, inputs.aws-ecs-task-definition-container-name) }}
-          ECS_SERVICE_NAME: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.aws-ecs-task-definition-container-name) }}
+          ECS_CLUSTER_NAME: ${{ format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-cluster-name, inputs.env) }}
+          ECS_SERVICE_NAME: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           ECS_CODEDEPLOY_APPSPEC_FILE_PATH: ${{ inputs.aws-ecs-codedeploy-enabled && inputs.aws-ecs-codedeploy-appspec-filepath || '' }}
           ECS_CODEDEPLOY_APPLICATION: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) || '' }}
           ECS_CODEDEPLOY_DEPLOYMENT_GROUP: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) || '' }}
