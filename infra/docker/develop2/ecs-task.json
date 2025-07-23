@@ -1,7 +1,7 @@
 {
   "family": "dsbizdev-dbo-dd-dev-apache-php-fpm",
-  "taskRoleArn": "hogehoge",
-  "executionRoleArn": "hogehoge",
+  "taskRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-default-dev",
+  "executionRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-execution-secrets-default-dev",
   "networkMode": "awsvpc",
   "cpu": "256",
   "memory": "512",
@@ -37,30 +37,6 @@
       },
       "environment": [
         {
-          "name": "DB_CONNECTION",
-          "value": "pgsql"
-        },
-        {
-          "name": "DB_HOST",
-          "value": "dbo.ctei2wkaaszp.ap-northeast-1.rds.amazonaws.com"
-        },
-        {
-          "name": "DB_PORT",
-          "value": "5432"
-        },
-        {
-          "name": "DB_DATABASE",
-          "value": "dbo"
-        },
-        {
-          "name": "DB_USERNAME",
-          "value": "app_dd"
-        },
-        {
-          "name": "DB_SCHEMA",
-          "value": "dbo_dd"
-        },
-        {
           "name": "APP_KEY",
           "value": "base64:2apIENcJjuPnUkC0MZDi+/gfVIOebQkgu7xYCk326VY="
         },
@@ -71,12 +47,6 @@
         {
           "name": "MAIL_USERNAME",
           "value": "AKIAYSE4N4AV6UETVGZT"
-        }
-      ],
-       "secrets": [
-        {
-          "name": "DB_PASSWORD",
-           "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
         }
       ]
     },
@@ -127,7 +97,7 @@
         },
         {
           "name": "DB_HOST",
-          "value": "dbo.ctei2wkaaszp.ap-northeast-1.rds.amazonaws.com"
+          "value": "dsbizdev-dbo-cluster-dev.cluster-c906g0qeiekr.ap-northeast-1.rds.amazonaws.com"
         },
         {
           "name": "DB_PORT",
@@ -161,7 +131,7 @@
        "secrets": [
         {
           "name": "DB_PASSWORD",
-           "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+           "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/rds-dd-password-oy0yoz"
         }
       ]
     }

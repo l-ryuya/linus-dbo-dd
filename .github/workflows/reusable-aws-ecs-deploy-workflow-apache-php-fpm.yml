@@ -25,11 +25,7 @@ on:
         type: string
       docker-file-php-fpm:
         type: string
-      # docker-build-args:
-      #   type: string
       docker-build-args-apache:
-        type: string
-      docker-build-target-apache:
         type: string
       image-name-apache:
         type: string
@@ -48,9 +44,6 @@ on:
       image-tag-type:
         type: string
         default: 'hash'
-      # image-tag-type:
-      #   type: string
-      #   default: 'hash'
       cache-from-type:
         type: string
         default: 'type=gha'
@@ -60,9 +53,9 @@ on:
 
       ### AWS
       # credentials
-      # aws-role-to-assume:
-      #   required: true
-      #   type: string
+      aws-role-to-assume:
+        required: true
+        type: string
       aws-region:
         type: string
         default: 'ap-northeast-1'
@@ -83,9 +76,6 @@ on:
         required: true
         type: string
       aws-ecs-task-definition-filepath:
-        required: true
-        type: string
-      aws-ecs-task-definition-container-name:
         required: true
         type: string
       aws-ecs-task-definition-environment-variables:
@@ -112,8 +102,6 @@ jobs:
   docker-build-and-push:
     name: Docker - Apache + PHP-FPM Build and Push.
     runs-on: ${{ inputs.runs-on }}
-    environment:
-      name: github_actions
     permissions:
       id-token: write
       contents: read
@@ -143,7 +131,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
         with:
           aws-region: ${{ inputs.aws-region }}
-          role-to-assume: ${{ vars.ROLE_TO_ASSUME }}
+          role-to-assume: ${{ inputs.aws-role-to-assume }}
           role-duration-seconds: ${{ inputs.aws-role-duration-seconds }}
           role-session-name: ${{ inputs.aws-role-session-name }}
 
@@ -172,7 +160,6 @@ jobs:
           file: ${{ inputs.docker-file-apache }}
           build-args: ${{ inputs.docker-build-args-php-fpm }}
           load: true
-          target: ${{ inputs.docker-build-target-php-fpm }}
           tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
           cache-from: ${{ inputs.cache-from-type }}
           cache-to: ${{ inputs.cache-from-type }},mode=max
@@ -216,13 +203,10 @@ jobs:
     name: AWS - Apache + PHP-FPM ECS Deployment.
     needs: docker-build-and-push
     runs-on: ${{ inputs.runs-on }}
-    environment:
-      name: github_actions
     permissions:
       id-token: write
       contents: read
     steps:
-
 
       # https://github.com/actions/checkout
       - name: GitHub - checkout
@@ -234,19 +218,9 @@ jobs:
         uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
         with:
           aws-region: ${{ inputs.aws-region }}
-          role-to-assume: ${{ vars.ROLE_TO_ASSUME }}
+          role-to-assume: ${{ inputs.aws-role-to-assume }}
           role-duration-seconds: ${{ inputs.aws-role-duration-seconds }}
           role-session-name: ${{ inputs.aws-role-session-name }}
-
-      - name: task.jsonファイルのロール変更
-        env:
-          TASKROLEARN: ${{ vars.TASK_ROLE_ARN }}
-          EXECUTIONROLEARN: ${{ vars.EXECUTION_ROLE_ARN }}
-        # 下記でタスク定義ファイルのロールをsecretsで定義したロールに置換
-        run: |
-          sed -i 's#"taskRoleArn": "hogehoge"#"taskRoleArn": "'"${TASKROLEARN}"'"#' ${{ inputs.aws-ecs-task-definition-filepath }}
-          sed -i 's#"executionRoleArn": "hogehoge"#"executionRoleArn": "'"${EXECUTIONROLEARN}"'"#' ${{ inputs.aws-ecs-task-definition-filepath }}
-          cat ${{ inputs.aws-ecs-task-definition-filepath }}
 
       # apache用
       # タスク定義ファイルの読み込み
@@ -269,7 +243,6 @@ jobs:
       - name: Run - run-show-ecs-task-definition
         run: |
           cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
-
 
       # php-fpm用
       # タスク定義ファイルの読み込み

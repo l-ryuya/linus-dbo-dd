@@ -1,13 +1,13 @@
 {
-  "family": "dsbizdev-dbo-dd-dev-bitnami",
-  "taskRoleArn": "hogehoge",
-  "executionRoleArn": "hogehoge",
+  "family": "dsbizdev-dbo-dd-dev",
+  "taskRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-default-dev",
+  "executionRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-execution-secrets-default-dev",
   "networkMode": "awsvpc",
   "cpu": "256",
   "memory": "512",
   "containerDefinitions": [
     {
-      "name": "bitnami",
+      "name": "dbo-dd",
       "image": "<IMAGE_URI>",
       "cpu": 128,
       "memory": 256,
@@ -18,7 +18,7 @@
       "readonlyRootFilesystem": false,
       "portMappings": [
         {
-          "name": "bitnami",
+          "name": "dbo-dd",
           "containerPort": 3000,
           "protocol": "tcp"
         }
@@ -92,7 +92,15 @@
       "secrets": [
         {
           "name": "LARAVEL_DATABASE_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/rds-dd-password-oy0yoz"
+        },
+        {
+          "name": "MAIL_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-oy0yoz"
+        },
+        {
+          "name": "EXTERNAL_BILLING_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/external-billing-api-key-dQnWdI"
         }
       ]
     }
