@@ -7,7 +7,7 @@
   "memory": "512",
   "containerDefinitions": [
     {
-      "name": "dbo-dd-apache",
+      "name": "dbo-dd",
       "image": "<IMAGE_URI>",
       "cpu": 128,
       "memory": 256,
@@ -18,7 +18,7 @@
       "readonlyRootFilesystem": false,
       "portMappings": [
         {
-          "name": "dbo-dd-apache",
+          "name": "dbo-dd",
           "containerPort": 3000,
           "protocol": "tcp"
         }
