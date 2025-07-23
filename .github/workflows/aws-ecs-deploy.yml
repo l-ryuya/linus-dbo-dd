@@ -17,7 +17,7 @@ jobs:
   # apache+php-fpm環境
   call-workflow-aws-ecs-deploy:
     name: Call Apache + PHP-FPM Workflow - Docker Build & Push / AWS ECS Deployment
-    uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow.yml
+    uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow-apache-php-fpm.yml
     with:
       # docker関連
       docker-context: '.'                                            #ビルド時のディレクトリ指定
@@ -45,7 +45,7 @@ jobs:
   # bitnami環境
   call-workflow-aws-ecs-deploy-bitnami:
     name: Call BitNami Workflow - Docker Build & Push / AWS ECS Deployment
-    uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow-bitnami.yml
+    uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow.yml
     with:
       project: 'dsbizdev'
       env: "dev"
