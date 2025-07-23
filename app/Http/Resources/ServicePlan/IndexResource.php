@@ -13,8 +13,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $service_plan_status_code
  * @property string $billing_cycle
  * @property float $unit_price
- * @property \Carbon\Carbon|null $service_start_date
- * @property \Carbon\Carbon|null $service_end_date
+ * @property \Carbon\Carbon|null $service_plan_start_date
+ * @property \Carbon\Carbon|null $service_plan_end_date
  * @property string $service_plan_name
  * @property string $service_plan_description
  */
@@ -31,8 +31,8 @@ class IndexResource extends JsonResource
      *     servicePlanStatusCode: string,
      *     billingCycle: string,
      *     unitPrice: float,
-     *     serviceStartDate: string|null,
-     *     serviceEndDate: string|null,
+     *     servicePlanStartDate: string|null,
+     *     servicePlanEndDate: string|null,
      *     servicePlanName: string,
      *     servicePlanDescription: string
      * }
@@ -45,8 +45,8 @@ class IndexResource extends JsonResource
             'servicePlanStatusCode' => $this->service_plan_status_code,
             'billingCycle' => $this->billing_cycle,
             'unitPrice' => (float) $this->unit_price,
-            'serviceStartDate' => $this->service_start_date?->format('Y-m-d'),
-            'serviceEndDate' => $this->service_end_date?->format('Y-m-d'),
+            'servicePlanStartDate' => $this->service_plan_start_date?->format('Y-m-d'),
+            'servicePlanEndDate' => $this->service_plan_end_date?->format('Y-m-d'),
             'servicePlanName' => $this->service_plan_name,
             'servicePlanDescription' => $this->service_plan_description,
         ];
