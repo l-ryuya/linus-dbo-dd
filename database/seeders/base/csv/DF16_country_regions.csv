@@ -1,249 +1,249 @@
-country_code_alpha3,country_code_alpha2,country_code_numeric,world_region_type,world_region_code,remarks
-GBR,GB,826,world_region,europe,グレートブリテン及び北部アイルランド連合王国(英国)
-GRD,GD,308,world_region,north_america,グレナダ
-HRV,HR,191,world_region,europe,クロアチア共和国
-CYM,KY,136,world_region,north_america,ケイマン諸島
-KEN,KE,404,world_region,africa,ケニア共和国
-CIV,CI,384,world_region,africa,コートジボアール共和国
-CCK,CC,166,world_region,oceania,ココス諸島
-CRI,CR,188,world_region,north_america,コスタリカ共和国
-COM,KM,174,world_region,africa,コモロ・イスラム連邦共和国
-AFG,AF,4,world_region,asia,アフガニスタン・イスラム国
-GUY,GY,328,world_region,south_america,ガイアナ協同共和国
-JPN,JP,392,world_region,asia,日本国
-ISL,IS,352,world_region,europe,アイスランド共和国
-IRL,IE,372,world_region,europe,アイルランド
-AZE,AZ,31,world_region,asia,アゼルバイジャン共和国
-USA,US,840,world_region,north_america,アメリカ合衆国(米国)
-ARE,AE,784,world_region,asia,アラブ首長国連邦
-DZA,DZ,12,world_region,africa,アルジェリア民主人民共和国
-ARG,AR,32,world_region,south_america,アルゼンチン共和国
-ABW,AW,533,world_region,south_america,アルバ
-ALB,AL,8,world_region,europe,アルバニア共和国
-GNB,GW,624,world_region,africa,ギニアビサウ共和国
-GIN,GN,324,world_region,africa,ギニア共和国
-CYP,CY,196,world_region,asia,キプロス共和国
-CUB,CU,192,world_region,north_america,キューバ共和国
-GRC,GR,300,world_region,europe,ギリシャ共和国
-KIR,KI,296,world_region,oceania,キリバス共和国
-KGZ,KG,417,world_region,asia,キルギス共和国
-COL,CO,170,world_region,south_america,コロンビア共和国
-COD,CD,180,world_region,africa,コンゴ民主共和国
-COG,CG,178,world_region,africa,コンゴ共和国
-SAU,SA,682,world_region,asia,サウジアラビア王国
-KAZ,KZ,398,world_region,asia,カザフスタン共和国
-QAT,QA,634,world_region,asia,カタール国
-CAN,CA,124,world_region,north_america,カナダ
-GAB,GA,266,world_region,africa,ガボン共和国
-CMR,CM,120,world_region,africa,カメルーン共和国
-GMB,GM,270,world_region,africa,ガンビア共和国
-KHM,KH,116,world_region,asia,カンボジア王国
-MKD,MK,807,world_region,europe,北マケドニア共和国
-KWT,KW,414,world_region,asia,クウェート国
-ARM,AM,51,world_region,asia,アルメニア共和国
-AIA,AI,660,world_region,north_america,アンギラ
-GTM,GT,320,world_region,north_america,グアテマラ共和国
-GLP,GP,312,world_region,north_america,グアドループ島
-GUM,GU,316,world_region,oceania,グアム
-COK,CK,184,world_region,oceania,クック諸島
-GRL,GL,304,world_region,north_america,グリーンランド
-CXR,CX,162,world_region,oceania,クリスマス島
-YEM,YE,887,world_region,asia,イエメン共和国
-AGO,AO,24,world_region,africa,アンゴラ共和国
-ATG,AG,28,world_region,north_america,アンティグア・バーブーダ
-AND,AD,20,world_region,europe,アンドラ公国
-ISR,IL,376,world_region,asia,イスラエル国
-ITA,IT,380,world_region,europe,イタリア共和国
-IRQ,IQ,368,world_region,asia,イラク共和国
-IRN,IR,364,world_region,asia,イラン・イスラム共和国
-IND,IN,356,world_region,asia,インド
-IDN,ID,360,world_region,asia,インドネシア共和国
-UGA,UG,800,world_region,africa,ウガンダ共和国
-UKR,UA,804,world_region,europe,ウクライナ
-EGY,EG,818,world_region,africa,エジプト・アラブ共和国
-UZB,UZ,860,world_region,asia,ウズベキスタン共和国
-URY,UY,858,world_region,south_america,ウルグアイ東方共和国
-ECU,EC,218,world_region,south_america,エクアドル共和国
-EST,EE,233,world_region,europe,エストニア共和国
-SWZ,SZ,748,world_region,africa,エスワティニ王国
-ETH,ET,231,world_region,africa,エチオピア
-ERI,ER,232,world_region,africa,エリトリア
-SLV,SV,222,world_region,north_america,エルサルバドル共和国
-AUS,AU,36,world_region,oceania,オーストラリア
-AUT,AT,40,world_region,europe,オーストリア共和国
-OMN,OM,512,world_region,asia,オマーン国
-CPV,CV,132,world_region,africa,カーボベルデ共和国
-NLD,NL,528,world_region,europe,オランダ王国
-BES,BQ,535,world_region,north_america,ボネール、シント・ユースタティウスおよびサバ
-GHA,GH,288,world_region,africa,ガーナ共和国
-MAF,MF,663,world_region,north_america,サン・マルタン
-SXM,SX,534,world_region,north_america,シント・マールテン
-JEY,JE,832,world_region,europe,ジャージー
-IMN,IM,833,world_region,europe,マン島
-ALA,AX,248,world_region,europe,オーランド諸島
-GGY,GG,831,world_region,europe,ガーンジー
-CUW,CW,531,world_region,north_america,キュラソー
-PSE,PS,275,world_region,asia,パレスチナ国
-BLM,BL,652,world_region,north_america,サン・バルテルミー島
-SLB,SB,90,world_region,oceania,ソロモン諸島
-TCA,TC,796,world_region,north_america,タークス諸島・カイコス諸島
-THA,TH,764,world_region,asia,タイ王国
-TJK,TJ,762,world_region,asia,タジキスタン共和国
-TZA,TZ,834,world_region,africa,タンザニア連合共和国
-TUN,TN,788,world_region,africa,チュニジア共和国
-CZE,CZ,203,world_region,europe,チェコ共和国
-TCD,TD,148,world_region,africa,チャド共和国
-TWN,TW,158,world_region,asia,台湾
-CHL,CL,152,world_region,south_america,チリ共和国
-TUV,TV,798,world_region,oceania,ツバル
-DNK,DK,208,world_region,europe,デンマーク王国
-DEU,DE,276,world_region,europe,ドイツ連邦共和国
-TGO,TG,768,world_region,africa,トーゴ共和国
-LCA,LC,662,world_region,north_america,セントルシア
-SOM,SO,706,world_region,africa,ソマリア民主共和国
-TKL,TK,772,world_region,oceania,トケラウ諸島
-DOM,DO,214,world_region,north_america,ドミニカ共和国
-DMA,DM,212,world_region,north_america,ドミニカ国
-TTO,TT,780,world_region,north_america,トリニダード・トバゴ共和国
-TKM,TM,795,world_region,asia,トルクメニスタン
-TUR,TR,792,world_region,asia,トルコ共和国
-TON,TO,776,world_region,oceania,トンガ王国
-NGA,NG,566,world_region,africa,ナイジェリア連邦共和国
-NRU,NR,520,world_region,oceania,ナウル共和国
-NAM,NA,516,world_region,africa,ナミビア共和国
-NIU,NU,570,world_region,oceania,ニウエ
-NIC,NI,558,world_region,north_america,ニカラグア共和国
-NER,NE,562,world_region,africa,ニジェール共和国
-NCL,NC,540,world_region,oceania,ニューカレドニア
-NZL,NZ,554,world_region,oceania,ニュージーランド
-NPL,NP,524,world_region,asia,ネパール王国
-NFK,NF,574,world_region,oceania,ノーフォーク島
-NOR,NO,578,world_region,europe,ノルウェー王国
-BHR,BH,48,world_region,asia,バーレーン国
-HTI,HT,332,world_region,north_america,ハイチ共和国
-PAK,PK,586,world_region,asia,パキスタン・イスラム共和国
-VAT,VA,336,world_region,europe,バチカン市国
-PHL,PH,608,world_region,asia,フィリピン共和国
-BGD,BD,50,world_region,asia,バングラデシュ人民共和国
-PCN,PN,612,world_region,oceania,ピトケアン島
-FJI,FJ,242,world_region,oceania,フィジー共和国
-FIN,FI,246,world_region,europe,フィンランド共和国
-BTN,BT,64,world_region,asia,ブータン王国
-BVT,BV,74,world_region,africa,ブーベ島
-PRI,PR,630,world_region,north_america,プエルトリコ自治連邦区
-FRO,FO,234,world_region,europe,フェロー諸島
-FLK,FK,238,world_region,south_america,フォークランド(マルビナス)諸島
-BRA,BR,76,world_region,south_america,ブラジル連邦共和国
-FRA,FR,250,world_region,europe,フランス共和国
-BGR,BG,100,world_region,europe,ブルガリア共和国
-BFA,BF,854,world_region,africa,ブルキナファソ
-BRB,BB,52,world_region,north_america,バルバドス
-HUN,HU,348,world_region,europe,ハンガリー共和国
-BRN,BN,96,world_region,asia,ブルネイ・ダルサラーム国
-BDI,BI,108,world_region,africa,ブルンジ共和国
-HMD,HM,334,world_region,oceania,ヘアド島・マクドナルド諸島
-VNM,VN,704,world_region,asia,ベトナム社会主義共和国
-BEN,BJ,204,world_region,africa,ベナン共和国
-VEN,VE,862,world_region,south_america,ベネズエラ共和国
-BLR,BY,112,world_region,europe,ベラルーシ共和国
-BLZ,BZ,84,world_region,north_america,ベリーズ
-PER,PE,604,world_region,south_america,ペルー共和国
-GUF,GF,254,world_region,south_america,仏領ギアナ
-PYF,PF,258,world_region,oceania,仏領ポリネシア
-ATF,TF,260,world_region,africa,仏領南方・南極地域
-VIR,VI,850,world_region,north_america,米領ヴァージン諸島
-ASM,AS,16,world_region,oceania,米領サモア
-UMI,UM,581,world_region,oceania,米領太平洋諸島
-MNP,MP,580,world_region,oceania,北マリアナ諸島自治連邦区
-PRK,KP,408,world_region,asia,北朝鮮=朝鮮民主主義人民共和国
-BEL,BE,56,world_region,europe,ベルギー王国
-WSM,WS,882,world_region,oceania,サモア独立国
-STP,ST,678,world_region,africa,サントメ・プリンシペ民主共和国
-ZMB,ZM,894,world_region,africa,ザンビア共和国
-SPM,PM,666,world_region,north_america,サンピエール島・ミクロン島
-SMR,SM,674,world_region,europe,サンマリノ共和国
-SLE,SL,694,world_region,africa,シエラレオネ共和国
-DJI,DJ,262,world_region,africa,ジブチ共和国
-GIB,GI,292,world_region,europe,ジブラルタル
-JAM,JM,388,world_region,north_america,ジャマイカ
-GEO,GE,268,world_region,asia,ジョージア共和国
-SYR,SY,760,world_region,asia,シリア・アラブ共和国
-SGP,SG,702,world_region,asia,シンガポール共和国
-ZWE,ZW,716,world_region,africa,ジンバブエ共和国
-CHE,CH,756,world_region,europe,スイス連邦
-SWE,SE,752,world_region,europe,スウェーデン王国
-SDN,SD,729,world_region,africa,スーダン共和国
-SJM,SJ,744,world_region,europe,スバールバル諸島・ヤンマイエン島
-ESP,ES,724,world_region,europe,スペイン
-SUR,SR,740,world_region,south_america,スリナム共和国
-LKA,LK,144,world_region,asia,スリランカ民主社会主義共和国
-SVK,SK,703,world_region,europe,スロバキア共和国
-SVN,SI,705,world_region,europe,スロベニア共和国
-SYC,SC,690,world_region,africa,セーシェル共和国
-SEN,SN,686,world_region,africa,セネガル共和国
-SRB,RS,688,world_region,europe,セルビア共和国
-KNA,KN,659,world_region,north_america,セントクリストファー・ネイビス
-MUS,MU,480,world_region,africa,モーリシャス共和国
-MRT,MR,478,world_region,africa,モーリタニア・イスラム共和国
-MOZ,MZ,508,world_region,africa,モザンビーク共和国
-POL,PL,616,world_region,europe,ポーランド共和国
-BIH,BA,70,world_region,europe,ボスニア・ヘルツェゴビナ共和国
-BWA,BW,72,world_region,africa,ボツワナ共和国
-BOL,BO,68,world_region,south_america,ボリビア共和国
-PRT,PT,620,world_region,europe,ポルトガル共和国
-HKG,HK,344,world_region,asia,ホンコン (香港)
-HND,HN,340,world_region,north_america,ホンジュラス共和国
-MHL,MH,584,world_region,oceania,マーシャル諸島共和国
-MAC,MO,446,world_region,asia,マカオ(澳門)
-MDG,MG,450,world_region,africa,マダガスカル共和国
-MYT,YT,175,world_region,africa,マヨット島
-MWI,MW,454,world_region,africa,マラウイ共和国
-MLI,ML,466,world_region,africa,マリ共和国
-MLT,MT,470,world_region,europe,マルタ共和国
-MTQ,MQ,474,world_region,north_america,マルティニーク島
-MYS,MY,458,world_region,asia,マレーシア
-FSM,FM,583,world_region,oceania,ミクロネシア連邦
-SSD,SS,728,world_region,africa,南スーダン共和国
-MMR,MM,104,world_region,asia,ミャンマー連邦
-MEX,MX,484,world_region,north_america,メキシコ合衆国
-VCT,VC,670,world_region,north_america,セントビンセント・グレナディーン
-SHN,SH,654,world_region,africa,セントヘレナ島
-PAN,PA,591,world_region,north_america,パナマ共和国
-VUT,VU,548,world_region,oceania,バヌアツ共和国
-BHS,BS,44,world_region,north_america,バハマ国
-PNG,PG,598,world_region,oceania,パプアニューギニア
-BMU,BM,60,world_region,north_america,バミューダ諸島
-PLW,PW,585,world_region,oceania,パラオ
-PRY,PY,600,world_region,south_america,パラグアイ共和国
-MAR,MA,504,world_region,africa,モロッコ王国
-MCO,MC,492,world_region,europe,モナコ公国
-MDV,MV,462,world_region,asia,モルディブ共和国
-MDA,MD,498,world_region,europe,モルドバ共和国
-MNG,MN,496,world_region,asia,モンゴル国
-LAO,LA,418,world_region,asia,ラオス人民民主共和国
-MNE,ME,499,world_region,europe,モンテネグロ
-MSR,MS,500,world_region,north_america,モントセラト
-JOR,JO,400,world_region,asia,ヨルダン・ハシミテ王国
-LVA,LV,428,world_region,europe,ラトビア共和国
-LTU,LT,440,world_region,europe,リトアニア共和国
-LBY,LY,434,world_region,africa,リビア国
-LIE,LI,438,world_region,europe,リヒテンシュタイン公国
-LBR,LR,430,world_region,africa,リベリア共和国
-ROU,RO,642,world_region,europe,ルーマニア
-LUX,LU,442,world_region,europe,ルクセンブルク大公国
-RWA,RW,646,world_region,africa,ルワンダ共和国
-LSO,LS,426,world_region,africa,レソト王国
-LBN,LB,422,world_region,asia,レバノン共和国
-REU,RE,638,world_region,africa,レユニオン
-RUS,RU,643,world_region,europe,ロシア連邦
-WLF,WF,876,world_region,oceania,ワリス・フテュナ諸島
-IOT,IO,86,world_region,asia,英領インド洋地域
-VGB,VG,92,world_region,north_america,英領ヴァージン諸島
-ESH,EH,732,world_region,africa,西サハラ
-GNQ,GQ,226,world_region,africa,赤道ギニア共和国
-KOR,KR,410,world_region,asia,大韓民国
-CAF,CF,140,world_region,africa,中央アフリカ共和国
-CHN,CN,156,world_region,asia,中華人民共和国
-TLS,TL,626,world_region,asia,東ティモール
-ZAF,ZA,710,world_region,africa,南アフリカ共和国
-SGS,GS,239,world_region,south_america,南ジョージア島・南サンドイッチ諸島
+country_code_alpha3,country_code_alpha2,country_code_numeric,world_region_type,world_region_code,selectable,display_order,remarks,created_at,updated_at,deleted_at
+JPN,JP,392,world_region,asia,true,1,日本国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+USA,US,840,world_region,north_america,true,2,アメリカ合衆国(米国),2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GBR,GB,826,world_region,europe,true,3,グレートブリテン及び北部アイルランド連合王国(英国),2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CHN,CN,156,world_region,asia,true,4,中華人民共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SGP,SG,702,world_region,asia,true,5,シンガポール共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+THA,TH,764,world_region,asia,true,6,タイ王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+IDN,ID,360,world_region,asia,true,7,インドネシア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ABW,AW,533,world_region,south_america,false,,アルバ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+AFG,AF,4,world_region,asia,false,,アフガニスタン・イスラム国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+AGO,AO,24,world_region,africa,false,,アンゴラ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+AIA,AI,660,world_region,north_america,false,,アンギラ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ALA,AX,248,world_region,europe,false,,オーランド諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ALB,AL,8,world_region,europe,false,,アルバニア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+AND,AD,20,world_region,europe,false,,アンドラ公国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ARE,AE,784,world_region,asia,false,,アラブ首長国連邦,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ARG,AR,32,world_region,south_america,false,,アルゼンチン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ARM,AM,51,world_region,asia,false,,アルメニア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ASM,AS,16,world_region,oceania,false,,米領サモア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ATF,TF,260,world_region,africa,false,,仏領南方・南極地域,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ATG,AG,28,world_region,north_america,false,,アンティグア・バーブーダ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+AUS,AU,36,world_region,oceania,false,,オーストラリア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+AUT,AT,40,world_region,europe,false,,オーストリア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+AZE,AZ,31,world_region,asia,false,,アゼルバイジャン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BDI,BI,108,world_region,africa,false,,ブルンジ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BEL,BE,56,world_region,europe,false,,ベルギー王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BEN,BJ,204,world_region,africa,false,,ベナン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BES,BQ,535,world_region,north_america,false,,ボネール、シント・ユースタティウスおよびサバ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BFA,BF,854,world_region,africa,false,,ブルキナファソ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BGD,BD,50,world_region,asia,false,,バングラデシュ人民共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BGR,BG,100,world_region,europe,false,,ブルガリア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BHR,BH,48,world_region,asia,false,,バーレーン国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BHS,BS,44,world_region,north_america,false,,バハマ国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BIH,BA,70,world_region,europe,false,,ボスニア・ヘルツェゴビナ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BLM,BL,652,world_region,north_america,false,,サン・バルテルミー島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BLR,BY,112,world_region,europe,false,,ベラルーシ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BLZ,BZ,84,world_region,north_america,false,,ベリーズ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BMU,BM,60,world_region,north_america,false,,バミューダ諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BOL,BO,68,world_region,south_america,false,,ボリビア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BRA,BR,76,world_region,south_america,false,,ブラジル連邦共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BRB,BB,52,world_region,north_america,false,,バルバドス,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BRN,BN,96,world_region,asia,false,,ブルネイ・ダルサラーム国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BTN,BT,64,world_region,asia,false,,ブータン王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BVT,BV,74,world_region,africa,false,,ブーベ島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+BWA,BW,72,world_region,africa,false,,ボツワナ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CAF,CF,140,world_region,africa,false,,中央アフリカ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CAN,CA,124,world_region,north_america,false,,カナダ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CCK,CC,166,world_region,oceania,false,,ココス諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CHE,CH,756,world_region,europe,false,,スイス連邦,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CHL,CL,152,world_region,south_america,false,,チリ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CIV,CI,384,world_region,africa,false,,コートジボアール共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CMR,CM,120,world_region,africa,false,,カメルーン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+COD,CD,180,world_region,africa,false,,コンゴ民主共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+COG,CG,178,world_region,africa,false,,コンゴ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+COK,CK,184,world_region,oceania,false,,クック諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+COL,CO,170,world_region,south_america,false,,コロンビア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+COM,KM,174,world_region,africa,false,,コモロ・イスラム連邦共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CPV,CV,132,world_region,africa,false,,カーボベルデ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CRI,CR,188,world_region,north_america,false,,コスタリカ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CUB,CU,192,world_region,north_america,false,,キューバ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CUW,CW,531,world_region,north_america,false,,キュラソー,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CXR,CX,162,world_region,oceania,false,,クリスマス島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CYM,KY,136,world_region,north_america,false,,ケイマン諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CYP,CY,196,world_region,asia,false,,キプロス共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+CZE,CZ,203,world_region,europe,false,,チェコ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+DEU,DE,276,world_region,europe,false,,ドイツ連邦共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+DJI,DJ,262,world_region,africa,false,,ジブチ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+DMA,DM,212,world_region,north_america,false,,ドミニカ国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+DNK,DK,208,world_region,europe,false,,デンマーク王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+DOM,DO,214,world_region,north_america,false,,ドミニカ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+DZA,DZ,12,world_region,africa,false,,アルジェリア民主人民共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ECU,EC,218,world_region,south_america,false,,エクアドル共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+EGY,EG,818,world_region,africa,false,,エジプト・アラブ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ERI,ER,232,world_region,africa,false,,エリトリア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ESH,EH,732,world_region,africa,false,,西サハラ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ESP,ES,724,world_region,europe,false,,スペイン,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+EST,EE,233,world_region,europe,false,,エストニア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ETH,ET,231,world_region,africa,false,,エチオピア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+FIN,FI,246,world_region,europe,false,,フィンランド共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+FJI,FJ,242,world_region,oceania,false,,フィジー共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+FLK,FK,238,world_region,south_america,false,,フォークランド(マルビナス)諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+FRA,FR,250,world_region,europe,false,,フランス共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+FRO,FO,234,world_region,europe,false,,フェロー諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+FSM,FM,583,world_region,oceania,false,,ミクロネシア連邦,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GAB,GA,266,world_region,africa,false,,ガボン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GEO,GE,268,world_region,asia,false,,ジョージア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GGY,GG,831,world_region,europe,false,,ガーンジー,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GHA,GH,288,world_region,africa,false,,ガーナ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GIB,GI,292,world_region,europe,false,,ジブラルタル,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GIN,GN,324,world_region,africa,false,,ギニア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GLP,GP,312,world_region,north_america,false,,グアドループ島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GMB,GM,270,world_region,africa,false,,ガンビア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GNB,GW,624,world_region,africa,false,,ギニアビサウ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GNQ,GQ,226,world_region,africa,false,,赤道ギニア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GRC,GR,300,world_region,europe,false,,ギリシャ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GRD,GD,308,world_region,north_america,false,,グレナダ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GRL,GL,304,world_region,north_america,false,,グリーンランド,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GTM,GT,320,world_region,north_america,false,,グアテマラ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GUF,GF,254,world_region,south_america,false,,仏領ギアナ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GUM,GU,316,world_region,oceania,false,,グアム,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+GUY,GY,328,world_region,south_america,false,,ガイアナ協同共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+HKG,HK,344,world_region,asia,false,,ホンコン (香港),2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+HMD,HM,334,world_region,oceania,false,,ヘアド島・マクドナルド諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+HND,HN,340,world_region,north_america,false,,ホンジュラス共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+HRV,HR,191,world_region,europe,false,,クロアチア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+HTI,HT,332,world_region,north_america,false,,ハイチ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+HUN,HU,348,world_region,europe,false,,ハンガリー共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+IMN,IM,833,world_region,europe,false,,マン島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+IND,IN,356,world_region,asia,false,,インド,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+IOT,IO,86,world_region,asia,false,,英領インド洋地域,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+IRL,IE,372,world_region,europe,false,,アイルランド,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+IRN,IR,364,world_region,asia,false,,イラン・イスラム共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+IRQ,IQ,368,world_region,asia,false,,イラク共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ISL,IS,352,world_region,europe,false,,アイスランド共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ISR,IL,376,world_region,asia,false,,イスラエル国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ITA,IT,380,world_region,europe,false,,イタリア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+JAM,JM,388,world_region,north_america,false,,ジャマイカ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+JEY,JE,832,world_region,europe,false,,ジャージー,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+JOR,JO,400,world_region,asia,false,,ヨルダン・ハシミテ王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+KAZ,KZ,398,world_region,asia,false,,カザフスタン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+KEN,KE,404,world_region,africa,false,,ケニア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+KGZ,KG,417,world_region,asia,false,,キルギス共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+KHM,KH,116,world_region,asia,false,,カンボジア王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+KIR,KI,296,world_region,oceania,false,,キリバス共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+KNA,KN,659,world_region,north_america,false,,セントクリストファー・ネイビス,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+KOR,KR,410,world_region,asia,false,,大韓民国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+KWT,KW,414,world_region,asia,false,,クウェート国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LAO,LA,418,world_region,asia,false,,ラオス人民民主共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LBN,LB,422,world_region,asia,false,,レバノン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LBR,LR,430,world_region,africa,false,,リベリア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LBY,LY,434,world_region,africa,false,,リビア国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LCA,LC,662,world_region,north_america,false,,セントルシア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LIE,LI,438,world_region,europe,false,,リヒテンシュタイン公国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LKA,LK,144,world_region,asia,false,,スリランカ民主社会主義共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LSO,LS,426,world_region,africa,false,,レソト王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LTU,LT,440,world_region,europe,false,,リトアニア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LUX,LU,442,world_region,europe,false,,ルクセンブルク大公国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+LVA,LV,428,world_region,europe,false,,ラトビア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MAC,MO,446,world_region,asia,false,,マカオ(澳門),2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MAF,MF,663,world_region,north_america,false,,サン・マルタン,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MAR,MA,504,world_region,africa,false,,モロッコ王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MCO,MC,492,world_region,europe,false,,モナコ公国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MDA,MD,498,world_region,europe,false,,モルドバ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MDG,MG,450,world_region,africa,false,,マダガスカル共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MDV,MV,462,world_region,asia,false,,モルディブ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MEX,MX,484,world_region,north_america,false,,メキシコ合衆国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MHL,MH,584,world_region,oceania,false,,マーシャル諸島共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MKD,MK,807,world_region,europe,false,,北マケドニア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MLI,ML,466,world_region,africa,false,,マリ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MLT,MT,470,world_region,europe,false,,マルタ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MMR,MM,104,world_region,asia,false,,ミャンマー連邦,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MNE,ME,499,world_region,europe,false,,モンテネグロ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MNG,MN,496,world_region,asia,false,,モンゴル国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MNP,MP,580,world_region,oceania,false,,北マリアナ諸島自治連邦区,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MOZ,MZ,508,world_region,africa,false,,モザンビーク共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MRT,MR,478,world_region,africa,false,,モーリタニア・イスラム共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MSR,MS,500,world_region,north_america,false,,モントセラト,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MTQ,MQ,474,world_region,north_america,false,,マルティニーク島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MUS,MU,480,world_region,africa,false,,モーリシャス共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MWI,MW,454,world_region,africa,false,,マラウイ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MYS,MY,458,world_region,asia,false,,マレーシア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+MYT,YT,175,world_region,africa,false,,マヨット島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NAM,NA,516,world_region,africa,false,,ナミビア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NCL,NC,540,world_region,oceania,false,,ニューカレドニア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NER,NE,562,world_region,africa,false,,ニジェール共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NFK,NF,574,world_region,oceania,false,,ノーフォーク島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NGA,NG,566,world_region,africa,false,,ナイジェリア連邦共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NIC,NI,558,world_region,north_america,false,,ニカラグア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NIU,NU,570,world_region,oceania,false,,ニウエ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NLD,NL,528,world_region,europe,false,,オランダ王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NOR,NO,578,world_region,europe,false,,ノルウェー王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NPL,NP,524,world_region,asia,false,,ネパール王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NRU,NR,520,world_region,oceania,false,,ナウル共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+NZL,NZ,554,world_region,oceania,false,,ニュージーランド,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+OMN,OM,512,world_region,asia,false,,オマーン国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PAK,PK,586,world_region,asia,false,,パキスタン・イスラム共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PAN,PA,591,world_region,north_america,false,,パナマ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PCN,PN,612,world_region,oceania,false,,ピトケアン島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PER,PE,604,world_region,south_america,false,,ペルー共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PHL,PH,608,world_region,asia,false,,フィリピン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PLW,PW,585,world_region,oceania,false,,パラオ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PNG,PG,598,world_region,oceania,false,,パプアニューギニア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+POL,PL,616,world_region,europe,false,,ポーランド共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PRI,PR,630,world_region,north_america,false,,プエルトリコ自治連邦区,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PRK,KP,408,world_region,asia,false,,北朝鮮=朝鮮民主主義人民共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PRT,PT,620,world_region,europe,false,,ポルトガル共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PRY,PY,600,world_region,south_america,false,,パラグアイ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PSE,PS,275,world_region,asia,false,,パレスチナ国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+PYF,PF,258,world_region,oceania,false,,仏領ポリネシア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+QAT,QA,634,world_region,asia,false,,カタール国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+REU,RE,638,world_region,africa,false,,レユニオン,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ROU,RO,642,world_region,europe,false,,ルーマニア,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+RUS,RU,643,world_region,europe,false,,ロシア連邦,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+RWA,RW,646,world_region,africa,false,,ルワンダ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SAU,SA,682,world_region,asia,false,,サウジアラビア王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SDN,SD,729,world_region,africa,false,,スーダン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SEN,SN,686,world_region,africa,false,,セネガル共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SGS,GS,239,world_region,south_america,false,,南ジョージア島・南サンドイッチ諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SHN,SH,654,world_region,africa,false,,セントヘレナ島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SJM,SJ,744,world_region,europe,false,,スバールバル諸島・ヤンマイエン島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SLB,SB,90,world_region,oceania,false,,ソロモン諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SLE,SL,694,world_region,africa,false,,シエラレオネ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SLV,SV,222,world_region,north_america,false,,エルサルバドル共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SMR,SM,674,world_region,europe,false,,サンマリノ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SOM,SO,706,world_region,africa,false,,ソマリア民主共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SPM,PM,666,world_region,north_america,false,,サンピエール島・ミクロン島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SRB,RS,688,world_region,europe,false,,セルビア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SSD,SS,728,world_region,africa,false,,南スーダン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+STP,ST,678,world_region,africa,false,,サントメ・プリンシペ民主共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SUR,SR,740,world_region,south_america,false,,スリナム共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SVK,SK,703,world_region,europe,false,,スロバキア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SVN,SI,705,world_region,europe,false,,スロベニア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SWE,SE,752,world_region,europe,false,,スウェーデン王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SWZ,SZ,748,world_region,africa,false,,エスワティニ王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SXM,SX,534,world_region,north_america,false,,シント・マールテン,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SYC,SC,690,world_region,africa,false,,セーシェル共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+SYR,SY,760,world_region,asia,false,,シリア・アラブ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TCA,TC,796,world_region,north_america,false,,タークス諸島・カイコス諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TCD,TD,148,world_region,africa,false,,チャド共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TGO,TG,768,world_region,africa,false,,トーゴ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TJK,TJ,762,world_region,asia,false,,タジキスタン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TKL,TK,772,world_region,oceania,false,,トケラウ諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TKM,TM,795,world_region,asia,false,,トルクメニスタン,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TLS,TL,626,world_region,asia,false,,東ティモール,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TON,TO,776,world_region,oceania,false,,トンガ王国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TTO,TT,780,world_region,north_america,false,,トリニダード・トバゴ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TUN,TN,788,world_region,africa,false,,チュニジア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TUR,TR,792,world_region,asia,false,,トルコ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TUV,TV,798,world_region,oceania,false,,ツバル,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TWN,TW,158,world_region,asia,false,,台湾,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+TZA,TZ,834,world_region,africa,false,,タンザニア連合共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+UGA,UG,800,world_region,africa,false,,ウガンダ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+UKR,UA,804,world_region,europe,false,,ウクライナ,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+UMI,UM,581,world_region,oceania,false,,米領太平洋諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+URY,UY,858,world_region,south_america,false,,ウルグアイ東方共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+UZB,UZ,860,world_region,asia,false,,ウズベキスタン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+VAT,VA,336,world_region,europe,false,,バチカン市国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+VCT,VC,670,world_region,north_america,false,,セントビンセント・グレナディーン,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+VEN,VE,862,world_region,south_america,false,,ベネズエラ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+VGB,VG,92,world_region,north_america,false,,英領ヴァージン諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+VIR,VI,850,world_region,north_america,false,,米領ヴァージン諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+VNM,VN,704,world_region,asia,false,,ベトナム社会主義共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+VUT,VU,548,world_region,oceania,false,,バヌアツ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+WLF,WF,876,world_region,oceania,false,,ワリス・フテュナ諸島,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+WSM,WS,882,world_region,oceania,false,,サモア独立国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+YEM,YE,887,world_region,asia,false,,イエメン共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ZAF,ZA,710,world_region,africa,false,,南アフリカ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ZMB,ZM,894,world_region,africa,false,,ザンビア共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,
+ZWE,ZW,716,world_region,africa,false,,ジンバブエ共和国,2025-07-08 19:15:04.993,2025-07-08 19:15:04.993,

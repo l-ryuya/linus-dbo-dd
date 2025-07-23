@@ -28,4 +28,24 @@ abstract class TestCase extends BaseTestCase
 
         return new GenericUser($data);
     }
+
+    /**
+     * サービス管理者ユーザーを作成する
+     *
+     * @return \App\Auth\GenericUser
+     */
+    protected function createServiceManageUser(): GenericUser
+    {
+        $data = [
+            'sub' => 'USR00000003',
+            'aud' => 'PMX',
+            'exp' => 'none',
+            'iss' => 'M5',
+            'address' => 'ORG00000015',
+            'email' => 'securate_admin@dentsusoken.com',
+            'token' => 'test_token',
+        ];
+
+        return new GenericUser($data);
+    }
 }

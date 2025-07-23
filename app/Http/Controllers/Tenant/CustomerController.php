@@ -12,9 +12,7 @@ use App\Http\Resources\NoContentResource;
 use App\Http\Resources\Tenant\Customer\IndexCollection;
 use App\Http\Resources\Tenant\Customer\ShowResource;
 use App\Http\Resources\Tenant\Customer\StoreResource;
-use App\Models\Tenant;
-use App\Services\M5\UserOrganizationService;
-use App\Shared\Language\IsoLanguageCode;
+use App\Services\Role\TenantUserRoleService;
 use App\UseCases\Tenant\Customer\IndexAction;
 use App\UseCases\Tenant\Customer\ShowAction;
 use App\UseCases\Tenant\Customer\StoreAction;
@@ -23,17 +21,6 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    protected ?Tenant $identifiedTenant;
-
-    private UserOrganizationService $userOrganizationService;
-
-    public function __construct(
-        UserOrganizationService $userOrganizationService,
-    ) {
-        parent::__construct();
-        $this->userOrganizationService = $userOrganizationService;
-    }
-
     /**
      * テナント管理者の顧客一覧を取得する
      *
@@ -41,23 +28,18 @@ class CustomerController extends Controller
      * @param \App\UseCases\Tenant\Customer\IndexAction       $action
      *
      * @return \App\Http\Resources\Tenant\Customer\IndexCollection
-     * @throws \Illuminate\Http\Client\ConnectionException
      */
     public function index(
         IndexRequest $request,
         IndexAction $action,
     ): IndexCollection {
-        $user = $request->user();
         /** @var \App\Auth\GenericUser $user */
-        $this->identifiedTenant = $this->userOrganizationService->getTenantByOrganizationCode(
-            $user->token,
-            $user->sub,
-        );
+        $user = $request->user();
 
         return new IndexCollection(
             $action(
-                IsoLanguageCode::getLocaleIso639_1(),
-                $this->identifiedTenant->tenant_id,
+                $user->getUserOption()->language_code,
+                (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
                 $request->validated('organizationCode'),
                 $request->validated('customerName'),
                 $request->validated('customerStatusCode'),
@@ -77,24 +59,19 @@ class CustomerController extends Controller
      * @param \App\UseCases\Tenant\Customer\ShowAction $action
      *
      * @return \App\Http\Resources\Tenant\Customer\ShowResource
-     * @throws \Illuminate\Http\Client\ConnectionException
      */
     public function show(
         Request $request,
         string $publicId,
         ShowAction $action,
     ): ShowResource {
-        $user = $request->user();
         /** @var \App\Auth\GenericUser $user */
-        $this->identifiedTenant = $this->userOrganizationService->getTenantByOrganizationCode(
-            $user->token,
-            $user->sub,
-        );
+        $user = $request->user();
 
         return new ShowResource(
             $action(
-                IsoLanguageCode::getLocaleIso639_1(),
-                $this->identifiedTenant->tenant_id,
+                $user->getUserOption()->language_code,
+                (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
                 $publicId,
             ),
         );
@@ -107,23 +84,18 @@ class CustomerController extends Controller
      * @param \App\UseCases\Tenant\Customer\StoreAction       $action
      *
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Http\Client\ConnectionException
      * @throws \Throwable
      */
     public function store(
         StoreRequest $request,
         StoreAction $action,
     ): \Illuminate\Http\JsonResponse {
-        $user = $request->user();
         /** @var \App\Auth\GenericUser $user */
-        $this->identifiedTenant = $this->userOrganizationService->getTenantByOrganizationCode(
-            $user->token,
-            $user->sub,
-        );
+        $user = $request->user();
 
         return (new StoreResource(
             $action(
-                $this->identifiedTenant,
+                $user->getUserOption()->tenant,
                 $request->toStoreInput(),
             ),
         ))
@@ -139,7 +111,6 @@ class CustomerController extends Controller
      * @param \App\UseCases\Tenant\Customer\UpdateAction       $action
      *
      * @return \App\Http\Resources\NoContentResource
-     * @throws \Illuminate\Http\Client\ConnectionException
      * @throws \Throwable
      */
     public function update(
@@ -147,15 +118,11 @@ class CustomerController extends Controller
         string $publicId,
         UpdateAction $action,
     ): NoContentResource {
-        $user = $request->user();
         /** @var \App\Auth\GenericUser $user */
-        $this->identifiedTenant = $this->userOrganizationService->getTenantByOrganizationCode(
-            $user->token,
-            $user->sub,
-        );
+        $user = $request->user();
 
         $action(
-            $this->identifiedTenant,
+            $user->getUserOption()->tenant,
             $publicId,
             $request->toUpdateInput(),
         );

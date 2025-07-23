@@ -31,13 +31,15 @@ return new class extends Migration {
                 ->unique()
                 ->comment('国コード（ISO 3166-1 numeric、例: 392）');
 
-            // 必須属性
+            // 属性
             $table->string('world_region_type')
                 ->comment('世界地域の選択肢アイテム種別');
             $table->string('world_region_code')
                 ->comment('世界地域コード');
-
-            // 任意属性
+            $table->boolean('selectable')->default(false)
+                ->comment('表示可否（プルダウンに表示する場合 TRUE）');
+            $table->smallInteger('display_order')->nullable()
+                ->comment('表示順序（小さいほど上位、NULL は末尾）');
             $table->string('remarks')->nullable()
                 ->comment('備考欄');
 
@@ -58,6 +60,7 @@ return new class extends Migration {
 
             // 通常インデックス
             $table->index(['world_region_type', 'world_region_code']);
+            $table->index(['selectable', 'display_order']);
         });
 
         // ID列にIDENTITYを追加する

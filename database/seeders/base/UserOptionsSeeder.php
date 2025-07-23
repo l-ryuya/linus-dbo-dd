@@ -29,12 +29,16 @@ class UserOptionsSeeder extends Seeder
         foreach ($csv as $row) {
             $data[] = [
                 'public_id' => $row['public_id'],
+                'company_id' => empty($row['company_id']) ? null : (int) $row['company_id'],
                 'tenant_id' => empty($row['tenant_id']) ? null : (int) $row['tenant_id'],
                 'customer_id' => empty($row['customer_id']) ? null : (int) $row['customer_id'],
                 'service_id' => empty($row['service_id']) ? null : (int) $row['service_id'],
                 'sys_user_code' => $row['sys_user_code'],
                 'sys_organization_code' => $row['sys_organization_code'],
                 'platform_user' => (bool) $row['platform_user'],
+                'user_name' => $row['user_name'],
+                'user_name_en' => $row['user_name_en'],
+                'user_email' => $row['user_email'],
                 'user_icon_url' => $row['user_icon_url'] ?? null,
                 'country_code_alpha3' => $row['country_code_alpha3'],
                 'language_code' => $row['language_code'],
@@ -42,11 +46,14 @@ class UserOptionsSeeder extends Seeder
                 'date_format' => $row['date_format'],
                 'phone_number' => $row['phone_number'] ?? null,
                 'remarks' => $row['remarks'] ?? null,
-                'created_at' => empty($row['created_at']) ? $now : $row['created_at'],
-                'updated_at' => empty($row['updated_at']) ? $now : $row['updated_at'],
-                'deleted_at' => empty($row['deleted_at']) ? null : $row['deleted_at'],
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
+
+        // シーケンスの再始動
+        DB::statement("ALTER TABLE user_options ALTER COLUMN user_option_id RESTART WITH 1");
 
         DB::table('user_options')->insert($data);
 

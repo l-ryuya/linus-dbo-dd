@@ -6,7 +6,7 @@ return [
     'paths' => ['v1/*'],
     'allowed_methods' => ['*'],
     'allowed_origins' => [
-        'https://dbo-dd.dev.dsbizdev.com',
+        'https://dbo.dev.dsbizdev.com',
     ],
     'allowed_headers' => ['*'],
     'exposed_headers' => [],

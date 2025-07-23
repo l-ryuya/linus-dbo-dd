@@ -14,15 +14,15 @@ class ShowAction
     /**
      * 顧客詳細取得
      *
-     * @param string $languageCode
-     * @param int    $tenantId
-     * @param string $publicId
+     * @param string   $languageCode
+     * @param int|null $tenantId
+     * @param string   $publicId
      *
      * @return object
      */
     public function __invoke(
         string $languageCode,
-        int $tenantId,
+        ?int $tenantId,
         string $publicId,
     ): object {
         $customer = Customer::select([
@@ -34,7 +34,9 @@ class ShowAction
             'customer_status_type',
             'customer_status_code',
         ])
-        ->where('tenant_id', $tenantId)
+        ->when($tenantId, function ($query) use ($tenantId) {
+            $query->where('tenant_id', $tenantId);
+        })
         ->where('public_id', $publicId)
         ->firstOrFail();
 

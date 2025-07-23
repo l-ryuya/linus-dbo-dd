@@ -33,11 +33,13 @@ class ServiceTranslationsSeeder extends Seeder
                 "service_name" => $row['service_name'],
                 "service_description" => $row['service_description'],
                 "remarks" => $row['remarks'] ?? null,
-                "created_at" => $now,
-                "updated_at" => $now,
-                "deleted_at" => null,
+                'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
+                'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),
+                'deleted_at' => empty($row['deleted_at']) ? null : Carbon::parse($row['deleted_at']),
             ];
         }
+
+        DB::statement("ALTER TABLE service_translations ALTER COLUMN service_translation_id RESTART WITH 1");
 
         DB::table('service_translations')->insert($data);
 

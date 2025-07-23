@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Database\Seeders;
 
-use Database\Seeders\base\AddressFormatRulesSeeder;
 use Database\Seeders\base\CompaniesSeeder;
 use Database\Seeders\base\CompanyNameTranslationsSeeder;
 use Database\Seeders\base\CompanyRoleAssignmentsSeeder;
 use Database\Seeders\base\CompanyRolesSeeder;
 use Database\Seeders\base\CompanyRoleTranslationsSeeder;
+use Database\Seeders\base\CountryFieldDisplayOrdersSeeder;
 use Database\Seeders\base\CountryRegionsSeeder;
 use Database\Seeders\base\CountryRegionsTranslationsSeeder;
 use Database\Seeders\base\CustomersSeeder;
@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
             SelectionItemTranslationsSeeder::class,
             CountryRegionsSeeder::class,
             CountryRegionsTranslationsSeeder::class,
-            AddressFormatRulesSeeder::class,
+            CountryFieldDisplayOrdersSeeder::class,
             TenantsSeeder::class,
             CompaniesSeeder::class,
             CompanyNameTranslationsSeeder::class,
