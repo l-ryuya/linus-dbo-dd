@@ -76,9 +76,6 @@ on:
       aws-ecs-task-definition-filepath:
         required: true
         type: string
-      aws-ecs-task-definition-container-name:
-        required: true
-        type: string
       aws-ecs-task-definition-environment-variables:
         type: string
       aws-ecs-task-definition-secrets:
