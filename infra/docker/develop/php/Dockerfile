@@ -20,7 +20,9 @@ FROM php:8.3-fpm
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
-    libonig-dev && \
+    libonig-dev \
+    supervisor \
+    procps && \
     docker-php-ext-install \
         pdo \
         pdo_pgsql \
@@ -35,15 +37,12 @@ WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data storage
 
-
-# supervisorをインストール
-RUN install_packages supervisor procps
-
 COPY infra/docker/develop/php/supervisord.conf /etc/supervisor/
 COPY infra/docker/develop/php/laravel-worker.conf /etc/supervisor/conf.d/
 RUN chown www-data:www-data /var/log/supervisor && chmod 740 /var/log/supervisor
 COPY infra/docker/develop/php/scheduler.sh /app/scheduler.sh
 RUN chown www-data:www-data /app/scheduler.sh && chmod +x /app/scheduler.sh
+COPY infra/docker/develop/php/entrypoint-overwrite.sh /usr/local/bin/entrypoint-overwrite.sh
+RUN chmod +x /usr/local/bin/entrypoint-overwrite.sh
 
-# entrypoint.sh を上書きして supervisord を起動
-COPY --chown=www-data:www-data --chmod=750 infra/docker/develop/php/entrypoint-overwrite.sh /opt/bitnami/scripts/laravel/entrypoint.sh
+CMD ["/usr/local/bin/entrypoint-overwrite.sh"]
