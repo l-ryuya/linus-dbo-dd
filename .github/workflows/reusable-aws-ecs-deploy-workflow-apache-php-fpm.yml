@@ -34,6 +34,8 @@ on:
         default: 'hash'
       docker-build-args-php-fpm:
         type: string
+      docker-build-target-php-fpm:
+        type: string
       image-name-php-fpm:
         type: string
       php-fpm-image-tag-type:
@@ -100,8 +102,6 @@ jobs:
   docker-build-and-push:
     name: Docker - Apache + PHP-FPM Build and Push.
     runs-on: ${{ inputs.runs-on }}
-    environment:
-      name: github_actions
     permissions:
       id-token: write
       contents: read
@@ -160,7 +160,6 @@ jobs:
           file: ${{ inputs.docker-file-apache }}
           build-args: ${{ inputs.docker-build-args-php-fpm }}
           load: true
-          # target: ${{ inputs.docker-build-target-php-fpm }}
           tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
           cache-from: ${{ inputs.cache-from-type }}
           cache-to: ${{ inputs.cache-from-type }},mode=max
@@ -187,7 +186,7 @@ jobs:
           file: ${{ inputs.docker-file-php-fpm }}
           build-args: ${{ inputs.docker-build-args-php-fpm }}
           load: true
-          # target: ${{ inputs.docker-build-target-php-fpm }}
+          target: ${{ inputs.docker-build-target-php-fpm }}
           tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
           cache-from: ${{ inputs.cache-from-type }}
           cache-to: ${{ inputs.cache-from-type }},mode=max
@@ -204,8 +203,6 @@ jobs:
     name: AWS - Apache + PHP-FPM ECS Deployment.
     needs: docker-build-and-push
     runs-on: ${{ inputs.runs-on }}
-    environment:
-      name: github_actions
     permissions:
       id-token: write
       contents: read
