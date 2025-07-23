@@ -195,6 +195,13 @@ jobs:
       - name: Run - run-show-ecs-task-definition
         run: |
           cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
+          cat ${{ inputs.project }}
+          cat ${{ inputs.aws-ecs-cluster-name }}
+          cat ${{ inputs.aws-ecs-service-name }}
+          cat ${{ inputs.env }}
+          cat ${{ inputs.aws-ecs-namespace }}
+          cat ${{ inputs.aws-ecs-codedeploy-enabled }}
+          cat ${{ inputs.aws-ecs-codedeploy-appspec-filepath }}
 
       # https://github.com/aws-actions/amazon-ecs-deploy-task-definition
       - name: AWS - amazon-ecs-deploy-task-definition
