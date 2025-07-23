@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
@@ -23,11 +23,11 @@ class Service extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne<ServiceTranslation, $this>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany<ServiceTranslation, $this>
      */
-    public function serviceTranslations(): HasOne
+    public function serviceTranslations(): HasMany
     {
-        return $this->hasOne(ServiceTranslation::class, 'service_id', 'service_id');
+        return $this->hasMany(ServiceTranslation::class, 'service_id', 'service_id');
     }
 
     /**

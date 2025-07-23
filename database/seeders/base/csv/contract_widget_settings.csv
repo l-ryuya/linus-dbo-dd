@@ -1,0 +1,5 @@
+public_id,tenant_id,service_id,service_plan_id,contract_template_id,contract_language,widget_name,widget_type,widget_source_table,widget_source_column,widget_x_coord,widget_y_coord,widget_width,widget_height,remarks,created_at,updated_at,deleted_at
+7def2637-b5a2-4e43-b2fd-fa24aa628abf,1,1,1,"01m7e8rhs67jqckvfgqhp939h482cc1q",jpn,記入日,DATE,service_contracts,contract_date,370,51,100,38,テスト用のウィジェット設定,,,
+2a7210e9-3f10-497b-a1d5-508318be71c6,1,1,1,"01m7e8rhs67jqckvfgqhp939h482cc1q",jpn,法人名,STRING,company_name_translations,company_legal_name,155,138,200,38,テスト用のウィジェット設定,,,
+d3fedaa9-a838-4e40-a489-809962ad9520,1,1,1,"01m7e8rhs67jqckvfgqhp939h482cc1q",jpn,所在地,STRING,companies,address,155,161,200,38,テスト用のウィジェット設定,,,
+98cc9507-39c1-46a3-adf0-1dda58d93210,1,1,1,"01m7e8rhs67jqckvfgqhp939h482cc1q",jpn,サービスプラン,STRING,service_plan_translations,service_plan_name,155,271,200,38,テスト用のウィジェット設定,,,

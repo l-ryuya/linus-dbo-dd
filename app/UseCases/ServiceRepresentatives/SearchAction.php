@@ -33,7 +33,8 @@ class SearchAction
             $query->where('service_id', $serviceId);
         })
         ->when($name, function ($query) use ($name) {
-            $query->where('user_name', 'LIKE', "%{$name}%");
+            $query->where('user_name', 'ILIKE', "%{$name}%")
+                ->orWhere('user_name_en', 'ILIKE', "%{$name}%");
         })
         ->get();
     }
