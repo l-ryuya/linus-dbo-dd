@@ -35,6 +35,7 @@ class ContractWidgetSettingsSeeder extends Seeder
                 'contract_template_id' => $row['contract_template_id'],
                 'contract_language' => $row['contract_language'],
                 'widget_name' => $row['widget_name'],
+                'widget_type' => $row['widget_type'],
                 'widget_source_table' => $row['widget_source_table'],
                 'widget_source_column' => $row['widget_source_column'],
                 'widget_x_coord' => (int) $row['widget_x_coord'],

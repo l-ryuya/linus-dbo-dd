@@ -13,6 +13,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|string|null $contract_date
  * @property \Illuminate\Support\Carbon|string|null $contract_start_date
  * @property \Illuminate\Support\Carbon|string|null $contract_end_date
+ * @property \Illuminate\Support\Carbon|string|null $contract_sent_at
+ * @property \Illuminate\Support\Carbon|string|null $contract_executed_at
  * @property \Illuminate\Support\Carbon|string|null $quotation_date
  * @property \Illuminate\Support\Carbon|string|null $proposal_date
  * @property string|null $invoice_remind_days
@@ -74,6 +76,8 @@ class ServiceContract extends Model
             'contract_date' => 'date:Y-m-d',
             'contract_start_date' => 'date:Y-m-d',
             'contract_end_date' => 'date:Y-m-d',
+            'contract_sent_at' => 'date',
+            'contract_executed_at' => 'date',
             'quotation_date' => 'date:Y-m-d',
             'proposal_date' => 'date:Y-m-d',
             'invoice_remind_days' => 'string',

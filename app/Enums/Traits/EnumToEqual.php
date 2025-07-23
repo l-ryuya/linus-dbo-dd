@@ -19,4 +19,15 @@ trait EnumToEqual
     {
         return $this->name === $name;
     }
+
+    /**
+     * valueの比較
+     *
+     * @param string $value
+     * @return bool
+     */
+    public function isEqualValue(string $value): bool
+    {
+        return $this->value === $value;
+    }
 }

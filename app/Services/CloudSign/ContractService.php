@@ -40,11 +40,13 @@ class ContractService extends BaseService
             $contractLanguage = 'eng';
         }
 
-        $this->createAndSendCloudSignDocument(
+        $documentId = $this->createAndSendCloudSignDocument(
             $serviceContract,
             $contractLanguage,
         );
 
+        $serviceContract->contract_doc_id = $documentId;
+        $serviceContract->contract_sent_at = now();
         $serviceContract->contract_status_code = ServiceContractStatus::ContractDocumentSent->value;
         $serviceContract->save();
     }
@@ -52,13 +54,17 @@ class ContractService extends BaseService
     /**
      * テンプレートから契約書を作成し、クラウドサインから送信
      *
-     * @throws \RuntimeException
+     * @param \App\Models\ServiceContract $serviceContract
+     * @param string                      $contractLanguage
+     *
+     * @return string
+     *
      * @throws \Illuminate\Http\Client\ConnectionException
      */
     private function createAndSendCloudSignDocument(
         ServiceContract $serviceContract,
         string $contractLanguage,
-    ): void {
+    ): string {
         $servicePlan = $serviceContract->servicePlan;
         $templateId = $contractLanguage === 'jpn'
             ? $servicePlan->contract_template_jp_id
@@ -104,6 +110,8 @@ class ContractService extends BaseService
                 $documentId,
             );
             $this->throwIfNotSuccessful($response);
+
+            return $documentId;
 
         } catch (ConnectionException $e) {
             \Log::error($e->getMessage(), ['exception' => $e]);

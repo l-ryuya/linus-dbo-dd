@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace App\Services\CloudSign;
 
+use App\Enums\WidgetType;
 use App\Models\Company;
 use App\Models\ContractWidgetSetting;
 use App\Models\CountryFieldDisplayOrder;
 use App\Models\ServiceContract;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 class ParameterMappingService
@@ -35,14 +37,11 @@ class ParameterMappingService
         $service_plans = $service_contracts->servicePlan;
         $service_plan_translations = $service_plans->nameTranslation($service_contracts->contract_language);
 
-        $contractWidgetSettings = ContractWidgetSetting::where(
-            'tenant_id',
-            $service_contracts->tenant_id,
-        )
-        ->where('service_id', $service_contracts->service_id)
-        ->where('service_plan_id', $service_contracts->service_plan_id)
-        ->where('contract_language', $contractLanguage)
-        ->get();
+        $contractWidgetSettings = ContractWidgetSetting::where('tenant_id', $service_contracts->tenant_id)
+            ->where('service_id', $service_contracts->service_id)
+            ->where('service_plan_id', $service_contracts->service_plan_id)
+            ->where('contract_language', $contractLanguage)
+            ->get();
 
         foreach ($contractWidgetSettings as $widgetSetting) {
             $table = $widgetSetting->widget_source_table;
@@ -52,14 +51,76 @@ class ParameterMappingService
                 continue;
             }
 
-            $widgetSetting->setAttribute('widget_source_value', $$table->$column);
+            if (WidgetType::String->isEqualValue($widgetSetting->widget_type)) {
+                $widgetSetting->setAttribute('widget_source_value', $$table->$column);
+            } elseif (WidgetType::Date->isEqualValue($widgetSetting->widget_type)) {
+                $widgetSetting->setAttribute('widget_source_value', $this->formatDate($$table->$column, $contractLanguage));
+            } elseif (WidgetType::DateTime->isEqualValue($widgetSetting->widget_type)) {
+                $widgetSetting->setAttribute('widget_source_value', $this->formatDateTime($$table->$column, $contractLanguage));
+            } elseif (WidgetType::Currency->isEqualValue($widgetSetting->widget_type)) {
+                $widgetSetting->setAttribute('widget_source_value', $this->formatCurrency((float) $$table->$column, $contractLanguage));
+            }
         }
 
         return $contractWidgetSettings;
     }
 
     /**
-     * 法人住所を住所フォーマットテンプレートに従って整形
+     * 日付を契約言語に応じてフォーマット
+     *
+     * @param Carbon $date
+     * @param string $contractLanguage
+     * @return string
+     */
+    private function formatDate(
+        Carbon $date,
+        string $contractLanguage,
+    ): string {
+        if ($contractLanguage === 'jpn') {
+            return $date->format('Y年n月j日');
+        } else {
+            return $date->format('n/j/Y');
+        }
+    }
+
+    /**
+     * 日時を契約言語に応じてフォーマット
+     *
+     * @param Carbon $date
+     * @param string $contractLanguage
+     * @return string
+     */
+    private function formatDateTime(
+        Carbon $date,
+        string $contractLanguage,
+    ): string {
+        if ($contractLanguage === 'jpn') {
+            return $date->format('Y年n月j日 H時i分');
+        } else {
+            return $date->format('n/j/Y h:i A');
+        }
+    }
+
+    /**
+     * 金額を契約言語に応じてフォーマット
+     *
+     * @param float $amount
+     * @param string $contractLanguage
+     * @return string
+     */
+    private function formatCurrency(
+        float $amount,
+        string $contractLanguage,
+    ): string {
+        if ($contractLanguage === 'jpn') {
+            return '¥' . number_format($amount, 0, '', ',');
+        } else {
+            return '$' . number_format($amount, 2, '.', ',');
+        }
+    }
+
+    /**
+     * 法人住所を契約言語に応じてフォーマット
      *
      * @param Company $company
      * @param string $contractLanguage
