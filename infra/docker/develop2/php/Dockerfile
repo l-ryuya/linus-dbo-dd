@@ -16,9 +16,10 @@ WORKDIR /build/
 # Composerで依存インストール（本番用にno-devオプション）
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
     composer dump-autoload
+
 FROM php:8.3-fpm
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     libonig-dev \
     supervisor \
@@ -27,8 +28,8 @@ RUN apt-get update && apt-get install -y \
         pdo \
         pdo_pgsql \
         mbstring && \
+    apt-get purge -y --auto-remove libpq-dev libonig-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-
 COPY infra/docker/develop2/php/php.dev.ini /usr/local/etc/php/
 COPY infra/docker/develop2/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
