@@ -68,8 +68,8 @@ class IndexAction
             $query->where('customers.sys_organization_code', $organizationCode);
         })
         ->when($customerName, function ($query) use ($customerName) {
-            $query->where('company_name_translations.company_legal_name', 'LIKE', "%{$customerName}%")
-                ->orWhere('companies.company_name_en', 'LIKE', "%{$customerName}%");
+            $query->where('company_name_translations.company_legal_name', 'ILIKE', "%{$customerName}%")
+                ->orWhere('companies.company_name_en', 'ILIKE', "%{$customerName}%");
         })
         ->when($customerStatusCode, function ($query) use ($customerStatusCode) {
             $query->where('customers.customer_status_type', 'customer_status')

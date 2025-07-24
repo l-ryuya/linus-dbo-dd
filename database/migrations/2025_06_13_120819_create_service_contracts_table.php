@@ -50,6 +50,11 @@ return new class extends Migration {
             $table->date('contract_end_date')->nullable()->comment('契約終了日');
             $table->boolean('contract_auto_update')->nullable()->comment('契約自動更新');
 
+            // クラウドサイン
+            $table->string('contract_doc_id', 36)->nullable()->comment('契約書ドキュメントID（CLOUDSIGN用）');
+            $table->timestamp('contract_sent_at')->nullable()->comment('契約書送信日時');
+            $table->timestamp('contract_executed_at')->nullable()->comment('契約締結日時');
+
             // 顧客連絡担当者
             $table->string('customer_contact_user_name')->comment('顧客側担当者氏名');
             $table->string('customer_contact_user_dept')->nullable()->comment('顧客側担当者部署');
@@ -70,6 +75,14 @@ return new class extends Migration {
 
             $table->unsignedBigInteger('service_rep_user_option_id')->comment('サービス担当者ユーザー設定ID');
             $table->unsignedBigInteger('service_mgr_user_option_id')->comment('サービス管理者ユーザー設定ID');
+
+            // 契約書関連項目
+            $table->string('quotation_name')->nullable()->comment('見積書名称');
+            $table->string('quotation_number')->nullable()->comment('見積書番号');
+            $table->date('quotation_date')->nullable()->comment('見積書日付');
+            $table->string('proposal_name')->nullable()->comment('提案書名称');
+            $table->string('proposal_number')->nullable()->comment('提案書番号');
+            $table->date('proposal_date')->nullable()->comment('提案書日付');
 
             $table->string('contract_preview_pdf_url')->nullable()->comment('契約書URL');
 

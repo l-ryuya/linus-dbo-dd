@@ -21,4 +21,5 @@ enum ServiceContractStatus: String
     case ContractInfoRegistered = 'contract_info_registered';
     case ContractDocumentSent = 'contract_document_sent';
     case ContractExecuted = 'contract_executed';
+    case ContractCancelled = 'contract_cancelled';
 }

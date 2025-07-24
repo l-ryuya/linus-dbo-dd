@@ -324,6 +324,39 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
+  /tenant/service-contracts/{public_id}/cloudsign-status/sync:
+    post:
+      summary: テナント管理者 顧客契約情報 クラウドサインステータス同期
+      parameters:
+        - name: public_id
+          in: path
+          description: 'サービス契約 外部公開用 UUID v4'
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TenantServiceContractCloudSignStatusSyncPostResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: 'components/error_response.yaml#/components/responses/NotFound'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
 
 components:
   schemas:
@@ -770,6 +803,14 @@ components:
             billingCycle:
               type: string
               description: 支払いサイクル名
+    TenantServiceContractCloudSignStatusSyncPostResponse:
+      description: 同期結果
+      type: object
+      properties:
+        contractStatus:
+          type: string
+          description: クラウドサイン契約ステータス名
+          example: '先方確認中, 締結完了, 取り消し・却下, 不明'
 
   securitySchemes:
     UserAuth:

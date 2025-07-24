@@ -9,10 +9,12 @@ use App\Http\Requests\Tenant\ServiceContract\IndexRequest;
 use App\Http\Requests\Tenant\ServiceContract\StoreRequest;
 use App\Http\Requests\Tenant\ServiceContract\UpdateRequest;
 use App\Http\Resources\NoContentResource;
+use App\Http\Resources\Tenant\ServiceContract\CloudsignStatusSyncResource;
 use App\Http\Resources\Tenant\ServiceContract\IndexCollection;
 use App\Http\Resources\Tenant\ServiceContract\ShowResource;
 use App\Http\Resources\Tenant\ServiceContract\StoreResource;
 use App\Services\Role\TenantUserRoleService;
+use App\UseCases\Tenant\ServiceContract\CloudsignStatusSyncAction;
 use App\UseCases\Tenant\ServiceContract\IndexAction;
 use App\UseCases\Tenant\ServiceContract\ShowAction;
 use App\UseCases\Tenant\ServiceContract\StoreAction;
@@ -132,5 +134,34 @@ class ServiceContractController extends Controller
         );
 
         return new NoContentResource();
+    }
+
+    /**
+     * テナント管理者 顧客サービス契約のステータスを同期する
+     *
+     * @param \Illuminate\Http\Request                                       $request
+     * @param string                                                         $publicId
+     * @param \App\UseCases\Tenant\ServiceContract\CloudsignStatusSyncAction $action
+     *
+     * @return \App\Http\Resources\Tenant\ServiceContract\CloudsignStatusSyncResource
+     * @throws \App\Exceptions\LogicValidationException
+     * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws \Throwable
+     */
+    public function cloudsignStatusSync(
+        Request $request,
+        string $publicId,
+        CloudsignStatusSyncAction $action,
+    ): CloudsignStatusSyncResource {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        return new CloudsignStatusSyncResource(
+            $action(
+                $user->getUserOption()->language_code,
+                (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
+                $publicId,
+            ),
+        );
     }
 }

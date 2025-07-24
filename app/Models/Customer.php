@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Customer extends Model
@@ -32,19 +32,19 @@ class Customer extends Model
     }
 
     /**
-     * @return BelongsTo<Tenant, $this>
+     * @return HasOne<Tenant, $this>
      */
-    public function tenant(): BelongsTo
+    public function tenant(): HasOne
     {
-        return $this->belongsTo(Tenant::class, 'tenant_id', 'tenant_id');
+        return $this->hasOne(Tenant::class, 'tenant_id', 'tenant_id');
     }
 
     /**
-     * @return BelongsTo<Company, $this>
+     * @return HasOne<Company, $this>
      */
-    public function company(): BelongsTo
+    public function company(): HasOne
     {
-        return $this->belongsTo(Company::class, 'company_id', 'company_id');
+        return $this->hasOne(Company::class, 'company_id', 'company_id');
     }
 
     /**
