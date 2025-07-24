@@ -5,6 +5,10 @@ on:
       - "main"
       - "dockerbuild_release"
 
+permissions:
+  id-token: write
+  contents: read
+
 concurrency:
   group: dbo-dd
   cancel-in-progress: true
