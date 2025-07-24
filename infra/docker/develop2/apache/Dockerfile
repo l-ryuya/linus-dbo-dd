@@ -1,7 +1,5 @@
 FROM httpd:2.4
 
-USER www-data
-
 RUN apt-get update && \
     apt-get install -y --no-install-recommends curl && \
     rm -rf /var/lib/apt/lists/*
