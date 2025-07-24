@@ -9,4 +9,5 @@ COPY ../../../../ /var/www/html/
 COPY infra/docker/develop2/apache/conf/httpd.conf /usr/local/apache2/conf/httpd.conf
 
 RUN chown -R www-data:www-data /var/www/html
+RUN chown -R www-data:www-data /var/www/html /usr/local/apache2/logs
 USER www-data
