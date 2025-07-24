@@ -1,5 +1,5 @@
 # # builder ステージ（composer:ltsイメージを使用）
-FROM composer:lts AS builder
+FROM composer@sha256:e27f788e74d2233af99d51b8ef9a086ab6158890d63102e6696db165e0d36403 AS builder
 # Laravelプロジェクトの必要ファイルを /build/ にコピー
 COPY composer.json composer.lock .env.develop artisan /build/
 COPY /app/ /build/app/
@@ -17,7 +17,8 @@ WORKDIR /build/
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
     composer dump-autoload
 
-FROM php:8.3-fpm
+# php:8.3-fpm
+FROM php@sha256:b258e182312129e299e69714aa14417760dfd746d7567020ecfe4440d37b7b76
 
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
