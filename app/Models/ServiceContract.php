@@ -44,6 +44,7 @@ class ServiceContract extends Model
         'contract_start_date',
         'contract_end_date',
         'contract_auto_update',
+        'contract_doc_id',
         'customer_contact_user_name',
         'customer_contact_user_dept',
         'customer_contact_user_title',
