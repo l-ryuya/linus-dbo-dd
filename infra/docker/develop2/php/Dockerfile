@@ -16,7 +16,7 @@ WORKDIR /build/
 # Composerで依存インストール（本番用にno-devオプション）
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
     composer dump-autoload
-FROM php:8.3-fpm
+FROM php:8.3-fpm-slim
 
 RUN apt-get update && apt-get install -y \
     libpq-dev \
