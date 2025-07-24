@@ -267,8 +267,8 @@ jobs:
       - name: AWS - amazon-ecs-deploy-task-definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@176bcc0288c49ee545288583859af21ee17f4b2c # v2.3.1
         env:
-          ECS_CLUSTER_NAME: ${{ format('{0}-{1}-{2}-apache-php-fpm', inputs.project, inputs.aws-ecs-cluster-name, inputs.env) }}
-          ECS_SERVICE_NAME: ${{ format('{0}-{1}-{2}-{3}-apache-php-fpm', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+          ECS_CLUSTER_NAME: ${{ format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-cluster-name, inputs.env) }}
+          ECS_SERVICE_NAME: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           ECS_CODEDEPLOY_APPSPEC_FILE_PATH: ${{ inputs.aws-ecs-codedeploy-enabled && inputs.aws-ecs-codedeploy-appspec-filepath || '' }}
           ECS_CODEDEPLOY_APPLICATION: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) || '' }}
           ECS_CODEDEPLOY_DEPLOYMENT_GROUP: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) || '' }}
