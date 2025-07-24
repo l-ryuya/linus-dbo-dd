@@ -25,10 +25,15 @@ RUN apk update && apk add --no-cache \
     procps \
     curl \
     bash \
-    # 依存ツールのインストール
-    $PHPIZE_DEPS \
+    autoconf \
+    gcc \
+    g++ \
+    make \
+    libtool \
+    re2c \
+    pkgconf \
     && docker-php-ext-install pdo pdo_pgsql mbstring \
-    && apk del $PHPIZE_DEPS
+    && apk del autoconf gcc g++ make libtool re2c pkgconf
 
 COPY infra/docker/develop2/php/php.dev.ini /usr/local/etc/php/
 COPY infra/docker/develop2/php/www.conf /usr/local/etc/php-fpm.d/www.conf
