@@ -16,24 +16,18 @@ WORKDIR /build/
 # Composerで依存インストール（本番用にno-devオプション）
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
     composer dump-autoload
-FROM php:8.3-fpm-alpine
+FROM php:8.3-fpm
 
-RUN apk update && apk add --no-cache \
-    postgresql-dev \
-    oniguruma-dev \
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    libonig-dev \
     supervisor \
-    procps \
-    curl \
-    bash \
-    autoconf \
-    gcc \
-    g++ \
-    make \
-    libtool \
-    re2c \
-    pkgconf \
-    && docker-php-ext-install pdo pdo_pgsql mbstring \
-    && apk del autoconf gcc g++ make libtool re2c pkgconf
+    procps && \
+    docker-php-ext-install \
+        pdo \
+        pdo_pgsql \
+        mbstring && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY infra/docker/develop2/php/php.dev.ini /usr/local/etc/php/
 COPY infra/docker/develop2/php/www.conf /usr/local/etc/php-fpm.d/www.conf
