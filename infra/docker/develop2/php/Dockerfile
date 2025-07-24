@@ -19,6 +19,7 @@ RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-pr
 
 FROM php:8.3-fpm
 
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     libonig-dev \
@@ -45,5 +46,7 @@ COPY infra/docker/develop2/php/scheduler.sh /app/scheduler.sh
 RUN chown www-data:www-data /app/scheduler.sh && chmod +x /app/scheduler.sh
 COPY infra/docker/develop2/php/entrypoint-overwrite.sh /usr/local/bin/entrypoint-overwrite.sh
 RUN chmod +x /usr/local/bin/entrypoint-overwrite.sh
+
+USER www-data
 
 CMD ["/usr/local/bin/entrypoint-overwrite.sh"]
