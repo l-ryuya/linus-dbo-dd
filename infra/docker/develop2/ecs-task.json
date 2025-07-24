@@ -1,5 +1,5 @@
 {
-  "family": "dsbizdev-dbo-dd-dev-apache-php-fpm",
+  "family": "dsbizdev-dbo-dd-apache-php-fpm-dev",
   "taskRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-default-dev",
   "executionRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-execution-secrets-default-dev",
   "networkMode": "awsvpc",
@@ -7,7 +7,7 @@
   "memory": "512",
   "containerDefinitions": [
     {
-      "name": "web",
+      "name": "dbo-dd-web",
       "image": "<IMAGE_URI>",
       "cpu": 128,
       "memory": 256,
@@ -17,7 +17,7 @@
       "readonlyRootFilesystem": false,
       "portMappings": [
         {
-          "name": "web",
+          "name": "dbo-dd-web",
           "containerPort": 3000,
           "protocol": "tcp"
         }
@@ -28,7 +28,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-dev",
+          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-apache-php-fpm-dev",
           "mode": "non-blocking",
           "max-buffer-size": "1m",
           "awslogs-region": "ap-northeast-1",
@@ -51,7 +51,7 @@
       ]
     },
     {
-      "name": "app",
+      "name": "dbo-dd-app",
       "image": "<IMAGE_URI>",
       "cpu": 128,
       "memory": 256,
@@ -61,7 +61,7 @@
       "readonlyRootFilesystem": false,
       "portMappings": [
         {
-          "name": "app",
+          "name": "dbo-dd-app",
           "containerPort": 9000,
           "protocol": "tcp"
         }
@@ -72,7 +72,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-dev",
+          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-apache-php-fpm-dev",
           "mode": "non-blocking",
           "max-buffer-size": "1m",
           "awslogs-region": "ap-northeast-1",
@@ -142,7 +142,7 @@
   "tags": [
     {
       "key": "Name",
-      "value": "dsbizdev-dbo-dd-dev"
+      "value": "dsbizdev-dbo-dd-apache-php-fpm-dev"
     },
     {
       "key": "project",
