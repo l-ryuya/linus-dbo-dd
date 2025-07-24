@@ -10,28 +10,26 @@ on:
         type: string
       runs-on:
         type: string
-        default: 'ubuntu-latest'
+        default: "ubuntu-latest"
       ### Docker
       registry-login:
         type: boolean
         default: false
       registry:
         type: string
-        default: 'ghcr.io'
+        default: "ghcr.io"
       docker-context:
         type: string
-        default: '.'
+        default: "."
       docker-file-apache:
         type: string
       docker-file-php-fpm:
         type: string
       docker-build-args-apache:
         type: string
-      image-name-apache:
-        type: string
       apache-image-tag-type:
         type: string
-        default: 'hash'
+        default: "hash"
       docker-build-args-php-fpm:
         type: string
       docker-build-target-php-fpm:
@@ -40,16 +38,16 @@ on:
         type: string
       php-fpm-image-tag-type:
         type: string
-        default: 'hash'
+        default: "hash"
       image-tag-type:
         type: string
-        default: 'hash'
+        default: "hash"
       cache-from-type:
         type: string
-        default: 'type=gha'
+        default: "type=gha"
       cache-to-type:
         type: string
-        default: 'type=gha'
+        default: "type=gha"
 
       ### AWS
       # credentials
@@ -58,13 +56,13 @@ on:
         type: string
       aws-region:
         type: string
-        default: 'ap-northeast-1'
+        default: "ap-northeast-1"
       aws-role-duration-seconds:
         type: number
         default: 900
       aws-role-session-name:
         type: string
-        default: 'github-actions'
+        default: "github-actions"
       # ECS
       aws-ecs-cluster-name:
         required: true
@@ -89,7 +87,7 @@ on:
         default: false
       aws-ecs-propagate-tags:
         type: string
-        default: 'SERVICE'
+        default: "SERVICE"
 
       # ECS - CodeDeploy
       aws-ecs-codedeploy-enabled:
@@ -153,7 +151,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           # リポジトリ名:プロジェクト名-ecs名前空間-cesサービス名-env-apacheイメージ名
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-name-apache) }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           IMAGE_TAG: ${{ inputs.apache-image-tag-type == 'hash' && github.sha || 'latest' }}
         with:
           context: ${{ inputs.docker-context }}
@@ -167,7 +165,7 @@ jobs:
       - name: Run - apache-docker-push
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-name-apache) }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
           IMAGE_TAG: ${{ inputs.apache-image-tag-type == 'hash' && github.sha || 'latest' }}
         run: |
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
@@ -179,7 +177,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
           # リポジトリ名:プロジェクト名-ecs名前空間-cesサービス名-env-php-fpmイメージ名
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-name-php-fpm) }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.image-name-php-fpm, inputs.env) }}
           IMAGE_TAG: ${{ inputs.php-fpm-image-tag-type == 'hash' && github.sha || 'latest' }}
         with:
           context: ${{ inputs.docker-context }}
@@ -194,7 +192,7 @@ jobs:
       - name: Run - php-fpm-docker-push
         env:
           REGISTRY: ${{ steps.ecr-login.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-name-php-fpm) }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.image-name-php-fpm, inputs.env) }}
           IMAGE_TAG: ${{ inputs.apache-image-tag-type == 'hash' && github.sha || 'latest' }}
         run: |
           docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
@@ -207,7 +205,6 @@ jobs:
       id-token: write
       contents: read
     steps:
-
       # https://github.com/actions/checkout
       - name: GitHub - checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -230,8 +227,8 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
         env:
           REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-name-apache) }}
-          CONTAINER_NAME: 'web'
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+          CONTAINER_NAME: "dbo-dd-web"
           IMAGE_TAG: ${{ inputs.apache-image-tag-type == 'hash' && github.sha || 'latest'}}
         with:
           task-definition: ${{ inputs.aws-ecs-task-definition-filepath }}
@@ -252,8 +249,8 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
         env:
           REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
-          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env, inputs.image-name-php-fpm) }}
-          CONTAINER_NAME: 'app'
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.image-name-php-fpm, inputs.env) }}
+          CONTAINER_NAME: "dbo-dd-app"
           IMAGE_TAG: ${{ inputs.php-fpm-image-tag-type == 'hash' && github.sha || 'latest'}}
         with:
           task-definition: ${{ steps.amazon-ecs-render-task-apache.outputs.task-definition }}

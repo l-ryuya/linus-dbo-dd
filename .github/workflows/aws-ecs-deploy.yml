@@ -21,8 +21,7 @@ jobs:
       docker-file-apache: "./infra/docker/develop2/apache/Dockerfile" # dockerfileのパス指定
       docker-build-args-apache: "" # build実行時に引数に渡す値を指定
       docker-build-args-php-fpm: "" # build実行時に引数に渡す値を指定
-      image-name-apache: "apache"
-      image-name-php-fpm: "php-fpm"
+      image-name-php-fpm: "app"
 
       # AWS関連
       project: "dsbizdev"
@@ -31,7 +30,7 @@ jobs:
       aws-region: "ap-northeast-1"
       aws-ecs-cluster-name: "dbo-cluster"
       aws-ecs-namespace: "dbo"
-      aws-ecs-service-name: "dd-apache-php-fpm"
+      aws-ecs-service-name: "dd-web"
       aws-ecs-task-definition-filepath: "./infra/docker/develop2/ecs-task.json"
       aws-ecs-task-definition-environment-variables: ""
       aws-ecs-task-definition-secrets: ""
