@@ -20,7 +20,6 @@ RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-pr
 # php:8.3-fpm
 FROM php@sha256:b258e182312129e299e69714aa14417760dfd746d7567020ecfe4440d37b7b76
 
-
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     libonig-dev \

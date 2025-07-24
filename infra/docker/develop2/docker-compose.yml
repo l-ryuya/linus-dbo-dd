@@ -12,7 +12,7 @@ services:
   php-fpm:
     build:
         context: ../../../
-        dockerfile: ./infra/docker/develop/php/Dockerfile
+        dockerfile: ./infra/docker/develop2/php/Dockerfile
     container_name: php-fpm
     volumes:
     - ../../../:/var/www/html
