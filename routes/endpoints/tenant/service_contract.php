@@ -13,5 +13,7 @@ Route::prefix('tenant')->middleware(['auth', 'roles:admin,tenant'])->group(funct
 // adminはテナントに所属しない為
 Route::prefix('tenant')->middleware(['auth', 'roles:tenant'])->group(function () {
     Route::post('/service-contracts', [ServiceContractController::class, 'store']);
+    Route::post('/service-contracts/draft', [ServiceContractController::class, 'storeDraft']);
     Route::put('/service-contracts/{public_id}', [ServiceContractController::class, 'update']);
+    Route::put('/service-contracts/{public_id}/draft', [ServiceContractController::class, 'updateDraft']);
 });

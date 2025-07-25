@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Tenant\ServiceContract;
+namespace Tenant\ServiceContract;
 
 use App\Models\Customer;
 use App\Models\Service;
@@ -24,7 +24,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
-class UpdateTest extends TestCase
+class UpdateDraftTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -135,7 +135,7 @@ class UpdateTest extends TestCase
      */
     private function getBaseUrl(): string
     {
-        return '/v1/tenant/service-contracts/' . $this->publicId;
+        return '/v1/tenant/service-contracts/' . $this->publicId . '/draft';
     }
 
     /**
@@ -196,7 +196,7 @@ class UpdateTest extends TestCase
             'service_plan_id' => $this->servicePlan->service_plan_id,
             'contract_name' => $updateData['contractName'],
             'contract_language' => $updateData['contractLanguage'],
-            'contract_status_code' => 'contract_info_registered',
+            'contract_status_code' => 'contract_info_drafted',
             'service_usage_status_code' => $updateData['serviceUsageStatusCode'],
             'contract_date' => $updateData['contractDate'],
             'contract_start_date' => $updateData['contractStartDate'],
@@ -315,21 +315,7 @@ class UpdateTest extends TestCase
             'servicePlanPublicId' => $this->servicePlan->public_id,
             'customerPublicId' => $this->customer->public_id,
             'contractName' => 'Test Contract',
-            'contractLanguage' => 'jpn',
-            'contractStatusCode' => 'contract_info_registered',
-            'serviceUsageStatusCode' => 'active',
-            'contractDate' => '2024-01-01',
-            'contractStartDate' => '2024-01-01',
-            'contractAutoUpdate' => true,
-            'customerContactUserName' => 'Contact User',
-            'customerContactUserEmail' => 'contact@example.com',
-            'customerContractUserName' => 'Contract User',
-            'customerContractUserEmail' => 'contract@example.com',
-            'customerPaymentUserName' => 'Payment User',
-            'customerPaymentUserEmail' => 'payment@example.com',
-            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'quarterly',
+            'serviceUsageStatusCode' => 'awaiting_activation',
             // 以下のオプションフィールドは省略
         ];
 
@@ -339,12 +325,5 @@ class UpdateTest extends TestCase
         );
 
         $response->assertStatus(204);
-
-        // データベースで直接nullに更新されていることを確認
-        $this->assertDatabaseHas('service_contracts', [
-            'public_id' => $this->publicId,
-            'contract_end_date' => null,
-            'remarks' => null,
-        ]);
     }
 }

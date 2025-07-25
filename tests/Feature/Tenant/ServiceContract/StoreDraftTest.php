@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Tests\Feature\Tenant\ServiceContract;
+namespace Tenant\ServiceContract;
 
-use App\Jobs\CloudSign\ContractJob;
 use App\Models\Customer;
 use App\Models\Service;
 use App\Models\ServicePlan;
@@ -20,10 +19,9 @@ use Database\Seeders\base\TenantsSeeder;
 use Database\Seeders\base\TimeZonesSeeder;
 use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
-class StoreTest extends TestCase
+class StoreDraftTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -84,7 +82,7 @@ class StoreTest extends TestCase
      */
     private function getBaseUrl(): string
     {
-        return '/v1/tenant/service-contracts';
+        return '/v1/tenant/service-contracts/draft';
     }
 
     /**
@@ -92,8 +90,6 @@ class StoreTest extends TestCase
      */
     public function test_store_creates_service_contract_successfully(): void
     {
-        Queue::fake();
-
         $contractData = [
             'servicePublicId' => $this->service->public_id,
             'servicePlanPublicId' => $this->servicePlan->public_id,
@@ -142,8 +138,6 @@ class StoreTest extends TestCase
                 ],
             ]);
 
-        Queue::assertPushedOn('cloudsign', ContractJob::class);
-
         // データベースにレコードが作成されたことを確認
         $responseData = $response->json('data');
 
@@ -156,7 +150,7 @@ class StoreTest extends TestCase
             'contract_name' => $contractData['contractName'],
             'contract_language' => $contractData['contractLanguage'],
             'contract_status_type' => 'service_contract_status',
-            'contract_status_code' => 'contract_info_registered',
+            'contract_status_code' => 'contract_info_drafted',
             'service_usage_status_type' => 'service_usage_status',
             'service_usage_status_code' => $contractData['serviceUsageStatusCode'],
             'contract_date' => $contractData['contractDate'],
@@ -195,28 +189,13 @@ class StoreTest extends TestCase
      */
     public function test_store_handles_optional_fields_correctly(): void
     {
-        Queue::fake();
-
         // オプションフィールドを含めないデータ
         $dataWithoutOptionalFields = [
             'servicePublicId' => $this->service->public_id,
             'servicePlanPublicId' => $this->servicePlan->public_id,
             'customerPublicId' => $this->customer->public_id,
             'contractName' => 'テスト契約',
-            'contractLanguage' => 'jpn',
             'serviceUsageStatusCode' => 'awaiting_activation',
-            'contractDate' => '2025-01-01',
-            'contractStartDate' => '2025-01-15',
-            'contractAutoUpdate' => true,
-            'customerContactUserName' => 'テスト顧客担当者',
-            'customerContactUserEmail' => 'contact@example.com',
-            'customerContractUserName' => 'テスト契約担当者',
-            'customerContractUserEmail' => 'contract@example.com',
-            'customerPaymentUserName' => 'テスト支払担当者',
-            'customerPaymentUserEmail' => 'payment@example.com',
-            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'monthly',
             // 以下のフィールドは省略
         ];
 
@@ -231,7 +210,5 @@ class StoreTest extends TestCase
                     'serviceContractPublicId',
                 ],
             ]);
-
-        Queue::assertPushedOn('cloudsign', ContractJob::class);
     }
 }
