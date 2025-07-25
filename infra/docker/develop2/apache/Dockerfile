@@ -8,10 +8,10 @@ COPY ../../../../app            /var/www/html
 COPY ../../../../bootstrap      /var/www/html
 COPY ../../../../config         /var/www/html
 COPY ../../../../database       /var/www/html
+COPY ../../../../lang           /var/www/html
 COPY ../../../../public         /var/www/html
 COPY ../../../../routes         /var/www/html
 COPY ../../../../storage        /var/www/html
-COPY ../../../../vendor         /var/www/html
 COPY ../../../../artisan        /var/www/html
 COPY ../../../../composer.json  /var/www/html
 COPY ../../../../composer.lock  /var/www/html
