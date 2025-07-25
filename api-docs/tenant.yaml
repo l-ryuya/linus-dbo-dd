@@ -263,6 +263,34 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
+  /tenant/service-contracts/draft:
+    post:
+      summary: テナント管理者 顧客契約情報登録 下書き
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantServiceContractDraftPostRequest'
+      responses:
+        '201':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TenantServiceContractPostResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
   /tenant/service-contracts/{public_id}:
     get:
       summary: テナント管理者 顧客契約情報詳細
@@ -311,6 +339,35 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/TenantServiceContractPutRequest'
+      responses:
+        '204':
+          description: OK
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
+  /tenant/service-contracts/{public_id}/draft:
+    put:
+      summary: テナント管理者 顧客契約情報更新 下書き
+      parameters:
+        - name: public_id
+          in: path
+          description: 'サービス契約 外部公開用 UUID v4'
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TenantServiceContractDraftPutRequest'
       responses:
         '204':
           description: OK
@@ -598,11 +655,6 @@ components:
           minLength: 3
           maxLength: 3
           description: 契約言語コード
-        contractStatusCode:
-          type: string
-          minLength: 3
-          maxLength: 128
-          description: 契約ステータスコード
         serviceUsageStatusCode:
           type: string
           minLength: 3
@@ -689,6 +741,36 @@ components:
           type: string
           format: uuid
           description: 'サービス管理者 外部公開用 UUID v4'
+        quotationName:
+          type: string
+          maxLength: 255
+          nullable: true
+          description: 見積書名称
+        quotationNumber:
+          type: string
+          maxLength: 255
+          nullable: true
+          description: 見積書番号
+        quotationDate:
+          type: string
+          format: date
+          nullable: true
+          description: 見積書日付
+        proposalName:
+          type: string
+          maxLength: 255
+          nullable: true
+          description: 提案書名称
+        proposalNumber:
+          type: string
+          maxLength: 255
+          nullable: true
+          description: 提案書番号
+        proposalDate:
+          type: string
+          format: date
+          nullable: true
+          description: 提案書日付
         invoiceRemindDays:
           type: string
           maxLength: 255
@@ -716,7 +798,6 @@ components:
         - customerPublicId
         - contractName
         - contractLanguage
-        - contractStatusCode
         - serviceUsageStatusCode
         - contractDate
         - contractStartDate
@@ -737,6 +818,16 @@ components:
           type: string
           format: uuid
           description: 'サービス契約 外部公開用 UUID v4'
+    TenantServiceContractDraftPostRequest:
+      description: 顧客契約情報登録 下書き
+      allOf:
+        - $ref: '#/components/schemas/TenantServiceContract'
+      required:
+        - servicePublicId
+        - servicePlanPublicId
+        - customerPublicId
+        - contractName
+        - serviceUsageStatusCode
     TenantServiceContractPutRequest:
       description: 顧客契約情報登録
       allOf:
@@ -747,7 +838,6 @@ components:
         - customerPublicId
         - contractName
         - contractLanguage
-        - contractStatusCode
         - serviceUsageStatusCode
         - contractDate
         - contractStartDate
@@ -760,6 +850,16 @@ components:
         - customerPaymentUserEmail
         - serviceRepUserOptionPublicId
         - serviceMgrUserOptionPublicId
+    TenantServiceContractDraftPutRequest:
+      description: 顧客契約情報登録 下書き
+      allOf:
+        - $ref: '#/components/schemas/TenantServiceContract'
+      required:
+        - servicePublicId
+        - servicePlanPublicId
+        - customerPublicId
+        - contractName
+        - serviceUsageStatusCode
     TenantServiceContractGetRequest:
       description: 顧客契約情報詳細
       allOf:

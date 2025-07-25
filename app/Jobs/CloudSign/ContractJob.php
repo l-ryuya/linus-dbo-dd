@@ -15,6 +15,9 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
 use Throwable;
 
+/**
+ * クラウドサインの契約ジョブ
+ */
 class ContractJob implements ShouldQueue, ShouldBeUnique
 {
     use Dispatchable;
