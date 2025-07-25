@@ -35,6 +35,16 @@
           "awslogs-stream-prefix": "container"
         }
       },
+      "healthCheck": {
+        "command": [
+            "CMD-SHELL",
+            "curl -f http://127.0.0.1:3000/up || exit 1"
+        ],
+        "interval": 20,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 0
+      },
       "environment": [
         {
           "name": "APP_KEY",
@@ -132,6 +142,14 @@
         {
           "name": "DB_PASSWORD",
            "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/rds-dd-password-oy0yoz"
+        },
+        {
+          "name": "MAIL_PASSWORD",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-oy0yoz"
+        },
+        {
+          "name": "EXTERNAL_BILLING_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/external-billing-api-key-dQnWdI"
         }
       ]
     }

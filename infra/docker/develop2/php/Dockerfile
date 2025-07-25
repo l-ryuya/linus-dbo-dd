@@ -1,5 +1,5 @@
-# # builder ステージ（composer:ltsイメージを使用）
-FROM composer:lts AS builder
+# builder ステージ（composer:ltsイメージを使用）
+FROM composer@sha256:e27f788e74d2233af99d51b8ef9a086ab6158890d63102e6696db165e0d36403 AS builder
 # Laravelプロジェクトの必要ファイルを /build/ にコピー
 COPY composer.json composer.lock .env.develop artisan /build/
 COPY /app/ /build/app/
@@ -16,9 +16,11 @@ WORKDIR /build/
 # Composerで依存インストール（本番用にno-devオプション）
 RUN composer install -q --no-dev --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist && \
     composer dump-autoload
-FROM php:8.3-fpm
 
-RUN apt-get update && apt-get install -y \
+# php:8.3-fpm
+FROM php@sha256:b258e182312129e299e69714aa14417760dfd746d7567020ecfe4440d37b7b76
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     libonig-dev \
     supervisor \
@@ -27,8 +29,8 @@ RUN apt-get update && apt-get install -y \
         pdo \
         pdo_pgsql \
         mbstring && \
+    apt-get purge -y --auto-remove libpq-dev libonig-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
-
 COPY infra/docker/develop2/php/php.dev.ini /usr/local/etc/php/
 COPY infra/docker/develop2/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
