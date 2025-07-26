@@ -20,7 +20,6 @@ class IndexRequest extends FormRequest
     public function rules(): array
     {
         return array_merge($this->paginationRules(), [
-            'organizationCode' => ['nullable', 'string', 'max:12'],
             'customerName' => ['nullable', 'string', 'max:255'],
             'customerStatusCode' => [
                 'nullable',
@@ -29,8 +28,6 @@ class IndexRequest extends FormRequest
                 Rule::exists('selection_items', 'selection_item_code')
                     ->where('selection_item_type', 'customer_status'),
             ],
-            'servicePublicId' => ['nullable', 'uuid'],
-            'servicePlanPublicId' => ['nullable', 'uuid'],
         ]);
     }
 
