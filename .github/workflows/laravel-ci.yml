@@ -79,7 +79,9 @@ jobs:
       - name: 🧪 PHPUnit 実行
         run: php artisan test
 
-      - name: hadolint-action
-        uses: hadolint/hadolint-action@v3.1.0
+      - uses: actions/checkout@v3
+      - uses: hadolint/hadolint-action@v3.1.0
         with:
           dockerfile: ./infra/docker/develop2/apache/Dockerfile
+          format: plain
+          verbose: true
