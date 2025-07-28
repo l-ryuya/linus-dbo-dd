@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Enums\ServiceContractStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\ServiceContract\IndexRequest;
+use App\Http\Requests\Tenant\ServiceContract\StoreDraftRequest;
 use App\Http\Requests\Tenant\ServiceContract\StoreRequest;
+use App\Http\Requests\Tenant\ServiceContract\UpdateDraftRequest;
 use App\Http\Requests\Tenant\ServiceContract\UpdateRequest;
 use App\Http\Resources\NoContentResource;
 use App\Http\Resources\Tenant\ServiceContract\CloudsignStatusSyncResource;
@@ -102,6 +105,34 @@ class ServiceContractController extends Controller
         return (new StoreResource(
             $action(
                 $user->getUserOption()->tenant,
+                ServiceContractStatus::ContractInfoRegistered,
+                $request->toStoreInput(),
+            ),
+        ))
+        ->response()
+        ->setStatusCode(201);
+    }
+
+    /**
+     * テナント管理者 顧客サービス契約を下書き登録する
+     *
+     * @param \App\Http\Requests\Tenant\ServiceContract\StoreDraftRequest $request
+     * @param \App\UseCases\Tenant\ServiceContract\StoreAction            $action
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function storeDraft(
+        StoreDraftRequest $request,
+        StoreAction $action,
+    ): \Illuminate\Http\JsonResponse {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        return (new StoreResource(
+            $action(
+                $user->getUserOption()->tenant,
+                ServiceContractStatus::ContractInfoDrafted,
                 $request->toStoreInput(),
             ),
         ))
@@ -130,6 +161,35 @@ class ServiceContractController extends Controller
         $action(
             $user->getUserOption()->tenant,
             $publicId,
+            ServiceContractStatus::ContractInfoRegistered,
+            $request->toUpdateInput(),
+        );
+
+        return new NoContentResource();
+    }
+
+    /**
+     * テナント管理者 顧客サービス契約の下書きを更新する
+     *
+     * @param \App\Http\Requests\Tenant\ServiceContract\UpdateDraftRequest $request
+     * @param string                                                       $publicId
+     * @param \App\UseCases\Tenant\ServiceContract\UpdateAction            $action
+     *
+     * @return \App\Http\Resources\NoContentResource
+     * @throws \Throwable
+     */
+    public function updateDraft(
+        UpdateDraftRequest $request,
+        string $publicId,
+        UpdateAction $action,
+    ): NoContentResource {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        $action(
+            $user->getUserOption()->tenant,
+            $publicId,
+            ServiceContractStatus::ContractInfoDrafted,
             $request->toUpdateInput(),
         );
 

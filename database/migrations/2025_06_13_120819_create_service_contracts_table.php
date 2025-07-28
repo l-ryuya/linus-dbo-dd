@@ -30,20 +30,33 @@ return new class extends Migration {
             $table->text('service_contract_code')
                 ->storedAs("'CT-' || extract(year from created_at)::text || '-' || lpad(service_contract_code_seq::text, 6, '0')")
                 ->comment('サービス契約コード（外部公開用）');
-            $table->unsignedBigInteger('tenant_id')->comment('所属テナントID');
-            $table->unsignedBigInteger('customer_id')->comment('顧客ID');
-            $table->unsignedBigInteger('service_id')->comment('サービスID');
-            $table->unsignedBigInteger('service_plan_id')->comment('サービスプランID');
+            $table->unsignedBigInteger('tenant_id')
+                ->comment('所属テナントID');
+            $table->unsignedBigInteger('customer_id')
+                ->comment('顧客ID');
+            $table->unsignedBigInteger('service_id')
+                ->comment('サービスID');
+            $table->unsignedBigInteger('service_plan_id')
+                ->nullable()
+                ->comment('サービスプランID');
 
             // 属性
             $table->string('contract_name')->comment('契約書名');
-            $table->char('contract_language', 3)->comment('契約書言語（eng・jpn・cmn・yeu）');
+            $table->char('contract_language', 3)
+                ->nullable()
+                ->comment('契約書言語（eng・jpn・cmn・yeu）');
 
-            $table->string('contract_status_type')->default('service_contract_status')->comment('契約ステータス種別');
-            $table->string('contract_status_code')->comment('契約ステータスコード');
+            $table->string('contract_status_type')
+                ->default('service_contract_status')
+                ->comment('契約ステータス種別');
+            $table->string('contract_status_code')
+                ->comment('契約ステータスコード');
 
-            $table->string('service_usage_status_type')->default('service_usage_status')->comment('サービス利用ステータス種別');
-            $table->string('service_usage_status_code')->comment('サービス利用ステータスコード');
+            $table->string('service_usage_status_type')
+                ->default('service_usage_status')
+                ->comment('サービス利用ステータス種別');
+            $table->string('service_usage_status_code')
+                ->comment('サービス利用ステータスコード');
 
             $table->date('contract_date')->nullable()->comment('契約締結日');
             $table->date('contract_start_date')->nullable()->comment('契約開始日');
@@ -56,25 +69,25 @@ return new class extends Migration {
             $table->timestamp('contract_executed_at')->nullable()->comment('契約締結日時');
 
             // 顧客連絡担当者
-            $table->string('customer_contact_user_name')->comment('顧客側担当者氏名');
+            $table->string('customer_contact_user_name')->nullable()->comment('顧客側担当者氏名');
             $table->string('customer_contact_user_dept')->nullable()->comment('顧客側担当者部署');
             $table->string('customer_contact_user_title')->nullable()->comment('顧客側担当者役職');
-            $table->string('customer_contact_user_email')->comment('顧客側担当者メール');
+            $table->string('customer_contact_user_email')->nullable()->comment('顧客側担当者メール');
 
             // 顧客契約担当者
-            $table->string('customer_contract_user_name')->comment('顧客側契約担当者氏名');
+            $table->string('customer_contract_user_name')->nullable()->comment('顧客側契約担当者氏名');
             $table->string('customer_contract_user_dept')->nullable()->comment('顧客側契約担当者部署');
             $table->string('customer_contract_user_title')->nullable()->comment('顧客側契約担当者役職');
-            $table->string('customer_contract_user_email')->comment('顧客側契約担当者メール');
+            $table->string('customer_contract_user_email')->nullable()->comment('顧客側契約担当者メール');
 
             // 顧客支払担当者
-            $table->string('customer_payment_user_name')->comment('顧客側支払担当者氏名');
+            $table->string('customer_payment_user_name')->nullable()->comment('顧客側支払担当者氏名');
             $table->string('customer_payment_user_dept')->nullable()->comment('顧客側支払担当者部署');
             $table->string('customer_payment_user_title')->nullable()->comment('顧客側支払担当者役職');
-            $table->string('customer_payment_user_email')->comment('顧客側支払担当者メール');
+            $table->string('customer_payment_user_email')->nullable()->comment('顧客側支払担当者メール');
 
-            $table->unsignedBigInteger('service_rep_user_option_id')->comment('サービス担当者ユーザー設定ID');
-            $table->unsignedBigInteger('service_mgr_user_option_id')->comment('サービス管理者ユーザー設定ID');
+            $table->unsignedBigInteger('service_rep_user_option_id')->nullable()->comment('サービス担当者ユーザー設定ID');
+            $table->unsignedBigInteger('service_mgr_user_option_id')->nullable()->comment('サービス管理者ユーザー設定ID');
 
             // 契約書関連項目
             $table->string('quotation_name')->nullable()->comment('見積書名称');
@@ -87,7 +100,7 @@ return new class extends Migration {
             $table->string('contract_preview_pdf_url')->nullable()->comment('契約書URL');
 
             $table->string('billing_cycle_type')->default('billing_cycle')->comment('請求サイクル種別');
-            $table->string('billing_cycle_code')->comment('請求サイクルコード');
+            $table->string('billing_cycle_code')->nullable()->comment('請求サイクルコード');
 
             $table->string('remarks')->nullable()->comment('備考');
 

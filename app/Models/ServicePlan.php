@@ -14,6 +14,11 @@ class ServicePlan extends Model
 
     protected $primaryKey = 'service_plan_id';
 
+    protected $fillable = [
+        'contract_template_jp_id',
+        'contract_template_en_id',
+    ];
+
     protected function casts(): array
     {
         return [
