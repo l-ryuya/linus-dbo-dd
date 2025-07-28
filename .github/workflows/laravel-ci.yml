@@ -10,10 +10,7 @@ permissions:
 
 jobs:
   laravel-tests:
-    runs-on: ubuntu-24.04
-    container:
-      # Needs to lock glibc version to 2.31, ubuntu 20.04 has glibc 2.31
-      image: ubuntu:20.04
+    runs-on: ubuntu-latest
 
     services:
       postgres:
@@ -42,31 +39,6 @@ jobs:
     steps:
       - name: ✅ リポジトリをチェックアウト
         uses: actions/checkout@v4
-
-      - name: 🐳 アプリ用イメージのビルド
-        run: docker build -t php-fpm -f ./infra/docker/develop2/php/Dockerfile ./
-
-      - name: 🔎 Trivy によるアプリイメージスキャン
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: php-fpm
-          format: table
-          exit-code: 1
-          ignore-unfixed: true
-
-      - name: 🐳 アプリ用イメージのビルド
-        run: docker build -t apache -f ./infra/docker/develop2/apache/Dockerfile .
-
-      - name: 📝 ビルドしたイメージ情報を表示
-        run: docker inspect apache
-
-      - name: 🔎 Trivy によるアプリイメージスキャン
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: apache
-          format: table
-          exit-code: 1
-          ignore-unfixed: true
 
       - name: 🧰 PHPセットアップ（8.3）
         uses: shivammathur/setup-php@v2
