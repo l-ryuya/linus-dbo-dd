@@ -41,7 +41,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: 🐳 アプリ用イメージのビルド
-        run: docker build -t php-fpm ./infra/docker/develop2/php/Dockerfile .
+        run: docker build -t php-fpm -f ./infra/docker/develop2/php/Dockerfile ./
 
       - name: 🔎 Trivy によるアプリイメージスキャン
         uses: aquasecurity/trivy-action@master
@@ -52,7 +52,7 @@ jobs:
           ignore-unfixed: true
 
       - name: 🐳 アプリ用イメージのビルド
-        run: docker build -t apache ./infra/docker/develop2/apache/Dockerfile .
+        run: docker build -t apache -f ./infra/docker/develop2/apache/Dockerfile .
 
       - name: 🔎 Trivy によるアプリイメージスキャン
         uses: aquasecurity/trivy-action@master
