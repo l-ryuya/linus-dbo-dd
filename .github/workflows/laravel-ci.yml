@@ -54,6 +54,9 @@ jobs:
       - name: 🐳 アプリ用イメージのビルド
         run: docker build -t apache -f ./infra/docker/develop2/apache/Dockerfile .
 
+      - name: 📝 ビルドしたイメージ情報を表示
+        run: docker inspect apache
+
       - name: 🔎 Trivy によるアプリイメージスキャン
         uses: aquasecurity/trivy-action@master
         with:
