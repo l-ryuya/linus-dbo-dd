@@ -4,15 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Tenant;
 
+use App\Enums\ServiceContractStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\ServiceContract\IndexRequest;
+use App\Http\Requests\Tenant\ServiceContract\StoreDraftRequest;
 use App\Http\Requests\Tenant\ServiceContract\StoreRequest;
+use App\Http\Requests\Tenant\ServiceContract\UpdateDraftRequest;
 use App\Http\Requests\Tenant\ServiceContract\UpdateRequest;
 use App\Http\Resources\NoContentResource;
+use App\Http\Resources\Tenant\ServiceContract\CloudsignStatusSyncResource;
 use App\Http\Resources\Tenant\ServiceContract\IndexCollection;
 use App\Http\Resources\Tenant\ServiceContract\ShowResource;
 use App\Http\Resources\Tenant\ServiceContract\StoreResource;
 use App\Services\Role\TenantUserRoleService;
+use App\UseCases\Tenant\ServiceContract\CloudsignStatusSyncAction;
 use App\UseCases\Tenant\ServiceContract\IndexAction;
 use App\UseCases\Tenant\ServiceContract\ShowAction;
 use App\UseCases\Tenant\ServiceContract\StoreAction;
@@ -100,6 +105,34 @@ class ServiceContractController extends Controller
         return (new StoreResource(
             $action(
                 $user->getUserOption()->tenant,
+                ServiceContractStatus::ContractInfoRegistered,
+                $request->toStoreInput(),
+            ),
+        ))
+        ->response()
+        ->setStatusCode(201);
+    }
+
+    /**
+     * テナント管理者 顧客サービス契約を下書き登録する
+     *
+     * @param \App\Http\Requests\Tenant\ServiceContract\StoreDraftRequest $request
+     * @param \App\UseCases\Tenant\ServiceContract\StoreAction            $action
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function storeDraft(
+        StoreDraftRequest $request,
+        StoreAction $action,
+    ): \Illuminate\Http\JsonResponse {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        return (new StoreResource(
+            $action(
+                $user->getUserOption()->tenant,
+                ServiceContractStatus::ContractInfoDrafted,
                 $request->toStoreInput(),
             ),
         ))
@@ -128,9 +161,67 @@ class ServiceContractController extends Controller
         $action(
             $user->getUserOption()->tenant,
             $publicId,
+            ServiceContractStatus::ContractInfoRegistered,
             $request->toUpdateInput(),
         );
 
         return new NoContentResource();
+    }
+
+    /**
+     * テナント管理者 顧客サービス契約の下書きを更新する
+     *
+     * @param \App\Http\Requests\Tenant\ServiceContract\UpdateDraftRequest $request
+     * @param string                                                       $publicId
+     * @param \App\UseCases\Tenant\ServiceContract\UpdateAction            $action
+     *
+     * @return \App\Http\Resources\NoContentResource
+     * @throws \Throwable
+     */
+    public function updateDraft(
+        UpdateDraftRequest $request,
+        string $publicId,
+        UpdateAction $action,
+    ): NoContentResource {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        $action(
+            $user->getUserOption()->tenant,
+            $publicId,
+            ServiceContractStatus::ContractInfoDrafted,
+            $request->toUpdateInput(),
+        );
+
+        return new NoContentResource();
+    }
+
+    /**
+     * テナント管理者 顧客サービス契約のステータスを同期する
+     *
+     * @param \Illuminate\Http\Request                                       $request
+     * @param string                                                         $publicId
+     * @param \App\UseCases\Tenant\ServiceContract\CloudsignStatusSyncAction $action
+     *
+     * @return \App\Http\Resources\Tenant\ServiceContract\CloudsignStatusSyncResource
+     * @throws \App\Exceptions\LogicValidationException
+     * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws \Throwable
+     */
+    public function cloudsignStatusSync(
+        Request $request,
+        string $publicId,
+        CloudsignStatusSyncAction $action,
+    ): CloudsignStatusSyncResource {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        return new CloudsignStatusSyncResource(
+            $action(
+                $user->getUserOption()->language_code,
+                (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
+                $publicId,
+            ),
+        );
     }
 }

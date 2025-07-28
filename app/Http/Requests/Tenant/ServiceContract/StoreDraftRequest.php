@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Requests\Tenant\ServiceContract;
 
-use App\Dto\Tenant\ServiceContract\UpdateInput;
+use App\Dto\Tenant\ServiceContract\StoreInput;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class UpdateRequest extends FormRequest
+class StoreDraftRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -22,7 +22,7 @@ class UpdateRequest extends FormRequest
             'servicePlanPublicId' => ['required', 'uuid', Rule::exists('service_plans', 'public_id')],
             'customerPublicId' => ['required', 'uuid'],
             'contractName' => ['required', 'string', 'max:255'],
-            'contractLanguage' => ['required', 'string', 'size:3'],
+            'contractLanguage' => ['nullable', 'string', 'size:3'],
             'serviceUsageStatusCode' => [
                 'required',
                 'string',
@@ -31,24 +31,24 @@ class UpdateRequest extends FormRequest
                 Rule::exists('selection_items', 'selection_item_code')
                     ->where('selection_item_type', 'service_usage_status'),
             ],
-            'contractDate' => ['required', 'date', 'date_format:Y-m-d'],
-            'contractStartDate' => ['required', 'date', 'date_format:Y-m-d'],
+            'contractDate' => ['nullable', 'date', 'date_format:Y-m-d'],
+            'contractStartDate' => ['nullable', 'date', 'date_format:Y-m-d'],
             'contractEndDate' => ['nullable', 'date', 'date_format:Y-m-d'],
-            'contractAutoUpdate' => ['required', 'boolean'],
-            'customerContactUserName' => ['required', 'string', 'max:255'],
+            'contractAutoUpdate' => ['nullable', 'boolean'],
+            'customerContactUserName' => ['nullable', 'string', 'max:255'],
             'customerContactUserDept' => ['nullable', 'string', 'max:255'],
             'customerContactUserTitle' => ['nullable', 'string', 'max:255'],
-            'customerContactUserEmail' => ['required', 'email', 'max:255'],
-            'customerContractUserName' => ['required', 'string', 'max:255'],
+            'customerContactUserEmail' => ['nullable', 'email', 'max:255'],
+            'customerContractUserName' => ['nullable', 'string', 'max:255'],
             'customerContractUserDept' => ['nullable', 'string', 'max:255'],
             'customerContractUserTitle' => ['nullable', 'string', 'max:255'],
-            'customerContractUserEmail' => ['required', 'email', 'max:255'],
-            'customerPaymentUserName' => ['required', 'string', 'max:255'],
+            'customerContractUserEmail' => ['nullable', 'email', 'max:255'],
+            'customerPaymentUserName' => ['nullable', 'string', 'max:255'],
             'customerPaymentUserDept' => ['nullable', 'string', 'max:255'],
             'customerPaymentUserTitle' => ['nullable', 'string', 'max:255'],
-            'customerPaymentUserEmail' => ['required', 'email', 'max:255'],
-            'serviceRepUserPublicId' => ['required', 'uuid'],
-            'serviceMgrUserPublicId' => ['required', 'uuid'],
+            'customerPaymentUserEmail' => ['nullable', 'email', 'max:255'],
+            'serviceRepUserPublicId' => ['nullable', 'uuid'],
+            'serviceMgrUserPublicId' => ['nullable', 'uuid'],
             'quotationName' => ['nullable', 'string', 'max:255'],
             'quotationNumber' => ['nullable','string','max:255'],
             'quotationDate' => ['nullable','date', 'date_format:Y-m-d'],
@@ -57,7 +57,7 @@ class UpdateRequest extends FormRequest
             'proposalDate' => ['nullable','date', 'date_format:Y-m-d'],
             'invoiceRemindDays' => ['nullable', 'string', 'max:255', 'regex:/^-?\d+(,-?\d+)*$/'],
             'billingCycleCode' => [
-                'required',
+                'nullable',
                 'string',
                 'min:3',
                 'max:128',
@@ -68,8 +68,8 @@ class UpdateRequest extends FormRequest
         ];
     }
 
-    public function toUpdateInput(): UpdateInput
+    public function toStoreInput(): StoreInput
     {
-        return UpdateInput::fromRequest($this->validated());
+        return StoreInput::fromRequest($this->validated());
     }
 }

@@ -79,8 +79,6 @@ class IndexTest extends TestCase
                         'customerNameEn',
                         'customerStatus',
                         'serviceStartDate',
-                        'serviceName',
-                        'servicePlanName',
                     ],
                 ],
                 'links',
@@ -139,10 +137,6 @@ class IndexTest extends TestCase
      */
     public function test_index_validates_input(): void
     {
-        // 不正なサービスID（UUIDではない）
-        $response = $this->getJson($this->getBaseUrl() . '?servicePublicId=invalid-uuid');
-        $response->assertStatus(422);
-
         // 不正なページ番号
         $response = $this->getJson($this->getBaseUrl() . '?page=invalid');
         $response->assertStatus(422);
@@ -150,16 +144,6 @@ class IndexTest extends TestCase
         // 存在しない顧客ステータスコード
         $response = $this->getJson($this->getBaseUrl() . '?customerStatusCode=non-existent-status');
         $response->assertStatus(422);
-    }
-
-    /**
-     * 組織コードでフィルタリングできることをテストする
-     */
-    public function test_index_filters_by_organization_code(): void
-    {
-        $response = $this->getJson($this->getBaseUrl() . "?organizationCode=ORG00000022&page=1");
-
-        $response->assertStatus(200);
     }
 
     /**

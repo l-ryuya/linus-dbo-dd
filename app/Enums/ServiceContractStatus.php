@@ -18,6 +18,7 @@ enum ServiceContractStatus: String
     use EnumToGet;
     use EnumToEqual;
 
+    case ContractInfoDrafted = 'contract_info_drafted';
     case ContractInfoRegistered = 'contract_info_registered';
     case ContractDocumentSent = 'contract_document_sent';
     case ContractExecuted = 'contract_executed';
