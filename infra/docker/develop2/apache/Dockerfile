@@ -5,7 +5,8 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends curl && \
     rm -rf /var/lib/apt/lists/*
 
-COPY artisan /var/www/html/artisan
+COPY composer.json composer.lock .env.develop artisan /var/www/html/
+
 COPY /app/ /var/www/html/app/
 COPY /bootstrap/ /var/www/html/bootstrap/
 COPY /config/ /var/www/html/config/
@@ -14,8 +15,5 @@ COPY /lang/ /var/www/html/lang/
 COPY /public/ /var/www/html/public/
 COPY ./routes/ /var/www/html/routes/
 COPY ./storage/ /var/www/html/storage/
-COPY composer.json /var/www/html/composer.json
-COPY composer.lock /var/www/html/composer.lock
-COPY .env.develop  /var/www/html/.env.develop
 
 COPY infra/docker/develop2/apache/conf/httpd.conf /usr/local/apache2/conf/httpd.conf

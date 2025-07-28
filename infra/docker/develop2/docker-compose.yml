@@ -1,7 +1,9 @@
 services:
   apache:
-    image: httpd:2.4
-    container_name: apache
+    build:
+        context: ../../../
+        dockerfile: ./infra/docker/develop2/apache/Dockerfile
+    container_name: dbo-dd-web
     ports:
       - 3000:3000
     volumes:
@@ -13,7 +15,7 @@ services:
     build:
         context: ../../../
         dockerfile: ./infra/docker/develop2/php/Dockerfile
-    container_name: php-fpm
+    container_name: dbo-dd-app
     volumes:
     - ../../../:/var/www/html
 volumes:

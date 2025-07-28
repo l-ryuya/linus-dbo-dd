@@ -40,6 +40,17 @@ jobs:
       - name: ✅ リポジトリをチェックアウト
         uses: actions/checkout@v4
 
+      - name: 🐳 アプリ用イメージのビルド
+        run: docker build -t my-laravel-app .
+
+      - name: 🔎 Trivy によるアプリイメージスキャン
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: my-laravel-app
+          format: table
+          exit-code: 1
+          ignore-unfixed: true
+
       - name: 🧰 PHPセットアップ（8.3）
         uses: shivammathur/setup-php@v2
         with:
