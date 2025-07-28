@@ -1,0 +1,59 @@
+services:
+#  database:
+#    build:
+#      context: .
+#      dockerfile: docker-db/Dockerfile
+#    container_name: database
+#    environment:
+#      - POSTGRES_USER=m5
+#      - POSTGRES_PASSWORD=m5
+#      - POSTGRES_DB=digital-back-office
+#    ports:
+#      - "25432:5432"
+#    networks:
+#      - mynet
+  m5-app:
+    image: ghcr.io/dentsusoken/m5/m5_app:3.6.0
+    env_file: ./env/m5/.env
+    container_name: m5-app
+    ports:
+      - "9101:9101"
+      - "9102:9102"
+      - "9103:9103"
+      - "9104:9104"
+      - "9105:9105"
+      - "9106:9106"
+      - "9107:9107"
+      - "9108:9108"
+      - "9109:9109"
+    tty: true
+    networks:
+      - mynet
+  m5-app-auth:
+    image: ghcr.io/dentsusoken/m5/m5_auth:3.6.0
+    env_file: ./env/m5-auth/.env
+    container_name: m5-app-auth
+    ports:
+      - "9100:9100"
+    tty: true
+    networks:
+      - mynet
+  m5-db:
+    build:
+      context: .
+      dockerfile: ./docker-db/m5/Dockerfile.M5
+    container_name: m5-db
+    environment:
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "15432:5432"
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.250.0/28
