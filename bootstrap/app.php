@@ -52,6 +52,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'password_confirmation',
         ]);
 
+        $exceptions->render(function (\InvalidArgumentException $e) {
+            return response()->json([
+                'statusCode' => 400,
+                'message' => $e->getMessage(),
+            ], 400);
+        });
+
         $exceptions->render(function (NotFoundHttpException $e) {
             return response()->json([
                 'statusCode' => 404,

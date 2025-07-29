@@ -42,4 +42,9 @@ return [
         'client_id' => env('CLOUDSIGN_CLIENT_ID'),
     ],
 
+    'billing' => [
+        'host' => env('DBO_BILLING_HOST'),
+        'api_key' => env('DBO_BILLING_API_KEY'),
+    ],
+
 ];
