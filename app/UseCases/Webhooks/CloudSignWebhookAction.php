@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Webhooks;
 
 use App\Enums\ServiceContractStatus;
+use App\Jobs\DboBilling\CustomerJob;
 use App\Mail\ContractStatusNotificationsMail;
 use App\Models\ServiceContract;
 use Illuminate\Support\Facades\DB;
@@ -45,6 +46,23 @@ class CloudSignWebhookAction
 
             DB::commit();
 
+            if ($payload['status'] == 2) {
+                $invoiceRemindDays = [];
+                if (!is_null($serviceContract->invoice_remind_days)) {
+                    $invoiceRemindDays = array_map('intval', explode(',', $serviceContract->invoice_remind_days));
+                }
+
+                CustomerJob::dispatch(
+                    $serviceContract->customer_payment_user_name,
+                    $serviceContract->customer_payment_user_email,
+                    $serviceContract->contract_language,
+                    $serviceContract->service_contract_code,
+                    $serviceContract->service->billing_service_id,
+                    $serviceContract->public_id,
+                    $invoiceRemindDays,
+                );
+            }
+
             if (in_array($payload['status'], [2, 3], true)) {
                 $this->notifyRecipients($serviceContract, $contractStatus, $payload);
             }
@@ -72,9 +90,6 @@ class CloudSignWebhookAction
                 $contractStatus = '締結完了';
                 $serviceContract->contract_status_code = ServiceContractStatus::ContractExecuted->value;
                 $serviceContract->contract_executed_at = now();
-
-                // TODO: dbo_billingへcustomer登録する必要がある
-
                 break;
             case 3:
                 $contractStatus = '取り消し・却下';

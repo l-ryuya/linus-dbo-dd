@@ -29,6 +29,9 @@ return new class extends Migration {
                 ->comment('所属テナントID');
             $table->string('service_code')
                 ->comment('サービスを一意に識別するコード');
+            $table->uuid('billing_service_id')
+                ->unique()
+                ->comment('dbo_billing の service.id UUID v4');
 
             // 属性
             $table->string('service_status_type')
