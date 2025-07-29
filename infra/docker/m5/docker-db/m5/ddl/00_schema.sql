@@ -1,0 +1,5 @@
+-- DB接続ユーザm5の作成
+CREATE ROLE m5 WITH LOGIN PASSWORD 'password';
+
+-- Schema
+CREATE SCHEMA m5 AUTHORIZATION m5;
