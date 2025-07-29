@@ -60,11 +60,17 @@ class CustomerJob implements ShouldQueue, ShouldBeUnique
     public bool $deleteWhenMissingModels = true;
 
     public string $name;
+
     public string $email;
+
     public string $language;
+
     public string $externalId;
+
     public string $serviceId;
+
     public string $serviceContractId;
+
     /** @var int[] */
     public array $invoiceRemindDays;
 

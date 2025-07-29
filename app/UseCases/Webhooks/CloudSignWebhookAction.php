@@ -8,7 +8,6 @@ use App\Enums\ServiceContractStatus;
 use App\Jobs\DboBilling\CustomerJob;
 use App\Mail\ContractStatusNotificationsMail;
 use App\Models\ServiceContract;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
