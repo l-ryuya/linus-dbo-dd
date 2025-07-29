@@ -6,6 +6,7 @@ namespace App\UseCases\Tenant\ServiceContract;
 
 use App\Enums\ServiceContractStatus;
 use App\Exceptions\LogicValidationException;
+use App\Jobs\DboBilling\CustomerJob;
 use App\Mail\ContractStatusNotificationsMail;
 use App\Models\ServiceContract;
 use App\Services\CloudSign\GetDocumentService;
@@ -62,6 +63,23 @@ class CloudsignStatusSyncAction
             $serviceContract->save();
 
             DB::commit();
+
+            if ($status == 2) {
+                $invoiceRemindDays = [];
+                if (!is_null($serviceContract->invoice_remind_days)) {
+                    $invoiceRemindDays = array_map('intval', explode(',', $serviceContract->invoice_remind_days));
+                }
+
+                CustomerJob::dispatch(
+                    $serviceContract->customer_payment_user_name,
+                    $serviceContract->customer_payment_user_email,
+                    $serviceContract->contract_language,
+                    $serviceContract->service_contract_code,
+                    $serviceContract->service->billing_service_id,
+                    $serviceContract->public_id,
+                    $invoiceRemindDays,
+                );
+            }
 
             if (in_array($status, [2, 3], true)) {
                 $this->notifyRecipients($serviceContract, $contractStatus);

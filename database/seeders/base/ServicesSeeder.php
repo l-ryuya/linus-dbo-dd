@@ -32,6 +32,7 @@ class ServicesSeeder extends Seeder
                 "tenant_id" => $row['tenant_id'],
                 "public_id" => $row['public_id'],
                 "service_code" => $row['service_code'],
+                "billing_service_id" => $row['billing_service_id'],
                 "service_status_type" => $row['service_status_type'],
                 "service_status_code" => $row['service_status_code'],
                 "service_start_date" => empty($row['service_start_date']) ? null : $row['service_start_date'],

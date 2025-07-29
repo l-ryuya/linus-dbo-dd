@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Tenant\ServiceContract;
 
+use App\Jobs\DboBilling\CustomerJob;
 use App\Models\Customer;
 use App\Models\Service;
 use App\Models\ServiceContract;
@@ -24,6 +25,7 @@ use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
@@ -179,6 +181,8 @@ class CloudsignStatusSyncTest extends TestCase
      */
     public function test_cloudsign_status_sync_updates_status_to_executed(): void
     {
+        Queue::fake();
+
         // GetDocumentServiceのモックを作成
         $mockService = \Mockery::mock(GetDocumentService::class)->makePartial();
         $mockService->shouldReceive('getStatus')->andReturn(2);
@@ -206,6 +210,9 @@ class CloudsignStatusSyncTest extends TestCase
         // contract_executed_atが設定されていることを確認
         $serviceContract = ServiceContract::where('public_id', $this->publicId)->first();
         $this->assertNotNull($serviceContract->contract_executed_at);
+
+        // CustomerJobがキューにプッシュされたことを確認
+        Queue::assertPushedOn('billing', CustomerJob::class);
 
         // メール送信が実行されたことを確認
         Mail::assertQueued(\App\Mail\ContractStatusNotificationsMail::class);
