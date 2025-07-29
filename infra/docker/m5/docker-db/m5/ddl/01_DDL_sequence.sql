@@ -93,3 +93,7 @@ create sequence m5.operation_history_config_id_seq START 1;
 -- 付帯情報設定
 drop sequence if exists m5.additional_info_setting_id_seq;
 create sequence m5.additional_info_setting_id_seq START 1;
+
+-- 基準日
+drop sequence if exists m5.ref_date_id_seq;
+create sequence m5.ref_date_id_seq START 1;

@@ -17,7 +17,7 @@ INSERT INTO m5.organization_mng (
 ) VALUES
 /* ───────────── PLATFORM (level_id = 1) ───────────── */
 ('CALENDAR',1,
- '','',
+ null , null ,
  'SYS',current_timestamp,current_setting('my.bizdate')::date,
  'SYS',current_timestamp,current_setting('my.bizdate')::date,1);
 

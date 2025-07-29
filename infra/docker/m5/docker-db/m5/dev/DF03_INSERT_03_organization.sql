@@ -25,11 +25,13 @@ SET LOCAL my.bizdate TO '2025-06-11';
 ------------------------------------------------------------
 INSERT INTO m5.organization (
       id, organization_code, organization_name, organization_level_id, parent_organization_id,
+      passwd_validity_period, failed_login_attempt,
       sys_organization_code, short_name,
       created_user_code, created_biz_date,
       updated_user_code, updated_biz_date, updated_date_time, version
 ) VALUES
 ( 1 , 'SYSORG_00000001' , 'デジタルファイナンスプラットフォーム' , 1 , NULL ,
+ 90 , 10 ,
  'ORG00000001' , 'DFP' ,
  'SYS' , current_setting('my.bizdate')::date ,
  'SYS' , current_setting('my.bizdate')::date , CURRENT_TIMESTAMP ,

@@ -14,7 +14,7 @@ INSERT INTO m5.service (
       updated_user_code, updated_biz_date, updated_date_time,
       version
 ) VALUES
-(1,'DF','デジタルファイナンスサービス',
+(1,'USER_SERVICE','デジタルファイナンスサービス',
  'SYS',current_setting('my.bizdate')::date,
  'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,
  1);

@@ -501,6 +501,28 @@ create table m5.organization_level (
   , constraint organization_level_primary_key primary key (id)
 ) ;
 
+-- 基準日
+-- * BackupToTempTable
+drop table if exists m5.ref_date cascade;
+
+-- * RestoreFromTempTable
+create table m5.ref_date (
+  id bigint default nextval('m5.ref_date_id_seq') not null
+  , service_organization_id bigint not null
+  , ref_date date not null
+  , system_date date not null
+  , additional_info jsonb
+  , deleted boolean default 'FALSE' not null
+  , created_user_code character varying(12) not null
+  , created_date_time timestamp default current_timestamp not null
+  , created_biz_date date not null
+  , updated_user_code character varying(12) not null
+  , updated_date_time timestamp default current_timestamp not null
+  , updated_biz_date date not null
+  , version bigint not null
+  , constraint ref_date_primary_key primary key (id)
+) ;
+
 alter table m5.organization_level add constraint organization_level_unique1
   unique (organization_level_code) ;
 
@@ -615,6 +637,9 @@ alter table m5.user_group
 alter table m5.users
   add constraint users_foreign_key1 foreign key (organization_id) references m5.organization(id)
   on update cascade;
+
+alter table m5.ref_date add constraint ref_date_unique1
+unique (service_organization_id) ;
 
 comment on table m5.access_assign is '権限割り当て:ユーザグループと該当ユーザグループが利用可能なファンクションの紐づけを管理するテーブル';
 comment on column m5.access_assign.user_group_id is 'ユーザグループID:ユーザグループID';
@@ -969,3 +994,18 @@ comment on column m5.organization_level.updated_user_code is 'レコード最終
 comment on column m5.organization_level.updated_date_time is 'レコード最終更新日時:システム系項目。レコードを更新した日時';
 comment on column m5.organization_level.updated_biz_date is 'レコード最終更新業務日付:システム系項目。レコードを更新した業務日付';
 comment on column m5.organization_level.version is 'バージョン番号:排他制御用カラム。Update時にインクリメントする';
+
+comment on table m5.ref_date is '基準日';
+comment on column m5.ref_date.id is 'ID';
+comment on column m5.ref_date.service_organization_id is 'サービス組織ID';
+comment on column m5.ref_date.ref_date is '基準日:システム基準日';
+comment on column m5.ref_date.system_date is 'システム日付';
+comment on column m5.ref_date.additional_info is '付帯情報:個社別情報を保持するカラム。JSONB型';
+comment on column m5.ref_date.deleted is '削除フラグ:削除済みかどうかを表す。TRUE : 削除済み、FALSE : 未削除';
+comment on column m5.ref_date.created_user_code is 'レコード作成ユーザコード:システム系項目。レコードを作成したユーザのサロゲートキー';
+comment on column m5.ref_date.created_date_time is 'レコード作成日時:システム系項目。レコードを作成した日時';
+comment on column m5.ref_date.created_biz_date is 'レコード作成業務日付:システム系項目。レコードを作成した業務日付';
+comment on column m5.ref_date.updated_user_code is 'レコード最終更新ユーザコード:システム系項目。レコードを更新したユーザのサロゲートキー';
+comment on column m5.ref_date.updated_date_time is 'レコード最終更新日時:システム系項目。レコードを更新した日時';
+comment on column m5.ref_date.updated_biz_date is 'レコード最終更新業務日付:システム系項目。レコードを更新した業務日付';
+comment on column m5.ref_date.version is 'バージョン番号:排他制御用カラム。Update時にインクリメントする';
