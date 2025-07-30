@@ -44,6 +44,12 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $service_rep_user_public_id
  * @property string $service_mgr_user_name
  * @property string $service_mgr_user_public_id
+ * @property string $quotation_name
+ * @property string $quotation_number
+ * @property ?\Carbon\Carbon $quotation_date
+ * @property string $proposal_name
+ * @property string $proposal_number
+ * @property ?\Carbon\Carbon $proposal_date
  * @property string $invoice_remind_days
  * @property string $billing_cycle
  * @property string $billing_cycle_code
@@ -93,6 +99,12 @@ class ShowResource extends JsonResource
      *     serviceRepUserPublicId: string,
      *     serviceMgrUserName: string,
      *     serviceMgrUserPublicId: string,
+     *     quotationName: string,
+     *     quotationNumber: string,
+     *     quotationDate: ?string,
+     *     proposalName: string,
+     *     proposalNumber: string,
+     *     proposalDate: ?string,
      *     invoiceRemindDays: string,
      *     billingCycle: string,
      *     billingCycleCode: string,
@@ -138,6 +150,12 @@ class ShowResource extends JsonResource
             'serviceRepUserPublicId' => $this->service_rep_user_public_id,
             'serviceMgrUserName' => $this->service_mgr_user_name,
             'serviceMgrUserPublicId' => $this->service_mgr_user_public_id,
+            'quotationName' => $this->quotation_name,
+            'quotationNumber' => $this->quotation_number,
+            'quotationDate' => $this->quotation_date?->format('Y-m-d'),
+            'proposalName' => $this->proposal_name,
+            'proposalNumber' => $this->proposal_number,
+            'proposalDate' => $this->proposal_date?->format('Y-m-d'),
             'invoiceRemindDays' => empty($this->invoice_remind_days) ? null : trim($this->invoice_remind_days, '{}'),
             'billingCycle' => $this->billing_cycle,
             'billingCycleCode' => $this->billing_cycle_code,
