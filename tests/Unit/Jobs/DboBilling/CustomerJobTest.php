@@ -34,8 +34,11 @@ class CustomerJobTest extends TestCase
     use RefreshDatabase;
 
     private CustomerJob $customerJob;
+
     private Tenant $tenant;
+
     private Service $service;
+
     private string $publicId;
 
     protected function setUp(): void
@@ -77,7 +80,6 @@ class CustomerJobTest extends TestCase
             [7, 14, 21],
         );
     }
-
 
     /**
      * テスト用のサービス契約データを作成
