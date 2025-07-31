@@ -866,6 +866,9 @@ components:
             contractStatus:
               type: string
               description: 契約ステータス名
+            contractStatusCode:
+              type: string
+              description: 契約ステータスコード
             serviceUsageStatus:
               type: string
               description: サービス利用ステータス名
