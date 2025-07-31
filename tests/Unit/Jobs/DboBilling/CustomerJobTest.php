@@ -5,11 +5,28 @@ declare(strict_types=1);
 namespace Tests\Unit\Jobs\DboBilling;
 
 use App\Jobs\DboBilling\CustomerJob;
+use App\Models\Customer;
+use App\Models\Service;
+use App\Models\ServiceContract;
+use App\Models\ServicePlan;
+use App\Models\Tenant;
+use App\Models\UserOption;
+use Database\Seeders\base\CompaniesSeeder;
+use Database\Seeders\base\CountryRegionsSeeder;
+use Database\Seeders\base\CustomersSeeder;
+use Database\Seeders\base\SelectionItemsSeeder;
+use Database\Seeders\base\ServiceContractsSeeder;
+use Database\Seeders\base\ServicePlansSeeder;
+use Database\Seeders\base\ServicesSeeder;
+use Database\Seeders\base\TenantsSeeder;
+use Database\Seeders\base\TimeZonesSeeder;
+use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class CustomerJobTest extends TestCase
@@ -17,15 +34,37 @@ class CustomerJobTest extends TestCase
     use RefreshDatabase;
 
     private CustomerJob $customerJob;
+    private Tenant $tenant;
+    private Service $service;
+    private string $publicId;
 
     protected function setUp(): void
     {
         parent::setUp();
 
+        $this->seed([
+            TimeZonesSeeder::class,
+            SelectionItemsSeeder::class,
+            CountryRegionsSeeder::class,
+            TenantsSeeder::class,
+            CompaniesSeeder::class,
+            CustomersSeeder::class,
+            ServicesSeeder::class,
+            ServicePlansSeeder::class,
+            UserOptionsSeeder::class,
+            ServiceContractsSeeder::class,
+        ]);
+
         // DBO Billingの設定をモック
         Config::set('services.billing.api_key', json_encode(['REQUEST_API_KEY' => 'test-api-key']));
         Config::set('services.billing.host', 'https://api.billing.example.com');
         Config::set('mail.system.admin_address', 'admin@example.com');
+
+        $authUser = $this->createServiceManageUser();
+        $this->tenant = $authUser->getUserOption()->tenant;
+
+        // テスト用のサービス契約データを作成
+        $this->createTestServiceContract();
 
         // テスト用のCustomerJobを作成
         $this->customerJob = new CustomerJob(
@@ -33,10 +72,65 @@ class CustomerJobTest extends TestCase
             'customer@example.com',
             'jpn',
             'external-123',
-            'service-456',
-            'contract-789',
+            $this->service->billing_service_id,
+            $this->publicId,
             [7, 14, 21],
         );
+    }
+
+
+    /**
+     * テスト用のサービス契約データを作成
+     */
+    private function createTestServiceContract(): void
+    {
+        $customer = Customer::where('tenant_id', $this->tenant->tenant_id)->first();
+        $this->service = Service::where('tenant_id', $this->tenant->tenant_id)->first();
+        $servicePlan = ServicePlan::where('service_id', $this->service->service_id)->first();
+        $serviceRepUserOption = UserOption::where('tenant_id', $this->tenant->tenant_id)
+            ->where('service_id', $this->service->service_id)
+            ->first();
+        $serviceMgrUserOption = UserOption::where('tenant_id', $this->tenant->tenant_id)
+            ->where('service_id', $this->service->service_id)
+            ->first();
+
+        $this->publicId = Str::uuid()->toString();
+        ServiceContract::create([
+            'public_id' => $this->publicId,
+            'tenant_id' => $this->tenant->tenant_id,
+            'customer_id' => $customer->customer_id,
+            'service_id' => $this->service->service_id,
+            'service_plan_id' => $servicePlan->service_plan_id,
+            'contract_name' => 'Test Contract',
+            'contract_language' => 'jpn',
+            'contract_status_type' => 'service_contract_status',
+            'contract_status_code' => 'contract_executed',
+            'service_usage_status_type' => 'service_usage_status',
+            'service_usage_status_code' => 'awaiting_activation',
+            'contract_date' => '2024-01-01',
+            'contract_start_date' => '2024-01-01',
+            'contract_end_date' => null,
+            'contract_auto_update' => false,
+            'customer_contact_user_name' => 'Contact User',
+            'customer_contact_user_dept' => 'Contact Dept',
+            'customer_contact_user_title' => 'Contact Title',
+            'customer_contact_user_email' => 'contact@example.com',
+            'customer_contract_user_name' => 'Contract User',
+            'customer_contract_user_dept' => 'Contract Dept',
+            'customer_contract_user_title' => 'Contract Title',
+            'customer_contract_user_email' => 'contract@example.com',
+            'customer_payment_user_name' => 'Payment User',
+            'customer_payment_user_dept' => 'Payment Dept',
+            'customer_payment_user_title' => 'Payment Title',
+            'customer_payment_user_email' => 'payment@example.com',
+            'service_rep_user_option_id' => $serviceRepUserOption->user_option_id,
+            'service_mgr_user_option_id' => $serviceMgrUserOption->user_option_id,
+            'billing_cycle_type' => 'billing_cycle',
+            'billing_cycle_code' => 'monthly',
+            'invoice_remind_days' => '{7,14,21}',
+            'remarks' => 'Test remarks',
+            'contract_doc_id' => 'test-doc-id-12345',
+        ]);
     }
 
     /**
@@ -52,9 +146,10 @@ class CustomerJobTest extends TestCase
                 'email' => 'customer@example.com',
                 'language' => 'JAPANESE',
                 'externalId' => 'external-123',
-                'serviceId' => 'service-456',
-                'serviceContractId' => 'contract-789',
                 'invoiceRemindDays' => [7, 14, 21],
+                'stripeId' => 'cus_123',
+                'serviceId' => $this->service->billing_service_id,
+                'serviceContractId' => $this->publicId,
             ], 200),
         ]);
 
@@ -68,10 +163,17 @@ class CustomerJobTest extends TestCase
                    $request['email'] === 'customer@example.com' &&
                    $request['language'] === 'JAPANESE' &&
                    $request['externalId'] === 'external-123' &&
-                   $request['serviceId'] === 'service-456' &&
-                   $request['serviceContractId'] === 'contract-789' &&
+                   $request['serviceId'] === $this->service->billing_service_id &&
+                   $request['serviceContractId'] === $this->publicId &&
                    $request['invoiceRemindDays'] === [7, 14, 21];
         });
+
+        // データベースの状態を確認
+        $this->assertDatabaseHas('service_contracts', [
+            'public_id' => $this->publicId,
+            'billing_service_id' => $this->service->billing_service_id,
+            'stripe_id' => 'cus_123',
+        ]);
     }
 
     /**
@@ -85,8 +187,8 @@ class CustomerJobTest extends TestCase
             'customer-en@example.com',
             'eng',
             'external-456',
-            'service-789',
-            'contract-012',
+            $this->service->billing_service_id,
+            $this->publicId,
             [3, 7],
         );
 
@@ -98,9 +200,10 @@ class CustomerJobTest extends TestCase
                 'email' => 'customer-en@example.com',
                 'language' => 'ENGLISH',
                 'externalId' => 'external-456',
-                'serviceId' => 'service-789',
-                'serviceContractId' => 'contract-012',
                 'invoiceRemindDays' => [3, 7],
+                'stripeId' => 'cus_123',
+                'serviceId' => $this->service->billing_service_id,
+                'serviceContractId' => $this->publicId,
             ], 200),
         ]);
 
@@ -114,10 +217,17 @@ class CustomerJobTest extends TestCase
                    $request['email'] === 'customer-en@example.com' &&
                    $request['language'] === 'ENGLISH' &&
                    $request['externalId'] === 'external-456' &&
-                   $request['serviceId'] === 'service-789' &&
-                   $request['serviceContractId'] === 'contract-012' &&
+                   $request['serviceId'] === $this->service->billing_service_id &&
+                   $request['serviceContractId'] === $this->publicId &&
                    $request['invoiceRemindDays'] === [3, 7];
         });
+
+        // データベースの状態を確認
+        $this->assertDatabaseHas('service_contracts', [
+            'public_id' => $this->publicId,
+            'billing_service_id' => $this->service->billing_service_id,
+            'stripe_id' => 'cus_123',
+        ]);
     }
 
     /**
@@ -131,8 +241,8 @@ class CustomerJobTest extends TestCase
             'customer-fr@example.com',
             'fra',
             'external-789',
-            'service-012',
-            'contract-345',
+            $this->service->billing_service_id,
+            $this->publicId,
             [],
         );
 
@@ -144,9 +254,10 @@ class CustomerJobTest extends TestCase
                 'email' => 'customer-fr@example.com',
                 'language' => 'ENGLISH',
                 'externalId' => 'external-789',
-                'serviceId' => 'service-012',
-                'serviceContractId' => 'contract-345',
                 'invoiceRemindDays' => [],
+                'stripeId' => 'cus_123',
+                'serviceId' => $this->service->billing_service_id,
+                'serviceContractId' => $this->publicId,
             ], 200),
         ]);
 
@@ -273,8 +384,8 @@ class CustomerJobTest extends TestCase
             'empty@example.com',
             'jpn',
             'external-empty',
-            'service-empty',
-            'contract-empty',
+            $this->service->billing_service_id,
+            $this->publicId,
             [],
         );
 

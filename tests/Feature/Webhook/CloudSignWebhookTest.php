@@ -241,7 +241,7 @@ class CloudSignWebhookTest extends TestCase
 
         $response = $this->postJson($this->getWebhookUrl(), $payload);
 
-        $response->assertStatus(204);
+        $response->assertStatus(400);
 
         // データベースのステータスが変更されていないことを確認
         $this->assertDatabaseHas('service_contracts', [
