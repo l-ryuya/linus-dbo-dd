@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCases\Webhooks;
 
+use App\Enums\CloudSignStatus;
 use App\Enums\ServiceContractStatus;
 use App\Jobs\DboBilling\CustomerJob;
 use App\Mail\ContractStatusNotificationsMail;
@@ -25,12 +26,8 @@ class CloudSignWebhookAction
     public function __invoke(
         array $payload,
     ): void {
-        $prettyJson = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        \Log::debug($prettyJson);
-
-        if (!isset($payload['documentID'], $payload['status'])) {
-            throw new \InvalidArgumentException('CloudSign webhook request does not contain documentID or status.');
-        }
+        $this->logPayload($payload);
+        $this->validatePayload($payload);
 
         DB::beginTransaction();
 
@@ -40,32 +37,18 @@ class CloudSignWebhookAction
                 ->lockForUpdate()
                 ->firstOrFail();
 
-            $contractStatus = $this->updateContractStatus($serviceContract, $payload['status']);
+            $status = CloudSignStatus::tryFrom($payload['status']);
+            if ($status === null) {
+                throw new \InvalidArgumentException("Unknown CloudSign status: {$payload['status']}");
+            }
 
+            $this->updateContractStatus($serviceContract, $status);
             $serviceContract->save();
 
             DB::commit();
 
-            if ($payload['status'] == 2) {
-                $invoiceRemindDays = [];
-                if (!is_null($serviceContract->invoice_remind_days)) {
-                    $invoiceRemindDays = array_map('intval', explode(',', $serviceContract->invoice_remind_days));
-                }
+            $this->handlePostProcessing($serviceContract, $status, $payload);
 
-                CustomerJob::dispatch(
-                    $serviceContract->customer_payment_user_name,
-                    $serviceContract->customer_payment_user_email,
-                    $serviceContract->contract_language,
-                    $serviceContract->service_contract_code,
-                    $serviceContract->service->billing_service_id,
-                    $serviceContract->public_id,
-                    $invoiceRemindDays,
-                );
-            }
-
-            if (in_array($payload['status'], [2, 3], true)) {
-                $this->notifyRecipients($serviceContract, $contractStatus, $payload);
-            }
         } catch (\Throwable $exception) {
             DB::rollBack();
 
@@ -78,28 +61,117 @@ class CloudSignWebhookAction
         }
     }
 
-    private function updateContractStatus(
-        ServiceContract $serviceContract,
-        int $status,
-    ): string {
-        switch ($status) {
-            case 1:
-                $contractStatus = '先方確認中';
-                break;
-            case 2:
-                $contractStatus = '締結完了';
-                $serviceContract->contract_status_code = ServiceContractStatus::ContractExecuted->value;
-                $serviceContract->contract_executed_at = now();
-                break;
-            case 3:
-                $contractStatus = '取り消し・却下';
-                $serviceContract->contract_status_code = ServiceContractStatus::ContractCancelled->value;
-                break;
-            default:
-                $contractStatus = '不明';
+    /**
+     * ログにペイロードを出力する
+     *
+     * @param array<string, mixed> $payload
+     *
+     * @return void
+     */
+    private function logPayload(array $payload): void
+    {
+        $prettyJson = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        \Log::debug($prettyJson);
+    }
+
+    /**
+     * ペイロードの検証
+     *
+     * @param array<string, mixed> $payload
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function validatePayload(array $payload): void
+    {
+        if (!isset($payload['documentID'], $payload['status'])) {
+            throw new \InvalidArgumentException('CloudSign webhook request does not contain documentID or status.');
+        }
+    }
+
+    /**
+     * サービス契約のステータスを更新する
+     *
+     * @param ServiceContract $serviceContract
+     * @param CloudSignStatus $status
+     *
+     * @return void
+     */
+    private function updateContractStatus(ServiceContract $serviceContract, CloudSignStatus $status): void
+    {
+        match ($status) {
+            CloudSignStatus::Executed => $this->handleExecutedContract($serviceContract),
+            CloudSignStatus::Cancelled => $this->handleCancelledContract($serviceContract),
+            default => null,
+        };
+    }
+
+    private function handleExecutedContract(ServiceContract $serviceContract): void
+    {
+        $serviceContract->contract_status_code = ServiceContractStatus::ContractExecuted->value;
+        $serviceContract->contract_executed_at = now();
+    }
+
+    private function handleCancelledContract(ServiceContract $serviceContract): void
+    {
+        $serviceContract->contract_status_code = ServiceContractStatus::ContractCancelled->value;
+    }
+
+    /**
+     * クラウドサインのステータスに応じた後処理を行う
+     *
+     * @param ServiceContract $serviceContract
+     * @param CloudSignStatus $status
+     * @param array<string, mixed> $payload
+     *
+     * @return void
+     */
+    private function handlePostProcessing(ServiceContract $serviceContract, CloudSignStatus $status, array $payload): void
+    {
+        if ($status === CloudSignStatus::Executed) {
+            $this->dispatchCustomerJob($serviceContract);
         }
 
-        return $contractStatus;
+        if (in_array($status, [CloudSignStatus::Executed, CloudSignStatus::Cancelled], true)) {
+            $this->notifyRecipients($serviceContract, $status->getStatusText(), $payload);
+        }
+    }
+
+    /**
+     * dbo_billing顧客登録のジョブをディスパッチする
+     *
+     * @param ServiceContract $serviceContract
+     *
+     * @return void
+     */
+    private function dispatchCustomerJob(ServiceContract $serviceContract): void
+    {
+        $invoiceRemindDays = $this->parseInvoiceRemindDays($serviceContract->invoice_remind_days);
+
+        CustomerJob::dispatch(
+            $serviceContract->customer_payment_user_name,
+            $serviceContract->customer_payment_user_email,
+            $serviceContract->contract_language,
+            $serviceContract->service_contract_code,
+            $serviceContract->service->billing_service_id,
+            $serviceContract->public_id,
+            $invoiceRemindDays,
+        );
+    }
+
+    /**
+     * 請求リマインド日数をパースする
+     *
+     * @param string|null $invoiceRemindDays
+     *
+     * @return array<int>
+     */
+    private function parseInvoiceRemindDays(?string $invoiceRemindDays): array
+    {
+        if (is_null($invoiceRemindDays)) {
+            return [];
+        }
+
+        return array_map('intval', explode(',', $invoiceRemindDays));
     }
 
     /**

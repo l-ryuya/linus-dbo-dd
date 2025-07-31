@@ -102,6 +102,14 @@ return new class extends Migration {
             $table->string('billing_cycle_type')->default('billing_cycle')->comment('請求サイクル種別');
             $table->string('billing_cycle_code')->nullable()->comment('請求サイクルコード');
 
+            // dbo_billing関連
+            $table->uuid('billing_service_id')
+                ->nullable()
+                ->comment('dbo_billing.service.idをセット');
+            $table->string('stripe_id', 36)
+                ->nullable()
+                ->comment('dbo_billing側のstripe_idをセット');
+
             $table->string('remarks')->nullable()->comment('備考');
 
             // 監査系
