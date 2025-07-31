@@ -23,6 +23,7 @@ use Database\Seeders\base\TenantsSeeder;
 use Database\Seeders\base\TimeZonesSeeder;
 use Database\Seeders\base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Queue;
@@ -63,6 +64,8 @@ class CloudsignStatusSyncTest extends TestCase
             UserOptionsSeeder::class,
             ServiceContractsSeeder::class,
         ]);
+
+        App::setLocale('ja');
 
         $authUser = $this->createServiceManageUser();
         $this->tenant = $authUser->getUserOption()->tenant;
@@ -270,7 +273,7 @@ class CloudsignStatusSyncTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'data' => [
-                    'contractStatus' => '不明',
+                    'contractStatus' => '不明なステータス',
                 ],
             ]);
 

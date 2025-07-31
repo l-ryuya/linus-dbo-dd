@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Jobs\DboBilling;
 
+use App\Models\ServiceContract;
 use App\Services\DboBilling\CustomerService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -112,7 +113,7 @@ class CustomerJob implements ShouldQueue, ShouldBeUnique
     public function handle(): void
     {
         $customerService = new CustomerService();
-        $customerService->addCustomer(
+        $responseJson = $customerService->addCustomer(
             $this->name,
             $this->email,
             $this->language,
@@ -121,6 +122,12 @@ class CustomerJob implements ShouldQueue, ShouldBeUnique
             $this->serviceContractId,
             $this->invoiceRemindDays,
         );
+
+        ServiceContract::where('public_id', $this->serviceContractId)
+            ->update([
+                'billing_service_id' => $responseJson['serviceId'] ?? null,
+                'stripe_id' => $responseJson['stripeId'] ?? null,
+            ]);
     }
 
     /**

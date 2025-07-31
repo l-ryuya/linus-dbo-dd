@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCases\Tenant\ServiceContract;
 
+use App\Enums\CloudSignStatus;
 use App\Enums\ServiceContractStatus;
 use App\Exceptions\LogicValidationException;
 use App\Jobs\DboBilling\CustomerJob;
@@ -58,35 +59,23 @@ class CloudsignStatusSyncAction
 
             $getDocumentService = app(GetDocumentService::class, ['documentId' => $serviceContract->contract_doc_id]);
 
-            [$contractStatus, $status] = $this->updateContractStatus($serviceContract, $getDocumentService->getStatus());
+            $status = CloudSignStatus::tryFrom($getDocumentService->getStatus());
+            if ($status === null) {
+                DB::commit();
+                return (object) [
+                    'contractStatus' => __('cloudsign.status.unknown'),
+                ];
+            }
 
+            $this->updateContractStatus($serviceContract, $status);
             $serviceContract->save();
 
             DB::commit();
 
-            if ($status == 2) {
-                $invoiceRemindDays = [];
-                if (!is_null($serviceContract->invoice_remind_days)) {
-                    $invoiceRemindDays = array_map('intval', explode(',', $serviceContract->invoice_remind_days));
-                }
-
-                CustomerJob::dispatch(
-                    $serviceContract->customer_payment_user_name,
-                    $serviceContract->customer_payment_user_email,
-                    $serviceContract->contract_language,
-                    $serviceContract->service_contract_code,
-                    $serviceContract->service->billing_service_id,
-                    $serviceContract->public_id,
-                    $invoiceRemindDays,
-                );
-            }
-
-            if (in_array($status, [2, 3], true)) {
-                $this->notifyRecipients($serviceContract, $contractStatus);
-            }
+            $this->handlePostProcessing($serviceContract, $status);
 
             return (object) [
-                'contractStatus' => $contractStatus,
+                'contractStatus' => $status->getStatusText(),
             ];
         } catch (\Throwable $exception) {
             DB::rollBack();
@@ -95,35 +84,98 @@ class CloudsignStatusSyncAction
     }
 
     /**
-     * @param ServiceContract $serviceContract
-     * @param int             $status
+     * サービス契約のステータスを更新する
      *
-     * @return array{0: string, 1: int}
+     * @param ServiceContract $serviceContract
+     * @param CloudSignStatus $status
+     *
+     * @return void
      */
-    private function updateContractStatus(
-        ServiceContract $serviceContract,
-        int $status,
-    ): array {
-        switch ($status) {
-            case 1:
-                $contractStatus = '先方確認中';
-                break;
-            case 2:
-                $contractStatus = '締結完了';
-                $serviceContract->contract_status_code = ServiceContractStatus::ContractExecuted->value;
-                $serviceContract->contract_executed_at = now();
-                break;
-            case 3:
-                $contractStatus = '取り消し・却下';
-                $serviceContract->contract_status_code = ServiceContractStatus::ContractCancelled->value;
-                break;
-            default:
-                $contractStatus = '不明';
-        }
-
-        return [$contractStatus, $status];
+    private function updateContractStatus(ServiceContract $serviceContract, CloudSignStatus $status): void
+    {
+        match ($status) {
+            CloudSignStatus::Executed => $this->handleExecutedContract($serviceContract),
+            CloudSignStatus::Cancelled => $this->handleCancelledContract($serviceContract),
+            default => null,
+        };
     }
 
+    private function handleExecutedContract(ServiceContract $serviceContract): void
+    {
+        $serviceContract->contract_status_code = ServiceContractStatus::ContractExecuted->value;
+        $serviceContract->contract_executed_at = now();
+    }
+
+    private function handleCancelledContract(ServiceContract $serviceContract): void
+    {
+        $serviceContract->contract_status_code = ServiceContractStatus::ContractCancelled->value;
+    }
+
+    /**
+     * クラウドサインのステータスに応じた後処理を行う
+     *
+     * @param ServiceContract $serviceContract
+     * @param CloudSignStatus $status
+     *
+     * @return void
+     */
+    private function handlePostProcessing(ServiceContract $serviceContract, CloudSignStatus $status): void
+    {
+        if ($status === CloudSignStatus::Executed) {
+            $this->dispatchCustomerJob($serviceContract);
+        }
+
+        if (in_array($status, [CloudSignStatus::Executed, CloudSignStatus::Cancelled], true)) {
+            $this->notifyRecipients($serviceContract, $status->getStatusText());
+        }
+    }
+
+    /**
+     * dbo_billing顧客登録のジョブをディスパッチする
+     *
+     * @param ServiceContract $serviceContract
+     *
+     * @return void
+     */
+    private function dispatchCustomerJob(ServiceContract $serviceContract): void
+    {
+        $invoiceRemindDays = $this->parseInvoiceRemindDays($serviceContract->invoice_remind_days);
+
+        CustomerJob::dispatch(
+            $serviceContract->customer_payment_user_name,
+            $serviceContract->customer_payment_user_email,
+            $serviceContract->contract_language,
+            $serviceContract->service_contract_code,
+            $serviceContract->service->billing_service_id,
+            $serviceContract->public_id,
+            $invoiceRemindDays,
+        );
+    }
+
+    /**
+     * 請求リマインド日数をパースする
+     *
+     * @param string|null $invoiceRemindDays
+     *
+     * @return array<int>
+     */
+    private function parseInvoiceRemindDays(?string $invoiceRemindDays): array
+    {
+        if (is_null($invoiceRemindDays)) {
+            return [];
+        }
+
+        return array_map('intval', explode(',', $invoiceRemindDays));
+    }
+
+    /**
+     * 通知を送信する
+     *
+     * @param ServiceContract      $serviceContract
+     * @param string               $contractStatus
+     *
+     * @return void
+     */
     private function notifyRecipients(
         ServiceContract $serviceContract,
         string $contractStatus,
