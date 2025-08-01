@@ -255,7 +255,6 @@ class UpdateTest extends TestCase
             'customerPaymentUserEmail' => 'updated.payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'quarterly',
             'invoiceRemindDays' => '10,20,30',
         ];
 
@@ -294,7 +293,6 @@ class UpdateTest extends TestCase
             'customerPaymentUserEmail' => 'payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'quarterly',
         ];
 
         $response = $this->putJson(
@@ -329,7 +327,6 @@ class UpdateTest extends TestCase
             'customerPaymentUserEmail' => 'payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'quarterly',
             // 以下のオプションフィールドは省略
         ];
 

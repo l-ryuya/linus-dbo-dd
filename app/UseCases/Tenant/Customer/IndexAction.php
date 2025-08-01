@@ -59,6 +59,7 @@ class IndexAction
             $query->where('customers.customer_status_type', 'customer_status')
                 ->where('customers.customer_status_code', $customerStatusCode);
         })
+        ->distinct(['customers.customer_id'])
         ->orderBy('customers.customer_id', 'DESC')
         ->paginate(perPage: $displayedNumber, page: $page);
     }

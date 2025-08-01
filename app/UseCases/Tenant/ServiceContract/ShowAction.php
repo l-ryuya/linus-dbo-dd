@@ -68,6 +68,8 @@ class ShowAction
             'service_contracts.invoice_remind_days',
             'billing_cycle_translation.selection_item_name AS billing_cycle',
             'service_contracts.billing_cycle_code',
+            'service_contracts.billing_service_id',
+            'service_contracts.stripe_id',
             'service_contracts.remarks',
         ])
         ->join('tenants', 'tenants.tenant_id', '=', 'service_contracts.tenant_id')
@@ -78,16 +80,16 @@ class ShowAction
                 ->whereColumn('company_name_translations.language_code', 'companies.default_language_code');
         })
         ->join('services', 'service_contracts.service_id', '=', 'services.service_id')
-        ->join('service_translations', function ($join) use ($languageCode) {
+        ->leftJoin('service_translations', function ($join) use ($languageCode) {
             $join->on('service_contracts.service_id', '=', 'service_translations.service_id')
                 ->where('service_translations.language_code', $languageCode);
         })
-        ->join('service_plans', 'service_contracts.service_plan_id', '=', 'service_plans.service_plan_id')
-        ->join('service_plan_translations', function ($join) use ($languageCode) {
+        ->leftJoin('service_plans', 'service_contracts.service_plan_id', '=', 'service_plans.service_plan_id')
+        ->leftJoin('service_plan_translations', function ($join) use ($languageCode) {
             $join->on('service_contracts.service_plan_id', '=', 'service_plan_translations.service_plan_id')
                 ->where('service_plan_translations.language_code', $languageCode);
         })
-        ->join('selection_item_translations AS contract_language_translation', function ($join) use ($languageCode) {
+        ->leftJoin('selection_item_translations AS contract_language_translation', function ($join) use ($languageCode) {
             $join->on('service_contracts.contract_language', 'contract_language_translation.selection_item_code')
                 ->where('contract_language_translation.selection_item_type', 'language_code')
                 ->where('contract_language_translation.language_code', $languageCode);
@@ -102,9 +104,9 @@ class ShowAction
                 ->where('service_usage_status_translation.selection_item_type', 'service_usage_status')
                 ->where('service_usage_status_translation.language_code', $languageCode);
         })
-        ->join('user_options AS service_rep_user', 'service_contracts.service_rep_user_option_id', '=', 'service_rep_user.user_option_id')
-        ->join('user_options AS service_mgr_user', 'service_contracts.service_mgr_user_option_id', '=', 'service_mgr_user.user_option_id')
-        ->join('selection_item_translations AS billing_cycle_translation', function ($join) use ($languageCode) {
+        ->leftJoin('user_options AS service_rep_user', 'service_contracts.service_rep_user_option_id', '=', 'service_rep_user.user_option_id')
+        ->leftJoin('user_options AS service_mgr_user', 'service_contracts.service_mgr_user_option_id', '=', 'service_mgr_user.user_option_id')
+        ->leftJoin('selection_item_translations AS billing_cycle_translation', function ($join) use ($languageCode) {
             $join->on('service_contracts.billing_cycle_code', 'billing_cycle_translation.selection_item_code')
                 ->where('billing_cycle_translation.selection_item_type', 'billing_cycle')
                 ->where('billing_cycle_translation.language_code', $languageCode);

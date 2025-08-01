@@ -53,6 +53,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $invoice_remind_days
  * @property string $billing_cycle
  * @property string $billing_cycle_code
+ * @property ?string $billing_service_id
+ * @property ?string $stripe_id
  * @property ?string $remarks
  */
 class ShowResource extends JsonResource
@@ -108,6 +110,8 @@ class ShowResource extends JsonResource
      *     invoiceRemindDays: string,
      *     billingCycle: string,
      *     billingCycleCode: string,
+     *     billingServiceId: ?string,
+     *     stripeId: ?string,
      *     remarks: ?string,
      * }
      */
@@ -159,6 +163,8 @@ class ShowResource extends JsonResource
             'invoiceRemindDays' => empty($this->invoice_remind_days) ? null : trim($this->invoice_remind_days, '{}'),
             'billingCycle' => $this->billing_cycle,
             'billingCycleCode' => $this->billing_cycle_code,
+            'billingServiceId' => $this->billing_service_id,
+            'stripeId' => $this->stripe_id,
             'remarks' => $this->remarks,
         ];
     }

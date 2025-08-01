@@ -6,6 +6,7 @@ namespace App\UseCases\Webhooks;
 
 use App\Enums\CloudSignStatus;
 use App\Enums\ServiceContractStatus;
+use App\Enums\ServiceUsageStatus;
 use App\Jobs\DboBilling\CustomerJob;
 use App\Mail\ContractStatusNotificationsMail;
 use App\Models\ServiceContract;
@@ -108,6 +109,7 @@ class CloudSignWebhookAction
     private function handleExecutedContract(ServiceContract $serviceContract): void
     {
         $serviceContract->contract_status_code = ServiceContractStatus::ContractExecuted->value;
+        $serviceContract->service_usage_status_code = ServiceUsageStatus::Active->value;
         $serviceContract->contract_executed_at = now();
     }
 
@@ -148,7 +150,7 @@ class CloudSignWebhookAction
         $invoiceRemindDays = $this->parseInvoiceRemindDays($serviceContract->invoice_remind_days);
 
         CustomerJob::dispatch(
-            $serviceContract->customer_payment_user_name,
+            $serviceContract->customer->company->company_name_en,
             $serviceContract->customer_payment_user_email,
             $serviceContract->contract_language,
             $serviceContract->service_contract_code,

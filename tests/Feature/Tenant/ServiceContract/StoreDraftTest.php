@@ -192,7 +192,6 @@ class StoreDraftTest extends TestCase
         // オプションフィールドを含めないデータ
         $dataWithoutOptionalFields = [
             'servicePublicId' => $this->service->public_id,
-            'servicePlanPublicId' => $this->servicePlan->public_id,
             'customerPublicId' => $this->customer->public_id,
             'contractName' => 'テスト契約',
             'serviceUsageStatusCode' => 'awaiting_activation',

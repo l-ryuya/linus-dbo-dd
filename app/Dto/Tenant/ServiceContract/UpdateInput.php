@@ -14,7 +14,7 @@ final readonly class UpdateInput
      */
     public function __construct(
         public string $servicePublicId,
-        public string $servicePlanPublicId,
+        public ?string $servicePlanPublicId,
         public string $customerPublicId,
         public string $contractName,
         public ?string $contractLanguage,
@@ -58,7 +58,7 @@ final readonly class UpdateInput
     {
         return new self(
             servicePublicId: $data['servicePublicId'],
-            servicePlanPublicId: $data['servicePlanPublicId'],
+            servicePlanPublicId: $data['servicePlanPublicId'] ?? null,
             customerPublicId: $data['customerPublicId'],
             contractName: $data['contractName'],
             contractLanguage: $data['contractLanguage'] ?? null,

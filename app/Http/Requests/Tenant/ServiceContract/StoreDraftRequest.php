@@ -19,7 +19,7 @@ class StoreDraftRequest extends FormRequest
     {
         return [
             'servicePublicId' => ['required', 'uuid', Rule::exists('services', 'public_id')],
-            'servicePlanPublicId' => ['required', 'uuid', Rule::exists('service_plans', 'public_id')],
+            'servicePlanPublicId' => ['nullable', 'uuid', Rule::exists('service_plans', 'public_id')],
             'customerPublicId' => ['required', 'uuid'],
             'contractName' => ['required', 'string', 'max:255'],
             'contractLanguage' => ['nullable', 'string', 'size:3'],
@@ -28,6 +28,7 @@ class StoreDraftRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:128',
+                Rule::in(['awaiting_activation']),
                 Rule::exists('selection_items', 'selection_item_code')
                     ->where('selection_item_type', 'service_usage_status'),
             ],

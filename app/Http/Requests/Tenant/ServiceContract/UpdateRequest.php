@@ -57,7 +57,7 @@ class UpdateRequest extends FormRequest
             'proposalDate' => ['nullable','date', 'date_format:Y-m-d'],
             'invoiceRemindDays' => ['nullable', 'string', 'max:255', 'regex:/^-?\d+(,-?\d+)*$/'],
             'billingCycleCode' => [
-                'required',
+                'nullable',
                 'string',
                 'min:3',
                 'max:128',
