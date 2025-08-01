@@ -42,8 +42,6 @@ RUN chown -R www-data:www-data storage
 COPY infra/docker/develop2/php/supervisord.conf /etc/supervisor/
 COPY infra/docker/develop2/php/laravel-worker.conf /etc/supervisor/conf.d/
 RUN chown www-data:www-data /var/log/supervisor && chmod 740 /var/log/supervisor
-COPY infra/docker/develop2/php/scheduler.sh /app/scheduler.sh
-RUN chown www-data:www-data /app/scheduler.sh && chmod +x /app/scheduler.sh
 COPY infra/docker/develop2/php/entrypoint-overwrite.sh /usr/local/bin/entrypoint-overwrite.sh
 RUN chmod +x /usr/local/bin/entrypoint-overwrite.sh
 
