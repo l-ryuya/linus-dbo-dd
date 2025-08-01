@@ -185,6 +185,7 @@ class CloudSignWebhookTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'contract_doc_id' => $this->contractDocId,
             'contract_status_code' => 'contract_executed',
+            'service_usage_status_code' => 'active',
         ]);
 
         // contract_executed_atが設定されていることを確認
@@ -219,6 +220,7 @@ class CloudSignWebhookTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'contract_doc_id' => $this->contractDocId,
             'contract_status_code' => 'contract_cancelled',
+            'service_usage_status_code' => 'awaiting_activation',
         ]);
 
         // CustomerJobは実行されないことを確認
@@ -247,6 +249,7 @@ class CloudSignWebhookTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'contract_doc_id' => $this->contractDocId,
             'contract_status_code' => 'contract_document_sent',
+            'service_usage_status_code' => 'awaiting_activation',
         ]);
 
         // メール送信は実行されないことを確認
@@ -274,6 +277,7 @@ class CloudSignWebhookTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'contract_doc_id' => $this->contractDocId,
             'contract_status_code' => 'contract_executed',
+            'service_usage_status_code' => 'active',
         ]);
 
         // メール送信が実行されたことを確認（textフィールドは空文字列として処理される）
@@ -299,6 +303,7 @@ class CloudSignWebhookTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'contract_doc_id' => $this->contractDocId,
             'contract_status_code' => 'contract_document_sent',
+            'service_usage_status_code' => 'awaiting_activation',
         ]);
 
         // メール送信は実行されないことを確認
@@ -352,6 +357,7 @@ class CloudSignWebhookTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'contract_doc_id' => $this->contractDocId,
             'contract_status_code' => 'contract_document_sent',
+            'service_usage_status_code' => 'awaiting_activation',
         ]);
     }
 
@@ -373,6 +379,7 @@ class CloudSignWebhookTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'contract_doc_id' => $this->contractDocId,
             'contract_status_code' => 'contract_document_sent',
+            'service_usage_status_code' => 'awaiting_activation',
         ]);
     }
 
@@ -391,6 +398,7 @@ class CloudSignWebhookTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'contract_doc_id' => $this->contractDocId,
             'contract_status_code' => 'contract_document_sent',
+            'service_usage_status_code' => 'awaiting_activation',
         ]);
     }
 
@@ -417,6 +425,7 @@ class CloudSignWebhookTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'contract_doc_id' => $this->contractDocId,
             'contract_status_code' => 'contract_executed',
+            'service_usage_status_code' => 'active',
         ]);
 
         // CustomerJobがキューにプッシュされたことを確認（空の配列で）

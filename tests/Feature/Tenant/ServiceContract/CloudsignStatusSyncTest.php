@@ -208,6 +208,7 @@ class CloudsignStatusSyncTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'public_id' => $this->publicId,
             'contract_status_code' => 'contract_executed',
+            'service_usage_status_code' => 'active',
         ]);
 
         // contract_executed_atが設定されていることを確認
@@ -248,6 +249,7 @@ class CloudsignStatusSyncTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'public_id' => $this->publicId,
             'contract_status_code' => 'contract_cancelled',
+            'service_usage_status_code' => 'awaiting_activation',
         ]);
 
         // メール送信が実行されたことを確認
@@ -281,6 +283,7 @@ class CloudsignStatusSyncTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'public_id' => $this->publicId,
             'contract_status_code' => 'contract_document_sent',
+            'service_usage_status_code' => 'awaiting_activation',
         ]);
     }
 

@@ -799,7 +799,6 @@ components:
         - $ref: '#/components/schemas/TenantServiceContract'
       required:
         - servicePublicId
-        - servicePlanPublicId
         - customerPublicId
         - contractName
         - serviceUsageStatusCode
@@ -826,12 +825,11 @@ components:
         - serviceRepUserOptionPublicId
         - serviceMgrUserOptionPublicId
     TenantServiceContractDraftPutRequest:
-      description: 顧客契約情報登録 下書き
+      description: 顧客契約情報更新 下書き
       allOf:
         - $ref: '#/components/schemas/TenantServiceContract'
       required:
         - servicePublicId
-        - servicePlanPublicId
         - customerPublicId
         - contractName
         - serviceUsageStatusCode
@@ -881,6 +879,15 @@ components:
             billingCycle:
               type: string
               description: 支払いサイクル名
+            billingServiceId:
+              type: string
+              format: uuid
+              nullable: true
+              description: DboBilling サービスID
+            stripeId:
+              type: string
+              nullable: true
+              description: DboBilling stripe id
     TenantServiceContractCloudSignStatusSyncPostResponse:
       description: 同期結果
       type: object

@@ -216,7 +216,6 @@ class StoreTest extends TestCase
             'customerPaymentUserEmail' => 'payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'monthly',
             // 以下のフィールドは省略
         ];
 
