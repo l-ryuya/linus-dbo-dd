@@ -41,6 +41,14 @@ return new class extends Migration {
             $table->string('customer_status_code')
                 ->comment('顧客ステータスコード (selection_items.selection_item_code)');
 
+            $table->date('first_service_start_date')->nullable()
+                ->comment('初回サービス開始日');
+            $table->date('last_service_end_date')->nullable()
+                ->comment('最終サービス終了日');
+
+            $table->text('remarks')->nullable()
+                ->comment('備考');
+
             // 監査系
             $table->timestamp('created_at')->useCurrent()
                 ->comment('レコード作成日時');

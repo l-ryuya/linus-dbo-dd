@@ -76,6 +76,8 @@ class UpdateTest extends TestCase
             'city' => '渋谷区',
             'street' => '渋谷1-1-1',
             'building' => '渋谷ビル101',
+            'first_service_start_date' => '2023-10-01', // 初回サービス開始日
+            'last_service_end_date' => '2024-09-30', // 最終サービス終了日
             'remarks' => 'テスト顧客の備考',
         ]);
 
@@ -127,6 +129,8 @@ class UpdateTest extends TestCase
             'city' => 'サンフランシスコ',
             'street' => 'マーケットストリート123',
             'building' => 'テックビル505',
+            'firstServiceStartDate' => '2023-10-02', // 初回サービス開始日
+            'lastServiceEndDate' => '2024-10-01', // 最終サービス終了日
             'remarks' => '更新された備考です',
         ];
 
@@ -165,6 +169,8 @@ class UpdateTest extends TestCase
             'tenant_id' => $this->tenant->tenant_id,
             'company_id' => $this->company->company_id,
             'customer_status_code' => $updateData['customerStatusCode'],
+            'first_service_start_date' => $updateData['firstServiceStartDate'],
+            'last_service_end_date' => $updateData['lastServiceEndDate'],
         ]);
     }
 

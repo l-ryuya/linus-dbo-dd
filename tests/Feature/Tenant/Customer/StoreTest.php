@@ -75,6 +75,8 @@ class StoreTest extends TestCase
             'city' => '港区',
             'street' => '赤坂1-2-3',
             'building' => '赤坂ビル101',
+            'firstServiceStartDate' => '2023-10-01', // 初回サービス開始日
+            'lastServiceEndDate' => '2024-09-30', // 最終サービス終了日
             'remarks' => 'テスト顧客です',
         ];
 
@@ -125,6 +127,8 @@ class StoreTest extends TestCase
             'sys_organization_code' => $this->tenant->customers_sys_organization_code,
             'customer_status_type' => 'customer_status',
             'customer_status_code' => 'customer_registered',
+            'first_service_start_date' => $customerData['firstServiceStartDate'],
+            'last_service_end_date' => $customerData['lastServiceEndDate'],
         ]);
     }
 

@@ -35,6 +35,7 @@ class UserOptionsSeeder extends Seeder
                 'service_id' => empty($row['service_id']) ? null : (int) $row['service_id'],
                 'sys_user_code' => $row['sys_user_code'],
                 'sys_organization_code' => $row['sys_organization_code'],
+                'organization_name' => $row['organization_name'],
                 'platform_user' => (bool) $row['platform_user'],
                 'user_name' => $row['user_name'],
                 'user_name_en' => $row['user_name_en'],

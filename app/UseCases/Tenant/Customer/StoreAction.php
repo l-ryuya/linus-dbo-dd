@@ -30,7 +30,7 @@ class StoreAction
 
         try {
             $company = $this->createCompany($identifiedTenant, $data);
-            $customer = $this->createCustomer($identifiedTenant, $company);
+            $customer = $this->createCustomer($identifiedTenant, $data, $company);
 
             DB::commit();
 
@@ -87,13 +87,15 @@ class StoreAction
     /**
      * 顧客を作成する
      *
-     * @param \App\Models\Tenant  $identifiedTenant
-     * @param \App\Models\Company $company
+     * @param \App\Models\Tenant                  $identifiedTenant
+     * @param \App\Dto\Tenant\Customer\StoreInput $data
+     * @param \App\Models\Company                 $company
      *
      * @return \App\Models\Customer
      */
     private function createCustomer(
         Tenant $identifiedTenant,
+        StoreInput $data,
         Company $company,
     ): Customer {
         $customer = new Customer();
@@ -102,6 +104,8 @@ class StoreAction
         $customer->sys_organization_code = $identifiedTenant->customers_sys_organization_code;
         $customer->customer_status_type = 'customer_status';
         $customer->customer_status_code = 'customer_registered';
+        $customer->first_service_start_date = $data->firstServiceStartDate;
+        $customer->last_service_end_date = $data->lastServiceEndDate;
         $customer->save();
         $customer->refresh();
 

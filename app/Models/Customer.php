@@ -22,12 +22,16 @@ class Customer extends Model
         'sys_organization_code',
         'customer_status_type',
         'customer_status_code',
+        'first_service_start_date',
+        'last_service_end_date',
     ];
 
     protected function casts(): array
     {
         return [
             'public_id' => 'string',
+            'first_service_start_date' => 'date',
+            'last_service_end_date' => 'date',
         ];
     }
 

@@ -192,6 +192,11 @@ class CloudSignWebhookTest extends TestCase
         $serviceContract = ServiceContract::where('contract_doc_id', $this->contractDocId)->first();
         $this->assertNotNull($serviceContract->contract_executed_at);
 
+        // 顧客のfirst_service_start_dateが設定されていることを確認
+        // これはサービス契約が初めてのものであることが前提
+        $customer = Customer::find($this->customer->customer_id);
+        $this->assertNotNull($customer->first_service_start_date);
+
         // CustomerJobがキューにプッシュされたことを確認
         Queue::assertPushed(CustomerJob::class, function ($job) {
             return $job->queue === 'billing';
@@ -279,6 +284,15 @@ class CloudSignWebhookTest extends TestCase
             'contract_status_code' => 'contract_executed',
             'service_usage_status_code' => 'active',
         ]);
+
+        // contract_executed_atが設定されていることを確認
+        $serviceContract = ServiceContract::where('contract_doc_id', $this->contractDocId)->first();
+        $this->assertNotNull($serviceContract->contract_executed_at);
+
+        // 顧客のfirst_service_start_dateが設定されていることを確認
+        // これはサービス契約が初めてのものであることが前提
+        $customer = Customer::find($this->customer->customer_id);
+        $this->assertNotNull($customer->first_service_start_date);
 
         // メール送信が実行されたことを確認（textフィールドは空文字列として処理される）
         Mail::assertQueued(\App\Mail\ContractStatusNotificationsMail::class);

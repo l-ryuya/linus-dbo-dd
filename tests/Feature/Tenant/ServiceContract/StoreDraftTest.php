@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tenant\ServiceContract;
+namespace Tests\Feature\Tenant\ServiceContract;
 
 use App\Models\Customer;
 use App\Models\Service;
