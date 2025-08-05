@@ -12,8 +12,9 @@ COPY /config/ /var/www/html/config/
 COPY /database/ /var/www/html/database/
 COPY /lang/ /var/www/html/lang/
 COPY /public/ /var/www/html/public/
-COPY ./routes/ /var/www/html/routes/
-COPY ./storage/ /var/www/html/storage/
+COPY /resources/ /var/www/html/resources/
+COPY /routes/ /var/www/html/routes/
+COPY /storage/ /var/www/html/storage/
 COPY composer.json /var/www/html/composer.json
 COPY composer.lock /var/www/html/composer.lock
 COPY .env.develop  /var/www/html/.env.develop
