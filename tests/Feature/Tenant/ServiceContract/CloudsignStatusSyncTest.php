@@ -215,6 +215,11 @@ class CloudsignStatusSyncTest extends TestCase
         $serviceContract = ServiceContract::where('public_id', $this->publicId)->first();
         $this->assertNotNull($serviceContract->contract_executed_at);
 
+        // 顧客のfirst_service_start_dateが設定されていることを確認
+        // これはサービス契約が初めてのものであることが前提
+        $customer = Customer::find($this->customer->customer_id);
+        $this->assertNotNull($customer->first_service_start_date);
+
         // CustomerJobがキューにプッシュされたことを確認
         Queue::assertPushedOn('billing', CustomerJob::class);
 

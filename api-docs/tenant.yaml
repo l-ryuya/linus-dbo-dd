@@ -417,11 +417,16 @@ components:
         customerStatus:
           type: string
           description: 顧客ステータス
-        serviceStartDate:
+        firstServiceStartDate:
           type: string
           format: date
           nullable: true
-          description: 利用開始日
+          description: 初回サービス開始日
+        lastServiceEndDate:
+          type: string
+          format: date
+          nullable: true
+          description: 最終サービス終了日
     TenantCustomer:
       description: 顧客情報
       type: object
@@ -470,6 +475,16 @@ components:
           type: string
           nullable: true
           description: 建物名・部屋番号
+        firstServiceStartDate:
+          type: string
+          format: date
+          nullable: true
+          description: 初回サービス開始日
+        lastServiceEndDate:
+          type: string
+          format: date
+          nullable: true
+          description: 最終サービス終了日
         remarks:
           type: string
           nullable: true

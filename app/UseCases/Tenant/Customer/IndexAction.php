@@ -35,7 +35,8 @@ class IndexAction
             'customers.customer_status_code',
             'companies.company_name_en',
             'company_name_translations.company_legal_name',
-            'service_contracts.contract_start_date',
+            'customers.first_service_start_date',
+            'customers.last_service_end_date',
         ])
         ->join('companies', 'companies.company_id', '=', 'customers.company_id')
         ->join('company_name_translations', function ($join) {
@@ -47,7 +48,6 @@ class IndexAction
                 ->where('selection_item_translations.selection_item_type', 'customer_status')
                 ->where('selection_item_translations.language_code', $languageCode);
         })
-        ->leftJoin('service_contracts', 'service_contracts.customer_id', '=', 'customers.customer_id')
         ->when($tenantId, function ($query) use ($tenantId) {
             $query->where('customers.tenant_id', $tenantId);
         })
@@ -59,7 +59,6 @@ class IndexAction
             $query->where('customers.customer_status_type', 'customer_status')
                 ->where('customers.customer_status_code', $customerStatusCode);
         })
-        ->distinct(['customers.customer_id'])
         ->orderBy('customers.customer_id', 'DESC')
         ->paginate(perPage: $displayedNumber, page: $page);
     }
