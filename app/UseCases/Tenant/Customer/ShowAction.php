@@ -33,6 +33,8 @@ class ShowAction
             'customer_code',
             'customer_status_type',
             'customer_status_code',
+            'first_service_start_date',
+            'last_service_end_date',
         ])
         ->when($tenantId, function ($query) use ($tenantId) {
             $query->where('tenant_id', $tenantId);

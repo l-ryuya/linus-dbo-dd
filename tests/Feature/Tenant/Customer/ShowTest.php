@@ -79,6 +79,8 @@ class ShowTest extends TestCase
                     'customerPublicId',
                     'customerStatus',
                     'customerStatusCode',
+                    'firstServiceStartDate',
+                    'lastServiceEndDate',
                     'customerNameEn',
                     'customerName',
                     'websiteUrl',
