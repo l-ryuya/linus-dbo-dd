@@ -36,7 +36,7 @@ return new class extends Migration {
             $table->string('dd_step_code')
                 ->comment('DDステップコード');
 
-            $table->unsignedBigInteger('step_user_option_id')
+            $table->unsignedBigInteger('step_user_option_id')->nullable()
                 ->comment('DDステップ担当者のユーザー設定ID');
             $table->text('step_comment')->nullable()
                 ->comment('DDステップコメント');

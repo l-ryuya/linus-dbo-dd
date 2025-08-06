@@ -56,9 +56,12 @@ return new class extends Migration {
             $table->string('current_dd_status_code')
                 ->comment('現在のDDステータスコード');
 
-            $table->string('industry_check_result')
+            $table->string('industry_check_reg_result')
                 ->default('--')
-                ->comment('業種業態チェック結果');
+                ->comment('業種業態チェック（登記簿）結果');
+            $table->string('industry_check_web_result')
+                ->default('--')
+                ->comment('業種業態チェック（Web）結果');
             $table->string('customer_risk_level')
                 ->default('--')
                 ->comment('顧客リスクレベル');
@@ -144,7 +147,8 @@ return new class extends Migration {
         // CHECK制約
         DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_current_dd_step_type CHECK (current_dd_step_type = 'dd_step')");
         DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_current_dd_status_type CHECK (current_dd_status_type = 'dd_status')");
-        DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_industry_check_result CHECK (industry_check_result IN ('OK','NG','WD','NS','--'))");
+        DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_industry_check_reg_result CHECK (industry_check_reg_result IN ('OK','NG','WD','NS','--'))");
+        DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_industry_check_web_result CHECK (industry_check_web_result IN ('OK','NG','WD','NS','--'))");
         DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_customer_risk_level CHECK (customer_risk_level IN ('LOW','HIGH','--'))");
         DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_asf_check_result CHECK (asf_check_result IN ('OK','NG','--'))");
         DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_rep_check_result CHECK (rep_check_result IN ('OK','NG','--'))");
