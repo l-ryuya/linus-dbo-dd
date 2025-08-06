@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCases\Service;
 
-use App\Enums\ServiceStatus;
+use App\Enums\ServiceStatusCode;
 use App\Models\Service;
 
 class IndexAction
@@ -12,16 +12,16 @@ class IndexAction
     /**
      * サービスを取得する
      *
-     * @param string                   $languageCode 言語コード（ISO639-1）
-     * @param int|null                 $tenantId
-     * @param \App\Enums\ServiceStatus $serviceStatusCode
+     * @param string                       $languageCode 言語コード（ISO639-1）
+     * @param int|null                     $tenantId
+     * @param \App\Enums\ServiceStatusCode $serviceStatusCode
      *
      * @return \Illuminate\Support\Collection<int, Service>
      */
     public function __invoke(
         string $languageCode,
         ?int $tenantId,
-        ServiceStatus $serviceStatusCode = ServiceStatus::Active,
+        ServiceStatusCode $serviceStatusCode = ServiceStatusCode::Active,
     ): \Illuminate\Support\Collection {
         return Service::select([
             'services.public_id',

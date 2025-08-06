@@ -8,12 +8,12 @@ use App\Enums\Traits\EnumToEqual;
 use App\Enums\Traits\EnumToGet;
 
 /**
- * サービス提供ステータス
+ * サービスプラン提供ステータス
  *
  * nameとvalueはいったん同じ値とする
  * Value側にDBの値が入る想定
  */
-enum ServiceStatus: String
+enum ServicePlanStatusCode: String
 {
     use EnumToGet;
     use EnumToEqual;

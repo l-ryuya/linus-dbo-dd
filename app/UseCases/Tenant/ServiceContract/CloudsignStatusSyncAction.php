@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Tenant\ServiceContract;
 
 use App\Enums\CloudSignStatus;
-use App\Enums\ServiceContractStatus;
+use App\Enums\ServiceContractStatusCode;
 use App\Exceptions\LogicValidationException;
 use App\Models\ServiceContract;
 use App\Services\CloudSign\GetDocumentService;
@@ -46,7 +46,7 @@ readonly class CloudsignStatusSyncAction
                 ->lockForUpdate()
                 ->firstOrFail();
             throw_unless(
-                ServiceContractStatus::ContractDocumentSent->isEqualValue($serviceContract->contract_status_code),
+                ServiceContractStatusCode::ContractDocumentSent->isEqualValue($serviceContract->contract_status_code),
                 new LogicValidationException(
                     errors: ['contractStatusCode' => [__('logic.contract_status_not_sent')]],
                 ),

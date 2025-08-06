@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Webhooks;
 
 use App\Enums\CloudSignStatus;
-use App\Enums\ServiceContractStatus;
+use App\Enums\ServiceContractStatusCode;
 use App\Models\ServiceContract;
 use App\Services\ServiceContract\ContractStatusService;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +35,7 @@ readonly class CloudSignWebhookAction
 
         try {
             $serviceContract = ServiceContract::where('contract_doc_id', $payload['documentID'])
-                ->where('contract_status_code', ServiceContractStatus::ContractDocumentSent->value)
+                ->where('contract_status_code', ServiceContractStatusCode::ContractDocumentSent->value)
                 ->lockForUpdate()
                 ->firstOrFail();
 

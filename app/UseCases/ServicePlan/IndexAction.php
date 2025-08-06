@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UseCases\ServicePlan;
 
-use App\Enums\ServicePlanStatus;
-use App\Enums\ServiceStatus;
+use App\Enums\ServicePlanStatusCode;
+use App\Enums\ServiceStatusCode;
 use App\Models\Service;
 use App\Models\ServicePlan;
 
@@ -14,11 +14,11 @@ class IndexAction
     /**
      * サービスプランを取得する
      *
-     * @param string                       $languageCode 言語コード（ISO639-1）
-     * @param int|null                     $tenantId
-     * @param string                       $servicePublicId
-     * @param \App\Enums\ServiceStatus     $serviceStatusCode
-     * @param \App\Enums\ServicePlanStatus $servicePlanStatusCode
+     * @param string                           $languageCode 言語コード（ISO639-1）
+     * @param int|null                         $tenantId
+     * @param string                           $servicePublicId
+     * @param \App\Enums\ServiceStatusCode     $serviceStatusCode
+     * @param \App\Enums\ServicePlanStatusCode $servicePlanStatusCode
      *
      * @return \Illuminate\Support\Collection<int, ServicePlan>
      */
@@ -26,8 +26,8 @@ class IndexAction
         string $languageCode,
         ?int $tenantId,
         string $servicePublicId,
-        ServiceStatus $serviceStatusCode = ServiceStatus::Active,
-        ServicePlanStatus $servicePlanStatusCode = ServicePlanStatus::Active,
+        ServiceStatusCode $serviceStatusCode = ServiceStatusCode::Active,
+        ServicePlanStatusCode $servicePlanStatusCode = ServicePlanStatusCode::Active,
     ): \Illuminate\Support\Collection {
         $service = Service::where('public_id', $servicePublicId)
             ->when($tenantId, function ($query) use ($tenantId) {

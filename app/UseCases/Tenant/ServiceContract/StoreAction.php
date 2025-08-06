@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Tenant\ServiceContract;
 
 use App\Dto\Tenant\ServiceContract\StoreInput;
-use App\Enums\ServiceContractStatus;
+use App\Enums\ServiceContractStatusCode;
 use App\Jobs\CloudSign\ContractJob;
 use App\Models\Customer;
 use App\Models\Service;
@@ -20,16 +20,16 @@ class StoreAction
     /**
      * 顧客サービス契約登録
      *
-     * @param Tenant $identifiedTenant テナント情報
-     * @param ServiceContractStatus $serviceContractStatus サービス契約ステータス
-     * @param StoreInput $data 入力データ
+     * @param Tenant                    $identifiedTenant      テナント情報
+     * @param ServiceContractStatusCode $serviceContractStatus サービス契約ステータス
+     * @param StoreInput                $data                  入力データ
      *
      * @return object 作成されたサービス契約の情報
      * @throws \Throwable
      */
     public function __invoke(
         Tenant $identifiedTenant,
-        ServiceContractStatus $serviceContractStatus,
+        ServiceContractStatusCode $serviceContractStatus,
         StoreInput $data,
     ): object {
         DB::beginTransaction();
@@ -92,21 +92,21 @@ class StoreAction
     /**
      * サービス契約を作成する
      *
-     * @param int                              $tenantId
-     * @param int                              $customerId
-     * @param \App\Enums\ServiceContractStatus $serviceContractStatus
-     * @param int                              $serviceId
-     * @param int|null                         $servicePlanId
-     * @param int|null                         $serviceRepUserOptionId
-     * @param int|null                         $serviceMgrUserOptionId
-     * @param StoreInput                       $data
+     * @param int                                  $tenantId
+     * @param int                                  $customerId
+     * @param \App\Enums\ServiceContractStatusCode $serviceContractStatus
+     * @param int                                  $serviceId
+     * @param int|null                             $servicePlanId
+     * @param int|null                             $serviceRepUserOptionId
+     * @param int|null                             $serviceMgrUserOptionId
+     * @param StoreInput                           $data
      *
      * @return ServiceContract 作成されたサービス契約
      */
     private function createServiceContract(
         int $tenantId,
         int $customerId,
-        ServiceContractStatus $serviceContractStatus,
+        ServiceContractStatusCode $serviceContractStatus,
         int $serviceId,
         ?int $servicePlanId,
         ?int $serviceRepUserOptionId,

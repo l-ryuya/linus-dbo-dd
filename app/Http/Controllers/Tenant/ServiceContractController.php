@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Tenant;
 
-use App\Enums\ServiceContractStatus;
+use App\Enums\ServiceContractStatusCode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\ServiceContract\IndexRequest;
 use App\Http\Requests\Tenant\ServiceContract\StoreDraftRequest;
@@ -105,7 +105,7 @@ class ServiceContractController extends Controller
         return (new StoreResource(
             $action(
                 $user->getUserOption()->tenant,
-                ServiceContractStatus::ContractInfoRegistered,
+                ServiceContractStatusCode::ContractInfoRegistered,
                 $request->toStoreInput(),
             ),
         ))
@@ -132,7 +132,7 @@ class ServiceContractController extends Controller
         return (new StoreResource(
             $action(
                 $user->getUserOption()->tenant,
-                ServiceContractStatus::ContractInfoDrafted,
+                ServiceContractStatusCode::ContractInfoDrafted,
                 $request->toStoreInput(),
             ),
         ))
@@ -161,7 +161,7 @@ class ServiceContractController extends Controller
         $action(
             $user->getUserOption()->tenant,
             $publicId,
-            ServiceContractStatus::ContractInfoRegistered,
+            ServiceContractStatusCode::ContractInfoRegistered,
             $request->toUpdateInput(),
         );
 
@@ -189,7 +189,7 @@ class ServiceContractController extends Controller
         $action(
             $user->getUserOption()->tenant,
             $publicId,
-            ServiceContractStatus::ContractInfoDrafted,
+            ServiceContractStatusCode::ContractInfoDrafted,
             $request->toUpdateInput(),
         );
 

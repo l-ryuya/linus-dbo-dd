@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Tenant\ServiceContract;
 
 use App\Dto\Tenant\ServiceContract\UpdateInput;
-use App\Enums\ServiceContractStatus;
+use App\Enums\ServiceContractStatusCode;
 use App\Exceptions\LogicValidationException;
 use App\Models\Customer;
 use App\Models\Service;
@@ -20,10 +20,10 @@ class UpdateAction
     /**
      * 顧客サービス契約更新
      *
-     * @param Tenant                           $identifiedTenant
-     * @param string                           $serviceContractPublicId
-     * @param \App\Enums\ServiceContractStatus $serviceContractStatus
-     * @param UpdateInput                      $data
+     * @param Tenant                               $identifiedTenant
+     * @param string                               $serviceContractPublicId
+     * @param \App\Enums\ServiceContractStatusCode $serviceContractStatus
+     * @param UpdateInput                          $data
      *
      * @return void
      * @throws \Throwable
@@ -31,7 +31,7 @@ class UpdateAction
     public function __invoke(
         Tenant $identifiedTenant,
         string $serviceContractPublicId,
-        ServiceContractStatus $serviceContractStatus,
+        ServiceContractStatusCode $serviceContractStatus,
         UpdateInput $data,
     ): void {
         DB::beginTransaction();
@@ -92,7 +92,7 @@ class UpdateAction
      * @param string                                      $serviceContractPublicId
      * @param int                                         $tenantId
      * @param int                                         $customerId
-     * @param \App\Enums\ServiceContractStatus            $serviceContractStatus
+     * @param \App\Enums\ServiceContractStatusCode        $serviceContractStatus
      * @param int                                         $serviceId
      * @param int|null                                    $servicePlanId
      * @param int|null                                    $serviceRepUserOptionId
@@ -106,7 +106,7 @@ class UpdateAction
         string $serviceContractPublicId,
         int $tenantId,
         int $customerId,
-        ServiceContractStatus $serviceContractStatus,
+        ServiceContractStatusCode $serviceContractStatus,
         int $serviceId,
         ?int $servicePlanId,
         ?int $serviceRepUserOptionId,
@@ -117,8 +117,8 @@ class UpdateAction
             ->where('tenant_id', $tenantId)
             ->firstOrFail();
         throw_if(
-            $serviceContract->contract_status_code !== ServiceContractStatus::ContractInfoRegistered->value &&
-            $serviceContract->contract_status_code !== ServiceContractStatus::ContractInfoDrafted->value,
+            $serviceContract->contract_status_code !== ServiceContractStatusCode::ContractInfoRegistered->value &&
+            $serviceContract->contract_status_code !== ServiceContractStatusCode::ContractInfoDrafted->value,
             new LogicValidationException(
                 errors: ['contractStatusCode' => [__('logic.contract_status_locked')]],
             ),

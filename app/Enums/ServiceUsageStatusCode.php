@@ -4,22 +4,18 @@ declare(strict_types=1);
 
 namespace App\Enums;
 
-use App\Enums\Traits\EnumToEqual;
-use App\Enums\Traits\EnumToGet;
-
 /**
- * サービスプラン提供ステータス
+ * サービス利用ステータス
  *
  * nameとvalueはいったん同じ値とする
  * Value側にDBの値が入る想定
  */
-enum ServicePlanStatus: String
+enum ServiceUsageStatusCode: String
 {
-    use EnumToGet;
-    use EnumToEqual;
-
-    case Preparing = 'preparing';
+    case AwaitingActivation = 'awaiting_activation';
     case Active = 'active';
+    case Paused = 'paused';
     case Suspended = 'suspended';
+    case Closed = 'closed';
     case Terminated = 'terminated';
 }

@@ -13,7 +13,7 @@ use App\Enums\Traits\EnumToGet;
  * nameとvalueはいったん同じ値とする
  * Value側にDBの値が入る想定
  */
-enum ServiceContractStatus: String
+enum ServiceContractStatusCode: String
 {
     use EnumToGet;
     use EnumToEqual;

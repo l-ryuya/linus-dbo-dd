@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\MasterData;
 
-use App\Enums\ServiceStatus;
+use App\Enums\ServiceStatusCode;
 use App\Models\Service;
 use App\Models\Tenant;
 use Database\Seeders\base\CompaniesSeeder;
@@ -122,7 +122,7 @@ class ServiceControllerTest extends TestCase
 
         // 返されたサービスがすべてアクティブなステータスであることを確認
         foreach ($responseData as $service) {
-            $this->assertEquals(ServiceStatus::Active->value, $service['serviceStatusCode']);
+            $this->assertEquals(ServiceStatusCode::Active->value, $service['serviceStatusCode']);
         }
     }
 
