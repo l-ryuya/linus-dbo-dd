@@ -41,7 +41,8 @@ INSERT INTO m5.organization (
 --  テナント①：株式会社電通総研（DBO運営部署）
 --    ├ Securate運営部署
 --    ├ UNVEIL運営部署
---    └ 電通総研顧客
+--    ├ 電通総研顧客
+--    └ 株式会社FINOLAB（電通総研顧客）
 ------------------------------------------------------------
 INSERT INTO m5.organization (
       id, organization_code, organization_name, organization_level_id, parent_organization_id,
@@ -61,8 +62,12 @@ INSERT INTO m5.organization (
  'ORG00000016' , 'DS-UNV' ,
   'SYS' , current_setting('my.bizdate')::date ,
   'SYS' , current_setting('my.bizdate')::date , CURRENT_TIMESTAMP , 1 ),
-( 21 , 'SYSORG_00000021' , '電通総研顧客'       , 3 , 10  ,
- 'ORG00000021' , 'DS-CUST',
+( 21 , 'SYSORG_00000021' , '電通総研顧客'      , 3 , 10  ,
+ 'ORG00000021' , 'DSC-CUST',
+  'SYS' , current_setting('my.bizdate')::date ,
+  'SYS' , current_setting('my.bizdate')::date , CURRENT_TIMESTAMP , 1 ),
+( 22 , 'SYSORG_00000022' , '株式会社FINOLAB'  , 3 , 10  ,
+ 'ORG00000022' , 'DSC-FINOLAB',
   'SYS' , current_setting('my.bizdate')::date ,
   'SYS' , current_setting('my.bizdate')::date , CURRENT_TIMESTAMP , 1 );
 

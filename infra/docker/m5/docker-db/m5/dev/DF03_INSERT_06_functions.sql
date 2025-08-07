@@ -7,18 +7,22 @@
 --       ├ SCR_CUST_REGIST（顧客登録）
 --       └ SCR_CUST_EDIT（顧客編集）
 --   ・MENU_DD（デューデリジェンス管理）
---       ├ SCR_DD_LISTINQ（デューデリジェンス一覧照会）
---       ├ SCR_DD_DETAILS（デューデリジェンス詳細照会）
---       │  ├ BUTTON_DD_PRIMARY_APRV（デューデリジェンス一次承認）
---       │  └ BUTTON_DD_FINAL_APRV（デューデリジェンス二次承認）
---       ├ SCR_DD_RESULT_SUMMARY（デューデリジェンス結果一覧）
---       ├ SCR_DD_RESULT_ENTITY（デューデリジェンス結果法人）
---       └ SCR_DD_RESULT_INDIVIDUAL（デューデリジェンス結果個人）
+--       ├ SCR_DD_LISTINQ（DD一覧照会）
+--       ├ SCR_DD_CASE（DDケースサマリー）
+--       │  ├ BUTTON_PREDD_APRV（DD準備承認）
+--       │  ├ BUTTON_ADDINFO_APRV（追加入力承認）
+--       │  └ BUTTON_DD_APRV（DD承認）
+--       ├ SCR_DD_STEP_RESULT（DDステップ結果）
+--       ├ SCR_DD_RELATIONS_INQ（DD関係者照会）
+--       ├ SCR_DD_RELATIONS_REGIST（DD関係者登録）
+--       ├ SCR_DD_RELATIONS_EDIT（DD関係者編集）
+--       └ SCR_DD_RELATIONS_DEL（DD関係者削除）
 --   ・MENU_DDCUST（顧客追加情報管理）
 --       ├ SCR_DDCUST_LISTINQ（顧客追加情報一覧照会）
 --       ├ SCR_DDCUST_DETAILS（顧客追加情報詳細照会）
 --       ├ SCR_DDCUST_REGIST（顧客追加情報登録）
---       └ SCR_DDCUST_EDIT（顧客追加情報編集）
+--       ├ SCR_DDCUST_EDIT（顧客追加情報編集）
+--       └ SCR_DDCUST_DEL（顧客追加情報削除）
 --   ・MENU_CONTRACT（契約管理）
 --       ├ SCR_CONTRACT_LISTINQ（サービス契約一覧照会）
 --       ├ SCR_CONTRACT_DETAILS（サービス契約詳細照会）
@@ -29,8 +33,6 @@
 --       ├ SCR_INVOICE_DETAILS（請求書詳細照会）
 --       ├ SCR_INVOICE_SEND（請求書送信）
 --       └ SCR_INVOICE_EDIT（請求書編集）
---   ・MENU_SERVICESALES（口座管理）
---       └ SCR_SERVICESALES_INQ（サービス口座照会）
 --   ・MENU_USERS（ユーザー管理）
 --       ├ SCR_USERS_LISTINQ（ユーザー一覧照会）
 --       ├ SCR_USERS_DETAILS（ユーザー詳細照会）
@@ -52,10 +54,9 @@
 --    4000 – 4999  : DDCUST 配下
 --    5000 – 5999  : CONTRACT 配下
 --    6000 – 6999  : INVOICE 配下
---    7000 – 7999  : SERVICESALES 配下
---    8000 – 8999  : USERS 配下
---    9000 – 9999  : INVOICEROWS 配下
---    10000 – 10999: AUDITLOG 配下
+--    7000 – 7999  : USERS 配下
+--    8000 – 8999  : INVOICEROWS 配下
+--    9000 – 9999: AUDITLOG 配下
 --    ※必要に応じて拡張してください
 -- ===================================================================
 
@@ -70,15 +71,14 @@ INSERT INTO m5.functions (
       updated_user_code, updated_biz_date, updated_date_time,
       version
 ) VALUES
-(1000,'MENU_CUSTOMERS'   ,1,'MENU','顧客管理'           ,'MENU_CUSTOMERS',NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(1100,'MENU_DD'          ,1,'MENU','デューデリジェンス'   ,'MENU_DD'       ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(1200,'MENU_DDCUST'      ,1,'MENU','顧客追加情報管理'     ,'MENU_DDCUST'   ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(1300,'MENU_CONTRACT'    ,1,'MENU','契約管理'           ,'MENU_CONTRACT' ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(1400,'MENU_INVOICE'     ,1,'MENU','請求管理'           ,'MENU_INVOICE'  ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(1500,'MENU_SERVICESALES',1,'MENU','口座管理'           ,'MENU_SERVICESALES',NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(1600,'MENU_USERS'       ,1,'MENU','ユーザー管理'         ,'MENU_USERS'    ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(1700,'MENU_INVOICEROWS' ,1,'MENU','請求明細取込ログ'     ,'MENU_INVOICEROWS',NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(1800,'MENU_AUDITLOG'    ,1,'MENU','監査ログ'           ,'MENU_AUDITLOG' ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
+(1000,'MENU_CUSTOMERS'   ,1,'MENU','顧客'            ,'MENU_CUSTOMERS'  ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(1100,'MENU_DD'          ,1,'MENU','デューデリジェンス','MENU_DD'         ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(1200,'MENU_DDCUST'      ,1,'MENU','顧客追加情報管理'  ,'MENU_DDCUST'     ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(1300,'MENU_CONTRACT'    ,1,'MENU','契約'            ,'MENU_CONTRACT'   ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(1400,'MENU_INVOICE'     ,1,'MENU','請求書'           ,'MENU_INVOICE'    ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(1500,'MENU_USERS'       ,1,'MENU','ユーザー'         ,'MENU_USERS'      ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(1600,'MENU_INVOICEROWS' ,1,'MENU','請求明細'         ,'MENU_INVOICEROWS',NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(1700,'MENU_AUDITLOG'    ,1,'MENU','監査ログ'         ,'MENU_AUDITLOG'   ,NULL,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
 
 /* ───── 2. MENU_CUSTOMERS 配下 ───── */
 INSERT INTO m5.functions (
@@ -99,11 +99,13 @@ INSERT INTO m5.functions (
       updated_user_code, updated_biz_date, updated_date_time,
       version
 ) VALUES
-(3000,'SCR_DD_LISTINQ'         ,1,'SCREEN','DD一覧照会' ,'SCR_DD_LISTINQ'         ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(3001,'SCR_DD_DETAILS'         ,1,'SCREEN','DD詳細照会' ,'SCR_DD_DETAILS'         ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(3002,'SCR_DD_RESULT_SUMMARY'  ,1,'SCREEN','DD結果一覧' ,'SCR_DD_RESULT_SUMMARY'  ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(3003,'SCR_DD_RESULT_ENTITY'   ,1,'SCREEN','DD結果法人' ,'SCR_DD_RESULT_ENTITY'   ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(3004,'SCR_DD_RESULT_INDIVIDUAL',1,'SCREEN','DD結果個人','SCR_DD_RESULT_INDIVIDUAL',1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
+(3000,'SCR_DD_LISTINQ'         ,1,'SCREEN','DD一覧照会'   ,'SCR_DD_LISTINQ'         ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(3001,'SCR_DD_CASE'            ,1,'SCREEN','DDケース'     ,'SCR_DD_CASE'            ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(3002,'SCR_DD_STEP_RESULTS'    ,1,'SCREEN','DDステップ結果','SCR_DD_STEP_RESULT'     ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(3003,'SCR_DD_RELATIONS_INQ'   ,1,'SCREEN','DD関係者照会'  ,'SCR_DD_RELATIONS_INQ'   ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(3004,'SCR_DD_RELATIONS_REGIST',1,'SCREEN','DD関係者追加'  ,'SCR_DD_RELATIONS_REGIST',1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(3005,'SCR_DD_RELATIONS_EDIT'  ,1,'SCREEN','DD関係者編集'  ,'SCR_DD_RELATIONS_EDIT'  ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(3006,'SCR_DD_RELATIONS_DEL'   ,1,'SCREEN','DD関係者削除'  ,'SCR_DD_RELATIONS_DEL'   ,1100,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
 
 /* ─── DD 詳細配下の承認ボタン ─── */
 INSERT INTO m5.functions (
@@ -112,8 +114,9 @@ INSERT INTO m5.functions (
       updated_user_code, updated_biz_date, updated_date_time,
       version
 ) VALUES
-(3005,'BUTTON_DD_PRIMARY_APRV',1,'BUTTON','DD一次承認','BUTTON_DD_PRIMARY_APRV',3001,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(3006,'BUTTON_DD_FINAL_APRV'  ,1,'BUTTON','DD二次承認','BUTTON_DD_FINAL_APRV'  ,3001,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
+(3007,'BUTTON_PREDD_APRV'  ,1,'BUTTON','DD準備承認' ,'BUTTON_PREDD_APRV'   ,3001,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(3008,'BUTTON_ADDINFO_APRV',1,'BUTTON','追加入力承認','BUTTON_ADDINFO_APRV' ,3001,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(3009,'BUTTON_DD_APRV'     ,1,'BUTTON','DD承認'     ,'BUTTON_DD_APRV'      ,3001,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
 
 /* ───── 4. MENU_DDCUST 配下 ───── */
 INSERT INTO m5.functions (
@@ -125,7 +128,8 @@ INSERT INTO m5.functions (
 (4000,'SCR_DDCUST_LISTINQ',1,'SCREEN','顧客追加情報一覧照会','SCR_DDCUST_LISTINQ',1200,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
 (4001,'SCR_DDCUST_DETAILS',1,'SCREEN','顧客追加情報詳細照会','SCR_DDCUST_DETAILS',1200,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
 (4002,'SCR_DDCUST_REGIST' ,1,'SCREEN','顧客追加情報登録'   ,'SCR_DDCUST_REGIST' ,1200,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(4003,'SCR_DDCUST_EDIT'   ,1,'SCREEN','顧客追加情報編集'   ,'SCR_DDCUST_EDIT'   ,1200,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
+(4003,'SCR_DDCUST_EDIT'   ,1,'SCREEN','顧客追加情報編集'   ,'SCR_DDCUST_EDIT'   ,1200,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(4004,'SCR_DDCUST_DEL'    ,1,'SCREEN','顧客追加情報削除'   ,'SCR_DDCUST_DEL'    ,1200,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
 
 /* ───── 5. MENU_CONTRACT 配下 ───── */
 INSERT INTO m5.functions (
@@ -151,47 +155,38 @@ INSERT INTO m5.functions (
 (6002,'SCR_INVOICE_SEND'   ,1,'SCREEN','請求書送信'   ,'SCR_INVOICE_SEND'   ,1400,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
 (6003,'SCR_INVOICE_EDIT'   ,1,'SCREEN','請求書編集'   ,'SCR_INVOICE_EDIT'   ,1400,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
 
-/* ───── 7. MENU_SERVICESALES 配下 ───── */
+/* ───── 7. MENU_USERS 配下 ───── */
 INSERT INTO m5.functions (
       id, function_code, service_id, function_type, function_name, short_name, parent_function_id,
       created_user_code, created_biz_date,
       updated_user_code, updated_biz_date, updated_date_time,
       version
 ) VALUES
-(7000,'SCR_SERVICESALES_INQ',1,'SCREEN','サービス売上照会','SCR_SERVICESALES_INQ',1500,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
+(7000,'SCR_USERS_LISTINQ',1,'SCREEN','ユーザー一覧照会','SCR_USERS_LISTINQ',1500,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(7001,'SCR_USERS_DETAILS',1,'SCREEN','ユーザー詳細照会','SCR_USERS_DETAILS',1500,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(7002,'SCR_USERS_REGIST' ,1,'SCREEN','ユーザー登録'   ,'SCR_USERS_REGIST' ,1500,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(7003,'SCR_USERS_EDIT'   ,1,'SCREEN','ユーザー編集'   ,'SCR_USERS_EDIT'   ,1500,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
 
-/* ───── 8. MENU_USERS 配下 ───── */
+/* ───── 8. MENU_INVOICEROWS 配下 ───── */
 INSERT INTO m5.functions (
       id, function_code, service_id, function_type, function_name, short_name, parent_function_id,
       created_user_code, created_biz_date,
       updated_user_code, updated_biz_date, updated_date_time,
       version
 ) VALUES
-(8000,'SCR_USERS_LISTINQ',1,'SCREEN','ユーザー一覧照会','SCR_USERS_LISTINQ',1600,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(8001,'SCR_USERS_DETAILS',1,'SCREEN','ユーザー詳細照会','SCR_USERS_DETAILS',1600,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(8002,'SCR_USERS_REGIST' ,1,'SCREEN','ユーザー登録'   ,'SCR_USERS_REGIST' ,1600,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(8003,'SCR_USERS_EDIT'   ,1,'SCREEN','ユーザー編集'   ,'SCR_USERS_EDIT'   ,1600,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
+(8000,'SCR_INVOICEROWS_LISTINQ',1,'SCREEN','請求明細一覧照会','SCR_INVOICEROWS_LISTINQ',1600,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(8001,'SCR_INVOICEROWS_DETAILS',1,'SCREEN','請求明細詳細照会','SCR_INVOICEROWS_DETAILS',1600,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(8002,'SCR_INVOICEROWS_EDIT'   ,1,'SCREEN','請求明細編集'   ,'SCR_INVOICEROWS_EDIT'   ,1600,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(8003,'API_INVOICEROWS_REGIST' ,1,'API'   ,'請求明細登録API','API_INVOICEROWS_REGIST' ,1600,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
 
-/* ───── 9. MENU_INVOICEROWS 配下 ───── */
+/* ───── 9. MENU_AUDITLOG 配下 ───── */
 INSERT INTO m5.functions (
       id, function_code, service_id, function_type, function_name, short_name, parent_function_id,
       created_user_code, created_biz_date,
       updated_user_code, updated_biz_date, updated_date_time,
       version
 ) VALUES
-(9000,'SCR_INVOICEROWS_LISTINQ',1,'SCREEN','請求明細一覧照会','SCR_INVOICEROWS_LISTINQ',1700,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(9001,'SCR_INVOICEROWS_DETAILS',1,'SCREEN','請求明細詳細照会','SCR_INVOICEROWS_DETAILS',1700,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(9002,'SCR_INVOICEROWS_EDIT'   ,1,'SCREEN','請求明細編集'   ,'SCR_INVOICEROWS_EDIT'   ,1700,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(9003,'API_INVOICEROWS_REGIST' ,1,'API'   ,'請求明細登録API','API_INVOICEROWS_REGIST' ,1700,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
-
-/* ───── 10. MENU_AUDITLOG 配下 ───── */
-INSERT INTO m5.functions (
-      id, function_code, service_id, function_type, function_name, short_name, parent_function_id,
-      created_user_code, created_biz_date,
-      updated_user_code, updated_biz_date, updated_date_time,
-      version
-) VALUES
-(10000,'SCR_AUDITLOG_LISTINQ',1,'SCREEN','監査ログ一覧照会','SCR_AUDITLOG_LISTINQ',1800,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
-(10001,'SCR_AUDITLOG_DETAILS',1,'SCREEN','監査ログ詳細照会','SCR_AUDITLOG_DETAILS',1800,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
+(9000,'SCR_AUDITLOG_LISTINQ',1,'SCREEN','監査ログ一覧照会','SCR_AUDITLOG_LISTINQ',1700,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1),
+(9001,'SCR_AUDITLOG_DETAILS',1,'SCREEN','監査ログ詳細照会','SCR_AUDITLOG_DETAILS',1700,'SYS',current_setting('my.bizdate')::date,'SYS',current_setting('my.bizdate')::date,CURRENT_TIMESTAMP,1);
 
 COMMIT;

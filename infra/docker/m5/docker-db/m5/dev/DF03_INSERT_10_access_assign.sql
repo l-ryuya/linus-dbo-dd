@@ -12,17 +12,22 @@
 --       ├ SCR_CUST_REGIST（顧客登録）
 --       └ SCR_CUST_EDIT（顧客編集）
 --   ・MENU_DD（デューデリジェンス管理）
---       ├ SCR_DD_LISTINQ（デューデリジェンス一覧照会）
---       ├ SCR_DD_DETAILS（デューデリジェンス詳細照会）
---       │  └ BUTTON_DD_PRIMARY_APRV（デューデリジェンス一次承認）
---       ├ SCR_DD_RESULT_SUMMARY（デューデリジェンス結果一覧）
---       ├ SCR_DD_RESULT_ENTITY（デューデリジェンス結果法人）
---       └ SCR_DD_RESULT_INDIVIDUAL（デューデリジェンス結果個人）
+--       ├ SCR_DD_LISTINQ（DD一覧照会）
+--       ├ SCR_DD_CASE（DDケースサマリー）
+--       │  ├ BUTTON_PREDD_APRV（DD準備承認）
+--       │  ├ BUTTON_ADDINFO_APRV（追加入力承認）
+--       │  └ BUTTON_DD_APRV（DD承認）
+--       ├ SCR_DD_STEP_RESULT（DDステップ結果）
+--       ├ SCR_DD_RELATIONS_INQ（DD関係者照会）
+--       ├ SCR_DD_RELATIONS_REGIST（DD関係者登録）
+--       ├ SCR_DD_RELATIONS_EDIT（DD関係者編集）
+--       └ SCR_DD_RELATIONS_DEL（DD関係者削除）
 --   ・MENU_DDCUST（顧客追加情報管理）
 --       ├ SCR_DDCUST_LISTINQ（顧客追加情報一覧照会）
 --       ├ SCR_DDCUST_DETAILS（顧客追加情報詳細照会）
 --       ├ SCR_DDCUST_REGIST（顧客追加情報登録）
---       └ SCR_DDCUST_EDIT（顧客追加情報編集）
+--       ├ SCR_DDCUST_EDIT（顧客追加情報編集）
+--       └ SCR_DDCUST_DEL（顧客追加情報削除）
 --   ・MENU_CONTRACT（契約管理）
 --       ├ SCR_CONTRACT_LISTINQ（サービス契約一覧照会）
 --       ├ SCR_CONTRACT_DETAILS（サービス契約詳細照会）
@@ -33,8 +38,6 @@
 --       ├ SCR_INVOICE_DETAILS（請求書詳細照会）
 --       ├ SCR_INVOICE_SEND（請求書送信）
 --       └ SCR_INVOICE_EDIT（請求書編集）
---   ・MENU_SERVICESALES（口座管理）
---       └ SCR_SERVICESALES_INQ（サービス口座照会）
 --   ・MENU_USERS（ユーザー管理）
 --       ├ SCR_USERS_LISTINQ（ユーザー一覧照会）
 --       ├ SCR_USERS_DETAILS（ユーザー詳細照会）
@@ -67,16 +70,22 @@
 --       ├ SCR_CUST_REGIST（顧客登録）
 --       └ SCR_CUST_EDIT（顧客編集）
 --   ・MENU_DD（デューデリジェンス管理）
---       ├ SCR_DD_LISTINQ（デューデリジェンス一覧照会）
---       ├ SCR_DD_DETAILS（デューデリジェンス詳細照会）
---       ├ SCR_DD_RESULT_SUMMARY（デューデリジェンス結果一覧）
---       ├ SCR_DD_RESULT_ENTITY（デューデリジェンス結果法人）
---       └ SCR_DD_RESULT_INDIVIDUAL（デューデリジェンス結果個人）
+--       ├ SCR_DD_LISTINQ（DD一覧照会）
+--       ├ SCR_DD_CASE（DDケースサマリー）
+--       │  ├ BUTTON_PREDD_APRV（DD準備承認）
+--       │  ├ BUTTON_ADDINFO_APRV（追加入力承認）
+--       │  └ BUTTON_DD_APRV（DD承認）
+--       ├ SCR_DD_STEP_RESULT（DDステップ結果）
+--       ├ SCR_DD_RELATIONS_INQ（DD関係者照会）
+--       ├ SCR_DD_RELATIONS_REGIST（DD関係者登録）
+--       ├ SCR_DD_RELATIONS_EDIT（DD関係者編集）
+--       └ SCR_DD_RELATIONS_DEL（DD関係者削除）
 --   ・MENU_DDCUST（顧客追加情報管理）
 --       ├ SCR_DDCUST_LISTINQ（顧客追加情報一覧照会）
 --       ├ SCR_DDCUST_DETAILS（顧客追加情報詳細照会）
 --       ├ SCR_DDCUST_REGIST（顧客追加情報登録）
---       └ SCR_DDCUST_EDIT（顧客追加情報編集）
+--       ├ SCR_DDCUST_EDIT（顧客追加情報編集）
+--       └ SCR_DDCUST_DEL（顧客追加情報削除）
 --   ・MENU_CONTRACT（契約管理）
 --       ├ SCR_CONTRACT_LISTINQ（サービス契約一覧照会）
 --       ├ SCR_CONTRACT_DETAILS（サービス契約詳細照会）
@@ -87,8 +96,6 @@
 --       ├ SCR_INVOICE_DETAILS（請求書詳細照会）
 --       ├ SCR_INVOICE_SEND（請求書送信）
 --       └ SCR_INVOICE_EDIT（請求書編集）
---   ・MENU_SERVICESALES（口座管理）
---       └ SCR_SERVICESALES_INQ（サービス口座照会）
 --   ・MENU_USERS（ユーザー管理）
 --       ├ SCR_USERS_LISTINQ（ユーザー一覧照会）
 --       ├ SCR_USERS_DETAILS（ユーザー詳細照会）
@@ -116,7 +123,8 @@
 --       ├ SCR_DDCUST_LISTINQ（顧客追加情報一覧照会）
 --       ├ SCR_DDCUST_DETAILS（顧客追加情報詳細照会）
 --       ├ SCR_DDCUST_REGIST（顧客追加情報登録）
---       └ SCR_DDCUST_EDIT（顧客追加情報編集）
+--       ├ SCR_DDCUST_EDIT（顧客追加情報編集）
+--       └ SCR_DDCUST_DEL（顧客追加情報削除）
 -- ===================================================================
 
 BEGIN;
@@ -151,11 +159,10 @@ SELECT g.id, f.id,
  WHERE g.user_group_code IN ('DS_SECURATE','DS_UNVEIL','DI_SERVICE1','DI_SERVICE2','DD_SERVICE1','DD_SERVICE2')
    AND f.function_code IN (
      'MENU_CUSTOMERS','SCR_CUST_LISTINQ','SCR_CUST_DETAILS','SCR_CUST_REGIST','SCR_CUST_EDIT',
-     'MENU_DD','SCR_DD_LISTINQ','SCR_DD_DETAILS','SCR_DD_RESULT_SUMMARY','SCR_DD_RESULT_ENTITY','SCR_DD_RESULT_INDIVIDUAL',
-     'MENU_DDCUST','SCR_DDCUST_LISTINQ','SCR_DDCUST_DETAILS','SCR_DDCUST_REGIST','SCR_DDCUST_EDIT',
+     'MENU_DD','SCR_DD_LISTINQ','SCR_DD_CASE','SCR_DD_STEP_RESULT','SCR_DD_RELATIONS_INQ','SCR_DD_RELATIONS_REGIST','SCR_DD_RELATIONS_EDIT','SCR_DD_RELATIONS_DEL',
+     'MENU_DDCUST','SCR_DDCUST_LISTINQ','SCR_DDCUST_DETAILS','SCR_DDCUST_REGIST','SCR_DDCUST_EDIT','SCR_DDCUST_DEL',
      'MENU_CONTRACT','SCR_CONTRACT_LISTINQ','SCR_CONTRACT_DETAILS','SCR_CONTRACT_REGIST','SCR_CONTRACT_EDIT',
      'MENU_INVOICE','SCR_INVOICE_LISTINQ','SCR_INVOICE_DETAILS','SCR_INVOICE_SEND','SCR_INVOICE_EDIT',
-     'MENU_SERVICESALES','SCR_SERVICESALES_INQ','MENU_USERS','SCR_USERS_LISTINQ','SCR_USERS_DETAILS',
      'MENU_INVOICEROWS','SCR_INVOICEROWS_LISTINQ','SCR_INVOICEROWS_DETAILS','API_INVOICEROWS_REGIST','SCR_INVOICEROWS_EDIT',
      'MENU_AUDITLOG','SCR_AUDITLOG_LISTINQ','SCR_AUDITLOG_DETAILS');
 
@@ -172,6 +179,6 @@ SELECT g.id, f.id,
   JOIN m5.functions  f ON true
  WHERE g.user_group_code IN ('DS_CUST','DI_CUST','DD_CUST')
    AND f.function_code IN
- ('MENU_DDCUST','SCR_DDCUST_LISTINQ','SCR_DDCUST_DETAILS','SCR_DDCUST_REGIST','SCR_DDCUST_EDIT');
+ ('MENU_DDCUST','SCR_DDCUST_LISTINQ','SCR_DDCUST_DETAILS','SCR_DDCUST_REGIST','SCR_DDCUST_EDIT','SCR_DDCUST_DEL');
 
 COMMIT;
