@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Webhooks;
 
 use App\Enums\CloudSignStatus;
-use App\Enums\ServiceContractStatusCode;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Models\ServiceContract;
 use App\Services\ServiceContract\ContractStatusService;
 use Illuminate\Support\Facades\DB;

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Tenant;
 
-use App\Enums\ServiceContractStatusCode;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\ServiceContract\IndexRequest;
 use App\Http\Requests\Tenant\ServiceContract\StoreDraftRequest;

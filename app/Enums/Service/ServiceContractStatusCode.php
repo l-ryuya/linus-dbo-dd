@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace App\Enums\Service;
 
 use App\Enums\Traits\EnumToEqual;
 use App\Enums\Traits\EnumToGet;

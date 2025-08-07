@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Tenant\ServiceContract;
 
 use App\Dto\Tenant\ServiceContract\StoreInput;
-use App\Enums\ServiceContractStatusCode;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Jobs\CloudSign\ContractJob;
 use App\Models\Customer;
 use App\Models\Service;
@@ -92,14 +92,14 @@ class StoreAction
     /**
      * サービス契約を作成する
      *
-     * @param int                                  $tenantId
-     * @param int                                  $customerId
-     * @param \App\Enums\ServiceContractStatusCode $serviceContractStatus
-     * @param int                                  $serviceId
-     * @param int|null                             $servicePlanId
-     * @param int|null                             $serviceRepUserOptionId
-     * @param int|null                             $serviceMgrUserOptionId
-     * @param StoreInput                           $data
+     * @param int                                          $tenantId
+     * @param int                                          $customerId
+     * @param \App\Enums\Service\ServiceContractStatusCode $serviceContractStatus
+     * @param int                                          $serviceId
+     * @param int|null                                     $servicePlanId
+     * @param int|null                                     $serviceRepUserOptionId
+     * @param int|null                                     $serviceMgrUserOptionId
+     * @param StoreInput                                   $data
      *
      * @return ServiceContract 作成されたサービス契約
      */

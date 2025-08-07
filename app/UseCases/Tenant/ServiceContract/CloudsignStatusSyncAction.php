@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Tenant\ServiceContract;
 
 use App\Enums\CloudSignStatus;
-use App\Enums\ServiceContractStatusCode;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Exceptions\LogicValidationException;
 use App\Models\ServiceContract;
 use App\Services\CloudSign\GetDocumentService;

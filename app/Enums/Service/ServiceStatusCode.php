@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace App\Enums\Service;
 
 use App\Enums\Traits\EnumToEqual;
 use App\Enums\Traits\EnumToGet;
 
 /**
- * サービスプラン提供ステータス
+ * サービス提供ステータス
  *
  * nameとvalueはいったん同じ値とする
  * Value側にDBの値が入る想定
  */
-enum ServicePlanStatusCode: String
+enum ServiceStatusCode: String
 {
     use EnumToGet;
     use EnumToEqual;

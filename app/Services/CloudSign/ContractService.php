@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\CloudSign;
 
-use App\Enums\ServiceContractStatusCode;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Models\ContractWidgetSetting;
 use App\Models\ServiceContract;
 use App\Services\CloudSign\Traits\Documents;

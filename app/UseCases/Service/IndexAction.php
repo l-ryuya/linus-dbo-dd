@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\UseCases\Service;
 
-use App\Enums\ServiceStatusCode;
+use App\Enums\Service\ServiceStatusCode;
 use App\Models\Service;
 
 class IndexAction
@@ -12,9 +12,9 @@ class IndexAction
     /**
      * サービスを取得する
      *
-     * @param string                       $languageCode 言語コード（ISO639-1）
-     * @param int|null                     $tenantId
-     * @param \App\Enums\ServiceStatusCode $serviceStatusCode
+     * @param string                               $languageCode 言語コード（ISO639-1）
+     * @param int|null                             $tenantId
+     * @param \App\Enums\Service\ServiceStatusCode $serviceStatusCode
      *
      * @return \Illuminate\Support\Collection<int, Service>
      */

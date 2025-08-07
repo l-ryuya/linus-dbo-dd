@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Tenant\ServiceContract;
 
 use App\Dto\Tenant\ServiceContract\UpdateInput;
-use App\Enums\ServiceContractStatusCode;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Exceptions\LogicValidationException;
 use App\Models\Customer;
 use App\Models\Service;
@@ -20,10 +20,10 @@ class UpdateAction
     /**
      * 顧客サービス契約更新
      *
-     * @param Tenant                               $identifiedTenant
-     * @param string                               $serviceContractPublicId
-     * @param \App\Enums\ServiceContractStatusCode $serviceContractStatus
-     * @param UpdateInput                          $data
+     * @param Tenant                                       $identifiedTenant
+     * @param string                                       $serviceContractPublicId
+     * @param \App\Enums\Service\ServiceContractStatusCode $serviceContractStatus
+     * @param UpdateInput                                  $data
      *
      * @return void
      * @throws \Throwable
@@ -89,15 +89,15 @@ class UpdateAction
     /**
      * サービス契約を更新する
      *
-     * @param string                                      $serviceContractPublicId
-     * @param int                                         $tenantId
-     * @param int                                         $customerId
-     * @param \App\Enums\ServiceContractStatusCode        $serviceContractStatus
-     * @param int                                         $serviceId
-     * @param int|null                                    $servicePlanId
-     * @param int|null                                    $serviceRepUserOptionId
-     * @param int|null                                    $serviceMgrUserOptionId
-     * @param \App\Dto\Tenant\ServiceContract\UpdateInput $data
+     * @param string                                       $serviceContractPublicId
+     * @param int                                          $tenantId
+     * @param int                                          $customerId
+     * @param \App\Enums\Service\ServiceContractStatusCode $serviceContractStatus
+     * @param int                                          $serviceId
+     * @param int|null                                     $servicePlanId
+     * @param int|null                                     $serviceRepUserOptionId
+     * @param int|null                                     $serviceMgrUserOptionId
+     * @param \App\Dto\Tenant\ServiceContract\UpdateInput  $data
      *
      * @return void
      * @throws \Throwable

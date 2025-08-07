@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\UseCases\ServicePlan;
 
-use App\Enums\ServicePlanStatusCode;
-use App\Enums\ServiceStatusCode;
+use App\Enums\Service\ServicePlanStatusCode;
+use App\Enums\Service\ServiceStatusCode;
 use App\Models\Service;
 use App\Models\ServicePlan;
 
@@ -14,11 +14,11 @@ class IndexAction
     /**
      * サービスプランを取得する
      *
-     * @param string                           $languageCode 言語コード（ISO639-1）
-     * @param int|null                         $tenantId
-     * @param string                           $servicePublicId
-     * @param \App\Enums\ServiceStatusCode     $serviceStatusCode
-     * @param \App\Enums\ServicePlanStatusCode $servicePlanStatusCode
+     * @param string                                   $languageCode 言語コード（ISO639-1）
+     * @param int|null                                 $tenantId
+     * @param string                                   $servicePublicId
+     * @param \App\Enums\Service\ServiceStatusCode     $serviceStatusCode
+     * @param \App\Enums\Service\ServicePlanStatusCode $servicePlanStatusCode
      *
      * @return \Illuminate\Support\Collection<int, ServicePlan>
      */

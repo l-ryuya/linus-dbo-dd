@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Services\ServiceContract;
 
 use App\Enums\CloudSignStatus;
-use App\Enums\ServiceContractStatusCode;
-use App\Enums\ServiceUsageStatusCode;
+use App\Enums\Service\ServiceContractStatusCode;
+use App\Enums\Service\ServiceUsageStatusCode;
 use App\Jobs\DboBilling\CustomerJob;
 use App\Mail\ContractStatusNotificationsMail;
 use App\Models\ServiceContract;

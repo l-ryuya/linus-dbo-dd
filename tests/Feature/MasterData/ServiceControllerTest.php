@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Feature\MasterData;
 
-use App\Enums\ServiceStatusCode;
+use App\Enums\Service\ServiceStatusCode;
 use App\Models\Service;
 use App\Models\Tenant;
 use Database\Seeders\base\CompaniesSeeder;
