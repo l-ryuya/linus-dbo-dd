@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\CompanyNameTranslation;
 use App\Models\Customer;
 use App\Models\Tenant;
+use App\Services\AiDd\PreDd\Step0Service;
 use Illuminate\Support\Facades\DB;
 
 class StoreAction
@@ -17,6 +18,7 @@ class StoreAction
      * 顧客登録
      *
      * @param \App\Models\Tenant                  $identifiedTenant
+     * @param int                                 $authUserOptionId
      * @param \App\Dto\Tenant\Customer\StoreInput $data
      *
      * @return object
@@ -24,6 +26,7 @@ class StoreAction
      */
     public function __invoke(
         Tenant $identifiedTenant,
+        int $authUserOptionId,
         StoreInput $data,
     ): object {
         DB::beginTransaction();
@@ -33,6 +36,13 @@ class StoreAction
             $customer = $this->createCustomer($identifiedTenant, $data, $company);
 
             DB::commit();
+
+            $step0Service = new Step0Service();
+            $step0Service->createInitialData(
+                $identifiedTenant->tenant_id,
+                $customer->customer_id,
+                $authUserOptionId,
+            );
 
             return (object) [
                 'companyPublicId' => $company->public_id,
