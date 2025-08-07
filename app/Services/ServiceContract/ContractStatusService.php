@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace App\Services\ServiceContract;
 
 use App\Enums\CloudSignStatus;
-use App\Enums\ServiceContractStatus;
-use App\Enums\ServiceUsageStatus;
+use App\Enums\Service\ServiceContractStatusCode;
+use App\Enums\Service\ServiceUsageStatusCode;
 use App\Jobs\DboBilling\CustomerJob;
 use App\Mail\ContractStatusNotificationsMail;
 use App\Models\ServiceContract;
@@ -73,8 +73,8 @@ class ContractStatusService
     private function handleExecutedContract(
         ServiceContract $serviceContract,
     ): void {
-        $serviceContract->contract_status_code = ServiceContractStatus::ContractExecuted->value;
-        $serviceContract->service_usage_status_code = ServiceUsageStatus::Active->value;
+        $serviceContract->contract_status_code = ServiceContractStatusCode::ContractExecuted->value;
+        $serviceContract->service_usage_status_code = ServiceUsageStatusCode::Active->value;
         $serviceContract->contract_executed_at = now();
 
         $customer = $serviceContract->customer;
@@ -87,7 +87,7 @@ class ContractStatusService
     private function handleCancelledContract(
         ServiceContract $serviceContract,
     ): void {
-        $serviceContract->contract_status_code = ServiceContractStatus::ContractCancelled->value;
+        $serviceContract->contract_status_code = ServiceContractStatusCode::ContractCancelled->value;
     }
 
     /**

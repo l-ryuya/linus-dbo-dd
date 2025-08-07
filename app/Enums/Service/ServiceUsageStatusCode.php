@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Enums;
+namespace App\Enums\Service;
 
 /**
  * サービス利用ステータス
@@ -10,7 +10,7 @@ namespace App\Enums;
  * nameとvalueはいったん同じ値とする
  * Value側にDBの値が入る想定
  */
-enum ServiceUsageStatus: String
+enum ServiceUsageStatusCode: String
 {
     case AwaitingActivation = 'awaiting_activation';
     case Active = 'active';

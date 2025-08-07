@@ -14,7 +14,7 @@ class ServiceContractsSeeder extends Seeder
 {
     public function run(): void
     {
-        $filePath = database_path('seeders/base/csv/service_contracts.csv');
+        $filePath = database_path('seeders/base/csv/DF05_service_contracts_202507090834.csv');
         if (!file_exists($filePath)) {
             Log::error("CSV file not found: " . $filePath);
             return;

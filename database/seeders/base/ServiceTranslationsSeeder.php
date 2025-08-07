@@ -14,7 +14,7 @@ class ServiceTranslationsSeeder extends Seeder
 {
     public function run(): void
     {
-        $filePath = database_path('seeders/base/csv/service_translations.csv');
+        $filePath = database_path('seeders/base/csv/DF16_service_translations_202507090834.csv');
         if (!file_exists($filePath)) {
             Log::error("CSV file not found: " . $filePath);
             return;

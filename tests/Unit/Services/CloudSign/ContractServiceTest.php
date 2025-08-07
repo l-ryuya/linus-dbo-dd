@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Services\CloudSign;
 
-use App\Enums\ServiceContractStatus;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Models\Customer;
 use App\Models\Service;
 use App\Models\ServiceContract;
@@ -123,7 +123,7 @@ class ContractServiceTest extends TestCase
             'contract_name' => 'Test Contract',
             'contract_language' => 'jpn',
             'contract_status_type' => 'service_contract_status',
-            'contract_status_code' => ServiceContractStatus::ContractInfoRegistered->value,
+            'contract_status_code' => ServiceContractStatusCode::ContractInfoRegistered->value,
             'service_usage_status_type' => 'service_usage_status',
             'service_usage_status_code' => 'awaiting_activation',
             'contract_date' => '2024-01-01',
@@ -185,7 +185,7 @@ class ContractServiceTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'service_contract_id' => $this->serviceContract->service_contract_id,
             'contract_doc_id' => 'test-document-id-123',
-            'contract_status_code' => ServiceContractStatus::ContractDocumentSent->value,
+            'contract_status_code' => ServiceContractStatusCode::ContractDocumentSent->value,
         ]);
 
         $updatedContract = ServiceContract::find($this->serviceContract->service_contract_id);
@@ -236,7 +236,7 @@ class ContractServiceTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'service_contract_id' => $this->serviceContract->service_contract_id,
             'contract_doc_id' => 'test-document-id-456',
-            'contract_status_code' => ServiceContractStatus::ContractDocumentSent->value,
+            'contract_status_code' => ServiceContractStatusCode::ContractDocumentSent->value,
         ]);
 
         // HTTPリクエストが期待通りに送信されたことを確認
@@ -283,7 +283,7 @@ class ContractServiceTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'service_contract_id' => $this->serviceContract->service_contract_id,
             'contract_doc_id' => 'test-document-id-789',
-            'contract_status_code' => ServiceContractStatus::ContractDocumentSent->value,
+            'contract_status_code' => ServiceContractStatusCode::ContractDocumentSent->value,
         ]);
 
         // 英語テンプレートが使用されることを確認
@@ -310,7 +310,7 @@ class ContractServiceTest extends TestCase
     {
         // 契約ステータスを送信済みに変更
         $this->serviceContract->update([
-            'contract_status_code' => ServiceContractStatus::ContractDocumentSent->value,
+            'contract_status_code' => ServiceContractStatusCode::ContractDocumentSent->value,
         ]);
 
         $this->expectException(\RuntimeException::class);
@@ -326,7 +326,7 @@ class ContractServiceTest extends TestCase
     {
         // 契約ステータスを実行済みに変更
         $this->serviceContract->update([
-            'contract_status_code' => ServiceContractStatus::ContractExecuted->value,
+            'contract_status_code' => ServiceContractStatusCode::ContractExecuted->value,
         ]);
 
         $this->expectException(\RuntimeException::class);
@@ -360,7 +360,7 @@ class ContractServiceTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'service_contract_id' => $this->serviceContract->service_contract_id,
             'contract_doc_id' => null,
-            'contract_status_code' => ServiceContractStatus::ContractInfoRegistered->value,
+            'contract_status_code' => ServiceContractStatusCode::ContractInfoRegistered->value,
         ]);
     }
 
@@ -388,7 +388,7 @@ class ContractServiceTest extends TestCase
         $this->assertDatabaseHas('service_contracts', [
             'service_contract_id' => $this->serviceContract->service_contract_id,
             'contract_doc_id' => null,
-            'contract_status_code' => ServiceContractStatus::ContractInfoRegistered->value,
+            'contract_status_code' => ServiceContractStatusCode::ContractInfoRegistered->value,
         ]);
     }
 

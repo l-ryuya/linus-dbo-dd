@@ -93,6 +93,7 @@ class CustomerController extends Controller
         return (new StoreResource(
             $action(
                 $user->getUserOption()->tenant,
+                $user->getUserOption()->user_option_id,
                 $request->toStoreInput(),
             ),
         ))
