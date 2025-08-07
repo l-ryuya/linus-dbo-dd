@@ -33,6 +33,11 @@ INSERT INTO m5.role (
 (3,'SEC_ADM','Securate管理者'  , 11 ,
  'SYS',current_setting('my.bizdate')::date,
  'SYS',CURRENT_TIMESTAMP,current_setting('my.bizdate')::date,
+ 1),
+
+(4,'DBO_ADM','DBO管理者'  , 10 ,
+ 'SYS',current_setting('my.bizdate')::date,
+ 'SYS',CURRENT_TIMESTAMP,current_setting('my.bizdate')::date,
  1);
 
 COMMIT;

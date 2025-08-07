@@ -21,7 +21,8 @@ INSERT INTO m5.passwd (
       updated_user_code, updated_biz_date,
       version
 ) VALUES
--- デジタルファイナンスプラットフォーム管理者
+
+-- 1) デジタルファイナンスプラットフォーム管理者
 (1, 'e53d6ae94bf7713a891358ae48bc90dfc61944bc6b4660aed658b2cb7a79a243', 'SHA-256',
  current_setting('my.bizdate')::date,
  'A', TRUE,
@@ -29,7 +30,7 @@ INSERT INTO m5.passwd (
  'SYS', current_setting('my.bizdate')::date,
  1),
 
--- 電通総研管理者
+-- 2) 電通総研管理者
 (2, 'e53d6ae94bf7713a891358ae48bc90dfc61944bc6b4660aed658b2cb7a79a243', 'SHA-256',
  current_setting('my.bizdate')::date,
  'A', TRUE,
@@ -37,12 +38,45 @@ INSERT INTO m5.passwd (
  'SYS', current_setting('my.bizdate')::date,
  1),
 
--- Securate運営管理者
+-- 3) Securate 管理者
 (3, 'e53d6ae94bf7713a891358ae48bc90dfc61944bc6b4660aed658b2cb7a79a243', 'SHA-256',
  current_setting('my.bizdate')::date,
  'A', TRUE,
  'SYS', current_setting('my.bizdate')::date,
  'SYS', current_setting('my.bizdate')::date,
+ 1),
+
+-- 4) DBO 管理者
+(4, 'e53d6ae94bf7713a891358ae48bc90dfc61944bc6b4660aed658b2cb7a79a243', 'SHA-256',
+ current_setting('my.bizdate')::date,
+ 'A', TRUE,
+ 'SYS', current_setting('my.bizdate')::date,
+ 'SYS', current_setting('my.bizdate')::date,
+ 1),
+
+-- 5) DBO スタッフ
+(5, 'e53d6ae94bf7713a891358ae48bc90dfc61944bc6b4660aed658b2cb7a79a243', 'SHA-256',
+ current_setting('my.bizdate')::date,
+ 'A', TRUE,
+ 'SYS', current_setting('my.bizdate')::date,
+ 'SYS', current_setting('my.bizdate')::date,
+ 1),
+
+-- 6) AI Agent
+(6, 'e53d6ae94bf7713a891358ae48bc90dfc61944bc6b4660aed658b2cb7a79a243', 'SHA-256',
+ current_setting('my.bizdate')::date,
+ 'A', TRUE,
+ 'SYS', current_setting('my.bizdate')::date,
+ 'SYS', current_setting('my.bizdate')::date,
+ 1),
+
+-- 7) 電通総研顧客（FINOLAB）
+(7, 'e53d6ae94bf7713a891358ae48bc90dfc61944bc6b4660aed658b2cb7a79a243', 'SHA-256',
+ current_setting('my.bizdate')::date,
+ 'A', TRUE,
+ 'SYS', current_setting('my.bizdate')::date,
+ 'SYS', current_setting('my.bizdate')::date,
  1);
+
 
 COMMIT;
