@@ -38,6 +38,10 @@ dd_result_code,high_risk,ハイリスク
 dd_result_code,low_risk,ローリスク
 dd_result_code,suspicious,疑わしい
 dd_result_code,no_problem,問題なし
+dd_result_code,add,追加
+dd_result_code,modify,変更
+dd_result_code,delete,削除
+dd_result_feedback,misidentification,法人名称・個人名称誤認識
 dd_result_type,registry_acquisition,登記簿情報取得
 dd_result_type,stakeholder_acquisition,株主・役員情報取得
 dd_result_type,industry_check_reg,業種業態チェック（登記簿）

@@ -1,5 +1,0 @@
-public_id,company_id,tenant_id,customer_id,service_id,sys_user_code,sys_organization_code,organization_name,platform_user,user_name,user_name_en,user_email,user_icon_url,country_code_alpha3,language_code,time_zone_id,date_format,phone_number,remarks,created_at,updated_at,deleted_at
-682a41a3-5d28-47ea-81b6-43b802f8c8da,1,,,,USR00000001,ORG00000001,デジタルファイナンスプラットフォーム,1,DFP管理者,DFPAdmin,df_admin@dentsusoken.com,https://example.com/icons/user1.png,JPN,jpn,52,yyyymmdd,03-6713-9999,,,,
-557f31e4-8936-48e8-b261-731a7d382158,1,,,,USR00000001,ORG00000001,デジタルファイナンスプラットフォーム,0,AI Agent,AI Agent,ai_agent@dentsusoken.com,,JPN,jpn,52,yyyymmdd,,,,,
-89c9f8cd-6daf-4b9a-bdb8-4e73a319125b,,1,,,USR00000002,ORG00000010,株式会社電通総研,0,電通総研管理者,DSAdmin,ds_admin@dentsusoken.com,https://example.com/icons/user2.png,JPN,jpn,52,yyyymmdd,050-1111-2222,,,,
-03b886e0-18d2-47d3-b871-2dd4e0ecf132,,1,,1,USR00000003,ORG00000015,Securate運営部署,0,Securate管理者,SecurateAdmin,securate_admin@dentsusoken.com,https://example.com/icons/user3.png,JPN,jpn,52,yyyymmdd,050-3333-5555,,,,
