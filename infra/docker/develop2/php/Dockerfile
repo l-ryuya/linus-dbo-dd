@@ -22,15 +22,16 @@ FROM php@sha256:b258e182312129e299e69714aa14417760dfd746d7567020ecfe4440d37b7b76
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
+    libpq5 \
     libonig-dev \
     supervisor \
     procps && \
     docker-php-ext-install \
-        pdo \
         pdo_pgsql \
         mbstring && \
     apt-get purge -y --auto-remove libpq-dev libonig-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+
 COPY infra/docker/develop2/php/php.dev.ini /usr/local/etc/php/
 COPY infra/docker/develop2/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
