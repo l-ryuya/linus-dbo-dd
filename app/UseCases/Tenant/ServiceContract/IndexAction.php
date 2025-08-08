@@ -43,6 +43,7 @@ class IndexAction
         int $displayedNumber,
         int $page,
     ): \Illuminate\Pagination\LengthAwarePaginator {
+        \Log::error("test1");
         $paginator = ServiceContract::select([
             'tenants.tenant_name',
             'service_translations.service_name',
@@ -111,7 +112,9 @@ class IndexAction
         ->orderBy('service_contracts.service_contract_id', 'DESC')
         ->paginate(perPage: $displayedNumber, page: $page);
 
+        \Log::error("test2");
         $contractStatuses = SelectionItemTranslation::filterByTypeAndLanguage('service_contract_status', $languageCode)->get();
+        \Log::error("test3");
         $usageStatuses = SelectionItemTranslation::filterByTypeAndLanguage('service_usage_status', $languageCode)->get();
 
         $paginator->map(function ($item) use ($contractStatuses, $usageStatuses) {
@@ -120,6 +123,7 @@ class IndexAction
 
             return $item;
         });
+        \Log::error("test4");
 
         return $paginator;
     }
