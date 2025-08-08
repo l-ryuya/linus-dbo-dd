@@ -119,7 +119,7 @@
         },
         {
           "name": "DB_USERNAME",
-          "value": "app_dd"
+          "value": "postgres"
         },
         {
           "name": "DB_SCHEMA",
