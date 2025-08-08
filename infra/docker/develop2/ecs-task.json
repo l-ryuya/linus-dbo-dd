@@ -136,10 +136,6 @@
         {
           "name": "MAIL_USERNAME",
           "value": "AKIAYSE4N4AV6UETVGZT"
-        },
-        {
-          "name": "LOG_CHANNEL",
-          "value": "stderr"
         }
       ],
        "secrets": [

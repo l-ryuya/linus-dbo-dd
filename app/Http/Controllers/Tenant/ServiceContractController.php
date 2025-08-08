@@ -37,7 +37,7 @@ class ServiceContractController extends Controller
         /** @var \App\Auth\GenericUser $user */
         // $user = $request->user();
 
-        Log::error("test1");
+        Log::error("test100");
         return new IndexCollection(
             $action(
                 // $user->getUserOption()->language_code,
