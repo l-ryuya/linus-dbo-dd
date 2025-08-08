@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Services\AiDd\PreDd;
 
 use App\Enums\Dd\DdEntityTypeCode;
+use App\Enums\Dd\DdRelationCode;
 use App\Enums\Dd\DdStatusCode;
 use App\Enums\Dd\DdStepCode;
 use App\Models\CompanyNameTranslation;
@@ -12,6 +13,7 @@ use App\Models\Customer;
 use App\Models\DdCase;
 use App\Models\DdCompany;
 use App\Models\DdEntity;
+use App\Models\DdRelation;
 use App\Models\DdStep;
 use App\Models\Tenant;
 use App\Models\UserOption;
@@ -129,28 +131,29 @@ class Step0ServiceTest extends TestCase
             'dd_step_code' => DdStepCode::PreDdAi->value,
         ]);
 
-        // DdEntityが正しく作成されていることを確認
-        $this->assertDatabaseHas('dd_entities', [
-            'tenant_id' => $this->tenant->tenant_id,
-            'dd_entity_type_type' => 'dd_entity_type',
-            'dd_entity_type_code' => DdEntityTypeCode::Company->value,
-        ]);
-
-        // 作成されたDdEntityを取得
-        $ddEntity = DdEntity::where('tenant_id', $this->tenant->tenant_id)
-            ->where('dd_entity_type_code', DdEntityTypeCode::Company->value)
-            ->first();
-        $this->assertNotNull($ddEntity);
-
-        // DdCompanyが正しく作成されていることを確認
         $expectedCompanyName = $this->customer
             ->company
             ->nameTranslation($this->customer->company->default_language_code)
             ->company_legal_name;
 
+        // DdEntityが正しく作成されていることを確認
+        $this->assertDatabaseHas('dd_entities', [
+            'tenant_id' => $this->tenant->tenant_id,
+            'dd_entity_name' => $expectedCompanyName,
+            'dd_entity_type_type' => 'dd_entity_type',
+            'dd_entity_type_code' => DdEntityTypeCode::Company->value,
+        ]);
+
+        // 作成されたDdRelationを取得
+        $ddRelation = DdRelation::where('dd_case_id', $ddCase->dd_case_id)
+            ->where('dd_relation_code', DdRelationCode::CounterpartyEntity->value)
+            ->first();
+        $this->assertNotNull($ddRelation);
+
+        // DdCompanyが正しく作成されていることを確認
         $this->assertDatabaseHas('dd_companies', [
             'tenant_id' => $this->tenant->tenant_id,
-            'dd_entity_id' => $ddEntity->dd_entity_id,
+            'dd_entity_id' => $ddRelation->dd_entity_id,
             'company_name' => $expectedCompanyName,
         ]);
 
@@ -158,10 +161,11 @@ class Step0ServiceTest extends TestCase
         $this->assertDatabaseHas('dd_relations', [
             'tenant_id' => $this->tenant->tenant_id,
             'dd_case_id' => $ddCase->dd_case_id,
-            'dd_entity_id' => $ddEntity->dd_entity_id,
+            'dd_entity_id' => $ddRelation->dd_entity_id,
             'dd_relation_type' => 'dd_relation',
             'dd_relation_code' => 'counterparty_entity',
             'dd_relation_status' => 'CREATE',
+            'is_confirmed' => true,
         ]);
     }
 
@@ -256,45 +260,23 @@ class Step0ServiceTest extends TestCase
         // 作成されたデータを取得
         $ddCase = DdCase::where('dd_case_no', $ddCaseNo)->first();
         $ddStep = DdStep::where('dd_case_id', $ddCase->dd_case_id)->first();
-        $ddEntity = DdEntity::where('tenant_id', $this->tenant->tenant_id)
+        $ddRelation = DdRelation::where('dd_case_id', $ddCase->dd_case_id)
+            ->where('dd_relation_code', DdRelationCode::CounterpartyEntity->value)
+            ->first();
+        $ddEntity = DdEntity::where('dd_entity_id', $ddRelation->dd_entity_id)
             ->where('dd_entity_type_code', DdEntityTypeCode::Company->value)
             ->latest()
             ->first();
-        $ddCompany = DdCompany::where('dd_entity_id', $ddEntity->dd_entity_id)->first();
+        $ddCompany = DdCompany::where('dd_entity_id', $ddRelation->dd_entity_id)->first();
 
         // 関連性の確認
         $this->assertEquals($ddCase->dd_case_id, $ddStep->dd_case_id);
+        $this->assertEquals($ddCase->dd_case_id, $ddRelation->dd_case_id);
         $this->assertEquals($ddEntity->dd_entity_id, $ddCompany->dd_entity_id);
         $this->assertEquals($this->tenant->tenant_id, $ddCase->tenant_id);
         $this->assertEquals($this->tenant->tenant_id, $ddStep->tenant_id);
         $this->assertEquals($this->tenant->tenant_id, $ddEntity->tenant_id);
         $this->assertEquals($this->tenant->tenant_id, $ddCompany->tenant_id);
-    }
-
-    /**
-     * 会社名が正しく設定されることをテスト
-     */
-    public function test_create_initial_data_sets_correct_company_name(): void
-    {
-        // 特定の会社名を持つ名前翻訳を作成
-        $testCompanyLegalName = 'Test Company Legal Name for DD';
-        $this->customer->company->nameTranslation($this->customer->company->default_language_code)
-            ->updateOrCreate(
-                ['language_code' => $this->customer->company->default_language_code],
-                ['company_legal_name' => $testCompanyLegalName],
-            );
-
-        $ddCaseNo = $this->step0Service->createInitialData(
-            $this->tenant->tenant_id,
-            $this->customer->customer_id,
-            $this->caseUserOption->user_option_id,
-        );
-
-        // DdCompanyの会社名が正しく設定されていることを確認
-        $this->assertDatabaseHas('dd_companies', [
-            'tenant_id' => $this->tenant->tenant_id,
-            'company_name' => $testCompanyLegalName,
-        ]);
     }
 
     protected function tearDown(): void

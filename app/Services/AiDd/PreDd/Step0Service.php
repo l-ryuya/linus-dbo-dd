@@ -40,7 +40,7 @@ class Step0Service
 
             $ddCase = $this->createCase($tenantId, $customerId, $caseUserOptionId);
             $this->createStep($tenantId, $ddCase);
-            $ddEntity = $this->createEntity($tenantId);
+            $ddEntity = $this->createEntity($tenantId, $customer);
             $this->createCompany($tenantId, $customer, $ddEntity);
             $this->createRelation($tenantId, $ddCase, $ddEntity);
 
@@ -89,9 +89,14 @@ class Step0Service
 
     private function createEntity(
         int $tenantId,
+        Customer $customer,
     ): DdEntity {
         $ddEntity = new DdEntity();
         $ddEntity->tenant_id = $tenantId;
+        $ddEntity->dd_entity_name = $customer
+            ->company
+            ->nameTranslation($customer->company->default_language_code)
+            ->company_legal_name;
         $ddEntity->dd_entity_type_type = 'dd_entity_type';
         $ddEntity->dd_entity_type_code = DdEntityTypeCode::Company->value;
         $ddEntity->save();
@@ -126,6 +131,7 @@ class Step0Service
         $ddRelation->dd_relation_type = 'dd_relation';
         $ddRelation->dd_relation_code = DdRelationCode::CounterpartyEntity->value;
         $ddRelation->dd_relation_status = 'CREATE';
+        $ddRelation->is_confirmed = true;
         $ddRelation->save();
     }
 }
