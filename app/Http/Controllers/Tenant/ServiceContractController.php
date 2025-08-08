@@ -38,7 +38,8 @@ class ServiceContractController extends Controller
 
         return new IndexCollection(
             $action(
-                $user->getUserOption()->language_code,
+                // $user->getUserOption()->language_code,
+                'jpn',
                 (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
                 $request->validated('tenantName'),
                 $request->validated('servicePublicId'),
