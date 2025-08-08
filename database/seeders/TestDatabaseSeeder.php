@@ -8,6 +8,13 @@ use Database\Seeders\Test\CompaniesSeeder;
 use Database\Seeders\Test\CompanyNameTranslationsSeeder;
 use Database\Seeders\Test\ContractWidgetSettingsSeeder;
 use Database\Seeders\Test\CustomersSeeder;
+use Database\Seeders\Test\DdCaseSeeder;
+use Database\Seeders\Test\DdCompanySeeder;
+use Database\Seeders\Test\DdEntitySeeder;
+use Database\Seeders\Test\DdIndividualSeeder;
+use Database\Seeders\Test\DdRelationSeeder;
+use Database\Seeders\Test\DdStepResultSeeder;
+use Database\Seeders\Test\DdStepSeeder;
 use Database\Seeders\Test\ServiceContractsSeeder;
 use Database\Seeders\Test\UserOptionsSeeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -29,6 +36,13 @@ class TestDatabaseSeeder extends Seeder
             UserOptionsSeeder::class,
             ServiceContractsSeeder::class,
             ContractWidgetSettingsSeeder::class,
+            DdEntitySeeder::class,
+            DdIndividualSeeder::class,
+            DdCompanySeeder::class,
+            DdRelationSeeder::class,
+            DdCaseSeeder::class,
+            DdStepSeeder::class,
+            DdStepResultSeeder::class,
         ]);
     }
 }

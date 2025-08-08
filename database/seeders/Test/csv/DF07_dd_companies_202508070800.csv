@@ -1,5 +1,5 @@
 "dd_company_id","public_id","tenant_id","dd_entity_id","company_name","nta_corporate_number","location_code_alpha3","founded_year","is_listed","employee_count","capital_currency","capital_amount","website_jp","website_en","remarks","created_at","updated_at","deleted_at"
-17,a1d85a19-7be0-40aa-9ad2-33323a8b3f75,16,46,株式会社FINOLAB,"8010001202520",JPN,2019,false,18,JPY,300000000.00,https://finolab.co.jp/jp,https://finolab.co.jp/,,2025-09-01 13:00:00.000,2025-09-01 13:00:00.000,
-18,e9db0fa0-bedb-43f8-9568-da259b652323,16,47,三菱地所株式会社,"2010001008774",JPN,1937,true,1655,JPY,142414000000.00,https://mec.co.jp/,https://mec.co.jp/en,,2025-09-01 13:00:00.000,2025-09-01 13:00:00.000,
-19,"82cc8ff3-1620-434a-a100-68ee25b66f22",16,48,株式会社電通総研,"7010401053829",JPN,1975,true,2226,JPY,8180000000.00,https://www.dentsusoken.com/,https://www.dentsusoken.com/english,,2025-09-01 13:00:00.000,2025-09-01 13:00:00.000,
-20,e62145f4-0401-409b-83b3-b5bc4b1367cd,16,54,株式会社ソニー・ミュージックエンタテインメント,"5010001082437",JPN,1968,false,4700,JPY,100000000.00,https://www.sme.co.jp/,https://www.sme.co.jp/en/,,2025-09-01 14:48:52.000,2025-09-01 14:48:52.000,
+17,a1d85a19-7be0-40aa-9ad2-33323a8b3f75,1,46,株式会社FINOLAB,"8010001202520",JPN,2019,false,18,JPY,300000000.00,https://finolab.co.jp/jp,https://finolab.co.jp/,,2025-09-01 13:00:00.000,2025-09-01 13:00:00.000,
+18,e9db0fa0-bedb-43f8-9568-da259b652323,1,47,三菱地所株式会社,"2010001008774",JPN,1937,true,1655,JPY,142414000000.00,https://mec.co.jp/,https://mec.co.jp/en,,2025-09-01 13:00:00.000,2025-09-01 13:00:00.000,
+19,"82cc8ff3-1620-434a-a100-68ee25b66f22",1,48,株式会社電通総研,"7010401053829",JPN,1975,true,2226,JPY,8180000000.00,https://www.dentsusoken.com/,https://www.dentsusoken.com/english,,2025-09-01 13:00:00.000,2025-09-01 13:00:00.000,
+20,e62145f4-0401-409b-83b3-b5bc4b1367cd,1,54,株式会社ソニー・ミュージックエンタテインメント,"5010001082437",JPN,1968,false,4700,JPY,100000000.00,https://www.sme.co.jp/,https://www.sme.co.jp/en/,,2025-09-01 14:48:52.000,2025-09-01 14:48:52.000,
