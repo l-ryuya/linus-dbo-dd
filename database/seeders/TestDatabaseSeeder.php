@@ -39,8 +39,8 @@ class TestDatabaseSeeder extends Seeder
             DdEntitySeeder::class,
             DdIndividualSeeder::class,
             DdCompanySeeder::class,
-            DdRelationSeeder::class,
             DdCaseSeeder::class,
+            DdRelationSeeder::class,
             DdStepSeeder::class,
             DdStepResultSeeder::class,
         ]);

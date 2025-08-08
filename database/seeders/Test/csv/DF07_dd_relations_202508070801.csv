@@ -1,1 +1,12 @@
 "dd_relation_id","public_id","tenant_id","dd_case_id","dd_entity_id","dd_relation_type","dd_relation_code","shareholding_ratio","dd_relation_status","is_confirmed","remarks","created_at","updated_at","deleted_at"
+1,a4ad1f2c-81dd-4e0a-9327-3ca580dd02f8,1,11,46,dd_relation,counterparty_entity,,CREATE,true,,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+2,"907dbfba-c1ec-457e-8b0f-c58a89c7281d",1,11,47,dd_relation,shareholder,0.460,CREATE,true,,2025-09-01 14:48:52.000,2025-09-01 14:48:52.000,
+3,"7f5df6ad-cb87-42a8-85f7-68dead63d359",1,11,48,dd_relation,shareholder,0.440,CREATE,true,,2025-09-01 14:48:52.000,2025-09-01 14:48:52.000,
+4,"4ebb7b11-6f4b-4421-b7b8-59fe14db36ef",1,11,54,dd_relation,shareholder,0.100,CREATE,true,,2025-09-01 14:48:52.000,2025-09-01 14:48:52.000,
+5,"961e3191-9f6c-4ced-8790-f3fe5e0bd8a1",1,11,49,dd_relation,executive,,CREATE,true,,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+6,"25027162-c4af-4609-878a-5e038c2e3ff2",1,11,50,dd_relation,executive,,CREATE,true,,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+7,eb8d2f1b-e2f8-4c7b-925d-39a2f7dbabff,1,11,51,dd_relation,executive,,CREATE,true,,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+8,ade75424-712e-4647-b7d3-7b11020f8121,1,11,52,dd_relation,executive,,CREATE,true,,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+9,"8cf012df-68cf-4ba0-be5f-8b5fa7ff802c",1,11,53,dd_relation,executive,,DELETE,true,,2025-09-01 13:43:48.000,2025-09-01 13:43:48.000,
+10,ef8faccb-7112-4cf0-ba09-d9d104161fdc,1,11,53,dd_relation,executive,,DELETE,true,,2025-09-01 14:48:52.000,2025-09-01 14:48:52.000,
+11,"33cfc684-bdba-4369-99e1-330daaa62204",1,11,55,dd_relation,executive,,DELETE,true,,2025-09-01 14:48:52.000,2025-09-01 14:48:52.000,

@@ -44,6 +44,7 @@ class DdCaseSeeder extends Seeder
                 'customer_risk_level' => $row['customer_risk_level'],
                 'asf_check_result' => $row['asf_check_result'],
                 'rep_check_result' => $row['rep_check_result'],
+                'overall_result' => $row['overall_result'],
                 'step_1_info' => $row['step_1_info'],
                 'step_2_info' => $row['step_2_info'],
                 'step_3_info' => $row['step_3_info'],
