@@ -18,6 +18,7 @@ use App\UseCases\Tenant\ServiceContract\ShowAction;
 use App\UseCases\Tenant\ServiceContract\StoreAction;
 use App\UseCases\Tenant\ServiceContract\UpdateAction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ServiceContractController extends Controller
 {
@@ -34,12 +35,16 @@ class ServiceContractController extends Controller
         IndexAction $action,
     ): IndexCollection {
         /** @var \App\Auth\GenericUser $user */
-        $user = $request->user();
+        // $user = $request->user();
 
+        Log::error("test1");
         return new IndexCollection(
             $action(
-                $user->getUserOption()->language_code,
-                (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
+                // $user->getUserOption()->language_code,
+                // (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
+                'jpn',
+                // (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
+                1,
                 $request->validated('tenantName'),
                 $request->validated('servicePublicId'),
                 $request->validated('servicePlanPublicId'),
