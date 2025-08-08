@@ -107,7 +107,7 @@
         },
         {
           "name": "DB_HOST",
-          "value": "dbo.ctei2wkaaszp.ap-northeast-1.rds.amazonaws.com"
+          "value": "database-2.ctei2wkaaszp.ap-northeast-1.rds.amazonaws.com"
         },
         {
           "name": "DB_PORT",
