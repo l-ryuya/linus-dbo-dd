@@ -82,7 +82,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-app-dev",
+          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-web-dev",
           "mode": "non-blocking",
           "max-buffer-size": "1m",
           "awslogs-region": "ap-northeast-1",
