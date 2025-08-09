@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
@@ -71,6 +72,10 @@ return new class extends Migration {
             $table->string('rep_check_result')
                 ->default('--')
                 ->comment('風評チェック結果');
+
+            $table->string('overall_result')
+                ->default('--')
+                ->comment('総合判定結果');
 
             $table->string('step_1_info')->nullable()
                 ->comment('ステップ1の情報（"RERUN" 等）');
@@ -152,6 +157,7 @@ return new class extends Migration {
         DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_customer_risk_level CHECK (customer_risk_level IN ('LOW','HIGH','--'))");
         DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_asf_check_result CHECK (asf_check_result IN ('OK','NG','--'))");
         DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_rep_check_result CHECK (rep_check_result IN ('OK','NG','--'))");
+        DB::statement("ALTER TABLE dd_cases ADD CONSTRAINT chk_overall_result CHECK (overall_result IN ('OK','NG','--'))");
     }
 
     /**

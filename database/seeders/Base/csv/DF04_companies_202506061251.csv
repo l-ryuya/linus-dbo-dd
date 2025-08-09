@@ -1,0 +1,3 @@
+"company_id","public_id","tenant_id","company_name_en","default_language_code","country_code_alpha3","postal","state","city","street","building","website_url","shareholders_url","executives_url","remarks","created_at","updated_at","deleted_at"
+1,"b7e2a1c2-3f4b-4e2a-8c1d-1a2b3c4d5e6f",1,DENTSU SOKEN INC.,jpn,JPN,"108-0075",東京都,港区,港南2丁目17-1,,https://www.dentsusoken.com/english,,,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,
+2,"c1d2e3f4-5a6b-4c7d-8e9f-0a1b2c3d4e5f",2,DENTSU DIGITAL INC.,jpn,JPN,"105-7001",東京都,港区,東新橋1丁目8-1,,https://www.dentsudigital.co.jp/,,,,2025-06-05 15:56:50.783,2025-06-05 15:56:50.783,

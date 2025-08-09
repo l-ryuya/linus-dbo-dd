@@ -27,7 +27,8 @@ return new class extends Migration {
             // 属性
             $table->unsignedBigInteger('tenant_id')
                 ->comment('所属テナントID');
-
+            $table->string('dd_entity_name')
+                ->comment('エンティティ名称');
             $table->string('dd_entity_type_type')
                 ->default('dd_entity_type')
                 ->comment('選択肢アイテム種別:固定値\'dd_entity_type\'');

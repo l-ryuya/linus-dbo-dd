@@ -52,6 +52,12 @@ return new class extends Migration {
             $table->timestamp('step_result_completed_at')->nullable()
                 ->comment('実施日時');
 
+            $table->string('dd_result_feedback_type')->nullable()
+                ->default('dd_result_feedback')
+                ->comment('DD判定結果フィードバックタイプ');
+            $table->string('dd_result_feedback_code')->nullable()
+                ->comment('DD判定結果フィードバックコード');
+
             $table->string('exchange_name')->nullable()
                 ->comment('取引所名');
             $table->string('securities_code')->nullable()
@@ -85,6 +91,12 @@ return new class extends Migration {
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
+            $table->foreign('dd_case_id')
+                ->references('dd_case_id')
+                ->on('dd_cases')
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
+
             $table->foreign('dd_step_id')
                 ->references('dd_step_id')
                 ->on('dd_steps')
@@ -108,6 +120,12 @@ return new class extends Migration {
                 ->on('selection_items')
                 ->onUpdate('cascade')
                 ->onDelete('restrict');
+
+            $table->foreign(['dd_result_feedback_type', 'dd_result_feedback_code'])
+                ->references(['selection_item_type', 'selection_item_code'])
+                ->on('selection_items')
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
         });
 
         // ID列にIDENTITYを追加する
@@ -115,6 +133,7 @@ return new class extends Migration {
         // CHECK制約
         DB::statement("ALTER TABLE dd_step_results ADD CONSTRAINT chk_dd_result_type_type CHECK (dd_result_type_type = 'dd_result_type')");
         DB::statement("ALTER TABLE dd_step_results ADD CONSTRAINT chk_dd_result_code_type CHECK (dd_result_code_type = 'dd_result_code')");
+        DB::statement("ALTER TABLE dd_step_results ADD CONSTRAINT chk_dd_result_feedback_type CHECK (dd_result_feedback_type = 'dd_result_feedback')");
         DB::statement("ALTER TABLE dd_step_results ADD CONSTRAINT chk_decision_role CHECK (decision_role IN ('REVIEWER','APPROVER','CUSTOMER'))");
     }
 
