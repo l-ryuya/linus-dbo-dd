@@ -60,4 +60,3 @@ class DdCompanySeeder extends Seeder
         DB::statement("ALTER TABLE dd_companies ALTER COLUMN dd_company_id RESTART WITH {$nextId}");
     }
 }
-

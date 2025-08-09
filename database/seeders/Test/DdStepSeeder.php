@@ -59,4 +59,3 @@ class DdStepSeeder extends Seeder
         DB::statement("ALTER TABLE dd_steps ALTER COLUMN dd_step_id RESTART WITH {$nextId}");
     }
 }
-

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Tenant\DdCase;
 
-use App\Models\SelectionItemTranslation;
 use Database\Seeders\Base\CompaniesSeeder;
 use Database\Seeders\Base\CompanyNameTranslationsSeeder;
 use Database\Seeders\Base\CountryRegionsSeeder;

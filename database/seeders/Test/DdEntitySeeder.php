@@ -51,4 +51,3 @@ class DdEntitySeeder extends Seeder
         DB::statement("ALTER TABLE dd_entities ALTER COLUMN dd_entity_id RESTART WITH {$nextId}");
     }
 }
-

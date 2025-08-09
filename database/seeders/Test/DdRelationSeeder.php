@@ -56,4 +56,3 @@ class DdRelationSeeder extends Seeder
         DB::statement("ALTER TABLE dd_relations ALTER COLUMN dd_relation_id RESTART WITH {$nextId}");
     }
 }
-
