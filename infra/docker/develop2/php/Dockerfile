@@ -8,6 +8,7 @@ COPY /config/ /build/config/
 COPY /database/ /build/database/
 COPY /lang/ /build/lang/
 COPY /public/ /build/public/
+COPY /resources/ /build/resources/
 COPY ./routes/ /build/routes/
 COPY ./storage/ /build/storage/
 
