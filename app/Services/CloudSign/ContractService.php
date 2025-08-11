@@ -60,6 +60,7 @@ class ContractService extends BaseService
      * @return string
      *
      * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws \Throwable
      */
     private function createAndSendCloudSignDocument(
         ServiceContract $serviceContract,
@@ -69,6 +70,10 @@ class ContractService extends BaseService
         $templateId = $contractLanguage === 'jpn'
             ? $servicePlan->contract_template_jp_id
             : $servicePlan->contract_template_en_id;
+        throw_if(
+            !$templateId,
+            new \RuntimeException('Contract template ID is not set for the service plan.'),
+        );
 
         $parameterMappingService = new ParameterMappingService();
         $contractWidgetSettings = $parameterMappingService->buildToWidget($serviceContract, $contractLanguage);

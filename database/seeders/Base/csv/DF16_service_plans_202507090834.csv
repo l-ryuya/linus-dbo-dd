@@ -1,2 +1,2 @@
-"service_plan_id","public_id","tenant_id","service_id","service_plan_code","service_plan_status_type","service_plan_status_code","billing_cycle","unit_price","service_start_date","service_end_date","remarks","created_at","updated_at","deleted_at"
-10,"99a465a7-322b-41e3-9b15-84ec3960aa1a",1,10,Standard,service_plan_status,active,1,100000.00,2025-07-01,,,2025-07-09 08:33:17.645,2025-07-09 08:33:17.645,
+"service_plan_id","public_id","tenant_id","service_id","service_plan_code","service_plan_status_type","service_plan_status_code","contract_template_en_id","contract_template_jp_id","billing_cycle","unit_price","service_start_date","service_end_date","remarks","created_at","updated_at","deleted_at"
+10,"99a465a7-322b-41e3-9b15-84ec3960aa1a",1,10,Standard,service_plan_status,active,01m7e8rhs67jqckvfgqhp939h482cc1q,01m7e8rhs67jqckvfgqhp939h482cc1q,1,100000.00,2025-07-01,,,2025-07-09 08:33:17.645,2025-07-09 08:33:17.645,
