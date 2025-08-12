@@ -1,125 +1,122 @@
-selection_item_type,selection_item_code,remarks
-billing_cycle,monthly,1ヶ月ごと
-billing_cycle,quarterly,3ヶ月ごと
-billing_cycle,semi_annually,6ヶ月ごと
-billing_cycle,annually,12ヶ月ごと
-company_type,public,上場
-company_type,private,非上場
-contract_language_code,eng,ISO 639-3 英語
-contract_language_code,jpn,ISO 639-3 日本語
-contract_language_code,cmn,ISO 639-3 中文（簡体字）
-contract_language_code,yue,ISO 639-3 中文（繁体字）
-customer_status,customer_registered,顧客登録完了
-customer_status,dd_started,顧客審査開始
-customer_status,dd_completed,顧客審査完了
-customer_status,contract_proc_started,契約手続開始
-customer_status,contract_proc_completed,契約手続完了
-customer_status,active,利用中
-customer_status,all_paused,全サービス利用停止中
-customer_status,all_suspended,全サービス利用停止中（疑義あり）
-customer_status,all_closed,全サービス利用終了
-customer_status,all_terminated,全サービス利用終了（疑義あり）
-dd_entity_type,company,法人
-dd_entity_type,individual,個人
-dd_relation,counterparty_entity,取引対象法人
-dd_relation,ultimate_beneficial_owner,実質的支配者
-dd_relation,executive,役員
-dd_relation,shareholder,株主
-dd_relation,executive_of_shareholder,株主の役員
-dd_relation,indirect_shareholder,間接株主
-dd_relation,executive_of_indirect_shareholder,間接株主の役員
-dd_relation,investee,出資先
-dd_relation,executive_of_investee,出資先の役員
-dd_relation,indirect_investee,間接出資先
-dd_relation,executive_of_indirect_investee,間接出資先の役員
-dd_result_code,ok,OK
-dd_result_code,ng,NG
-dd_result_code,high_risk,ハイリスク
-dd_result_code,low_risk,ローリスク
-dd_result_code,suspicious,疑わしい
-dd_result_code,no_problem,問題なし
-dd_result_code,add,追加
-dd_result_code,modify,変更
-dd_result_code,delete,削除
-dd_result_feedback,misidentification,法人名称・個人名称誤認識
-dd_result_type,registry_acquisition,登記簿情報取得
-dd_result_type,stakeholder_acquisition,株主・役員情報取得
-dd_result_type,industry_check_reg,業種業態チェック（登記簿）
-dd_result_type,industry_check_web,業種業態チェック（Web）
-dd_result_type,customer_risk_level,顧客リスクレベル判定
-dd_result_type,add_info_entry,顧客情報追加入力
-dd_result_type,asf_check,反社チェック
-dd_result_type,rep_check,風評チェック
-dd_status,cdd_awaiting,継続DD準備中
-dd_status,pre_dd_ai_started,DD準備AI処理開始
-dd_status,pre_dd_ai_completed,DD準備AI処理完了
-dd_status,pre_dd_review_completed,DD準備再鑑完了
-dd_status,pre_dd_approval_completed,DD準備承認完了
-dd_status,add_info_input_requested,追加入力依頼完了
-dd_status,add_info_input_completed,追加入力完了
-dd_status,add_info_review_completed,追加入力再鑑完了
-dd_status,add_info_approval_completed,追加入力承認完了
-dd_status,dd_ai_started,DDAI処理開始
-dd_status,dd_ai_completed,DDAI処理完了
-dd_status,dd_review_completed,DD再鑑完了
-dd_status,dd_approval_completed,DD承認完了
-dd_step,pre_dd_ai,DD準備AI処理
-dd_step,pre_dd_review,DD準備再鑑
-dd_step,pre_dd_approval,DD準備承認
-dd_step,add_info_input,追加入力
-dd_step,add_info_review,追加入力再鑑
-dd_step,add_info_approval,追加入力承認
-dd_step,dd_ai,DDAI処理
-dd_step,dd_review,DD再鑑
-dd_step,dd_approval,DD承認
-gender,male,男性
-gender,female,女性
-gender,other,その他
-language_code,eng,ISO 639-3 英語
-language_code,jpn,ISO 639-3 日本語
-language_code,ind,ISO 639-3 インドネシア語
-language_code,tha,ISO 639-3 タイ語
-language_code,cmn,ISO 639-3 中文（簡体字）
-language_code,yue,ISO 639-3 中文（繁体字）
-language_code,spa,ISO 639-3 スペイン語
-language_code,vie,ISO 639-3 ベトナム語
-language_name,english,英語
-language_name,日本語,日本語
-language_name,bahasa_indonesia,インドネシア語
-language_name,ภาษาไทย,タイ語
-language_name,中文（简体）,中国語（簡体字）
-language_name,中文（繁體）,中国語（繁体字）
-language_name,español,スペイン語
-language_name,tiếng_việt,ベトナム語
-payment_method,card,クレジット/デビット/プリペイドカード
-payment_method,bank_transfer,銀行振込
-service_contract_status,contract_info_drafted,契約情報一時保存
-service_contract_status,contract_info_registered,契約情報登録完了
-service_contract_status,contract_document_sent,契約書送信完了
-service_contract_status,contract_executed,契約締結完了
-service_contract_status,contract_cancelled,契約取消・却下完了
-service_plan_status,preparing,準備中
-service_plan_status,active,稼動中
-service_plan_status,suspended,停止中
-service_plan_status,terminated,終了
-service_status,preparing,準備中
-service_status,active,稼動中
-service_status,suspended,停止中
-service_status,terminated,終了
-service_usage_status,awaiting_activation,サービス利用準備中
-service_usage_status,active,サービス利用中
-service_usage_status,paused,サービス利用停止中
-service_usage_status,suspended,サービス利用停止中（疑義あり）
-service_usage_status,closed,サービス利用終了
-service_usage_status,terminated,サービス利用終了（疑義あり）
-user_status,active,利用中
-user_status,all_paused,全サービス利用停止中
-user_status,all_suspended,全サービス利用停止中（疑義あり）
-user_status,all_closed,全サービス利用終了
-user_status,all_terminated,全サービス利用終了（疑義あり）
-world_region,asia,アジア
-world_region,europe,ヨーロッパ
-world_region,north_america,北アメリカ
-world_region,south_america,南アメリカ
-world_region,africa,アフリカ
-world_region,oceania,オセアニア
+selection_item_type,selection_item_code,display_order,remarks
+billing_cycle,monthly,1,1ヶ月ごと
+billing_cycle,quarterly,2,3ヶ月ごと
+billing_cycle,semi_annually,3,6ヶ月ごと
+billing_cycle,annually,4,12ヶ月ごと
+company_type,public,1,上場
+company_type,private,2,非上場
+contract_language_code,eng,1,ISO 639-3 英語
+contract_language_code,jpn,2,ISO 639-3 日本語
+contract_language_code,cmn,3,ISO 639-3 中文（簡体字）
+contract_language_code,yue,4,ISO 639-3 中文（繁体字）
+customer_status,customer_registered,1,顧客登録完了
+customer_status,dd_started,2,顧客審査開始
+customer_status,dd_completed,3,顧客審査完了
+customer_status,contract_proc_started,4,契約手続開始
+customer_status,contract_proc_completed,5,契約手続完了
+customer_status,active,6,利用中
+customer_status,all_paused,7,利用停止中
+customer_status,all_suspended,8,利用停止中（疑義あり）
+customer_status,all_closed,9,利用終了
+customer_status,all_terminated,10,利用終了（疑義あり）
+dd_entity_type,company,1,法人
+dd_entity_type,individual,2,個人
+dd_relation,counterparty_entity,1,取引対象法人
+dd_relation,ultimate_beneficial_owner,2,実質的支配者
+dd_relation,executive,3,役員
+dd_relation,shareholder,4,直接株主
+dd_relation,indirect_shareholder,5,間接株主
+dd_relation,investee,6,直接出資先
+dd_relation,indirect_investee,7,間接出資先
+dd_relation,executive_of_shareholder,8,直接株主の役員
+dd_relation,executive_of_indirect_shareholder,9,間接株主の役員
+dd_relation,executive_of_investee,10,直接出資先の役員
+dd_relation,executive_of_indirect_investee,11,間接出資先の役員
+dd_result_code,ok,1,OK
+dd_result_code,ng,2,NG
+dd_result_code,high_risk,3,高リスク
+dd_result_code,low_risk,4,低リスク
+dd_result_code,add,5,追加
+dd_result_code,modify,6,変更
+dd_result_code,delete,7,削除
+dd_result_code,suspicious,8,疑義あり
+dd_result_code,no_problem,9,問題なし
+dd_result_feedback,misidentification,1,法人名称・個人名称誤認識
+dd_result_type,stakeholder_acquisition,1,株主・役員情報取得
+dd_result_type,industry_check_reg,2,業種業態チェック（登記簿）
+dd_result_type,industry_check_web,3,業種業態チェック（Web）
+dd_result_type,customer_risk_level,4,顧客リスクレベル判定
+dd_result_type,add_info_entry,5,顧客情報追加入力
+dd_result_type,asf_check,6,反社チェック
+dd_result_type,rep_check,7,風評チェック
+dd_status,pre_dd_ai_started,1,DD準備AI処理開始
+dd_status,pre_dd_ai_completed,2,DD準備AI処理完了
+dd_status,pre_dd_review_completed,3,DD準備再鑑完了
+dd_status,pre_dd_approval_completed,4,DD準備承認完了
+dd_status,add_info_input_completed,5,追加入力完了
+dd_status,add_info_review_completed,6,追加入力再鑑完了
+dd_status,add_info_approval_completed,7,追加入力承認完了
+dd_status,dd_ai_started,8,DDAI処理開始
+dd_status,dd_ai_completed,9,DDAI処理完了
+dd_status,dd_review_completed,10,DD再鑑完了
+dd_status,dd_approval_completed,11,DD承認完了
+dd_status,cdd_awaiting,12,継続DD準備中
+dd_step,pre_dd_ai,1,DD準備AI処理
+dd_step,pre_dd_review,2,DD準備再鑑
+dd_step,pre_dd_approval,3,DD準備承認
+dd_step,add_info_input,4,追加入力
+dd_step,add_info_review,5,追加入力再鑑
+dd_step,add_info_approval,6,追加入力承認
+dd_step,dd_ai,7,DDAI処理
+dd_step,dd_review,8,DD再鑑
+dd_step,dd_approval,9,DD承認
+gender,male,1,男性
+gender,female,2,女性
+gender,other,3,その他
+language_code,eng,1,ISO 639-3 英語
+language_code,jpn,2,ISO 639-3 日本語
+language_code,cmn,3,ISO 639-3 中文（簡体字）
+language_code,yue,4,ISO 639-3 中文（繁体字）
+language_code,ind,5,ISO 639-3 インドネシア語
+language_code,tha,6,ISO 639-3 タイ語
+language_code,spa,7,ISO 639-3 スペイン語
+language_code,vie,8,ISO 639-3 ベトナム語
+language_name,english,1,英語
+language_name,日本語,2,日本語
+language_name,中文（简体）,3,中国語（簡体字）
+language_name,中文（繁體）,4,中国語（繁体字）
+language_name,bahasa_indonesia,5,インドネシア語
+language_name,ภาษาไทย,6,タイ語
+language_name,español,7,スペイン語
+language_name,tiếng_việt,8,ベトナム語
+payment_method,bank_transfer,1,銀行振込
+payment_method,card,2,クレジット/デビット/プリペイドカード
+service_contract_status,contract_info_drafted,1,契約情報一時保存
+service_contract_status,contract_document_sent,2,契約書送信完了
+service_contract_status,contract_executed,3,契約締結完了
+service_contract_status,contract_cancelled,4,契約取消・却下完了
+service_plan_status,preparing,1,準備中
+service_plan_status,active,2,稼動中
+service_plan_status,suspended,3,停止中
+service_plan_status,terminated,4,終了
+service_status,preparing,1,準備中
+service_status,active,2,稼動中
+service_status,suspended,3,停止中
+service_status,terminated,4,終了
+service_usage_status,awaiting_activation,1,利用準備中
+service_usage_status,active,2,利用中
+service_usage_status,paused,3,利用停止中
+service_usage_status,suspended,4,利用停止中（疑義あり）
+service_usage_status,closed,5,利用終了
+service_usage_status,terminated,6,利用終了（疑義あり）
+user_status,active,1,利用中
+user_status,all_paused,2,利用停止中
+user_status,all_suspended,3,利用停止中（疑義あり）
+user_status,all_closed,4,利用終了
+user_status,all_terminated,5,利用終了（疑義あり）
+world_region,asia,1,アジア
+world_region,europe,2,ヨーロッパ
+world_region,north_america,3,北アメリカ
+world_region,south_america,4,南アメリカ
+world_region,oceania,5,オセアニア
+world_region,africa,6,アフリカ

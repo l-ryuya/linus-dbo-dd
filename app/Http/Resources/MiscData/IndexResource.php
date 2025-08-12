@@ -12,6 +12,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $selection_item_code
  * @property string $selection_item_name
  * @property string $selection_item_short_name
+ * @property int $display_order
  */
 class IndexResource extends JsonResource
 {
@@ -19,7 +20,7 @@ class IndexResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param \Illuminate\Http\Request $request
-     * @return array{selectionItemType: string, selectionItemCode: string, selectionItemName: string, selectionItemShortName: string}
+     * @return array{selectionItemType: string, selectionItemCode: string, selectionItemName: string, selectionItemShortName: string, displayOrder: int}
      */
     public function toArray(Request $request): array
     {
@@ -28,6 +29,7 @@ class IndexResource extends JsonResource
             'selectionItemCode' => $this->selection_item_code,
             'selectionItemName' => $this->selection_item_name,
             'selectionItemShortName' => $this->selection_item_short_name,
+            'displayOrder' => $this->display_order,
         ];
     }
 }
