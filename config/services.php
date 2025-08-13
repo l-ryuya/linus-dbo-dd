@@ -40,6 +40,8 @@ return [
     'cloudsign' => [
         'host' => env('CLOUDSIGN_HOST'),
         'client_id' => env('CLOUDSIGN_CLIENT_ID'),
+        'application_id' => env('CLOUDSIGN_APPLICATION_ID'),
+        'attribute_order' => env('CLOUDSIGN_ATTRIBUTE_ORDER'),
     ],
 
     'billing' => [
