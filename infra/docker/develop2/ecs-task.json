@@ -119,11 +119,11 @@
         },
         {
           "name": "DB_USERNAME",
-          "value": "app_dd"
+          "value": "dbo_dd"
         },
         {
           "name": "DB_SCHEMA",
-          "value": "dbo_dd"
+          "value": "public"
         },
         {
           "name": "APP_KEY",
