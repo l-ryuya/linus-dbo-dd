@@ -107,7 +107,7 @@
         },
         {
           "name": "DB_HOST",
-          "value": "dsbizdev-dbo-cluster-dev.cluster-c906g0qeiekr.ap-northeast-1.rds.amazonaws.com"
+          "value": "database-1.ctei2wkaaszp.ap-northeast-1.rds.amazonaws.com"
         },
         {
           "name": "DB_PORT",
