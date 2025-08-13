@@ -52,6 +52,13 @@ return Application::configure(basePath: dirname(__DIR__))
             'password_confirmation',
         ]);
 
+        $exceptions->render(function (\InvalidArgumentException $e) {
+            return response()->json([
+                'statusCode' => 400,
+                'message' => $e->getMessage(),
+            ], 400);
+        });
+
         $exceptions->render(function (NotFoundHttpException $e) {
             return response()->json([
                 'statusCode' => 404,
@@ -85,7 +92,7 @@ return Application::configure(basePath: dirname(__DIR__))
                     [
                         'client_ip'	  => $request->getClientIp(),
                         'request_url' => $request->fullUrl(),
-                        'request_params' => $request->all(),
+                        'request_params' => $request->except(['password', 'password_confirmation', 'current_password']),
                         'exception_file' => $e->getFile() . '::' . $e->getLine(),
                         'exception_message' => get_class($e) . '::' . $e->getMessage(),
                     ],

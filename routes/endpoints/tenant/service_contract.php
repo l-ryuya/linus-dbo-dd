@@ -11,5 +11,6 @@ use App\Http\Controllers\Tenant\ServiceContractController;
 
 // Route::prefix('tenant')->middleware(['auth', 'roles:tenant'])->group(function () {
     Route::post('/service-contracts', [ServiceContractController::class, 'store']);
+    Route::post('/service-contracts/draft', [ServiceContractController::class, 'storeDraft']);
     Route::put('/service-contracts/{public_id}', [ServiceContractController::class, 'update']);
 // });

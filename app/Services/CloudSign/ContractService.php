@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\CloudSign;
 
-use App\Enums\ServiceContractStatus;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Models\ContractWidgetSetting;
 use App\Models\ServiceContract;
 use App\Services\CloudSign\Traits\Documents;
@@ -31,7 +31,7 @@ class ContractService extends BaseService
     ): void {
         $serviceContract = ServiceContract::findOrFail($serviceContractId);
         throw_if(
-            $serviceContract->contract_status_code != ServiceContractStatus::ContractInfoRegistered->value,
+            $serviceContract->contract_status_code != ServiceContractStatusCode::ContractInfoRegistered->value,
             new \RuntimeException('The contract has already been sent.'),
         );
 
@@ -47,7 +47,7 @@ class ContractService extends BaseService
 
         $serviceContract->contract_doc_id = $documentId;
         $serviceContract->contract_sent_at = now();
-        $serviceContract->contract_status_code = ServiceContractStatus::ContractDocumentSent->value;
+        $serviceContract->contract_status_code = ServiceContractStatusCode::ContractDocumentSent->value;
         $serviceContract->save();
     }
 

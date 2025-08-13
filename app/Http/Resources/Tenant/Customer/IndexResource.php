@@ -12,9 +12,8 @@ use Illuminate\Http\Resources\Json\JsonResource;
  * @property string $company_legal_name
  * @property string $company_name_en
  * @property string $customer_status
- * @property string $contract_start_date
- * @property string $service_name
- * @property string $service_plan_name
+ * @property ?\Carbon\Carbon $first_service_start_date
+ * @property ?\Carbon\Carbon $last_service_end_date
  */
 class IndexResource extends JsonResource
 {
@@ -28,9 +27,8 @@ class IndexResource extends JsonResource
      *     customerName: string,
      *     customerNameEn: string,
      *     customerStatus: string,
-     *     serviceStartDate: string|null,
-     *     serviceName: string|null,
-     *     servicePlanName: string|null,
+     *     firstServiceStartDate: string|null,
+     *     lastServiceEndDate: string|null
      * }
      */
     public function toArray(Request $request): array
@@ -40,9 +38,8 @@ class IndexResource extends JsonResource
             'customerName' => $this->company_legal_name,
             'customerNameEn' => $this->company_name_en,
             'customerStatus' => $this->customer_status,
-            'serviceStartDate' => $this->contract_start_date,
-            'serviceName' => $this->service_name,
-            'servicePlanName' => $this->service_plan_name,
+            'firstServiceStartDate' => $this->first_service_start_date?->format('Y-m-d'),
+            'lastServiceEndDate' => $this->last_service_end_date?->format('Y-m-d'),
         ];
     }
 }

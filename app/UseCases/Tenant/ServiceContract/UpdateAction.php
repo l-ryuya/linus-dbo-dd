@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\UseCases\Tenant\ServiceContract;
 
 use App\Dto\Tenant\ServiceContract\UpdateInput;
-use App\Enums\ServiceContractStatus;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Exceptions\LogicValidationException;
 use App\Models\Customer;
 use App\Models\Service;
@@ -20,9 +20,10 @@ class UpdateAction
     /**
      * 顧客サービス契約更新
      *
-     * @param Tenant      $identifiedTenant
-     * @param string      $serviceContractPublicId
-     * @param UpdateInput $data
+     * @param Tenant                                       $identifiedTenant
+     * @param string                                       $serviceContractPublicId
+     * @param \App\Enums\Service\ServiceContractStatusCode $serviceContractStatus
+     * @param UpdateInput                                  $data
      *
      * @return void
      * @throws \Throwable
@@ -30,6 +31,7 @@ class UpdateAction
     public function __invoke(
         Tenant $identifiedTenant,
         string $serviceContractPublicId,
+        ServiceContractStatusCode $serviceContractStatus,
         UpdateInput $data,
     ): void {
         DB::beginTransaction();
@@ -42,26 +44,36 @@ class UpdateAction
             $service = Service::where('public_id', $data->servicePublicId)
                 ->where('tenant_id', $identifiedTenant->tenant_id)
                 ->firstOrFail();
-            $servicePlan = ServicePlan::where('public_id', $data->servicePlanPublicId)
-                ->where('service_id', $service->service_id)
-                ->firstOrFail();
-            $serviceRepUserOption = UserOption::where('public_id', $data->serviceRepUserPublicId)
-                ->where('tenant_id', $identifiedTenant->tenant_id)
-                ->where('service_id', $service->service_id)
-                ->firstOrFail();
-            $serviceMgrUserOption = UserOption::where('public_id', $data->serviceMgrUserPublicId)
-                ->where('tenant_id', $identifiedTenant->tenant_id)
-                ->where('service_id', $service->service_id)
-                ->firstOrFail();
+            $servicePlan = null;
+            if ($data->servicePlanPublicId) {
+                $servicePlan = ServicePlan::where('public_id', $data->servicePlanPublicId)
+                    ->where('service_id', $service->service_id)
+                    ->firstOrFail();
+            }
+            $serviceRepUserOption = null;
+            if ($data->serviceRepUserPublicId) {
+                $serviceRepUserOption = UserOption::where('public_id', $data->serviceRepUserPublicId)
+                    ->where('tenant_id', $identifiedTenant->tenant_id)
+                    ->where('service_id', $service->service_id)
+                    ->firstOrFail();
+            }
+            $serviceMgrUserOption = null;
+            if ($data->serviceMgrUserPublicId) {
+                $serviceMgrUserOption = UserOption::where('public_id', $data->serviceMgrUserPublicId)
+                    ->where('tenant_id', $identifiedTenant->tenant_id)
+                    ->where('service_id', $service->service_id)
+                    ->firstOrFail();
+            }
 
             $this->updateServiceContract(
                 $serviceContractPublicId,
                 $identifiedTenant->tenant_id,
                 $customer->customer_id,
+                $serviceContractStatus,
                 $service->service_id,
-                $servicePlan->service_plan_id,
-                $serviceRepUserOption->user_option_id,
-                $serviceMgrUserOption->user_option_id,
+                $servicePlan?->service_plan_id,
+                $serviceRepUserOption?->user_option_id,
+                $serviceMgrUserOption?->user_option_id,
                 $data,
             );
 
@@ -77,33 +89,36 @@ class UpdateAction
     /**
      * サービス契約を更新する
      *
-     * @param string                                      $serviceContractPublicId
-     * @param int                                         $tenantId
-     * @param int                                         $customerId
-     * @param int                                         $serviceId
-     * @param int                                         $servicePlanId
-     * @param int                                         $serviceRepUserOptionId
-     * @param int                                         $serviceMgrUserOptionId
-     * @param \App\Dto\Tenant\ServiceContract\UpdateInput $data
+     * @param string                                       $serviceContractPublicId
+     * @param int                                          $tenantId
+     * @param int                                          $customerId
+     * @param \App\Enums\Service\ServiceContractStatusCode $serviceContractStatus
+     * @param int                                          $serviceId
+     * @param int|null                                     $servicePlanId
+     * @param int|null                                     $serviceRepUserOptionId
+     * @param int|null                                     $serviceMgrUserOptionId
+     * @param \App\Dto\Tenant\ServiceContract\UpdateInput  $data
      *
      * @return void
-     * @throws \App\Exceptions\LogicValidationException|\Throwable
+     * @throws \Throwable
      */
     private function updateServiceContract(
         string $serviceContractPublicId,
         int $tenantId,
         int $customerId,
+        ServiceContractStatusCode $serviceContractStatus,
         int $serviceId,
-        int $servicePlanId,
-        int $serviceRepUserOptionId,
-        int $serviceMgrUserOptionId,
+        ?int $servicePlanId,
+        ?int $serviceRepUserOptionId,
+        ?int $serviceMgrUserOptionId,
         UpdateInput $data,
     ): void {
         $serviceContract = ServiceContract::where('public_id', $serviceContractPublicId)
             ->where('tenant_id', $tenantId)
             ->firstOrFail();
         throw_if(
-            $serviceContract->contract_status_code != ServiceContractStatus::ContractInfoRegistered->value,
+            $serviceContract->contract_status_code !== ServiceContractStatusCode::ContractInfoRegistered->value &&
+            $serviceContract->contract_status_code !== ServiceContractStatusCode::ContractInfoDrafted->value,
             new LogicValidationException(
                 errors: ['contractStatusCode' => [__('logic.contract_status_locked')]],
             ),
@@ -117,7 +132,7 @@ class UpdateAction
         $serviceContract->contract_name = $data->contractName;
         $serviceContract->contract_language = $data->contractLanguage;
         // ステータスタイプ設定
-        $serviceContract->contract_status_code = $data->contractStatusCode;
+        $serviceContract->contract_status_code = $serviceContractStatus->value;
         $serviceContract->service_usage_status_code = $data->serviceUsageStatusCode;
         $serviceContract->contract_date = $data->contractDate;
         $serviceContract->contract_start_date = $data->contractStartDate;
@@ -142,10 +157,17 @@ class UpdateAction
         // サービス担当者・管理者情報
         $serviceContract->service_rep_user_option_id = $serviceRepUserOptionId;
         $serviceContract->service_mgr_user_option_id = $serviceMgrUserOptionId;
+        // 見積情報
+        $serviceContract->quotation_name = $data->quotationName;
+        $serviceContract->quotation_number = $data->quotationNumber;
+        $serviceContract->quotation_date = $data->quotationDate;
+        // 提案情報
+        $serviceContract->proposal_name = $data->proposalName;
+        $serviceContract->proposal_number = $data->proposalNumber;
+        $serviceContract->proposal_date = $data->proposalDate;
 
         // 請求サイクル情報
         $serviceContract->billing_cycle_code = $data->billingCycleCode;
-
         // 請求書督促タイミング設定
         if ($data->invoiceRemindDays) {
             $remindDays = array_map('intval', explode(',', $data->invoiceRemindDays));

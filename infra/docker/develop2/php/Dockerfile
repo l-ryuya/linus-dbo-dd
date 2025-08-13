@@ -1,4 +1,4 @@
-# # builder ステージ（composer:ltsイメージを使用）
+# builder ステージ（composer:ltsイメージを使用）
 FROM composer@sha256:e27f788e74d2233af99d51b8ef9a086ab6158890d63102e6696db165e0d36403 AS builder
 # Laravelプロジェクトの必要ファイルを /build/ にコピー
 COPY composer.json composer.lock .env.develop artisan /build/
@@ -8,6 +8,7 @@ COPY /config/ /build/config/
 COPY /database/ /build/database/
 COPY /lang/ /build/lang/
 COPY /public/ /build/public/
+COPY /resources/ /build/resources/
 COPY ./routes/ /build/routes/
 COPY ./storage/ /build/storage/
 
@@ -43,8 +44,6 @@ RUN chown -R www-data:www-data storage
 COPY infra/docker/develop2/php/supervisord.conf /etc/supervisor/
 COPY infra/docker/develop2/php/laravel-worker.conf /etc/supervisor/conf.d/
 RUN chown www-data:www-data /var/log/supervisor && chmod 740 /var/log/supervisor
-COPY infra/docker/develop2/php/scheduler.sh /app/scheduler.sh
-RUN chown www-data:www-data /app/scheduler.sh && chmod +x /app/scheduler.sh
 COPY infra/docker/develop2/php/entrypoint-overwrite.sh /usr/local/bin/entrypoint-overwrite.sh
 RUN chmod +x /usr/local/bin/entrypoint-overwrite.sh
 

@@ -10,16 +10,15 @@ use App\Models\ServiceContract;
 use App\Models\ServicePlan;
 use App\Models\Tenant;
 use App\Models\UserOption;
-use Database\Seeders\base\CompaniesSeeder;
-use Database\Seeders\base\CountryRegionsSeeder;
-use Database\Seeders\base\CustomersSeeder;
-use Database\Seeders\base\SelectionItemsSeeder;
-use Database\Seeders\base\ServiceContractsSeeder;
-use Database\Seeders\base\ServicePlansSeeder;
-use Database\Seeders\base\ServicesSeeder;
-use Database\Seeders\base\TenantsSeeder;
-use Database\Seeders\base\TimeZonesSeeder;
-use Database\Seeders\base\UserOptionsSeeder;
+use Database\Seeders\Base\CompaniesSeeder;
+use Database\Seeders\Base\CountryRegionsSeeder;
+use Database\Seeders\Base\SelectionItemsSeeder;
+use Database\Seeders\Base\ServicePlansSeeder;
+use Database\Seeders\Base\ServicesSeeder;
+use Database\Seeders\Base\TenantsSeeder;
+use Database\Seeders\Base\TimeZonesSeeder;
+use Database\Seeders\Base\UserOptionsSeeder;
+use Database\Seeders\TestDatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -52,11 +51,10 @@ class UpdateTest extends TestCase
             CountryRegionsSeeder::class,
             TenantsSeeder::class,
             CompaniesSeeder::class,
-            CustomersSeeder::class,
             ServicesSeeder::class,
             ServicePlansSeeder::class,
             UserOptionsSeeder::class,
-            ServiceContractsSeeder::class,
+            TestDatabaseSeeder::class,
         ]);
 
         $authUser = $this->createServiceManageUser();
@@ -115,6 +113,12 @@ class UpdateTest extends TestCase
             'customer_payment_user_email' => 'payment@original.com',
             'service_rep_user_option_id' => $this->serviceRepUserOption->user_option_id,
             'service_mgr_user_option_id' => $this->serviceMgrUserOption->user_option_id,
+            'quotationName' => '見積書名称',
+            'quotationNumber' => '提案書名称',
+            'quotationDate' => '2024-12-01',
+            'proposalName' => '提案書名称',
+            'proposalNumber' => '提案書番号',
+            'proposalDate' => '2024-11-01',
             'billing_cycle_type' => 'billing_cycle',
             'billing_cycle_code' => 'monthly',
             'invoice_remind_days' => '{7,14,21}',
@@ -163,6 +167,12 @@ class UpdateTest extends TestCase
             'customerPaymentUserEmail' => 'updated.payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
+            'quotationName' => 'Updated Quotation Name',
+            'quotationNumber' => 'Updated Quotation Number',
+            'quotationDate' => '2024-12-02',
+            'proposalName' => 'Updated Proposal Name',
+            'proposalNumber' => 'Updated Proposal Number',
+            'proposalDate' => '2024-11-02',
             'billingCycleCode' => 'quarterly',
             'invoiceRemindDays' => '10,20,30',
             'remarks' => 'Updated remarks',
@@ -184,18 +194,32 @@ class UpdateTest extends TestCase
             'service_plan_id' => $this->servicePlan->service_plan_id,
             'contract_name' => $updateData['contractName'],
             'contract_language' => $updateData['contractLanguage'],
-            'contract_status_code' => $updateData['contractStatusCode'],
+            'contract_status_code' => 'contract_info_registered',
             'service_usage_status_code' => $updateData['serviceUsageStatusCode'],
             'contract_date' => $updateData['contractDate'],
             'contract_start_date' => $updateData['contractStartDate'],
             'contract_end_date' => $updateData['contractEndDate'],
             'contract_auto_update' => $updateData['contractAutoUpdate'],
             'customer_contact_user_name' => $updateData['customerContactUserName'],
+            'customer_contact_user_dept' => $updateData['customerContactUserDept'],
+            'customer_contact_user_title' => $updateData['customerContactUserTitle'],
             'customer_contact_user_email' => $updateData['customerContactUserEmail'],
             'customer_contract_user_name' => $updateData['customerContractUserName'],
+            'customer_contract_user_dept' => $updateData['customerContractUserDept'],
+            'customer_contract_user_title' => $updateData['customerContractUserTitle'],
             'customer_contract_user_email' => $updateData['customerContractUserEmail'],
             'customer_payment_user_name' => $updateData['customerPaymentUserName'],
+            'customer_payment_user_dept' => $updateData['customerPaymentUserDept'],
+            'customer_payment_user_title' => $updateData['customerPaymentUserTitle'],
             'customer_payment_user_email' => $updateData['customerPaymentUserEmail'],
+            'service_rep_user_option_id' => $this->serviceRepUserOption->user_option_id,
+            'service_mgr_user_option_id' => $this->serviceMgrUserOption->user_option_id,
+            'quotation_name' => $updateData['quotationName'],
+            'quotation_number' => $updateData['quotationNumber'],
+            'quotation_date' => $updateData['quotationDate'],
+            'proposal_name' => $updateData['proposalName'],
+            'proposal_number' => $updateData['proposalNumber'],
+            'proposal_date' => $updateData['proposalDate'],
             'billing_cycle_code' => $updateData['billingCycleCode'],
             'invoice_remind_days' => '{10,20,30}',
             'remarks' => $updateData['remarks'],
@@ -229,7 +253,6 @@ class UpdateTest extends TestCase
             'customerPaymentUserEmail' => 'updated.payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'quarterly',
             'invoiceRemindDays' => '10,20,30',
         ];
 
@@ -268,7 +291,6 @@ class UpdateTest extends TestCase
             'customerPaymentUserEmail' => 'payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'quarterly',
         ];
 
         $response = $this->putJson(
@@ -303,9 +325,7 @@ class UpdateTest extends TestCase
             'customerPaymentUserEmail' => 'payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'quarterly',
             // 以下のオプションフィールドは省略
-            // 'contractEndDate', 'invoiceRemindDays', 'remarks'
         ];
 
         $response = $this->putJson(
@@ -321,42 +341,5 @@ class UpdateTest extends TestCase
             'contract_end_date' => null,
             'remarks' => null,
         ]);
-    }
-
-    /**
-     * 請求督促日数のバリデーションテスト
-     */
-    public function test_update_validates_invoice_remind_days(): void
-    {
-        // 不正な形式の請求督促日数
-        $invalidRemindDaysData = [
-            'servicePublicId' => $this->service->public_id,
-            'servicePlanPublicId' => $this->servicePlan->public_id,
-            'customerPublicId' => $this->customer->public_id,
-            'contractName' => 'Test Contract',
-            'contractLanguage' => 'jpn',
-            'contractStatusCode' => 'contract_info_registered',
-            'serviceUsageStatusCode' => 'in_use',
-            'contractDate' => '2024-01-01',
-            'contractStartDate' => '2024-01-01',
-            'contractAutoUpdate' => true,
-            'customerContactUserName' => 'Contact User',
-            'customerContactUserEmail' => 'contact@example.com',
-            'customerContractUserName' => 'Contract User',
-            'customerContractUserEmail' => 'contract@example.com',
-            'customerPaymentUserName' => 'Payment User',
-            'customerPaymentUserEmail' => 'payment@example.com',
-            'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
-            'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'invoiceRemindDays' => 'invalid-format', // 不正な形式
-        ];
-
-        $response = $this->putJson(
-            $this->getBaseUrl(),
-            $invalidRemindDaysData,
-        );
-
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors(['invoiceRemindDays']);
     }
 }

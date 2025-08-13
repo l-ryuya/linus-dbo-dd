@@ -40,11 +40,8 @@ class CustomerController extends Controller
             $action(
                 $user->getUserOption()->language_code,
                 (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
-                $request->validated('organizationCode'),
                 $request->validated('customerName'),
                 $request->validated('customerStatusCode'),
-                $request->validated('servicePublicId'),
-                $request->validated('servicePlanPublicId'),
                 $request->validated('displayed'),
                 $request->validated('page'),
             ),
@@ -96,6 +93,7 @@ class CustomerController extends Controller
         return (new StoreResource(
             $action(
                 $user->getUserOption()->tenant,
+                $user->getUserOption()->user_option_id,
                 $request->toStoreInput(),
             ),
         ))

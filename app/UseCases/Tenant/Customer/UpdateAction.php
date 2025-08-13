@@ -102,6 +102,8 @@ class UpdateAction
             ->firstOrFail();
 
         $customer->customer_status_code = $data->customerStatusCode;
+        $customer->first_service_start_date = $data->firstServiceStartDate;
+        $customer->last_service_end_date = $data->lastServiceEndDate;
         $customer->save();
 
         return $customer;

@@ -9,6 +9,7 @@ use App\Models\Company;
 use App\Models\CompanyNameTranslation;
 use App\Models\Customer;
 use App\Models\Tenant;
+use App\Services\AiDd\PreDd\Step0Service;
 use Illuminate\Support\Facades\DB;
 
 class StoreAction
@@ -17,6 +18,7 @@ class StoreAction
      * 顧客登録
      *
      * @param \App\Models\Tenant                  $identifiedTenant
+     * @param int                                 $authUserOptionId
      * @param \App\Dto\Tenant\Customer\StoreInput $data
      *
      * @return object
@@ -24,15 +26,23 @@ class StoreAction
      */
     public function __invoke(
         Tenant $identifiedTenant,
+        int $authUserOptionId,
         StoreInput $data,
     ): object {
         DB::beginTransaction();
 
         try {
             $company = $this->createCompany($identifiedTenant, $data);
-            $customer = $this->createCustomer($identifiedTenant, $company);
+            $customer = $this->createCustomer($identifiedTenant, $data, $company);
 
             DB::commit();
+
+            $step0Service = new Step0Service();
+            $step0Service->createInitialData(
+                $identifiedTenant->tenant_id,
+                $customer->customer_id,
+                $authUserOptionId,
+            );
 
             return (object) [
                 'companyPublicId' => $company->public_id,
@@ -87,13 +97,15 @@ class StoreAction
     /**
      * 顧客を作成する
      *
-     * @param \App\Models\Tenant  $identifiedTenant
-     * @param \App\Models\Company $company
+     * @param \App\Models\Tenant                  $identifiedTenant
+     * @param \App\Dto\Tenant\Customer\StoreInput $data
+     * @param \App\Models\Company                 $company
      *
      * @return \App\Models\Customer
      */
     private function createCustomer(
         Tenant $identifiedTenant,
+        StoreInput $data,
         Company $company,
     ): Customer {
         $customer = new Customer();
@@ -102,6 +114,8 @@ class StoreAction
         $customer->sys_organization_code = $identifiedTenant->customers_sys_organization_code;
         $customer->customer_status_type = 'customer_status';
         $customer->customer_status_code = 'customer_registered';
+        $customer->first_service_start_date = $data->firstServiceStartDate;
+        $customer->last_service_end_date = $data->lastServiceEndDate;
         $customer->save();
         $customer->refresh();
 

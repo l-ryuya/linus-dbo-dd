@@ -19,6 +19,7 @@ require $path . 'roots.php';
 require $path . 'user.php';
 require $path . 'tenant' . DIRECTORY_SEPARATOR . 'customer.php';
 require $path . 'tenant' . DIRECTORY_SEPARATOR . 'service_contract.php';
+require $path . 'tenant' . DIRECTORY_SEPARATOR . 'dd.php';
 require $path . 'external' . DIRECTORY_SEPARATOR . 'service_contract.php';
 require $path . 'webhooks' . DIRECTORY_SEPARATOR . 'cloudsign.php';
 

@@ -33,6 +33,8 @@ return new class extends Migration {
 
             $table->string('sys_user_code', 12)->comment('対応する m5 システムユーザーコード');
             $table->string('sys_organization_code', 12)->comment('所属組織の m5 システム組織コード');
+            $table->string('organization_name')->comment('所属組織の m5 所属組織名称');
+
             $table->boolean('platform_user')->nullable()->comment('プラットフォームユーザー識別');
 
             // 属性

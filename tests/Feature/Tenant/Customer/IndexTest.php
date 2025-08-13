@@ -5,21 +5,20 @@ declare(strict_types=1);
 namespace Tests\Feature\Tenant\Customer;
 
 use App\Models\SelectionItemTranslation;
-use Database\Seeders\base\CompaniesSeeder;
-use Database\Seeders\base\CompanyNameTranslationsSeeder;
-use Database\Seeders\base\CountryRegionsSeeder;
-use Database\Seeders\base\CountryRegionsTranslationsSeeder;
-use Database\Seeders\base\CustomersSeeder;
-use Database\Seeders\base\SelectionItemsSeeder;
-use Database\Seeders\base\SelectionItemTranslationsSeeder;
-use Database\Seeders\base\ServiceContractsSeeder;
-use Database\Seeders\base\ServicePlansSeeder;
-use Database\Seeders\base\ServicePlanTranslationsSeeder;
-use Database\Seeders\base\ServicesSeeder;
-use Database\Seeders\base\ServiceTranslationsSeeder;
-use Database\Seeders\base\TenantsSeeder;
-use Database\Seeders\base\TimeZonesSeeder;
-use Database\Seeders\base\UserOptionsSeeder;
+use Database\Seeders\Base\CompaniesSeeder;
+use Database\Seeders\Base\CompanyNameTranslationsSeeder;
+use Database\Seeders\Base\CountryRegionsSeeder;
+use Database\Seeders\Base\CountryRegionsTranslationsSeeder;
+use Database\Seeders\Base\SelectionItemsSeeder;
+use Database\Seeders\Base\SelectionItemTranslationsSeeder;
+use Database\Seeders\Base\ServicePlansSeeder;
+use Database\Seeders\Base\ServicePlanTranslationsSeeder;
+use Database\Seeders\Base\ServicesSeeder;
+use Database\Seeders\Base\ServiceTranslationsSeeder;
+use Database\Seeders\Base\TenantsSeeder;
+use Database\Seeders\Base\TimeZonesSeeder;
+use Database\Seeders\Base\UserOptionsSeeder;
+use Database\Seeders\TestDatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -40,13 +39,12 @@ class IndexTest extends TestCase
             TenantsSeeder::class,
             CompaniesSeeder::class,
             CompanyNameTranslationsSeeder::class,
-            CustomersSeeder::class,
             ServicesSeeder::class,
             ServicePlansSeeder::class,
             ServiceTranslationsSeeder::class,
             ServicePlanTranslationsSeeder::class,
-            ServiceContractsSeeder::class,
             UserOptionsSeeder::class,
+            TestDatabaseSeeder::class,
         ]);
 
         // テスト用の認証を設定
@@ -78,9 +76,8 @@ class IndexTest extends TestCase
                         'customerName',
                         'customerNameEn',
                         'customerStatus',
-                        'serviceStartDate',
-                        'serviceName',
-                        'servicePlanName',
+                        'firstServiceStartDate',
+                        'lastServiceEndDate',
                     ],
                 ],
                 'links',
@@ -139,10 +136,6 @@ class IndexTest extends TestCase
      */
     public function test_index_validates_input(): void
     {
-        // 不正なサービスID（UUIDではない）
-        $response = $this->getJson($this->getBaseUrl() . '?servicePublicId=invalid-uuid');
-        $response->assertStatus(422);
-
         // 不正なページ番号
         $response = $this->getJson($this->getBaseUrl() . '?page=invalid');
         $response->assertStatus(422);
@@ -150,16 +143,6 @@ class IndexTest extends TestCase
         // 存在しない顧客ステータスコード
         $response = $this->getJson($this->getBaseUrl() . '?customerStatusCode=non-existent-status');
         $response->assertStatus(422);
-    }
-
-    /**
-     * 組織コードでフィルタリングできることをテストする
-     */
-    public function test_index_filters_by_organization_code(): void
-    {
-        $response = $this->getJson($this->getBaseUrl() . "?organizationCode=ORG00000022&page=1");
-
-        $response->assertStatus(200);
     }
 
     /**
