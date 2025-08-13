@@ -92,9 +92,10 @@ language_name,tiếng_việt,8,ベトナム語
 payment_method,bank_transfer,1,銀行振込
 payment_method,card,2,クレジット/デビット/プリペイドカード
 service_contract_status,contract_info_drafted,1,契約情報一時保存
-service_contract_status,contract_document_sent,2,契約書送信完了
-service_contract_status,contract_executed,3,契約締結完了
-service_contract_status,contract_cancelled,4,契約取消・却下完了
+service_contract_status,contract_info_registered,2,契約情報登録済
+service_contract_status,contract_document_sent,3,契約書送信完了
+service_contract_status,contract_executed,4,契約締結完了
+service_contract_status,contract_cancelled,5,契約取消・却下完了
 service_plan_status,preparing,1,準備中
 service_plan_status,active,2,稼動中
 service_plan_status,suspended,3,停止中
