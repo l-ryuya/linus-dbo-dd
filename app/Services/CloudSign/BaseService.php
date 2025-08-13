@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Http;
 class BaseService
 {
     protected readonly string $clientId;
+
     protected readonly string $applicationId;
 
     protected ?string $accessToken = null;

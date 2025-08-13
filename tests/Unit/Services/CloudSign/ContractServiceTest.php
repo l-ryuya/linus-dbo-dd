@@ -294,4 +294,3 @@ class ContractServiceTest extends TestCase
         });
     }
 }
-
