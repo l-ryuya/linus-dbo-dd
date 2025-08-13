@@ -39,8 +39,8 @@ return [
 
     'cloudsign' => [
         'host' => env('CLOUDSIGN_HOST'),
-        'client_id' => env('CLOUDSIGN_CLIENT_ID'),
-        'application_id' => env('CLOUDSIGN_APPLICATION_ID'),
+        'client_id' => json_decode(env('CLOUDSIGN_CLIENT_ID', ''))->client_id ?? null,
+        'application_id' => json_decode(env('CLOUDSIGN_APPLICATION_ID', ''))->application_id ?? null,
         'attribute_order' => env('CLOUDSIGN_ATTRIBUTE_ORDER'),
     ],
 

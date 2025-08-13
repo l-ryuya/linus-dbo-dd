@@ -68,7 +68,8 @@ class ContractServiceTest extends TestCase
         $this->tenant = $authUser->getUserOption()->tenant;
 
         // CloudSignの設定をモック
-        Config::set('services.cloudsign.client_id', 'test-client-id');
+        Config::set('services.cloudsign.application_id', '{"application_id":"test-application-id"}');
+        Config::set('services.cloudsign.client_id', '{"client_id":"test-client-id"}');
         Config::set('services.cloudsign.host', 'https://api.cloudsign.jp');
 
         // テスト用の認証を設定

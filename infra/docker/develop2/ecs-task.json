@@ -1,6 +1,6 @@
 {
   "family": "dsbizdev-dbo-dd-web-dev",
-  "taskRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-default-dev",
+  "taskRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-dbo-dd-dev",
   "executionRoleArn": "arn:aws:iam::588738584619:role/dsbizdev-ecs-task-execution-secrets-default-dev",
   "networkMode": "awsvpc",
   "cpu": "256",
@@ -157,7 +157,11 @@
         },
         {
          "name": "CLOUDSIGN_CLIENT_ID",
-         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/cloudsign-client-id-gzocHW"
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/cloudsign-RzytMt"
+        },
+        {
+          "name": "CLOUDSIGN_APPLICATION_ID",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/cloudsign-RzytMt"
         },
         {
          "name": "ADMIN_MAIL_ADDRESS",
