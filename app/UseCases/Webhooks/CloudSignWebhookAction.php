@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace App\UseCases\Webhooks;
 
-use App\Enums\ServiceContractStatus;
-use App\Mail\ContractStatusNotificationsMail;
+use App\Enums\CloudSignStatus;
+use App\Enums\Service\ServiceContractStatusCode;
 use App\Models\ServiceContract;
+use App\Services\ServiceContract\ContractStatusService;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
 
-class CloudSignWebhookAction
+readonly class CloudSignWebhookAction
 {
+    public function __construct(
+        private ContractStatusService $contractStatusService,
+    ) {}
+
     /**
      * CloudSign Webhookからの通知を処理する
      *
@@ -24,60 +28,29 @@ class CloudSignWebhookAction
     public function __invoke(
         array $payload,
     ): void {
-        $prettyJson = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-        \Log::debug($prettyJson);
-
-        if (!isset($payload['documentID'], $payload['status'])) {
-            throw new \InvalidArgumentException('CloudSign webhook request does not contain documentID or status.');
-        }
+        $this->logPayload($payload);
+        $this->validatePayload($payload);
 
         DB::beginTransaction();
 
         try {
             $serviceContract = ServiceContract::where('contract_doc_id', $payload['documentID'])
+                ->where('contract_status_code', ServiceContractStatusCode::ContractDocumentSent->value)
                 ->lockForUpdate()
-                ->first();
-            if (!$serviceContract) {
-                \Log::warning('ServiceContract not found for documentID: ' . $payload['documentID']);
-                return;
+                ->firstOrFail();
+
+            $status = CloudSignStatus::tryFrom($payload['status']);
+            if ($status === null) {
+                throw new \InvalidArgumentException("Unknown CloudSign status: {$payload['status']}");
             }
 
-            $contractStatus = '';
-            switch ($payload['status']) {
-                case 1:
-                    // 先方確認中
-                    break;
-                case 2:
-                    // 締結完了
-                    $contractStatus = '締結完了';
-                    $serviceContract->contract_status_code = ServiceContractStatus::ContractExecuted->value;
-                    $serviceContract->contract_executed_at = now();
-                    break;
-                case 3:
-                    // 取り消し・却下
-                    $contractStatus = '取り消し・却下';
-                    $serviceContract->contract_status_code = ServiceContractStatus::ContractCancelled->value;
-                    break;
-                default:
-                    \Log::warning('Unknown status received: ' . $payload['status']);
-                    return;
-            }
-
+            $this->contractStatusService->updateContractStatus($serviceContract, $status);
             $serviceContract->save();
 
             DB::commit();
 
-            // サービス・DBOグループへ通知
-            $recipients[] = $serviceContract->service->service_dept_group_email;
-            $recipients[] = $serviceContract->service->backoffice_group_email;
+            $this->contractStatusService->handlePostProcessing($serviceContract, $status, $payload['text'] ?? null);
 
-            foreach ($recipients as $recipient) {
-                Mail::to($recipient)->send(new ContractStatusNotificationsMail(
-                    serviceContract: $serviceContract,
-                    contractStatus: $contractStatus,
-                    contractMessage: $payload['text'] ?? '',
-                ));
-            }
         } catch (\Throwable $exception) {
             DB::rollBack();
 
@@ -87,6 +60,33 @@ class CloudSignWebhookAction
             ]);
 
             throw $exception;
+        }
+    }
+
+    /**
+     * ログにペイロードを出力する
+     *
+     * @param array<string, mixed> $payload
+     *
+     * @return void
+     */
+    private function logPayload(array $payload): void
+    {
+        $prettyJson = json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        \Log::debug($prettyJson);
+    }
+
+    /**
+     * ペイロードの検証
+     *
+     * @param array<string, mixed> $payload
+     *
+     * @throws \InvalidArgumentException
+     */
+    private function validatePayload(array $payload): void
+    {
+        if (!isset($payload['documentID'], $payload['status'])) {
+            throw new \InvalidArgumentException('CloudSign webhook request does not contain documentID or status.');
         }
     }
 }

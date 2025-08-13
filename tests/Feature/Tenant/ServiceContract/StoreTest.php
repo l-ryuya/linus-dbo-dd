@@ -4,21 +4,23 @@ declare(strict_types=1);
 
 namespace Tests\Feature\Tenant\ServiceContract;
 
+use App\Jobs\CloudSign\ContractJob;
 use App\Models\Customer;
 use App\Models\Service;
 use App\Models\ServicePlan;
 use App\Models\Tenant;
 use App\Models\UserOption;
-use Database\Seeders\base\CompaniesSeeder;
-use Database\Seeders\base\CountryRegionsSeeder;
-use Database\Seeders\base\CustomersSeeder;
-use Database\Seeders\base\SelectionItemsSeeder;
-use Database\Seeders\base\ServicePlansSeeder;
-use Database\Seeders\base\ServicesSeeder;
-use Database\Seeders\base\TenantsSeeder;
-use Database\Seeders\base\TimeZonesSeeder;
-use Database\Seeders\base\UserOptionsSeeder;
+use Database\Seeders\Base\CompaniesSeeder;
+use Database\Seeders\Base\CountryRegionsSeeder;
+use Database\Seeders\Base\SelectionItemsSeeder;
+use Database\Seeders\Base\ServicePlansSeeder;
+use Database\Seeders\Base\ServicesSeeder;
+use Database\Seeders\Base\TenantsSeeder;
+use Database\Seeders\Base\TimeZonesSeeder;
+use Database\Seeders\Base\UserOptionsSeeder;
+use Database\Seeders\TestDatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Queue;
 use Tests\TestCase;
 
 class StoreTest extends TestCase
@@ -47,10 +49,10 @@ class StoreTest extends TestCase
             CountryRegionsSeeder::class,
             TenantsSeeder::class,
             CompaniesSeeder::class,
-            CustomersSeeder::class,
             ServicesSeeder::class,
             ServicePlansSeeder::class,
             UserOptionsSeeder::class,
+            TestDatabaseSeeder::class,
         ]);
 
         $authUser = $this->createServiceManageUser();
@@ -90,13 +92,14 @@ class StoreTest extends TestCase
      */
     public function test_store_creates_service_contract_successfully(): void
     {
+        Queue::fake();
+
         $contractData = [
             'servicePublicId' => $this->service->public_id,
             'servicePlanPublicId' => $this->servicePlan->public_id,
             'customerPublicId' => $this->customer->public_id,
             'contractName' => 'テスト契約',
             'contractLanguage' => 'jpn',
-            'contractStatusCode' => 'contract_info_registered',
             'serviceUsageStatusCode' => 'awaiting_activation',
             'contractDate' => '2025-01-01',
             'contractStartDate' => '2025-01-15',
@@ -116,6 +119,12 @@ class StoreTest extends TestCase
             'customerPaymentUserEmail' => 'payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
+            'quotationName' => '見積書名称',
+            'quotationNumber' => '提案書名称',
+            'quotationDate' => '2024-12-01',
+            'proposalName' => '提案書名称',
+            'proposalNumber' => '提案書番号',
+            'proposalDate' => '2024-11-01',
             'billingCycleCode' => 'monthly',
             'invoiceRemindDays' => '7,14,30',
             'remarks' => 'テスト契約の備考',
@@ -133,6 +142,8 @@ class StoreTest extends TestCase
                 ],
             ]);
 
+        Queue::assertPushedOn('cloudsign', ContractJob::class);
+
         // データベースにレコードが作成されたことを確認
         $responseData = $response->json('data');
 
@@ -145,7 +156,7 @@ class StoreTest extends TestCase
             'contract_name' => $contractData['contractName'],
             'contract_language' => $contractData['contractLanguage'],
             'contract_status_type' => 'service_contract_status',
-            'contract_status_code' => $contractData['contractStatusCode'],
+            'contract_status_code' => 'contract_info_registered',
             'service_usage_status_type' => 'service_usage_status',
             'service_usage_status_code' => $contractData['serviceUsageStatusCode'],
             'contract_date' => $contractData['contractDate'],
@@ -166,6 +177,12 @@ class StoreTest extends TestCase
             'customer_payment_user_email' => $contractData['customerPaymentUserEmail'],
             'service_rep_user_option_id' => $this->serviceRepUserOption->user_option_id,
             'service_mgr_user_option_id' => $this->serviceMgrUserOption->user_option_id,
+            'quotation_name' => $contractData['quotationName'],
+            'quotation_number' => $contractData['quotationNumber'],
+            'quotation_date' => $contractData['quotationDate'],
+            'proposal_name' => $contractData['proposalName'],
+            'proposal_number' => $contractData['proposalNumber'],
+            'proposal_date' => $contractData['proposalDate'],
             'billing_cycle_type' => 'billing_cycle',
             'billing_cycle_code' => $contractData['billingCycleCode'],
             'invoice_remind_days' => '{' . $contractData['invoiceRemindDays'] . '}',
@@ -178,6 +195,8 @@ class StoreTest extends TestCase
      */
     public function test_store_handles_optional_fields_correctly(): void
     {
+        Queue::fake();
+
         // オプションフィールドを含めないデータ
         $dataWithoutOptionalFields = [
             'servicePublicId' => $this->service->public_id,
@@ -185,7 +204,6 @@ class StoreTest extends TestCase
             'customerPublicId' => $this->customer->public_id,
             'contractName' => 'テスト契約',
             'contractLanguage' => 'jpn',
-            'contractStatusCode' => 'contract_info_registered',
             'serviceUsageStatusCode' => 'awaiting_activation',
             'contractDate' => '2025-01-01',
             'contractStartDate' => '2025-01-15',
@@ -198,9 +216,7 @@ class StoreTest extends TestCase
             'customerPaymentUserEmail' => 'payment@example.com',
             'serviceRepUserPublicId' => $this->serviceRepUserOption->public_id,
             'serviceMgrUserPublicId' => $this->serviceMgrUserOption->public_id,
-            'billingCycleCode' => 'monthly',
             // 以下のフィールドは省略
-            // 'contractEndDate', 'customerContactUserDept', 'customerContactUserTitle', etc.
         ];
 
         $response = $this->postJson(
@@ -214,5 +230,7 @@ class StoreTest extends TestCase
                     'serviceContractPublicId',
                 ],
             ]);
+
+        Queue::assertPushedOn('cloudsign', ContractJob::class);
     }
 }

@@ -25,7 +25,12 @@ class InvoiceInfoAction
             'services.service_dept_group_email',
             'services.backoffice_group_email',
 
-            'service_rep_company_translation.company_legal_name AS sales_rep_company_name',
+            DB::raw("
+                CASE
+                    WHEN service_contracts.contract_language = 'eng' THEN service_rep_company.company_name_en
+                    ELSE service_rep_company_translation.company_legal_name
+                END AS sales_rep_company_name
+            "),
             DB::raw("
                 CASE
                     WHEN service_contracts.contract_language = 'eng' THEN service_rep_user.user_name_en
@@ -35,7 +40,12 @@ class InvoiceInfoAction
             'service_rep_user.user_email AS service_rep_email',
             'service_rep_user.phone_number AS service_rep_phone_number',
 
-            'service_mgr_company_translation.company_legal_name AS sales_rep_manager_company_name',
+            DB::raw("
+                CASE
+                    WHEN service_contracts.contract_language = 'eng' THEN service_mgr_company.company_name_en
+                    ELSE service_mgr_company_translation.company_legal_name
+                END AS sales_rep_manager_company_name
+            "),
             DB::raw("
                 CASE
                     WHEN service_contracts.contract_language = 'eng' THEN service_mgr_user.user_name_en

@@ -8,15 +8,14 @@ use App\Models\Company;
 use App\Models\CompanyNameTranslation;
 use App\Models\Customer;
 use App\Models\Tenant;
-use Database\Seeders\base\CompaniesSeeder;
-use Database\Seeders\base\CountryRegionsSeeder;
-use Database\Seeders\base\CustomersSeeder;
-use Database\Seeders\base\SelectionItemsSeeder;
-use Database\Seeders\base\ServicePlansSeeder;
-use Database\Seeders\base\ServicesSeeder;
-use Database\Seeders\base\TenantsSeeder;
-use Database\Seeders\base\TimeZonesSeeder;
-use Database\Seeders\base\UserOptionsSeeder;
+use Database\Seeders\Base\CompaniesSeeder;
+use Database\Seeders\Base\CountryRegionsSeeder;
+use Database\Seeders\Base\SelectionItemsSeeder;
+use Database\Seeders\Base\ServicePlansSeeder;
+use Database\Seeders\Base\ServicesSeeder;
+use Database\Seeders\Base\TenantsSeeder;
+use Database\Seeders\Base\TimeZonesSeeder;
+use Database\Seeders\Base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
 use Tests\TestCase;
@@ -41,7 +40,6 @@ class UpdateTest extends TestCase
             CountryRegionsSeeder::class,
             TenantsSeeder::class,
             CompaniesSeeder::class,
-            CustomersSeeder::class,
             ServicesSeeder::class,
             ServicePlansSeeder::class,
             UserOptionsSeeder::class,
@@ -76,6 +74,8 @@ class UpdateTest extends TestCase
             'city' => '渋谷区',
             'street' => '渋谷1-1-1',
             'building' => '渋谷ビル101',
+            'first_service_start_date' => '2023-10-01', // 初回サービス開始日
+            'last_service_end_date' => '2024-09-30', // 最終サービス終了日
             'remarks' => 'テスト顧客の備考',
         ]);
 
@@ -127,6 +127,8 @@ class UpdateTest extends TestCase
             'city' => 'サンフランシスコ',
             'street' => 'マーケットストリート123',
             'building' => 'テックビル505',
+            'firstServiceStartDate' => '2023-10-02', // 初回サービス開始日
+            'lastServiceEndDate' => '2024-10-01', // 最終サービス終了日
             'remarks' => '更新された備考です',
         ];
 
@@ -165,6 +167,8 @@ class UpdateTest extends TestCase
             'tenant_id' => $this->tenant->tenant_id,
             'company_id' => $this->company->company_id,
             'customer_status_code' => $updateData['customerStatusCode'],
+            'first_service_start_date' => $updateData['firstServiceStartDate'],
+            'last_service_end_date' => $updateData['lastServiceEndDate'],
         ]);
     }
 

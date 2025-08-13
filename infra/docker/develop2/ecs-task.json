@@ -40,11 +40,11 @@
             "CMD-SHELL",
             "curl -f http://127.0.0.1:3000/up || exit 1"
         ],
-        "interval": 30,
+        "interval": 20,
         "timeout": 5,
         "retries": 3,
-        "startPeriod": 10
-        },
+        "startPeriod": 0
+      },
       "environment": [
         {
           "name": "APP_KEY",
@@ -107,7 +107,7 @@
         },
         {
           "name": "DB_HOST",
-          "value": "database-1.ctei2wkaaszp.ap-northeast-1.rds.amazonaws.com"
+          "value": "dsbizdev-dbo-cluster-dev.cluster-c906g0qeiekr.ap-northeast-1.rds.amazonaws.com"
         },
         {
           "name": "DB_PORT",
@@ -119,11 +119,11 @@
         },
         {
           "name": "DB_USERNAME",
-          "value": "dbo_dd"
+          "value": "app_dd"
         },
         {
           "name": "DB_SCHEMA",
-          "value": "public"
+          "value": "dbo_dd"
         },
         {
           "name": "APP_KEY",
@@ -138,18 +138,30 @@
           "value": "AKIAYSE4N4AV6UETVGZT"
         }
       ],
-       "secrets": [
+      "secrets": [
         {
           "name": "DB_PASSWORD",
            "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
         },
         {
-          "name": "MAIL_PASSWORD",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+         "name": "MAIL_PASSWORD",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
         },
         {
-          "name": "EXTERNAL_BILLING_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+         "name": "DBO_BILLING_EXTERNAL_API_KEY",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        },
+        {
+         "name": "DBO_BILLING_API_KEY",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        },
+        {
+         "name": "CLOUDSIGN_CLIENT_ID",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        },
+        {
+         "name": "ADMIN_MAIL_ADDRESS",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
         }
       ]
     }

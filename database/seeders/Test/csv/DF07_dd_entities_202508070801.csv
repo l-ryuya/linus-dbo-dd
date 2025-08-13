@@ -1,0 +1,11 @@
+"dd_entity_id","public_id","tenant_id","dd_entity_name","dd_entity_type_type","dd_entity_type_code","created_at","updated_at","deleted_at"
+46,"785181f6-5b85-42f6-88e1-88236b39fe6e",1,株式会社FINOLAB,dd_entity_type,company,2025-09-01 13:00:00.000,2025-09-01 13:00:00.000,
+47,a0a16e69-6a40-4e04-bee9-810862bcd8e0,1,三菱地所株式会社,dd_entity_type,company,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+48,"373495a4-fe49-424a-86d5-0eca91d87a88",1,株式会社電通総研,dd_entity_type,company,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+49,d491d4d2-56ba-4587-b721-d8e78b106159,1,山本 寛,dd_entity_type,individual,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+50,dd68ba16-7c32-41ed-ae0c-fcacc786b921,1,原 淳二,dd_entity_type,individual,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+51,"067cabda-41b1-4b25-b0bf-3bb30b5432c6",1,小原 武史,dd_entity_type,individual,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+52,"7b97f114-f86d-4c74-a628-c7a85c1bcbf4",1,柴田 誠,dd_entity_type,individual,2025-09-01 13:10:31.000,2025-09-01 13:10:31.000,
+53,"52bb2cf7-9fe4-4d3a-9826-b7630a87576e",1,井上 格太,dd_entity_type,individual,2025-09-01 13:28:27.000,2025-09-01 13:28:27.000,
+54,"4686b76a-7561-4d40-ad31-069ba62e6a4b",1,株式会社ソニー・ミュージックエンタテインメント,dd_entity_type,company,2025-09-01 14:48:52.000,2025-09-01 14:48:52.000,
+55,"0f1a7da7-e60a-44c1-b535-a5f99624a362",1,公門 和也,dd_entity_type,individual,2025-09-01 14:48:52.000,2025-09-01 14:48:52.000,

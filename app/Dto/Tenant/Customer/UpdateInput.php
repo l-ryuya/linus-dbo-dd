@@ -26,6 +26,8 @@ final readonly class UpdateInput
         public ?string $city,
         public ?string $street,
         public ?string $building,
+        public ?string $firstServiceStartDate,
+        public ?string $lastServiceEndDate,
         public ?string $remarks,
     ) {}
 
@@ -51,6 +53,8 @@ final readonly class UpdateInput
             city: $data['city'] ?? null,
             street: $data['street'] ?? null,
             building: $data['building'] ?? null,
+            firstServiceStartDate: $data['firstServiceStartDate'] ?? null,
+            lastServiceEndDate: $data['lastServiceEndDate'] ?? null,
             remarks: $data['remarks'] ?? null,
         );
     }

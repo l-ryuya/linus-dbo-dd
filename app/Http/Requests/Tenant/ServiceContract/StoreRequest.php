@@ -23,14 +23,6 @@ class StoreRequest extends FormRequest
             'customerPublicId' => ['required', 'uuid'],
             'contractName' => ['required', 'string', 'max:255'],
             'contractLanguage' => ['required', 'string', 'size:3'],
-            'contractStatusCode' => [
-                'required',
-                'string',
-                'min:3',
-                'max:128',
-                Rule::exists('selection_items', 'selection_item_code')
-                    ->where('selection_item_type', 'service_contract_status'),
-            ],
             'serviceUsageStatusCode' => [
                 'required',
                 'string',
@@ -57,9 +49,15 @@ class StoreRequest extends FormRequest
             'customerPaymentUserEmail' => ['required', 'email', 'max:255'],
             'serviceRepUserPublicId' => ['required', 'uuid'],
             'serviceMgrUserPublicId' => ['required', 'uuid'],
+            'quotationName' => ['nullable', 'string', 'max:255'],
+            'quotationNumber' => ['nullable','string','max:255'],
+            'quotationDate' => ['nullable','date', 'date_format:Y-m-d'],
+            'proposalName' => ['nullable', 'string', 'max:255'],
+            'proposalNumber' => ['nullable','string','max:255'],
+            'proposalDate' => ['nullable','date', 'date_format:Y-m-d'],
             'invoiceRemindDays' => ['nullable', 'string', 'max:255', 'regex:/^-?\d+(,-?\d+)*$/'],
             'billingCycleCode' => [
-                'required',
+                'nullable',
                 'string',
                 'min:3',
                 'max:128',

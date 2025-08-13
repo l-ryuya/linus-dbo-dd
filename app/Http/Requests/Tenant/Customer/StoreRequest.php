@@ -42,6 +42,15 @@ class StoreRequest extends FormRequest
             'city' => ['nullable', 'string', 'max:128'],
             'street' => ['nullable', 'string', 'max:128'],
             'building' => ['nullable', 'string', 'max:128'],
+            'firstServiceStartDate' => [
+                'nullable',
+                'date_format:Y-m-d',
+            ],
+            'lastServiceEndDate' => [
+                'nullable',
+                'date_format:Y-m-d',
+                'after_or_equal:firstServiceStartDate',
+            ],
             'remarks' => ['nullable', 'string', 'max:255'],
         ];
     }

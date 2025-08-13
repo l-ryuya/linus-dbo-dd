@@ -1,0 +1,2 @@
+"user_option_id","public_id","company_id","tenant_id","customer_id","service_id","sys_user_code","sys_organization_code","organization_name","platform_user","user_name","user_name_en","user_email","user_icon_url","country_code_alpha3","language_code","time_zone_id","date_format","phone_number","remarks","created_at","updated_at","deleted_at"
+19,a061f70b-c523-4916-9584-2f4be60f1607,,1,1,,USR00000007,ORG00000022,株式会社FINOLAB,0,FINOLABユーザー1,FINOLAB User 1,toshiki.tanaka@finolab.co.jp,,JPN,jpn,52,yyyymmdd,"03-6713-9999",,2025-08-07 03:05:38.570,2025-08-07 03:05:38.570,

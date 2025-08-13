@@ -6,15 +6,14 @@ namespace Tests\Feature\Tenant\Customer;
 
 use App\Models\Company;
 use App\Models\Tenant;
-use Database\Seeders\base\CompaniesSeeder;
-use Database\Seeders\base\CountryRegionsSeeder;
-use Database\Seeders\base\CustomersSeeder;
-use Database\Seeders\base\SelectionItemsSeeder;
-use Database\Seeders\base\ServicePlansSeeder;
-use Database\Seeders\base\ServicesSeeder;
-use Database\Seeders\base\TenantsSeeder;
-use Database\Seeders\base\TimeZonesSeeder;
-use Database\Seeders\base\UserOptionsSeeder;
+use Database\Seeders\Base\CompaniesSeeder;
+use Database\Seeders\Base\CountryRegionsSeeder;
+use Database\Seeders\Base\SelectionItemsSeeder;
+use Database\Seeders\Base\ServicePlansSeeder;
+use Database\Seeders\Base\ServicesSeeder;
+use Database\Seeders\Base\TenantsSeeder;
+use Database\Seeders\Base\TimeZonesSeeder;
+use Database\Seeders\Base\UserOptionsSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -34,7 +33,6 @@ class StoreTest extends TestCase
             CountryRegionsSeeder::class,
             TenantsSeeder::class,
             CompaniesSeeder::class,
-            CustomersSeeder::class,
             ServicesSeeder::class,
             ServicePlansSeeder::class,
             UserOptionsSeeder::class,
@@ -75,6 +73,8 @@ class StoreTest extends TestCase
             'city' => '港区',
             'street' => '赤坂1-2-3',
             'building' => '赤坂ビル101',
+            'firstServiceStartDate' => '2023-10-01', // 初回サービス開始日
+            'lastServiceEndDate' => '2024-09-30', // 最終サービス終了日
             'remarks' => 'テスト顧客です',
         ];
 
@@ -125,6 +125,8 @@ class StoreTest extends TestCase
             'sys_organization_code' => $this->tenant->customers_sys_organization_code,
             'customer_status_type' => 'customer_status',
             'customer_status_code' => 'customer_registered',
+            'first_service_start_date' => $customerData['firstServiceStartDate'],
+            'last_service_end_date' => $customerData['lastServiceEndDate'],
         ]);
     }
 
