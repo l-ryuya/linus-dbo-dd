@@ -25,11 +25,13 @@ class IndexAction
             'selection_item_code',
             'selection_item_name',
             'selection_item_short_name',
+            'display_order',
         ])
         ->when($selectionItemType, function ($query) use ($selectionItemType) {
             $query->where('selection_item_type', $selectionItemType);
         })
         ->where('language_code', $languageCode)
+        ->orderBy('display_order')
         ->get();
     }
 }

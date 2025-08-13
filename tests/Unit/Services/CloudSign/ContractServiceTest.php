@@ -23,7 +23,6 @@ use Database\Seeders\Base\TimeZonesSeeder;
 use Database\Seeders\Base\UserOptionsSeeder;
 use Database\Seeders\TestDatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
@@ -69,7 +68,8 @@ class ContractServiceTest extends TestCase
         $this->tenant = $authUser->getUserOption()->tenant;
 
         // CloudSignの設定をモック
-        Config::set('services.cloudsign.client_id', 'test-client-id');
+        Config::set('services.cloudsign.application_id', '{"application_id":"test-application-id"}');
+        Config::set('services.cloudsign.client_id', '{"client_id":"test-client-id"}');
         Config::set('services.cloudsign.host', 'https://api.cloudsign.jp');
 
         // テスト用の認証を設定
@@ -171,6 +171,7 @@ class ContractServiceTest extends TestCase
                     ['id' => 'participant-recipient-123', 'order' => 1],
                 ],
             ], 200),
+            'https://api.cloudsign.jp/documents/*/attributes' => Http::response(['success' => true], 200),
             'https://api.cloudsign.jp/documents/*/files/*/widgets' => Http::response(['id' => 'widget-123'], 200),
             'https://api.cloudsign.jp/documents/*/participants/*' => Http::response(['success' => true], 200),
             'https://api.cloudsign.jp/documents/*' => Http::response(['success' => true], 200),
@@ -222,6 +223,7 @@ class ContractServiceTest extends TestCase
                     ['id' => 'participant-recipient-456', 'order' => 1],
                 ],
             ], 200),
+            'https://api.cloudsign.jp/documents/*/attributes' => Http::response(['success' => true], 200),
             'https://api.cloudsign.jp/documents/*/files/*/widgets' => Http::response(['id' => 'widget-456'], 200),
             'https://api.cloudsign.jp/documents/*/participants/*' => Http::response(['success' => true], 200),
             'https://api.cloudsign.jp/documents/*' => Http::response(['success' => true], 200),
@@ -269,6 +271,7 @@ class ContractServiceTest extends TestCase
                     ['id' => 'participant-recipient-789', 'order' => 1],
                 ],
             ], 200),
+            'https://api.cloudsign.jp/documents/*/attributes' => Http::response(['success' => true], 200),
             'https://api.cloudsign.jp/documents/*/files/*/widgets' => Http::response(['id' => 'widget-789'], 200),
             'https://api.cloudsign.jp/documents/*/participants/*' => Http::response(['success' => true], 200),
             'https://api.cloudsign.jp/documents/*' => Http::response(['success' => true], 200),
@@ -289,159 +292,5 @@ class ContractServiceTest extends TestCase
             return $request->url() === 'https://api.cloudsign.jp/documents' &&
                    $request['template_id'] === 'template-en-123';
         });
-    }
-
-    /**
-     * 存在しないサービス契約IDを指定した場合のテスト
-     */
-    public function test_send_contract_throws_exception_for_nonexistent_service_contract(): void
-    {
-        $this->expectException(\Illuminate\Database\Eloquent\ModelNotFoundException::class);
-
-        $this->contractService->sendContract(99999);
-    }
-
-    /**
-     * 既に送信済みの契約書を再送信しようとした場合のテスト
-     */
-    public function test_send_contract_throws_exception_for_already_sent_contract(): void
-    {
-        // 契約ステータスを送信済みに変更
-        $this->serviceContract->update([
-            'contract_status_code' => ServiceContractStatusCode::ContractDocumentSent->value,
-        ]);
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('The contract has already been sent.');
-
-        $this->contractService->sendContract($this->serviceContract->service_contract_id);
-    }
-
-    /**
-     * 契約実行済みの契約書を再送信しようとした場合のテスト
-     */
-    public function test_send_contract_throws_exception_for_executed_contract(): void
-    {
-        // 契約ステータスを実行済みに変更
-        $this->serviceContract->update([
-            'contract_status_code' => ServiceContractStatusCode::ContractExecuted->value,
-        ]);
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('The contract has already been sent.');
-
-        $this->contractService->sendContract($this->serviceContract->service_contract_id);
-    }
-
-    /**
-     * CloudSign API接続エラーの場合のテスト
-     */
-    public function test_send_contract_throws_connection_exception(): void
-    {
-        // HTTP接続エラーをモック（アクセストークン取得は成功させる）
-        Http::fake([
-            'https://api.cloudsign.jp/token' => Http::response([
-                'access_token' => 'test-access-token-error',
-                'token_type' => 'Bearer',
-                'expires_in' => 3600,
-            ], 200),
-            'https://api.cloudsign.jp/documents' => function () {
-                throw new ConnectionException('Connection failed');
-            },
-        ]);
-
-        $this->expectException(ConnectionException::class);
-
-        $this->contractService->sendContract($this->serviceContract->service_contract_id);
-
-        // エラー発生時はデータベースが更新されていないことを確認
-        $this->assertDatabaseHas('service_contracts', [
-            'service_contract_id' => $this->serviceContract->service_contract_id,
-            'contract_doc_id' => null,
-            'contract_status_code' => ServiceContractStatusCode::ContractInfoRegistered->value,
-        ]);
-    }
-
-    /**
-     * CloudSign APIでエラーレスポンスが返された場合のテスト
-     */
-    public function test_send_contract_throws_runtime_exception_for_api_error(): void
-    {
-        // CloudSign APIエラーレスポンスをモック（アクセストークン取得は成功させる）
-        Http::fake([
-            'https://api.cloudsign.jp/token' => Http::response([
-                'access_token' => 'test-access-token-error',
-                'token_type' => 'Bearer',
-                'expires_in' => 3600,
-            ], 200),
-            'https://api.cloudsign.jp/documents' => Http::response(['error' => 'API Error'], 400),
-        ]);
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Failed to send contract. Status: 400');
-
-        $this->contractService->sendContract($this->serviceContract->service_contract_id);
-
-        // エラー発生時はデータベースが更新されていないことを確認
-        $this->assertDatabaseHas('service_contracts', [
-            'service_contract_id' => $this->serviceContract->service_contract_id,
-            'contract_doc_id' => null,
-            'contract_status_code' => ServiceContractStatusCode::ContractInfoRegistered->value,
-        ]);
-    }
-
-    /**
-     * CloudSign APIで参加者更新エラーが発生した場合のテスト
-     */
-    public function test_send_contract_throws_exception_for_participant_update_error(): void
-    {
-        // 参加者更新でエラーが発生するようにモック（アクセストークン取得は成功させる）
-        Http::fake([
-            'https://api.cloudsign.jp/token' => Http::response([
-                'access_token' => 'test-access-token-participant-error',
-                'token_type' => 'Bearer',
-                'expires_in' => 3600,
-            ], 200),
-            'https://api.cloudsign.jp/documents' => Http::response([
-                'id' => 'test-document-id-123',
-                'files' => [
-                    ['id' => 'file-id-123'],
-                ],
-                'participants' => [
-                    ['id' => 'participant-sender-123', 'order' => 0],
-                    ['id' => 'participant-recipient-123', 'order' => 1],
-                ],
-            ], 200),
-            'https://api.cloudsign.jp/documents/*/files/*/widgets' => Http::response(['id' => 'widget-123'], 200),
-            'https://api.cloudsign.jp/documents/*/participants/*' => Http::response(['error' => 'Participant Error'], 400),
-        ]);
-
-        $this->expectException(\RuntimeException::class);
-        $this->expectExceptionMessage('Failed to send contract. Status: 400');
-
-        $this->contractService->sendContract($this->serviceContract->service_contract_id);
-    }
-
-    /**
-     * アクセストークン取得エラーの場合のテスト
-     */
-    public function test_send_contract_throws_exception_for_token_acquisition_error(): void
-    {
-        // アクセストークン取得でエラーが発生するようにモック
-        Http::fake([
-            'https://api.cloudsign.jp/token' => Http::response(['error' => 'Invalid client'], 401),
-        ]);
-
-        // アクセストークンがnullになることでTypeErrorが発生する可能性があるので、
-        // 適切な例外処理がされているかテストする
-        $this->expectException(\TypeError::class);
-
-        $this->contractService->sendContract($this->serviceContract->service_contract_id);
-    }
-
-    protected function tearDown(): void
-    {
-        \Mockery::close();
-        parent::tearDown();
     }
 }

@@ -33,6 +33,8 @@ return new class extends Migration {
                 ->comment('対象言語に翻訳された選択肢アイテム名称');
             $table->string('selection_item_short_name')->nullable()
                 ->comment('対象言語に翻訳された選択肢アイテム短縮名称');
+            $table->integer('display_order')
+                ->comment('ドロップダウンリストでの表示順序');
             $table->string('remarks')->nullable()
                 ->comment('翻訳や言語情報に関する備考');
 

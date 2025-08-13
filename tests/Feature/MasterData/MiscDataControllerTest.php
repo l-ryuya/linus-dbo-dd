@@ -73,6 +73,7 @@ class MiscDataControllerTest extends TestCase
                         'selectionItemCode',
                         'selectionItemName',
                         'selectionItemShortName',
+                        'displayOrder',
                     ],
                 ],
             ]);
