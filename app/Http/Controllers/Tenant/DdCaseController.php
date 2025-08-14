@@ -7,8 +7,11 @@ namespace App\Http\Controllers\Tenant;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tenant\DdCase\IndexRequest;
 use App\Http\Resources\Tenant\DdCase\IndexCollection;
+use App\Http\Resources\Tenant\DdCase\SummaryResource;
 use App\Services\Role\TenantUserRoleService;
 use App\UseCases\Tenant\DdCase\IndexAction;
+use App\UseCases\Tenant\DdCase\SummaryAction;
+use Illuminate\Http\Request;
 
 class DdCaseController extends Controller
 {
@@ -43,6 +46,32 @@ class DdCaseController extends Controller
                 $request->validated('endedAtTo'),
                 $request->validated('displayed'),
                 $request->validated('page'),
+            ),
+        );
+    }
+
+    /**
+     * デューデリジェンスケースのサマリー取得
+     *
+     * @param \Illuminate\Http\Request $request
+     * @param string $publicId
+     * @param \App\UseCases\Tenant\DdCase\SummaryAction $action
+     *
+     * @return \App\Http\Resources\Tenant\DdCase\SummaryResource
+     */
+    public function summary(
+        Request $request,
+        string $publicId,
+        SummaryAction $action,
+    ): SummaryResource {
+        /** @var \App\Auth\GenericUser $user */
+        $user = $request->user();
+
+        return new SummaryResource(
+            $action(
+                $user->getUserOption()->language_code,
+                (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
+                $publicId,
             ),
         );
     }

@@ -230,6 +230,39 @@ paths:
           $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
       security:
         - UserAuth: []
+  /tenant/dd/case/{public_id}/summary:
+    get:
+      summary: テナント管理者 デューデリジェンスケースサマリー取得
+      parameters:
+        - name: public_id
+          in: path
+          description: 'デューデリジェンスケース 外部公開用 UUID v4'
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/TenantDdCaseSummaryResponse'
+        '401':
+          $ref: 'components/error_response.yaml#/components/responses/UnauthorizedError'
+        '403':
+          $ref: 'components/error_response.yaml#/components/responses/Forbidden'
+        '404':
+          $ref: 'components/error_response.yaml#/components/responses/NotFound'
+        '422':
+          $ref: 'components/error_response.yaml#/components/responses/UnprocessableEntity'
+        '500':
+          $ref: 'components/error_response.yaml#/components/responses/InternalServerError'
+      security:
+        - UserAuth: []
   /tenant/service-contracts:
     get:
       summary: テナント管理者 顧客契約情報一覧
@@ -1004,13 +1037,13 @@ components:
           description: クラウドサイン契約ステータス名
           example: '先方確認中, 締結完了, 取り消し・却下, 不明'
     TenantDdCaseResponse:
-      description: デューデリジェンスケース一覧
+      description: DDケース一覧
       type: object
       properties:
         ddCasePublicId:
           type: string
           format: uuid
-          description: 'デューデリジェンスケース 外部公開用 UUID v4'
+          description: 'DDケース 外部公開用 UUID v4'
         tenantName:
           type: string
           description: テナント名
@@ -1019,10 +1052,10 @@ components:
           description: 会社名
         ddCaseNo:
           type: string
-          description: デューデリジェンスケース番号
+          description: DDケース番号
         currentDdStep:
           type: string
-          description: 現在のデューデリジェンスステップ
+          description: 現在のDDステップ
         overallResult:
           type: string
           nullable: true
@@ -1043,6 +1076,241 @@ components:
           format: date
           nullable: true
           description: 終了日
+    TenantDdCaseSummaryResponse:
+      description: デューデリジェンスケースサマリー
+      type: object
+      properties:
+        ddStep:
+          type: object
+          properties:
+            current:
+              description: 現在のDDステップ情報
+              type: object
+              properties:
+                ddStep:
+                  type: string
+                  nullable: true
+                  description: DDステップ
+                ddStepCode:
+                  type: string
+                  nullable: true
+                  description: DDステップコード
+                stepComment:
+                  type: string
+                  nullable: true
+                  description: DDステップコメント
+                stepCompletedAt:
+                  type: string
+                  format: date-time
+                  nullable: true
+                  description: 'DDステップ完了日時 (YYYY-MM-DD HH:mm:ss)'
+                stepUserName:
+                  type: string
+                  nullable: true
+                  description: DDステップ担当者名
+            steps:
+              description: DDステップリスト
+              type: array
+              items:
+                type: object
+                properties:
+                  stepNumber:
+                    type: integer
+                    description: ステップ番号
+                  stepName:
+                    type: string
+                    description: ステップ名
+                  ddStepCode:
+                    type: string
+                    description: ステップコード
+                  stepInfo:
+                    type: string
+                    nullable: true
+                    description: ステップ情報
+                    example: 'UPDATED,RERUN など'
+        ddCase:
+          type: object
+          properties:
+            ddCasePublicId:
+              type: string
+              format: uuid
+              nullable: true
+              description: 'DDケース 外部公開用 UUID v4'
+            tenantName:
+              type: string
+              nullable: true
+              description: テナント名
+            ddCaseNo:
+              type: string
+              nullable: true
+              description: DDケース番号
+            startedAt:
+              type: string
+              nullable: true
+              description: 'DD開始日時 (YYYY-MM-DD HH:mm:ss)'
+            endedAt:
+              type: string
+              nullable: true
+              description: 'DD終了日時 (YYYY-MM-DD HH:mm:ss)'
+            caseUserName:
+              type: string
+              nullable: true
+              description: DDケース担当者名
+            currentDdStep:
+              type: string
+              nullable: true
+              description: 現在のDDステップ
+            currentDdStepCode:
+              type: string
+              nullable: true
+              description: 現在のDDステップコード
+            currentDdStatus:
+              type: string
+              nullable: true
+              description: 現在のDDステータス
+            currentDdStatusCode:
+              type: string
+              nullable: true
+              description: 現在のDDステータスコード
+            overallResult:
+              type: string
+              nullable: true
+              description: 総合判定結果
+            industryCheckRegResult:
+              type: string
+              nullable: true
+              description: 業種チェック結果（登録）
+            industryCheckWebResult:
+              type: string
+              nullable: true
+              description: 業種チェック結果（Web）
+            customerRiskLevel:
+              type: string
+              nullable: true
+              description: 顧客リスクレベル
+            asfCheckResult:
+              type: string
+              nullable: true
+              description: 反社チェック結果
+            repCheckResult:
+              type: string
+              nullable: true
+              description: 風評チェック結果
+            lastProcessUserName:
+              type: string
+              nullable: true
+              description: 最終処理担当者名
+            lastProcessDatetime:
+              type: string
+              nullable: true
+              description: '最終処理日時 (YYYY-MM-DD HH:mm:ss)'
+        targetCompany:
+          description: 取引対象法人
+          type: object
+          properties:
+            ddRelationPublicId:
+              type: string
+              nullable: true
+              description: 'DD関係性 外部公開用 UUID v4'
+            companyName:
+              type: string
+              nullable: true
+              description: 会社名
+            industryCheckReg:
+              type: string
+              nullable: true
+              description: 業種チェック（登録）
+            industryCheckWeb:
+              type: string
+              nullable: true
+              description: 業種チェック（Web）
+            customerRiskLevel:
+              type: string
+              nullable: true
+              description: 顧客リスクレベル
+            asfCheckResult:
+              type: string
+              nullable: true
+              description: 反社チェック結果
+            repCheckResult:
+              type: string
+              nullable: true
+              description: 風評チェック結果
+            exchangeName:
+              type: string
+              nullable: true
+              description: 市場
+            securitiesCode:
+              type: string
+              nullable: true
+              description: 証券コード
+        executives:
+          type: array
+          minItems: 0
+          items:
+            type: object
+            description: 役員情報
+            properties:
+              ddRelationPublicId:
+                type: string
+                description: 'DD関係性 外部公開用 UUID v4'
+              executiveName:
+                type: string
+                description: 役員名
+              position:
+                type: string
+                nullable: true
+                description: 役職名
+              asfCheckResult:
+                type: string
+                nullable: true
+                description: 反社チェック結果
+              repCheckResult:
+                type: string
+                nullable: true
+                description: 風評チェック結果
+        directShareholders:
+          type: array
+          minItems: 0
+          items:
+            type: object
+            description: 直接株主情報
+            properties:
+              ddRelationPublicId:
+                type: string
+                description: 'DD関係性 外部公開用 UUID v4'
+              shareholderName:
+                type: string
+                description: 株主名
+              shareholdingRatio:
+                type: number
+                format: float
+                nullable: true
+                description: 株式保有比率
+              industryCheckReg:
+                type: string
+                nullable: true
+                description: 業種チェック（登録）
+              industryCheckWeb:
+                type: string
+                nullable: true
+                description: 業種チェック（Web）
+              asfCheckResult:
+                type: string
+                nullable: true
+                description: 反社チェック結果
+              repCheckResult:
+                type: string
+                nullable: true
+                description: 風評チェック結果
+              exchangeName:
+                type: string
+                nullable: true
+                description: 市場
+              securitiesCode:
+                type: string
+                nullable: true
+                description: 証券コード
 
   securitySchemes:
     UserAuth:

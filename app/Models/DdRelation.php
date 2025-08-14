@@ -5,9 +5,14 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property string $company_name
+ * @property string $shareholder_name
+ * @property string $full_name
+ * @property string|null $position
+ */
 class DdRelation extends Model
 {
     use SoftDeletes;
@@ -24,30 +29,6 @@ class DdRelation extends Model
         'public_id',
         'is_confirmed',
     ];
-
-    /**
-     * @return HasOne<Tenant, $this>
-     */
-    public function tenant(): HasOne
-    {
-        return $this->hasOne(Tenant::class);
-    }
-
-    /**
-     * @return HasOne<DdCase, $this>
-     */
-    public function ddCase(): HasOne
-    {
-        return $this->hasOne(DdCase::class);
-    }
-
-    /**
-     * @return HasOne<DdEntity, $this>
-     */
-    public function ddEntity(): HasOne
-    {
-        return $this->hasOne(DdEntity::class);
-    }
 
     protected function casts(): array
     {

@@ -24,11 +24,11 @@ dd_entity_type,individual,2,個人
 dd_relation,counterparty_entity,1,取引対象法人
 dd_relation,ultimate_beneficial_owner,2,実質的支配者
 dd_relation,executive,3,役員
-dd_relation,shareholder,4,直接株主
+dd_relation,direct_shareholder,4,直接株主
 dd_relation,indirect_shareholder,5,間接株主
 dd_relation,investee,6,直接出資先
 dd_relation,indirect_investee,7,間接出資先
-dd_relation,executive_of_shareholder,8,直接株主の役員
+dd_relation,executive_of_direct_shareholder,8,直接株主の役員
 dd_relation,executive_of_indirect_shareholder,9,間接株主の役員
 dd_relation,executive_of_investee,10,直接出資先の役員
 dd_relation,executive_of_indirect_investee,11,間接出資先の役員
