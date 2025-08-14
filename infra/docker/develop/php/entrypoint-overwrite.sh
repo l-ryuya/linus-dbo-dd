@@ -28,7 +28,7 @@ if [[ "$*" = *"/opt/bitnami/scripts/laravel/run.sh"* ]]; then
 fi
 
 # supervisord
-/usr/bin/supervisord -c /etc/supervisor/supervisord.conf
+# /usr/bin/supervisord -c /etc/supervisor/supervisord.conf
 
 sleep 3
 echo "==== Process Check ===="
