@@ -23,7 +23,6 @@ use App\UseCases\Tenant\ServiceContract\ShowAction;
 use App\UseCases\Tenant\ServiceContract\StoreAction;
 use App\UseCases\Tenant\ServiceContract\UpdateAction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ServiceContractController extends Controller
 {
