@@ -31,11 +31,13 @@ return new class extends Migration {
                 ->unique()
                 ->comment('親テーブル dd_entities の PK/FK');
 
-            $table->string('first_name')
+            $table->string('full_name')
+                ->comment('フルネーム');
+            $table->string('first_name')->nullable()
                 ->comment('名');
             $table->string('middle_name')->nullable()
                 ->comment('ミドルネーム');
-            $table->string('last_name')
+            $table->string('last_name')->nullable()
                 ->comment('姓');
 
             $table->string('position')->nullable()
