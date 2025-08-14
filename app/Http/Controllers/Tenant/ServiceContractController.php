@@ -46,7 +46,6 @@ class ServiceContractController extends Controller
             $action(
                 $user->getUserOption()->language_code,
                 (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
-                (new TenantUserRoleService($user->getUserOption()))->getTenantId(),
                 $request->validated('tenantName'),
                 $request->validated('servicePublicId'),
                 $request->validated('servicePlanPublicId'),
