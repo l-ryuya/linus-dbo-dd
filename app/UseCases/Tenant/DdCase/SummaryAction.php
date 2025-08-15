@@ -119,11 +119,11 @@ class SummaryAction
             'dd_relations.dd_case_id',
             'dd_relations.dd_entity_id',
             'dd_relations.shareholding_ratio',
-            'dd_companies.company_name AS shareholder_name',
+            'dd_entities.dd_entity_name AS shareholder_name',
         ])
         ->join(
-            'dd_companies',
-            'dd_companies.dd_entity_id',
+            'dd_entities',
+            'dd_entities.dd_entity_id',
             '=',
             'dd_relations.dd_entity_id',
         )
