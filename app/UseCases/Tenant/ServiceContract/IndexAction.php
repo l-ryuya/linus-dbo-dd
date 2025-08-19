@@ -120,6 +120,7 @@ class IndexAction
 
             return $item;
         });
+
         return $paginator;
     }
 }

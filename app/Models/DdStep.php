@@ -19,7 +19,11 @@ class DdStep extends Model
      */
     public function tenant(): HasOne
     {
-        return $this->hasOne(Tenant::class);
+        return $this->hasOne(
+            Tenant::class,
+            'tenant_id',
+            'tenant_id',
+        );
     }
 
     /**
@@ -27,7 +31,11 @@ class DdStep extends Model
      */
     public function ddCase(): HasOne
     {
-        return $this->hasOne(DdCase::class);
+        return $this->hasOne(
+            DdCase::class,
+            'dd_case_id',
+            'dd_case_id',
+        );
     }
 
     /**
@@ -46,7 +54,7 @@ class DdStep extends Model
     {
         return [
             'public_id' => 'string',
-            'step_completed_at' => 'timestamp',
+            'step_completed_at' => 'datetime',
             'is_updated' => 'boolean',
             'rerun_required' => 'boolean',
             'dd_evidence_blob' => 'array',

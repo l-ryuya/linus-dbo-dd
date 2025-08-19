@@ -8,6 +8,7 @@ use App\Enums\Service\ServiceContractStatusCode;
 use App\Models\ContractWidgetSetting;
 use App\Models\ServiceContract;
 use App\Services\CloudSign\Traits\Documents;
+use App\Services\CloudSign\Traits\DocumentsAttribute;
 use App\Services\CloudSign\Traits\DocumentsFilesWidgets;
 use App\Services\CloudSign\Traits\DocumentsParticipants;
 use Illuminate\Http\Client\ConnectionException;
@@ -17,6 +18,7 @@ use Illuminate\Support\Collection;
 class ContractService extends BaseService
 {
     use Documents;
+    use DocumentsAttribute;
     use DocumentsFilesWidgets;
     use DocumentsParticipants;
 
@@ -60,6 +62,7 @@ class ContractService extends BaseService
      * @return string
      *
      * @throws \Illuminate\Http\Client\ConnectionException
+     * @throws \Throwable
      */
     private function createAndSendCloudSignDocument(
         ServiceContract $serviceContract,
@@ -69,6 +72,10 @@ class ContractService extends BaseService
         $templateId = $contractLanguage === 'jpn'
             ? $servicePlan->contract_template_jp_id
             : $servicePlan->contract_template_en_id;
+        throw_if(
+            !$templateId,
+            new \RuntimeException('Contract template ID is not set for the service plan.'),
+        );
 
         $parameterMappingService = new ParameterMappingService();
         $contractWidgetSettings = $parameterMappingService->buildToWidget($serviceContract, $contractLanguage);
@@ -89,6 +96,13 @@ class ContractService extends BaseService
             $participants = collect((array) $response->json('participants'));
             $senderParticipant = $participants->firstWhere('order', 0);
             $recipientParticipant = $participants->firstWhere('order', 1);
+
+            // 管理情報としてドキュメント属性を設定
+            $this->setDocumentAttribute(
+                $documentId,
+                $serviceContract->contract_name,
+                $serviceContract->service->service_code,
+            );
 
             // ドキュメントの入力項目を設定
             $this->setDocumentWidgets($documentId, $fileId, $senderParticipant['id'], $contractWidgetSettings);
@@ -117,6 +131,34 @@ class ContractService extends BaseService
             \Log::error($e->getMessage(), ['exception' => $e]);
             throw $e;
         }
+    }
+
+    /**
+     * ドキュメントの属性を設定
+     *
+     * @param string $documentId
+     * @param string $title
+     * @param string $content
+     *
+     * @throws \RuntimeException|\Illuminate\Http\Client\ConnectionException
+     */
+    private function setDocumentAttribute(
+        string $documentId,
+        string $title,
+        string $content,
+    ): void {
+        $data = [
+            'title' => $title,
+            'options' => [
+                [
+                    'order' => (int) config('services.cloudsign.attribute_order', 0),
+                    'content' => $content,
+                ],
+            ],
+        ];
+
+        $response = $this->putAttribute($documentId, $data);
+        $this->throwIfNotSuccessful($response);
     }
 
     /**

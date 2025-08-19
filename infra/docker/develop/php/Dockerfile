@@ -1,4 +1,4 @@
-# Command : docker buildx build -t backendphp -f ./infra/docker/bitnami/php/Dockerfile .
+# Command : docker buildx build -t backendphp -f ./infra/docker/develop/php/Dockerfile .
 # Command : docker run -it --rm backendphp bash
 # builder
 # https://hub.docker.com/_/composer

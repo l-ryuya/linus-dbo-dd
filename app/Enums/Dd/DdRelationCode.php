@@ -18,12 +18,12 @@ enum DdRelationCode: string
     case CounterpartyEntity = 'counterparty_entity'; // 取引対象法人
     case UltimateBeneficialOwner = 'ultimate_beneficial_owner'; // 実質的支配者
     case Executive = 'executive'; // 役員
-    case Shareholder = 'shareholder'; // 株主
-    case ExecutiveOfShareholder = 'executive_of_shareholder'; // 株主の役員
+    case DirectShareholder = 'direct_shareholder'; // 直接株主
     case IndirectShareholder = 'indirect_shareholder'; // 間接株主
-    case ExecutiveOfIndirectShareholder = 'executive_of_indirect_shareholder'; // 間接株主の役員
-    case Investee = 'investee'; // 出資先
-    case ExecutiveOfInvestee = 'executive_of_investee'; // 出資先の役員
+    case Investee = 'investee'; // 直接出資先
     case IndirectInvestee = 'indirect_investee'; // 間接出資先
+    case ExecutiveOfDirectShareholder = 'executive_of_direct_shareholder'; // 直接株主の役員
+    case ExecutiveOfIndirectShareholder = 'executive_of_indirect_shareholder'; // 間接株主の役員
+    case ExecutiveOfInvestee = 'executive_of_investee'; // 直接出資先の役員
     case ExecutiveOfIndirectInvestee = 'executive_of_indirect_investee'; // 間接出資先の役員
 }

@@ -27,6 +27,8 @@ return new class extends Migration {
                 ->comment('選択肢アイテムを識別する文字列');
 
             // 属性
+            $table->integer('display_order')
+                ->comment('ドロップダウンリストでの表示順序');
             $table->string('remarks')->nullable()
                 ->comment('ステータスに関する備考・補足情報');
 
