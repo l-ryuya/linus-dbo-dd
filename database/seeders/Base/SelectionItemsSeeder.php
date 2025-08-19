@@ -30,6 +30,7 @@ class SelectionItemsSeeder extends Seeder
             $data[] = [
                 'selection_item_type' => $row['selection_item_type'],
                 'selection_item_code' => $row['selection_item_code'],
+                'display_order' => $row['display_order'],
                 'remarks' => $row['remarks'],
                 'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
                 'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),

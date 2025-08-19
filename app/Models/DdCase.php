@@ -24,7 +24,7 @@ class DdCase extends Model
      */
     public function tenant(): HasOne
     {
-        return $this->hasOne(Tenant::class);
+        return $this->hasOne(Tenant::class, 'tenant_id', 'tenant_id');
     }
 
     /**
@@ -47,9 +47,9 @@ class DdCase extends Model
     {
         return [
             'public_id' => 'string',
-            'started_at' => 'timestamp',
-            'ended_at' => 'timestamp',
-            'last_process_datetime' => 'timestamp',
+            'started_at' => 'datetime',
+            'ended_at' => 'datetime',
+            'last_process_datetime' => 'datetime',
         ];
     }
 }

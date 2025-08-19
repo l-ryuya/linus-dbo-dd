@@ -33,6 +33,7 @@ class SelectionItemTranslationsSeeder extends Seeder
                 'language_code' => $row['language_code'],
                 'selection_item_name' => $row['selection_item_name'],
                 'selection_item_short_name' => $row['selection_item_short_name'] ?? null,
+                'display_order' => $row['display_order'],
                 'remarks' => $row['remarks'] ?? null,
                 'created_at' => empty($row['created_at']) ? $now : Carbon::parse($row['created_at']),
                 'updated_at' => empty($row['updated_at']) ? $now : Carbon::parse($row['updated_at']),

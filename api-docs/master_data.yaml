@@ -57,19 +57,7 @@ paths:
           required: false
           schema:
             type: string
-          examples:
-            PaymentMethod:
-              summary: 支払い方法
-              value: payment_method
-            PaymentCycle:
-              summary: 支払いサイクル
-              value: payment_cycle
-            WorldRegion:
-              summary: 世界地域
-              value: world_region
-            LanguageCode:
-              summary: 言語コード
-              value: language_code
+            example: 'language_code, world_region, payment_method, payment_cycle'
       responses:
         '200':
           description: OK
@@ -188,6 +176,9 @@ components:
         selectionItemShortName:
           type: string
           description: 選択肢アイテム短縮名称
+        displayOrder:
+          type: int
+          description: ドロップダウンリストでの表示順序
     ServiceResponse:
       description: サービス情報
       type: object

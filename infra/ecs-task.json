@@ -100,7 +100,23 @@
         },
         {
           "name": "DBO_BILLING_EXTERNAL_API_KEY",
-          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/external-billing-api-key-dQnWdI"
+        },
+        {
+          "name": "DBO_BILLING_API_KEY",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/secrets-rSLu5x"
+        },
+        {
+          "name": "CLOUDSIGN_CLIENT_ID",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/cloudsign-RzytMt"
+        },
+        {
+          "name": "CLOUDSIGN_APPLICATION_ID",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/cloudsign-RzytMt"
+        },
+        {
+          "name": "ADMIN_MAIL_ADDRESS",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:588738584619:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/admin-mail-address-vVE7Jq"
         }
       ]
     }

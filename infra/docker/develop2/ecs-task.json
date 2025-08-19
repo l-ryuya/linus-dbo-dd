@@ -157,7 +157,11 @@
         },
         {
          "name": "CLOUDSIGN_CLIENT_ID",
-         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD:"
+        },
+        {
+          "name": "CLOUDSIGN_APPLICATION_ID",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD:"
         },
         {
          "name": "ADMIN_MAIL_ADDRESS",

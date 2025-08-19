@@ -22,6 +22,14 @@ class UserOption extends Model
         ];
     }
 
+    /**
+     * @return HasOne<TimeZone, $this>
+     */
+    public function timeZone(): HasOne
+    {
+        return $this->hasOne(TimeZone::class, 'time_zone_id', 'time_zone_id');
+    }
+
     public function isAdmin(): bool
     {
         if ($this->platform_user && !empty($this->company_id)) {
