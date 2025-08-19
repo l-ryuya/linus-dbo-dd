@@ -66,6 +66,7 @@
       "cpu": 128,
       "memory": 256,
       "essential": true,
+      "stopTimeout": 120,
       "versionConsistency": "enabled",
       "privileged": false,
       "readonlyRootFilesystem": false,
