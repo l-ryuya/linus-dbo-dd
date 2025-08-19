@@ -2,13 +2,10 @@
 FROM httpd@sha256:fbc12199ccad031d8047e9c789d65aceee2d14f99ba90664cd3a3996867a5582
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        curl \
-        procps && \
+    apt-get install -y --no-install-recommends curl && \
     rm -rf /var/lib/apt/lists/*
 
-COPY composer.json composer.lock .env.develop artisan /var/www/html/
-
+COPY artisan /var/www/html/artisan
 COPY /app/ /var/www/html/app/
 COPY /bootstrap/ /var/www/html/bootstrap/
 COPY /config/ /var/www/html/config/
