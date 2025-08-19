@@ -28,6 +28,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     supervisor \
     procps && \
     docker-php-ext-install \
+        pcntl \
         pdo_pgsql \
         mbstring && \
     apt-get purge -y --auto-remove libpq-dev libonig-dev && \
