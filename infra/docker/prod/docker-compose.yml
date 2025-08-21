@@ -1,0 +1,38 @@
+services:
+  apache:
+    build:
+        context: ../../../
+        dockerfile: ./infra/docker/develop2/apache/Dockerfile
+    container_name: dbo-dd-web
+    ports:
+      - 3000:3000
+    volumes:
+    - ../../../:/var/www/html
+    - ./apache/conf/httpd.conf:/usr/local/apache2/conf/httpd.conf
+    depends_on:
+      - php-fpm
+  php-fpm:
+    build:
+        context: ../../../
+        dockerfile: ./infra/docker/develop2/php/Dockerfile
+    container_name: dbo-dd-app
+    volumes:
+    - ../../../:/var/www/html
+  db:
+    image: postgres:15-alpine
+    container_name: dbo-dd-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    #   POSTGRES_USER: laravel_user
+    #   POSTGRES_PASSWORD: secret
+    #   POSTGRES_DB: laravel_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+
+volumes:
+  pgdata:

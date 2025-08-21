@@ -1,0 +1,191 @@
+{
+  "family": "dsbizdev-dbo-dd-web-dev",
+  "taskRoleArn": "arn:aws:iam::734908905460:role/dbo-tast-role",
+  "executionRoleArn": "arn:aws:iam::734908905460:role/ecsTaskExecutionRole",
+  "networkMode": "awsvpc",
+  "cpu": "256",
+  "memory": "512",
+  "containerDefinitions": [
+    {
+      "name": "dbo-dd-web",
+      "image": "<IMAGE_URI>",
+      "cpu": 128,
+      "memory": 256,
+      "essential": true,
+      "versionConsistency": "enabled",
+      "privileged": false,
+      "readonlyRootFilesystem": false,
+      "portMappings": [
+        {
+          "name": "dbo-dd-web",
+          "containerPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "linuxParameters": {
+        "initProcessEnabled": true
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-web-dev",
+          "mode": "non-blocking",
+          "max-buffer-size": "1m",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "container"
+        }
+      },
+      "healthCheck": {
+        "command": [
+            "CMD-SHELL",
+            "curl -f http://127.0.0.1:3000/up || exit 1"
+        ],
+        "interval": 20,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 0
+      },
+      "environment": [
+        {
+          "name": "APP_KEY",
+          "value": "base64:2apIENcJjuPnUkC0MZDi+/gfVIOebQkgu7xYCk326VY="
+        },
+        {
+          "name": "APP_ENV",
+          "value": "develop"
+        },
+        {
+          "name": "MAIL_USERNAME",
+          "value": "AKIAYSE4N4AV6UETVGZT"
+        }
+      ]
+    },
+    {
+      "name": "dbo-dd-app",
+      "image": "<IMAGE_URI>",
+      "cpu": 128,
+      "memory": 256,
+      "essential": true,
+      "stopTimeout": 120,
+      "versionConsistency": "enabled",
+      "privileged": false,
+      "readonlyRootFilesystem": false,
+      "portMappings": [
+        {
+          "name": "dbo-dd-app",
+          "containerPort": 9000,
+          "protocol": "tcp"
+        }
+      ],
+      "linuxParameters": {
+        "initProcessEnabled": true
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-web-dev",
+          "mode": "non-blocking",
+          "max-buffer-size": "1m",
+          "awslogs-region": "ap-northeast-1",
+          "awslogs-stream-prefix": "container"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "php",
+          "artisan",
+          "--version"
+        ],
+        "interval": 20,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 0
+      },
+      "environment": [
+        {
+          "name": "DB_CONNECTION",
+          "value": "pgsql"
+        },
+        {
+          "name": "DB_HOST",
+          "value": "database-1.ctei2wkaaszp.ap-northeast-1.rds.amazonaws.com"
+        },
+        {
+          "name": "DB_PORT",
+          "value": "5432"
+        },
+        {
+          "name": "DB_DATABASE",
+          "value": "dbo"
+        },
+        {
+          "name": "DB_USERNAME",
+          "value": "dbo_dd"
+        },
+        {
+          "name": "DB_SCHEMA",
+          "value": "public"
+        },
+        {
+          "name": "APP_KEY",
+          "value": "base64:2apIENcJjuPnUkC0MZDi+/gfVIOebQkgu7xYCk326VY="
+        },
+        {
+          "name": "APP_ENV",
+          "value": "develop"
+        },
+        {
+          "name": "MAIL_USERNAME",
+          "value": "AKIAYSE4N4AV6UETVGZT"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "DB_PASSWORD",
+           "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        },
+        {
+         "name": "MAIL_PASSWORD",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        },
+        {
+         "name": "DBO_BILLING_EXTERNAL_API_KEY",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        },
+        {
+         "name": "DBO_BILLING_API_KEY",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        },
+        {
+         "name": "CLOUDSIGN_CLIENT_ID",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        },
+        {
+          "name": "CLOUDSIGN_APPLICATION_ID",
+          "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        },
+        {
+         "name": "ADMIN_MAIL_ADDRESS",
+         "valueFrom": "arn:aws:secretsmanager:ap-northeast-1:734908905460:secret:/ecs/dsbizdev-dbo-cluster-dev/dbo/ses-password-hdYQTo:DB_PASSWORD::"
+        }
+      ]
+    }
+  ],
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "tags": [
+    {
+      "key": "Name",
+      "value": "dsbizdev-dbo-dd-web-dev"
+    },
+    {
+      "key": "project",
+      "value": "dsbizdev"
+    },
+    {
+      "key": "env",
+      "value": "dev"
+    }
+  ]
+}
