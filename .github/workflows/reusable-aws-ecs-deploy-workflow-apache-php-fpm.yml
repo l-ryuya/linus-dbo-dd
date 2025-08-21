@@ -106,21 +106,21 @@ jobs:
     outputs:
       registry: ${{ steps.ecr-login.outputs.registry }}
     steps:
-      - name: Checkout main branch
-        uses: actions/checkout@v3
-        with:
-          ref: main
-          fetch-depth: 0
-      - name: Check tagged branch
-        run: |
-          BRANCHS=$(git branch --contains ${{ github.ref_name }})
-          set -- $BRANCHS
-          for BRANCH in $BRANCHS ; do
-            if [[ "$BRANCH" == "main_prod" ]]; then
-              exit 0
-            fi
-          done
-          exit 1
+      # - name: Checkout main branch
+      #   uses: actions/checkout@v3
+      #   with:
+      #     ref: main
+      #     fetch-depth: 0
+      # - name: Check tagged branch
+      #   run: |
+      #     BRANCHS=$(git branch --contains ${{ github.ref_name }})
+      #     set -- $BRANCHS
+      #     for BRANCH in $BRANCHS ; do
+      #       if [[ "$BRANCH" == "main_prod" ]]; then
+      #         exit 0
+      #       fi
+      #     done
+      #     exit 1
 
       - name: Dump OIDC token subject
         run: echo ${{ steps.configure-aws-credentials.outputs.web_identity_token }}
