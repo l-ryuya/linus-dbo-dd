@@ -4,6 +4,8 @@ on:
     branches:
       - "main-prod"
       - "dockerbuild_release"
+    tags:
+      - "v*.*.*"
 
 permissions:
   id-token: write
