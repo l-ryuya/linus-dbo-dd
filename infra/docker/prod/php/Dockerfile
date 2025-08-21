@@ -34,18 +34,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get purge -y --auto-remove libpq-dev libonig-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-COPY infra/docker/develop2/php/php.dev.ini /usr/local/etc/php/
-COPY infra/docker/develop2/php/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY infra/docker/prod/php/php.prod.ini /usr/local/etc/php/
+COPY infra/docker/prod/php/www.conf /usr/local/etc/php-fpm.d/www.conf
 
 COPY --from=builder /build /var/www/html
 WORKDIR /var/www/html
 
 RUN chown -R www-data:www-data storage
 
-COPY infra/docker/develop2/php/supervisord.conf /etc/supervisor/
-COPY infra/docker/develop2/php/laravel-worker.conf /etc/supervisor/conf.d/
+COPY infra/docker/prod/php/supervisord.conf /etc/supervisor/
+COPY infra/docker/prod/php/laravel-worker.conf /etc/supervisor/conf.d/
 RUN chown www-data:www-data /var/log/supervisor && chmod 740 /var/log/supervisor
-COPY infra/docker/develop2/php/entrypoint-overwrite.sh /usr/local/bin/entrypoint-overwrite.sh
+COPY infra/docker/prod/php/entrypoint-overwrite.sh /usr/local/bin/entrypoint-overwrite.sh
 RUN chmod +x /usr/local/bin/entrypoint-overwrite.sh
 
 CMD ["/usr/local/bin/entrypoint-overwrite.sh"]

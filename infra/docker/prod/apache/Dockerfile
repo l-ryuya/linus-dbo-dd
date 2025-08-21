@@ -19,4 +19,4 @@ COPY composer.json /var/www/html/composer.json
 COPY composer.lock /var/www/html/composer.lock
 COPY .env.develop  /var/www/html/.env.develop
 
-COPY infra/docker/develop2/apache/conf/httpd.conf /usr/local/apache2/conf/httpd.conf
+COPY infra/docker/prod/apache/conf/httpd.conf /usr/local/apache2/conf/httpd.conf
