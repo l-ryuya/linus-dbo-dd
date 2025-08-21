@@ -2,7 +2,7 @@ services:
   apache:
     build:
         context: ../../../
-        dockerfile: ./infra/docker/develop2/apache/Dockerfile
+        dockerfile: ./infra/docker/prod/apache/Dockerfile
     container_name: dbo-dd-web
     ports:
       - 3000:3000
@@ -14,7 +14,7 @@ services:
   php-fpm:
     build:
         context: ../../../
-        dockerfile: ./infra/docker/develop2/php/Dockerfile
+        dockerfile: ./infra/docker/prod/php/Dockerfile
     container_name: dbo-dd-app
     volumes:
     - ../../../:/var/www/html
