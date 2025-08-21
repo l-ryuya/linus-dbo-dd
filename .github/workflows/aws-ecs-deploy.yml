@@ -42,54 +42,25 @@ jobs:
       aws-ecs-wait-for-service-stability: false
     secrets: inherit
 
-  ###### 本番用環境 #####
-  # apache+php-fpm環境
-  call-workflow-aws-ecs-deploy-prod:
-    name: Call Apache + PHP-FPM Workflow - Docker Build & Push / AWS ECS Deployment
-    uses: ./.github/workflows/reusable-aws-ecs-deploy-prod.yml
+  # bitnami環境
+  call-workflow-aws-ecs-deploy:
+    name: Call Workflow - Docker Build & Push / AWS ECS Deployment
+    uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow.yml
     with:
-      # docker関連
-      docker-context: "." #ビルド時のディレクトリ指定
-      docker-file-php-fpm: "./infra/docker/prod/php/Dockerfile" # dockerfileのパス指定
-      docker-file-apache: "./infra/docker/prod/apache/Dockerfile" # dockerfileのパス指定
-      docker-build-args-apache: "" # build実行時に引数に渡す値を指定
-      docker-build-args-php-fpm: "" # build実行時に引数に渡す値を指定
-      image-name-php-fpm: "app"
-
-      # AWS関連
-      project: "prod"
+      project: "dsbizdev"
+      env: "dev"
+      docker-context: "."
+      docker-file: "./infra/docker/develop/php/Dockerfile"
+      docker-build-args: ""
       aws-role-to-assume: "arn:aws:iam::734908905460:role/linus_dbo-dd"
-      env: "prod"
       aws-region: "ap-northeast-1"
       aws-ecs-cluster-name: "dbo-cluster"
       aws-ecs-namespace: "dbo"
-      aws-ecs-service-name: "dd-web"
-      aws-ecs-task-definition-filepath: "./infra/docker/prod/ecs-task.json"
+      aws-ecs-service-name: "dd"
+      aws-ecs-task-definition-filepath: "./infra/ecs-task.json"
+      aws-ecs-task-definition-container-name: ""
       aws-ecs-task-definition-environment-variables: ""
       aws-ecs-task-definition-secrets: ""
       aws-ecs-desired-count: 1
       aws-ecs-wait-for-service-stability: false
     secrets: inherit
-
-  # bitnami環境
-  # call-workflow-aws-ecs-deploy:
-  #   name: Call Workflow - Docker Build & Push / AWS ECS Deployment
-  #   uses: ./.github/workflows/reusable-aws-ecs-deploy-workflow.yml
-  #   with:
-  #     project: "dsbizdev"
-  #     env: "dev"
-  #     docker-context: "."
-  #     docker-file: "./infra/docker/develop/php/Dockerfile"
-  #     docker-build-args: ""
-  #     aws-role-to-assume: "arn:aws:iam::734908905460:role/linus_dbo-dd"
-  #     aws-region: "ap-northeast-1"
-  #     aws-ecs-cluster-name: "dbo-cluster"
-  #     aws-ecs-namespace: "dbo"
-  #     aws-ecs-service-name: "dd"
-  #     aws-ecs-task-definition-filepath: "./infra/ecs-task.json"
-  #     aws-ecs-task-definition-container-name: ""
-  #     aws-ecs-task-definition-environment-variables: ""
-  #     aws-ecs-task-definition-secrets: ""
-  #     aws-ecs-desired-count: 1
-  #     aws-ecs-wait-for-service-stability: false
-  #   secrets: inherit

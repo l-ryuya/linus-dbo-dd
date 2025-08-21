@@ -1,5 +1,5 @@
 {
-  "family": "dsbizdev-dbo-dd-web-dev",
+  "family": "dsbizprod-dbo-dd-web-prod",
   "taskRoleArn": "arn:aws:iam::734908905460:role/dbo-tast-role",
   "executionRoleArn": "arn:aws:iam::734908905460:role/ecsTaskExecutionRole",
   "networkMode": "awsvpc",
@@ -28,7 +28,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-web-dev",
+          "awslogs-group": "/aws/ecs/dsbizprod-dbo-cluster-prod/dsbizprod-dbo-dd-web-prod",
           "mode": "non-blocking",
           "max-buffer-size": "1m",
           "awslogs-region": "ap-northeast-1",
@@ -52,7 +52,7 @@
         },
         {
           "name": "APP_ENV",
-          "value": "develop"
+          "value": "production"
         },
         {
           "name": "MAIL_USERNAME",
@@ -83,7 +83,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/aws/ecs/dsbizdev-dbo-cluster-dev/dsbizdev-dbo-dd-web-dev",
+          "awslogs-group": "/aws/ecs/dsbizprod-dbo-cluster-prod/dsbizprod-dbo-dd-web-prod",
           "mode": "non-blocking",
           "max-buffer-size": "1m",
           "awslogs-region": "ap-northeast-1",
@@ -132,7 +132,7 @@
         },
         {
           "name": "APP_ENV",
-          "value": "develop"
+          "value": "production"
         },
         {
           "name": "MAIL_USERNAME",
@@ -177,15 +177,15 @@
   "tags": [
     {
       "key": "Name",
-      "value": "dsbizdev-dbo-dd-web-dev"
+      "value": "dsbizprod-dbo-dd-web-prod"
     },
     {
       "key": "project",
-      "value": "dsbizdev"
+      "value": "dsbizprod"
     },
     {
       "key": "env",
-      "value": "dev"
+      "value": "prod"
     }
   ]
 }
