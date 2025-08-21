@@ -1,0 +1,284 @@
+on:
+  workflow_call:
+    inputs:
+      ### Common
+      project:
+        required: true
+        type: string
+      env:
+        required: true
+        type: string
+      runs-on:
+        type: string
+        default: "ubuntu-latest"
+      ### Docker
+      registry-login:
+        type: boolean
+        default: false
+      registry:
+        type: string
+        default: "ghcr.io"
+      docker-context:
+        type: string
+        default: "."
+      docker-file-apache:
+        type: string
+      docker-file-php-fpm:
+        type: string
+      docker-build-args-apache:
+        type: string
+      apache-image-tag-type:
+        type: string
+        default: "hash"
+      docker-build-args-php-fpm:
+        type: string
+      docker-build-target-php-fpm:
+        type: string
+      image-name-php-fpm:
+        type: string
+      php-fpm-image-tag-type:
+        type: string
+        default: "hash"
+      image-tag-type:
+        type: string
+        default: "hash"
+      cache-from-type:
+        type: string
+        default: "type=gha"
+      cache-to-type:
+        type: string
+        default: "type=gha"
+
+      ### AWS
+      # credentials
+      aws-role-to-assume:
+        required: true
+        type: string
+      aws-region:
+        type: string
+        default: "ap-northeast-1"
+      aws-role-duration-seconds:
+        type: number
+        default: 900
+      aws-role-session-name:
+        type: string
+        default: "github-actions"
+      # ECS
+      aws-ecs-cluster-name:
+        required: true
+        type: string
+      aws-ecs-namespace:
+        required: true
+        type: string
+      aws-ecs-service-name:
+        required: true
+        type: string
+      aws-ecs-task-definition-filepath:
+        required: true
+        type: string
+      aws-ecs-task-definition-environment-variables:
+        type: string
+      aws-ecs-task-definition-secrets:
+        type: string
+      aws-ecs-desired-count:
+        type: string
+      aws-ecs-wait-for-service-stability:
+        type: string
+        default: false
+      aws-ecs-propagate-tags:
+        type: string
+        default: "SERVICE"
+
+      # ECS - CodeDeploy
+      aws-ecs-codedeploy-enabled:
+        type: boolean
+        default: false
+      aws-ecs-codedeploy-appspec-filepath:
+        type: string
+
+jobs:
+  docker-build-and-push:
+    name: Docker - Apache + PHP-FPM Build and Push.
+    runs-on: ${{ inputs.runs-on }}
+    permissions:
+      id-token: write
+      contents: read
+    outputs:
+      registry: ${{ steps.ecr-login.outputs.registry }}
+    steps:
+      - name: Dump OIDC token subject
+        run: echo ${{ steps.configure-aws-credentials.outputs.web_identity_token }}
+
+      # Dockerにログイン？
+      # https://github.com/marketplace/actions/docker-login
+      - name: Docker - login-action
+        if: inputs.registry-login
+        uses: docker/login-action@74a5d142397b4f367a81961eba4e8cd7edddf772 # v3.4.0
+        with:
+          registry: ${{ inputs.registry }}
+          username: ${{ secrets.GIT_USER }}
+          password: ${{ secrets.GITPKG_TOKEN }}
+
+      # https://github.com/actions/checkout
+      - name: GitHub - checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # AWS認証
+      # https://github.com/aws-actions/configure-aws-credentials
+      - name: AWS - configure-aws-credentials
+        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+        with:
+          aws-region: ${{ inputs.aws-region }}
+          role-to-assume: ${{ inputs.aws-role-to-assume }}
+          role-duration-seconds: ${{ inputs.aws-role-duration-seconds }}
+          role-session-name: ${{ inputs.aws-role-session-name }}
+
+      # ECRにログイン
+      # https://github.com/marketplace/actions/amazon-ecr-login-action-for-github-actions
+      - name: AWS - amazon-ecr-login
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2.0.1
+
+      # build用
+      # https://github.com/docker/setup-buildx-action
+      - name: Docker - setup-buildx-action
+        uses: docker/setup-buildx-action@b5ca514318bd6ebac0fb2aedd5d36ec1b5c232a2 # v3.10.0
+
+      # apache build push
+      # https://github.com/docker/build-push-action
+      - name: Docker - apache-build-push-action
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          # リポジトリ名:プロジェクト名-ecs名前空間-cesサービス名-env-apacheイメージ名
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+          IMAGE_TAG: ${{ inputs.apache-image-tag-type == 'hash' && github.sha || 'latest' }}
+        with:
+          context: ${{ inputs.docker-context }}
+          file: ${{ inputs.docker-file-apache }}
+          build-args: ${{ inputs.docker-build-args-php-fpm }}
+          load: true
+          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          cache-from: ${{ inputs.cache-from-type }}
+          cache-to: ${{ inputs.cache-from-type }},mode=max
+
+      - name: Run - apache-docker-push
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+          IMAGE_TAG: ${{ inputs.apache-image-tag-type == 'hash' && github.sha || 'latest' }}
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+
+      # php-fpm build push
+      # https://github.com/docker/build-push-action
+      - name: Docker - php-fpm-build-push-action
+        uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4 # v6.15.0
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          # リポジトリ名:プロジェクト名-ecs名前空間-cesサービス名-env-php-fpmイメージ名
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.image-name-php-fpm, inputs.env) }}
+          IMAGE_TAG: ${{ inputs.php-fpm-image-tag-type == 'hash' && github.sha || 'latest' }}
+        with:
+          context: ${{ inputs.docker-context }}
+          file: ${{ inputs.docker-file-php-fpm }}
+          build-args: ${{ inputs.docker-build-args-php-fpm }}
+          load: true
+          target: ${{ inputs.docker-build-target-php-fpm }}
+          tags: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          cache-from: ${{ inputs.cache-from-type }}
+          cache-to: ${{ inputs.cache-from-type }},mode=max
+
+      - name: Run - php-fpm-docker-push
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.image-name-php-fpm, inputs.env) }}
+          IMAGE_TAG: ${{ inputs.apache-image-tag-type == 'hash' && github.sha || 'latest' }}
+        run: |
+          docker push ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+
+  aws-ecs-deploy:
+    name: AWS - Apache + PHP-FPM ECS Deployment.
+    needs: docker-build-and-push
+    runs-on: ${{ inputs.runs-on }}
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      # https://github.com/actions/checkout
+      - name: GitHub - checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      # AWS認証
+      # https://github.com/aws-actions/configure-aws-credentials
+      - name: AWS - configure-aws-credentials
+        uses: aws-actions/configure-aws-credentials@b47578312673ae6fa5b5096b330d9fbac3d116df # v4.2.1
+        with:
+          aws-region: ${{ inputs.aws-region }}
+          role-to-assume: ${{ inputs.aws-role-to-assume }}
+          role-duration-seconds: ${{ inputs.aws-role-duration-seconds }}
+          role-session-name: ${{ inputs.aws-role-session-name }}
+
+      # apache用
+      # タスク定義ファイルの読み込み
+      # https://github.com/aws-actions/amazon-ecs-render-task-definition
+      - name: AWS - apache-amazon-ecs-render-task-definition
+        id: amazon-ecs-render-task-apache
+        uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
+        env:
+          REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+          CONTAINER_NAME: "dbo-dd-web"
+          IMAGE_TAG: ${{ inputs.apache-image-tag-type == 'hash' && github.sha || 'latest'}}
+        with:
+          task-definition: ${{ inputs.aws-ecs-task-definition-filepath }}
+          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          environment-variables: ${{ inputs.aws-ecs-task-definition-environment-variables }}
+          secrets: ${{ inputs.aws-ecs-task-definition-secrets }}
+
+      - name: Run - run-show-ecs-task-definition
+        run: |
+          cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
+
+      # php-fpm用
+      # タスク定義ファイルの読み込み
+      # https://github.com/aws-actions/amazon-ecs-render-task-definition
+      - name: AWS - php-fpm-amazon-ecs-render-task-definition
+        id: amazon-ecs-render-task-php-fpm
+        uses: aws-actions/amazon-ecs-render-task-definition@dcaed1bc6bc474b66e41183372f906fe7a4c6325 # v1.7.0
+        env:
+          REGISTRY: ${{ needs.docker-build-and-push.outputs.registry }}
+          REPOSITORY: ${{ format('{0}-{1}-{2}-{3}-{4}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.image-name-php-fpm, inputs.env) }}
+          CONTAINER_NAME: "dbo-dd-app"
+          IMAGE_TAG: ${{ inputs.php-fpm-image-tag-type == 'hash' && github.sha || 'latest'}}
+        with:
+          task-definition: ${{ steps.amazon-ecs-render-task-apache.outputs.task-definition }}
+          image: ${{ env.REGISTRY }}/${{ env.REPOSITORY}}:${{ env.IMAGE_TAG }}
+          container-name: ${{ env.CONTAINER_NAME }}
+          environment-variables: ${{ inputs.aws-ecs-task-definition-environment-variables }}
+          secrets: ${{ inputs.aws-ecs-task-definition-secrets }}
+
+      - name: Run - run-show-ecs-task-definition
+        run: |
+          cat ${{ steps.amazon-ecs-render-task-definition.outputs.task-definition }}
+
+      # https://github.com/aws-actions/amazon-ecs-deploy-task-definition
+      - name: AWS - amazon-ecs-deploy-task-definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@176bcc0288c49ee545288583859af21ee17f4b2c # v2.3.1
+        env:
+          ECS_CLUSTER_NAME: ${{ format('{0}-{1}-{2}', inputs.project, inputs.aws-ecs-cluster-name, inputs.env) }}
+          ECS_SERVICE_NAME: ${{ format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) }}
+          ECS_CODEDEPLOY_APPSPEC_FILE_PATH: ${{ inputs.aws-ecs-codedeploy-enabled && inputs.aws-ecs-codedeploy-appspec-filepath || '' }}
+          ECS_CODEDEPLOY_APPLICATION: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) || '' }}
+          ECS_CODEDEPLOY_DEPLOYMENT_GROUP: ${{ inputs.aws-ecs-codedeploy-enabled && format('{0}-{1}-{2}-{3}', inputs.project, inputs.aws-ecs-namespace, inputs.aws-ecs-service-name, inputs.env) || '' }}
+        with:
+          cluster: ${{ env.ECS_CLUSTER_NAME }}
+          service: ${{ env.ECS_SERVICE_NAME }}
+          task-definition: ${{ steps.amazon-ecs-render-task-php-fpm.outputs.task-definition }}
+          desired-count: ${{ inputs.aws-ecs-desired-count }}
+          propagate-tags: ${{ inputs.aws-ecs-propagate-tags }}
+          wait-for-service-stability: ${{ inputs.aws-ecs-wait-for-service-stability }}
+          codedeploy-appspec: ${{ env.ECS_CODEDEPLOY_APPSPEC_FILE_PATH }}
+          codedeploy-application: ${{ env.ECS_CODEDEPLOY_APPLICATION }}
+          codedeploy-deployment-group: ${{ env.ECS_CODEDEPLOY_DEPLOYMENT_GROUP }}
