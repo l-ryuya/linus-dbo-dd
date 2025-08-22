@@ -26,8 +26,6 @@ jobs:
       docker-build-args-apache: "" # build実行時に引数に渡す値を指定
       docker-build-args-php-fpm: "" # build実行時に引数に渡す値を指定
       image-name-php-fpm: "app"
-      apache-image-tag-type: "v1.0.0"
-      php-fpm-image-tag-type: "v1.0.0"
 
       # AWS関連
       project: "dsbizdev"
