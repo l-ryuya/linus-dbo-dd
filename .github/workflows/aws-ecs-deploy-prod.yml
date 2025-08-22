@@ -1,8 +1,8 @@
 name: AWS ECS Deploy
 on:
   push:
-    tags:
-      - "v*.*.*"
+    branches:
+      - "main-prod"
 
 permissions:
   id-token: write
