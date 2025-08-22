@@ -1,7 +1,8 @@
 # builder ステージ（composer:ltsイメージを使用）
 FROM composer@sha256:e27f788e74d2233af99d51b8ef9a086ab6158890d63102e6696db165e0d36403 AS builder
 # Laravelプロジェクトの必要ファイルを /build/ にコピー
-COPY composer.json composer.lock .env.develop artisan /build/
+COPY composer.json composer.lock artisan /build/
+COPY .env.puroduction /build/.env
 COPY /app/ /build/app/
 COPY /bootstrap/ /build/bootstrap/
 COPY /config/ /build/config/
