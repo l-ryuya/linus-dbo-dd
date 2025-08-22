@@ -49,4 +49,5 @@ RUN chown www-data:www-data /var/log/supervisor && chmod 740 /var/log/supervisor
 COPY infra/docker/prod/php/entrypoint-overwrite.sh /usr/local/bin/entrypoint-overwrite.sh
 RUN chmod +x /usr/local/bin/entrypoint-overwrite.sh
 
+RUN php artisan config:cache
 CMD ["/usr/local/bin/entrypoint-overwrite.sh"]
